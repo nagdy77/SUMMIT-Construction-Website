@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#171816" />
+    <script>
+      (() => {
+        let theme = 'dark';
+        try { if (localStorage.getItem('summit-theme') === 'light') theme = 'light'; } catch {}
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+    <link rel="preload" href="%BASE_URL%assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      as="image"
+      href="%BASE_URL%assets/generated/hero-01-heritage-mobile.webp"
+      media="(max-width: 640px)"
+      type="image/webp"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="%BASE_URL%assets/generated/hero-01-heritage.webp"
+      imagesrcset="%BASE_URL%assets/generated/hero-01-heritage-960.webp 960w, %BASE_URL%assets/generated/hero-01-heritage-1440.webp 1440w, %BASE_URL%assets/generated/hero-01-heritage.webp 1916w"
+      imagesizes="100vw"
+      media="(min-width: 641px)"
+      type="image/webp"
+      fetchpriority="high"
+    />
+    <meta
+      name="description"
+      content="SUMMIT Construction — We Build the Future with the Spirit of Heritage."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="SUMMIT Construction" />
+    <meta
+      property="og:description"
+      content="We Build the Future with the Spirit of Heritage."
+    />
+    <style>
+      html,
+      body,
+      #root {
+        min-width: 320px;
+        min-height: 100%;
+        margin: 0;
+        background: var(--color-page, #171816);
+      }
+
+      .summit-boot-shell {
+        display: grid;
+        min-height: 100svh;
+        place-items: center;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 50% 45%, rgb(213 180 82 / 12%), transparent 38%),
+          var(--color-page, #171816);
+      }
+
+      .summit-boot-shell img {
+        width: min(62vw, 18rem);
+        height: auto;
+      }
+      html[data-theme="light"] { --color-page: #f3f1ec; }
+    </style>
+    <title>SUMMIT Construction</title>
+  </head>
+  <body>
+    <div id="root">
+      <div class="summit-boot-shell" aria-label="SUMMIT Construction">
+        <img src="%BASE_URL%assets/brand/summit-logo-gold-intro.webp" alt="SUMMIT Construction" width="627" height="560" />
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

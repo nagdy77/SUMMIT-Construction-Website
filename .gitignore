@@ -1,0 +1,28 @@
+node_modules/
+dist/
+*.local
+
+# Local source media stays out of the deployed web asset set.
+public/assets/projects/*
+!public/assets/projects/.gitkeep
+!public/assets/projects/featured/
+!public/assets/projects/featured/**
+
+# Local backups and confidential source documents.
+backups/
+backup/
+*.bak
+*.backup
+*.orig
+*.tmp
+/SUMMIT Profile new 2025 final (1).pdf
+/Summit Stationary.pdf
+
+# Downloaded references, contact sheets, and QA captures are local-only.
+/references/codepen/
+/references/contact-sheets/
+/references/downloads/
+/references/downloaded/
+/references/qa/
+
+/references/
