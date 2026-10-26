@@ -11,7 +11,7 @@ const desktopOnly = process.argv[3] === '--desktop-only'
 const galleryOnly = process.argv[3] === '--gallery-only'
 const outputDirectory = path.resolve('references', 'qa', 'phase-5')
 const disclaimer = 'This is a design preview, not the official live SUMMIT Construction website. Content, visuals, and functionality are subject to review and approval.'
-const widths = dialogProbe || galleryOnly ? [390] : desktopOnly ? [1440] : [320, 375, 390, 430, 768, 1440]
+const widths = dialogProbe || galleryOnly ? [390] : desktopOnly ? [1440] : [320, 375, 390, 430, 768, 1440, 1920]
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 const results = { startedAt: new Date().toISOString(), url: siteUrl, assertions: [], layouts: [], scenarios: [], errors: [], warnings: [] }
 
@@ -160,6 +160,10 @@ try {
     const mounted = await waitFor("Boolean(document.querySelector('#top'))", 10000)
     check(mounted, `${scenario}: React homepage mounted`)
     if (!mounted) throw new Error('Homepage did not mount')
+    // Home decides whether to show its session entrance in a React effect. Give
+    // that effect one frame before testing for the overlay's removal; otherwise
+    // a fresh session can look complete during the brief pre-effect render.
+    await delay(50)
     if (skip) await evaluate("document.querySelector('[data-skip-intro]')?.click()")
     const completed = await waitFor("!document.querySelector('[data-skip-intro]')", 3000)
     check(completed, `${scenario}: intro removed within its bound`)
@@ -326,7 +330,7 @@ try {
         await evaluate("document.querySelector('button[aria-label=\"Open navigation\"]')?.click()")
         check(await waitFor("document.querySelector('button[aria-label=\"Close navigation\"]')?.getAttribute('aria-expanded') === 'true' && Boolean(document.querySelector('#mobile-navigation'))"), `${scenario}: mobile menu opens`)
         const mobileNav = await evaluate(`(() => { const nav=document.querySelector('#mobile-navigation'); return {links:[...nav.querySelectorAll('a')].map(link=>({label:link.textContent.trim(),height:link.getBoundingClientRect().height})),toggle:Boolean(nav.querySelector('button[aria-label^="Switch to"]')),width:nav.getBoundingClientRect().width}; })()`)
-        check(mobileNav.links.length === 5 && mobileNav.links.every((link) => link.height >= 44), `${scenario}: mobile navigation links are touch safe`, mobileNav)
+        check(mobileNav.links.length === 8 && mobileNav.links.every((link) => link.height >= 44), `${scenario}: all eight mobile navigation links are touch safe`, mobileNav)
         await evaluate("document.querySelector('#mobile-navigation button[aria-label^=\"Switch to\"]')?.click()")
         check(await waitFor(`document.documentElement.dataset.theme === '${theme === 'dark' ? 'light' : 'dark'}'`), `${scenario}: mobile theme toggle works`)
         await evaluate("document.querySelector('#mobile-navigation button[aria-label^=\"Switch to\"]')?.click()")
@@ -394,7 +398,7 @@ try {
   scenario = 'first-image-failed'
   await setMedia()
   await client.send('Network.setCacheDisabled', { cacheDisabled: true })
-  await client.send('Network.setBlockedURLs', { urls: ['*hero-01-heritage*.webp'] })
+  await client.send('Network.setBlockedURLs', { urls: ['*hero-heritage*.webp'] })
   await evaluate("sessionStorage.removeItem('summit-intro-seen')")
   const failedStarted = Date.now()
   await reload(true)

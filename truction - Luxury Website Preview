@@ -1,0 +1,146 @@
+ .github/workflows/deploy.yml                       |   47 [32m+[m
+ .gitignore                                         |   26 [32m+[m
+ index.html                                         |   80 [32m+[m
+ package-lock.json                                  | 3179 [32m+++++++[m
+ package.json                                       |   26 [32m+[m
+ public/assets/brand/.gitkeep                       |    1 [32m+[m
+ public/assets/brand/summit-logo-dark-ui.webp       |  Bin [31m0[m -> [32m17240[m bytes
+ public/assets/brand/summit-logo-dark.png           |  Bin [31m0[m -> [32m459365[m bytes
+ public/assets/brand/summit-logo-gold-intro.webp    |  Bin [31m0[m -> [32m78242[m bytes
+ public/assets/brand/summit-logo-gold.png           |  Bin [31m0[m -> [32m572048[m bytes
+ public/assets/brand/summit-logo-master.png         |  Bin [31m0[m -> [32m542188[m bytes
+ public/assets/brand/summit-logo-white.png          |  Bin [31m0[m -> [32m454078[m bytes
+ public/assets/fonts/README.md                      |   25 [32m+[m
+ public/assets/fonts/dm-sans-OFL.txt                |   93 [32m+[m
+ public/assets/fonts/dm-sans-latin.woff2            |  Bin [31m0[m -> [32m36932[m bytes
+ public/assets/fonts/font-provenance.json           |   61 [32m+[m
+ public/assets/fonts/instrument-serif-OFL.txt       |   93 [32m+[m
+ .../fonts/instrument-serif-italic-latin.woff2      |  Bin [31m0[m -> [32m22128[m bytes
+ public/assets/fonts/instrument-serif-latin.woff2   |  Bin [31m0[m -> [32m21032[m bytes
+ public/assets/generated/.gitkeep                   |    1 [32m+[m
+ .../generated/about-architectural-vision-640.webp  |  Bin [31m0[m -> [32m113602[m bytes
+ .../generated/about-architectural-vision-960.webp  |  Bin [31m0[m -> [32m217876[m bytes
+ .../generated/about-architectural-vision.png       |  Bin [31m0[m -> [32m2643046[m bytes
+ .../generated/about-architectural-vision.webp      |  Bin [31m0[m -> [32m275934[m bytes
+ .../assets/generated/contact-monumental-1440.webp  |  Bin [31m0[m -> [32m120314[m bytes
+ .../assets/generated/contact-monumental-960.webp   |  Bin [31m0[m -> [32m58516[m bytes
+ .../generated/contact-monumental-mobile.webp       |  Bin [31m0[m -> [32m59182[m bytes
+ public/assets/generated/contact-monumental.png     |  Bin [31m0[m -> [32m2267615[m bytes
+ public/assets/generated/contact-monumental.webp    |  Bin [31m0[m -> [32m189292[m bytes
+ public/assets/generated/extra-residential.png      |  Bin [31m0[m -> [32m2594417[m bytes
+ public/assets/generated/hero-01-heritage-1440.webp |  Bin [31m0[m -> [32m164026[m bytes
+ public/assets/generated/hero-01-heritage-960.webp  |  Bin [31m0[m -> [32m86044[m bytes
+ .../assets/generated/hero-01-heritage-mobile.webp  |  Bin [31m0[m -> [32m83604[m bytes
+ public/assets/generated/hero-01-heritage.png       |  Bin [31m0[m -> [32m2362211[m bytes
+ public/assets/generated/hero-01-heritage.webp      |  Bin [31m0[m -> [32m240158[m bytes
+ public/assets/generated/hero-02-modern-1440.webp   |  Bin [31m0[m -> [32m166528[m bytes
+ public/assets/generated/hero-02-modern-960.webp    |  Bin [31m0[m -> [32m88434[m bytes
+ public/assets/generated/hero-02-modern-mobile.webp |  Bin [31m0[m -> [32m90222[m bytes
+ public/assets/generated/hero-02-modern.png         |  Bin [31m0[m -> [32m2284373[m bytes
+ public/assets/generated/hero-02-modern.webp        |  Bin [31m0[m -> [32m207048[m bytes
+ .../assets/generated/hero-03-residential-1440.webp |  Bin [31m0[m -> [32m204792[m bytes
+ .../assets/generated/hero-03-residential-960.webp  |  Bin [31m0[m -> [32m101976[m bytes
+ .../generated/hero-03-residential-mobile.webp      |  Bin [31m0[m -> [32m95970[m bytes
+ public/assets/generated/hero-03-residential.png    |  Bin [31m0[m -> [32m2594417[m bytes
+ public/assets/generated/hero-03-residential.webp   |  Bin [31m0[m -> [32m265534[m bytes
+ public/assets/generated/hero-04-fitout-1440.webp   |  Bin [31m0[m -> [32m188912[m bytes
+ public/assets/generated/hero-04-fitout-960.webp    |  Bin [31m0[m -> [32m100356[m bytes
+ public/assets/generated/hero-04-fitout-mobile.webp |  Bin [31m0[m -> [32m102150[m bytes
+ public/assets/generated/hero-04-fitout.png         |  Bin [31m0[m -> [32m2498694[m bytes
+ public/assets/generated/hero-04-fitout.webp        |  Bin [31m0[m -> [32m233234[m bytes
+ .../generated/parallax-01-geometry-1440.webp       |  Bin [31m0[m -> [32m126406[m bytes
+ .../assets/generated/parallax-01-geometry-960.webp |  Bin [31m0[m -> [32m65850[m bytes
+ .../generated/parallax-01-geometry-mobile.webp     |  Bin [31m0[m -> [32m77720[m bytes
+ public/assets/generated/parallax-01-geometry.png   |  Bin [31m0[m -> [32m2315288[m bytes
+ public/assets/generated/parallax-01-geometry.webp  |  Bin [31m0[m -> [32m194930[m bytes
+ .../generated/parallax-02-materials-1440.webp      |  Bin [31m0[m -> [32m127476[m bytes
+ .../generated/parallax-02-materials-640.webp       |  Bin [31m0[m -> [32m30202[m bytes
+ .../generated/parallax-02-materials-960.webp       |  Bin [31m0[m -> [32m63416[m bytes
+ .../generated/parallax-02-materials-mobile.webp    |  Bin [31m0[m -> [32m71382[m bytes
+ public/assets/generated/parallax-02-materials.png  |  Bin [31m0[m -> [32m2485304[m bytes
+ public/assets/generated/parallax-02-materials.webp |  Bin [31m0[m -> [32m198552[m bytes
+ .../assets/generated/parallax-03-legacy-960.webp   |  Bin [31m0[m -> [32m246400[m bytes
+ .../generated/parallax-03-legacy-mobile.webp       |  Bin [31m0[m -> [32m226162[m bytes
+ public/assets/generated/parallax-03-legacy.png     |  Bin [31m0[m -> [32m2793931[m bytes
+ public/assets/generated/parallax-03-legacy.webp    |  Bin [31m0[m -> [32m315894[m bytes
+ public/assets/generated/service-commercial.png     |  Bin [31m0[m -> [32m2708675[m bytes
+ .../assets/generated/service-construction-640.webp |  Bin [31m0[m -> [32m89906[m bytes
+ .../assets/generated/service-construction-960.webp |  Bin [31m0[m -> [32m180434[m bytes
+ public/assets/generated/service-construction.png   |  Bin [31m0[m -> [32m2712198[m bytes
+ public/assets/generated/service-construction.webp  |  Bin [31m0[m -> [32m235476[m bytes
+ public/assets/generated/service-heritage-1440.webp |  Bin [31m0[m -> [32m212338[m bytes
+ public/assets/generated/service-heritage-640.webp  |  Bin [31m0[m -> [32m51356[m bytes
+ public/assets/generated/service-heritage-960.webp  |  Bin [31m0[m -> [32m109738[m bytes
+ public/assets/generated/service-heritage.png       |  Bin [31m0[m -> [32m2637878[m bytes
+ public/assets/generated/service-heritage.webp      |  Bin [31m0[m -> [32m264142[m bytes
+ .../assets/generated/service-residential-640.webp  |  Bin [31m0[m -> [32m153596[m bytes
+ .../assets/generated/service-residential-960.webp  |  Bin [31m0[m -> [32m282648[m bytes
+ public/assets/generated/service-residential.png    |  Bin [31m0[m -> [32m2763308[m bytes
+ public/assets/generated/service-residential.webp   |  Bin [31m0[m -> [32m357278[m bytes
+ public/assets/projects/.gitkeep                    |    1 [32m+[m
+ .../lakeview/lakeview-bathroom-fitout.webp         |  Bin [31m0[m -> [32m258288[m bytes
+ .../lakeview/lakeview-interior-joinery.webp        |  Bin [31m0[m -> [32m159140[m bytes
+ .../lakeview/lakeview-marble-kitchen-detail.webp   |  Bin [31m0[m -> [32m319126[m bytes
+ .../ministries-district-construction-overview.webp |  Bin [31m0[m -> [32m491610[m bytes
+ .../ministries-district-facade-scaffolding.webp    |  Bin [31m0[m -> [32m385662[m bytes
+ .../ministries-district-main-facade.webp           |  Bin [31m0[m -> [32m384288[m bytes
+ .../mohamed-ali-palace-ornate-interior.webp        |  Bin [31m0[m -> [32m473470[m bytes
+ .../mohamed-ali-palace-restored-marble-hall.webp   |  Bin [31m0[m -> [32m284690[m bytes
+ .../mohamed-ali-palace-stone-entrance.webp         |  Bin [31m0[m -> [32m452094[m bytes
+ references/README.md                               |    3 [32m+[m
+ references/featured-project-conversion.json        |  187 [32m+[m
+ references/phase-5-gallery-diagnosis.md            |   32 [32m+[m
+ references/phase-5-hero-diagnosis.md               |   32 [32m+[m
+ references/phase-5-image-manifest.json             |  323 [32m+[m
+ references/phase-5-report.md                       |   71 [32m+[m
+ references/project-image-audit.json                | 9353 [32m++++++++++++++++++++[m
+ references/project-image-mapping.json              |  271 [32m+[m
+ references/project-photography-report.md           |  121 [32m+[m
+ scripts/audit-project-images.mjs                   |  323 [32m+[m
+ scripts/backup-featured-project-images.mjs         |   74 [32m+[m
+ scripts/convert-featured-images-to-webp.mjs        |  150 [32m+[m
+ scripts/create-carousel-text-filmstrips.mjs        |   30 [32m+[m
+ scripts/inspect-featured-project-images.mjs        |   39 [32m+[m
+ scripts/optimize-featured-project-images.mjs       |  141 [32m+[m
+ scripts/prepare-entrance-assets.mjs                |   65 [32m+[m
+ scripts/prepare-phase4c-assets.mjs                 |   58 [32m+[m
+ scripts/prepare-phase5-assets.mjs                  |  129 [32m+[m
+ scripts/prepare-phase5-fonts.mjs                   |  129 [32m+[m
+ scripts/validate-featured-project-images.mjs       |   65 [32m+[m
+ scripts/verify-carousel-repair.mjs                 |  382 [32m+[m
+ scripts/verify-entrance.mjs                        |  266 [32m+[m
+ scripts/verify-phase5-layout.mjs                   |  430 [32m+[m
+ scripts/verify-phase5-transitions.mjs              |  471 [32m+[m
+ scripts/vite-web-assets.d.mts                      |    3 [32m+[m
+ scripts/vite-web-assets.mjs                        |   28 [32m+[m
+ src/components/layout/EntranceIntro.tsx            |  237 [32m+[m
+ src/components/layout/FloatingControls.tsx         |  185 [32m+[m
+ src/components/layout/Footer.tsx                   |   50 [32m+[m
+ src/components/layout/Header.tsx                   |   67 [32m+[m
+ src/components/layout/ThemeProvider.tsx            |   35 [32m+[m
+ src/components/sections/AboutPreview.tsx           |  169 [32m+[m
+ src/components/sections/ContactCTA.tsx             |  107 [32m+[m
+ src/components/sections/FeaturedProjects.tsx       |  565 [32m++[m
+ src/components/sections/Hero.tsx                   |  684 [32m++[m
+ src/components/sections/MaterialStudy.tsx          |   51 [32m+[m
+ src/components/sections/ParallaxStory.tsx          |  178 [32m+[m
+ src/components/sections/Services.tsx               |  204 [32m+[m
+ src/components/ui/Button.tsx                       |   29 [32m+[m
+ src/components/ui/Container.tsx                    |   11 [32m+[m
+ src/components/ui/Icon.tsx                         |   65 [32m+[m
+ src/components/ui/SectionHeading.tsx               |   35 [32m+[m
+ src/config/preview.ts                              |    9 [32m+[m
+ src/content/ar.ts                                  |   11 [32m+[m
+ src/content/en.ts                                  |   11 [32m+[m
+ src/data/projects.ts                               |   90 [32m+[m
+ src/lib/assets.ts                                  |   13 [32m+[m
+ src/lib/crossfade.ts                               |   38 [32m+[m
+ src/main.tsx                                       |   11 [32m+[m
+ src/pages/Home.tsx                                 |   44 [32m+[m
+ src/styles/globals.css                             |  232 [32m+[m
+ src/vite-env.d.ts                                  |    1 [32m+[m
+ tsconfig.app.json                                  |   21 [32m+[m
+ tsconfig.json                                      |    7 [32m+[m
+ tsconfig.node.json                                 |   19 [32m+[m
+ vite.config.ts                                     |   10 [32m+[m
+ 145 files changed, 19998 insertions(+)

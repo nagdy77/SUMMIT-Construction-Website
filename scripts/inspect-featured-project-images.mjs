@@ -13,7 +13,7 @@ async function walk(directory) {
   return nested.flat()
 }
 
-const files = (await walk(root)).sort()
+const files = (await walk(root)).filter((file) => /\.(?:png|jpe?g|webp)$/i.test(file)).sort()
 let decoded = 0
 
 for (const file of files) {

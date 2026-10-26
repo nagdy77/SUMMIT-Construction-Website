@@ -13,6 +13,9 @@ export function webAssetsOnly() {
         for (const entry of entries) {
           const relativeName = path.posix.join(relativeDirectory, entry.name)
           if (entry.name.startsWith('.')) continue
+          // Keep legacy generated masters in the workspace for provenance, but
+          // never include generated architectural imagery in production output.
+          if (relativeName === 'assets/generated' || relativeName.startsWith('assets/generated/')) continue
           if (relativeName.startsWith('assets/projects/') && relativeName !== 'assets/projects/featured' && !relativeName.startsWith('assets/projects/featured/')) continue
           if (entry.isDirectory()) await collect(relativeName)
           else {

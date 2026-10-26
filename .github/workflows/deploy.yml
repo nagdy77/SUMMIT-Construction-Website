@@ -30,6 +30,12 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          VITE_ENQUIRY_FORM_ENDPOINT: ${{ vars.ENQUIRY_FORM_ENDPOINT }}
+          VITE_FORM_DELIVERY_VERIFIED: ${{ vars.FORM_DELIVERY_VERIFIED }}
+          VITE_GA4_ID: ${{ vars.GA4_ID }}
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

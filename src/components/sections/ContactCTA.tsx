@@ -5,10 +5,13 @@ import { ButtonLink } from '../ui/Button'
 import { Container } from '../ui/Container'
 import { Icon } from '../ui/Icon'
 import { assetSrcSet, assetUrl } from '../../lib/assets'
+import { useHomeCopy, useLocale } from '../../content/site'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export function ContactCTA() {
+  const locale = useLocale()
+  const copy = useHomeCopy().contact
   const sectionRef = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -50,13 +53,13 @@ export function ContactCTA() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="contact" aria-label="Contact SUMMIT Construction" className="relative isolate min-h-[clamp(38rem,80svh,60rem)] overflow-hidden bg-summit-black text-summit-ivory">
+    <section ref={sectionRef} id="contact" aria-label={locale === 'en' ? 'Contact SUMMIT Construction' : 'تواصل مع سوميت للإنشاءات'} className="relative isolate min-h-[clamp(38rem,80svh,60rem)] overflow-hidden bg-summit-black text-summit-ivory">
       <picture className="absolute inset-0" aria-hidden="true">
-        <source media="(max-width: 767px)" srcSet={assetUrl('/assets/generated/contact-monumental-mobile.webp')} type="image/webp" />
+        <source media="(max-width: 767px)" srcSet={assetUrl('/assets/projects/featured/real-media/contact-work-mobile-720.webp')} type="image/webp" />
         <img
           data-contact-image
-          src={assetUrl('/assets/generated/contact-monumental.webp')}
-          srcSet={assetSrcSet('/assets/generated/contact-monumental-960.webp 960w, /assets/generated/contact-monumental-1440.webp 1440w, /assets/generated/contact-monumental.webp 1914w')}
+          src={assetUrl('/assets/projects/featured/real-media/contact-work-wide-1914.webp')}
+          srcSet={assetSrcSet('/assets/projects/featured/real-media/contact-work-wide-960.webp 960w, /assets/projects/featured/real-media/contact-work-wide-1440.webp 1440w, /assets/projects/featured/real-media/contact-work-wide-1914.webp 1914w')}
           sizes="100vw"
           alt=""
           width="1914"
@@ -80,13 +83,11 @@ export function ContactCTA() {
         <div className="max-w-[56rem]">
           <p data-contact-copy className="flex items-center gap-3 font-body text-[0.625rem] font-bold uppercase tracking-[0.22em] text-summit-gold sm:text-[0.6875rem]">
             <span className="h-px w-8 bg-summit-gold sm:w-12" aria-hidden="true" />
-            Contact SUMMIT
+            {copy.eyebrow}
           </p>
-          <h2 data-contact-copy className="mt-7 max-w-[12ch] font-display text-[clamp(2.85rem,8vw,7.5rem)] font-medium leading-[0.91] tracking-[-0.06em] sm:mt-9">
-            Let’s build something <span className="editorial-accent text-summit-gold">that lasts.</span>
-          </h2>
+          <h2 data-contact-copy className="mt-7 max-w-[12ch] font-display text-[clamp(2.85rem,8vw,7.5rem)] font-medium leading-[0.91] tracking-[-0.06em] sm:mt-9">{copy.title[0]} <span className="editorial-accent text-summit-gold">{copy.title[1]}</span></h2>
           <p data-contact-copy className="mt-7 max-w-[37rem] font-body text-sm leading-7 text-summit-stone sm:mt-9 sm:text-base sm:leading-8">
-            Construction, restoration, or renovation — bring the next chapter of your project into focus with SUMMIT Construction.
+            {copy.body}
           </p>
           <p data-contact-copy className="mt-7 font-body text-xs uppercase tracking-[0.14em] text-summit-ivory sm:mt-9 sm:text-sm">
             <a className="inline-flex min-h-11 max-w-full items-center gap-3 border-b border-summit-gold/70 pb-2 transition-colors hover:border-summit-gold hover:text-summit-gold" href="mailto:Projects@Summit-constructions.com">
@@ -94,12 +95,12 @@ export function ContactCTA() {
             </a>
           </p>
           <div data-contact-copy className="mt-8 sm:mt-10">
-            <ButtonLink href="mailto:Projects@Summit-constructions.com">Start a conversation</ButtonLink>
+            <ButtonLink href="mailto:Projects@Summit-constructions.com">{copy.cta}</ButtonLink>
           </div>
         </div>
 
         <p className="pointer-events-none absolute bottom-7 right-[var(--page-gutter)] hidden max-w-[14rem] text-right font-body text-[0.5625rem] font-bold uppercase tracking-[0.18em] text-summit-stone/80 lg:block">
-          We Build the Future with the Spirit of Heritage.
+          {locale === 'en' ? 'We Build the Future with the Spirit of Heritage.' : 'نبني المستقبل بروح التراث.'}
         </p>
       </Container>
     </section>

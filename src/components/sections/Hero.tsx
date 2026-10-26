@@ -5,6 +5,7 @@ import { Container } from '../ui/Container'
 import { Icon } from '../ui/Icon'
 import { createImageCrossfade } from '../../lib/crossfade'
 import { assetSrcSet, assetUrl } from '../../lib/assets'
+import { useHomeCopy, useLocale } from '../../content/site'
 
 type HeroSlide = {
   category: string
@@ -17,6 +18,7 @@ type HeroSlide = {
     src: string
     srcSet: string
     mobileSrc: string
+    alt: string
   }
   imagePosition: string
 }
@@ -34,10 +36,11 @@ const slides: HeroSlide[] = [
     cta: 'Discover our story',
     href: '#about',
     image: {
-      src: '/assets/generated/hero-01-heritage.webp',
+      src: '/assets/projects/featured/real-media/hero-heritage-wide-1916.webp',
       srcSet:
-        '/assets/generated/hero-01-heritage-960.webp 960w, /assets/generated/hero-01-heritage-1440.webp 1440w, /assets/generated/hero-01-heritage.webp 1916w',
-      mobileSrc: '/assets/generated/hero-01-heritage-mobile.webp',
+        '/assets/projects/featured/real-media/hero-heritage-wide-960.webp 960w, /assets/projects/featured/real-media/hero-heritage-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-heritage-wide-1916.webp 1916w',
+      mobileSrc: '/assets/projects/featured/real-media/hero-heritage-mobile-720.webp',
+      alt: 'Restored marble hall at Mohamed Ali Palace',
     },
     imagePosition: 'object-[58%_center] sm:object-center',
   },
@@ -49,10 +52,11 @@ const slides: HeroSlide[] = [
     cta: 'Explore our services',
     href: '#services',
     image: {
-      src: '/assets/generated/hero-02-modern.webp',
+      src: '/assets/projects/featured/real-media/hero-construction-wide-1916.webp',
       srcSet:
-        '/assets/generated/hero-02-modern-960.webp 960w, /assets/generated/hero-02-modern-1440.webp 1440w, /assets/generated/hero-02-modern.webp 1672w',
-      mobileSrc: '/assets/generated/hero-02-modern-mobile.webp',
+        '/assets/projects/featured/real-media/hero-construction-wide-960.webp 960w, /assets/projects/featured/real-media/hero-construction-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-construction-wide-1916.webp 1916w',
+      mobileSrc: '/assets/projects/featured/real-media/hero-construction-mobile-720.webp',
+      alt: 'SUMMIT workers installing overhead services at the New Capital Downtown Mall site',
     },
     imagePosition: 'object-[62%_center] sm:object-center',
   },
@@ -64,10 +68,11 @@ const slides: HeroSlide[] = [
     cta: 'View selected work',
     href: '#projects',
     image: {
-      src: '/assets/generated/hero-03-residential.webp',
+      src: '/assets/projects/featured/real-media/hero-residential-wide-1916.webp',
       srcSet:
-        '/assets/generated/hero-03-residential-960.webp 960w, /assets/generated/hero-03-residential-1440.webp 1440w, /assets/generated/hero-03-residential.webp 1672w',
-      mobileSrc: '/assets/generated/hero-03-residential-mobile.webp',
+        '/assets/projects/featured/real-media/hero-residential-wide-960.webp 960w, /assets/projects/featured/real-media/hero-residential-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-residential-wide-1916.webp 1916w',
+      mobileSrc: '/assets/projects/featured/real-media/hero-residential-mobile-720.webp',
+      alt: 'Residential villas photographed at Oriana CFC',
     },
     imagePosition: 'object-[67%_center] sm:object-center',
   },
@@ -79,10 +84,11 @@ const slides: HeroSlide[] = [
     cta: 'Start a conversation',
     href: '#contact',
     image: {
-      src: '/assets/generated/hero-04-fitout.webp',
+      src: '/assets/projects/featured/real-media/hero-fitout-wide-1916.webp',
       srcSet:
-        '/assets/generated/hero-04-fitout-960.webp 960w, /assets/generated/hero-04-fitout-1440.webp 1440w, /assets/generated/hero-04-fitout.webp 1672w',
-      mobileSrc: '/assets/generated/hero-04-fitout-mobile.webp',
+        '/assets/projects/featured/real-media/hero-fitout-wide-960.webp 960w, /assets/projects/featured/real-media/hero-fitout-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-fitout-wide-1916.webp 1916w',
+      mobileSrc: '/assets/projects/featured/real-media/hero-fitout-mobile-720.webp',
+      alt: 'Interior ceiling installation in progress at Marvel',
     },
     imagePosition: 'object-[58%_center] sm:object-center',
   },
@@ -97,6 +103,9 @@ type HeroProps = {
 }
 
 export function Hero({ entranceReady = true }: HeroProps) {
+  const locale = useLocale()
+  const copy = useHomeCopy()
+  const localizedSlides = slides.map((slide, index) => ({ ...slide, ...copy.hero[index], image: { ...slide.image, alt: copy.hero[index].alt } }))
   const rootRef = useRef<HTMLElement>(null)
   const navigateRef = useRef<(direction: 1 | -1) => void>(() => undefined)
   const toggleAutoplayRef = useRef<() => void>(() => undefined)
@@ -214,8 +223,8 @@ export function Hero({ entranceReady = true }: HeroProps) {
     }
 
     function nextAvailableIndex() {
-      for (let offset = 1; offset < slides.length; offset += 1) {
-        const candidate = (currentIndex + offset) % slides.length
+      for (let offset = 1; offset < localizedSlides.length; offset += 1) {
+        const candidate = (currentIndex + offset) % localizedSlides.length
         const image = getImage(slideElements[candidate])
         if (image?.complete && image.naturalWidth > 0) failedImages.delete(candidate)
         if (!failedImages.has(candidate)) return candidate
@@ -432,8 +441,8 @@ export function Hero({ entranceReady = true }: HeroProps) {
     navigateRef.current = (direction) => {
       if (!entranceReady) return
       let candidate = requestedIndex
-      for (let offset = 0; offset < slides.length; offset += 1) {
-        candidate = (candidate + direction + slides.length) % slides.length
+      for (let offset = 0; offset < localizedSlides.length; offset += 1) {
+        candidate = (candidate + direction + localizedSlides.length) % localizedSlides.length
         const image = getImage(slideElements[candidate])
         if (image?.complete && image.naturalWidth > 0) failedImages.delete(candidate)
         if (!failedImages.has(candidate)) break
@@ -528,7 +537,7 @@ export function Hero({ entranceReady = true }: HeroProps) {
       toggleAutoplayRef.current = () => undefined
       context.revert()
     }
-  }, [entranceReady])
+  }, [entranceReady, locale])
 
   const showPreviousSlide = () => {
     navigateRef.current(-1)
@@ -547,7 +556,7 @@ export function Hero({ entranceReady = true }: HeroProps) {
       className="cinematic-hero relative isolate -mt-[5.25rem] h-[100svh] min-h-[35rem] overflow-hidden bg-summit-black text-[var(--color-photo-text)] [@media(max-height:640px)]:min-h-[30rem]"
     >
       <div className="absolute inset-0">
-        {slides.map((slide, index) => {
+        {localizedSlides.map((slide, index) => {
           const Heading = index === 0 ? 'h1' : 'h2'
           const isActive = activeIndex === index
 
@@ -557,7 +566,7 @@ export function Hero({ entranceReady = true }: HeroProps) {
               data-hero-slide
               aria-hidden={!isActive}
               aria-roledescription="slide"
-              aria-label={`${index + 1} of ${slides.length}`}
+              aria-label={`${index + 1} of ${localizedSlides.length}`}
               className="absolute inset-0 overflow-hidden"
               style={{ opacity: index === 0 ? 1 : 0, zIndex: index === 0 ? 1 : 0 }}
             >
@@ -578,10 +587,9 @@ export function Hero({ entranceReady = true }: HeroProps) {
                   src={index === 0 ? assetUrl(slide.image.src) : undefined}
                   srcSet={index === 0 ? assetSrcSet(slide.image.srcSet) : undefined}
                   sizes="100vw"
-                  alt=""
-                  aria-hidden="true"
-                  width={index === 0 ? 1916 : 1672}
-                  height={index === 0 ? 821 : 941}
+                  alt={slide.image.alt}
+                  width={1916}
+                  height={821}
                   loading={index === 0 ? 'eager' : 'lazy'}
                   fetchPriority={index === 0 ? 'high' : 'low'}
                   decoding="async"
@@ -639,7 +647,7 @@ export function Hero({ entranceReady = true }: HeroProps) {
         <div className="grid grid-cols-[auto_minmax(1rem,1fr)_auto] items-end gap-3 border-t border-white/25 pt-5 sm:gap-8 [@media(max-height:640px)]:pt-3">
           <div className="flex items-baseline gap-2 font-display tabular-nums">
             <span className="text-xl font-medium text-summit-gold sm:text-2xl">{formatSlideNumber(activeIndex)}</span>
-            <span className="text-[0.625rem] tracking-[0.12em] text-summit-stone">/ {String(slides.length).padStart(2, '0')}</span>
+            <span className="text-[0.625rem] tracking-[0.12em] text-summit-stone">/ {String(localizedSlides.length).padStart(2, '0')}</span>
           </div>
 
           <div className="h-px self-center overflow-hidden bg-white/25">
@@ -677,7 +685,7 @@ export function Hero({ entranceReady = true }: HeroProps) {
       </Container>
 
       <p className="sr-only" aria-live="polite" aria-atomic="true">
-        Slide {activeIndex + 1} of {slides.length}: {slides[activeIndex].headline}
+        {locale === 'ar' ? `الشريحة ${activeIndex + 1} من ${localizedSlides.length}: ${localizedSlides[activeIndex].headline}` : `Slide ${activeIndex + 1} of ${localizedSlides.length}: ${localizedSlides[activeIndex].headline}`}
       </p>
     </section>
   )

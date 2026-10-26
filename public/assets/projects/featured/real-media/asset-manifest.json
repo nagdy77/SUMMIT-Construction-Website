@@ -1,0 +1,561 @@
+{
+  "generatedAt": "2026-10-26T11:42:39.226Z",
+  "policy": "Derivative-only WebP outputs. Original client-supplied media remains untouched.",
+  "encoder": {
+    "format": "WebP",
+    "quality": 83,
+    "effort": 5,
+    "resize": "cover with attention focal crop; no upscaling"
+  },
+  "selections": [
+    {
+      "id": "hero-heritage",
+      "project": "M.ALI PALACE",
+      "source": "assets/projects/M.ALI PALACE/DSC06093.jpg",
+      "crops": {
+        "wide": {
+          "ratio": 2.3337393422655297,
+          "widths": [
+            960,
+            1440,
+            1916
+          ]
+        },
+        "mobile": {
+          "ratio": 0.6666666666666666,
+          "widths": [
+            720
+          ]
+        }
+      },
+      "sourceSizeBytes": 10485960,
+      "sourceDimensions": {
+        "width": 5996,
+        "height": 3997
+      }
+    },
+    {
+      "id": "hero-construction",
+      "project": "New Capital down town mall",
+      "source": "assets/projects/New Capital down town mall/IMG_20250628_133031.jpg",
+      "crops": {
+        "wide": {
+          "ratio": 2.3337393422655297,
+          "widths": [
+            960,
+            1440,
+            1916
+          ]
+        },
+        "mobile": {
+          "ratio": 0.6666666666666666,
+          "widths": [
+            720
+          ]
+        }
+      },
+      "sourceSizeBytes": 6067559,
+      "sourceDimensions": {
+        "width": 4064,
+        "height": 3048
+      }
+    },
+    {
+      "id": "hero-residential",
+      "project": "ORIANA - CFC",
+      "source": "assets/projects/ORIANA - CFC/IMG20200123104212.jpg",
+      "crops": {
+        "wide": {
+          "ratio": 2.3337393422655297,
+          "widths": [
+            960,
+            1440,
+            1916
+          ]
+        },
+        "mobile": {
+          "ratio": 0.6666666666666666,
+          "widths": [
+            720
+          ]
+        }
+      },
+      "sourceSizeBytes": 703434,
+      "sourceDimensions": {
+        "width": 4608,
+        "height": 3456
+      }
+    },
+    {
+      "id": "hero-fitout",
+      "project": "Marvel",
+      "source": "assets/projects/Marvel/IMG20211205125400.jpg",
+      "crops": {
+        "wide": {
+          "ratio": 2.3337393422655297,
+          "widths": [
+            960,
+            1440,
+            1916
+          ]
+        },
+        "mobile": {
+          "ratio": 0.6666666666666666,
+          "widths": [
+            720
+          ]
+        }
+      },
+      "sourceSizeBytes": 4466365,
+      "sourceDimensions": {
+        "width": 4624,
+        "height": 3468
+      }
+    },
+    {
+      "id": "about-workmanship",
+      "project": "Wajha Office",
+      "source": "assets/projects/Wajha Office/IMG_20251207_002557.jpg",
+      "crops": {
+        "portrait": {
+          "ratio": 0.8,
+          "widths": [
+            640,
+            960,
+            1122
+          ]
+        }
+      },
+      "sourceSizeBytes": 4649476,
+      "sourceDimensions": {
+        "width": 3048,
+        "height": 4064
+      }
+    },
+    {
+      "id": "service-construction",
+      "project": "New Capital down town mall",
+      "source": "assets/projects/New Capital down town mall/IMG_20250730_141201.jpg",
+      "crops": {
+        "portrait": {
+          "ratio": 0.64,
+          "widths": [
+            640,
+            960,
+            1122
+          ]
+        }
+      },
+      "sourceSizeBytes": 4752248,
+      "sourceDimensions": {
+        "width": 3000,
+        "height": 4000
+      }
+    },
+    {
+      "id": "service-restoration",
+      "project": "M.ALI PALACE",
+      "source": "assets/projects/M.ALI PALACE/IMG20210706142551.jpg",
+      "crops": {
+        "portrait": {
+          "ratio": 0.64,
+          "widths": [
+            640,
+            960,
+            1122
+          ]
+        }
+      },
+      "sourceSizeBytes": 1963928,
+      "sourceDimensions": {
+        "width": 4608,
+        "height": 3456
+      }
+    },
+    {
+      "id": "service-renovation",
+      "project": "Lakeview",
+      "source": "assets/projects/Lakeview/IMG-20230820-WA0027.jpg",
+      "crops": {
+        "portrait": {
+          "ratio": 0.64,
+          "widths": [
+            480,
+            640,
+            847
+          ]
+        }
+      },
+      "sourceSizeBytes": 207881,
+      "sourceDimensions": {
+        "width": 847,
+        "height": 1279
+      }
+    },
+    {
+      "id": "story-wide",
+      "project": "BEIT AL RAZZAZ",
+      "source": "assets/projects/BEIT AL RAZZAZ/Phase 2/IMG_20250908_110032.jpg",
+      "crops": {
+        "wide": {
+          "ratio": 2.3337393422655297,
+          "widths": [
+            960,
+            1440,
+            1916
+          ]
+        },
+        "mobile": {
+          "ratio": 0.6666666666666666,
+          "widths": [
+            720
+          ]
+        }
+      },
+      "sourceSizeBytes": 4505970,
+      "sourceDimensions": {
+        "width": 4000,
+        "height": 3000
+      }
+    },
+    {
+      "id": "story-portrait",
+      "project": "BEIT AL RAZZAZ",
+      "source": "assets/projects/BEIT AL RAZZAZ/Phase 2/DSC_6757.JPG",
+      "crops": {
+        "portrait": {
+          "ratio": 0.8,
+          "widths": [
+            640,
+            960,
+            1122
+          ]
+        }
+      },
+      "sourceSizeBytes": 10053764,
+      "sourceDimensions": {
+        "width": 6016,
+        "height": 4016
+      }
+    },
+    {
+      "id": "material-study",
+      "project": "M.ALI PALACE",
+      "source": "assets/projects/M.ALI PALACE/DSC06158.jpg",
+      "crops": {
+        "wide": {
+          "ratio": 2.3337393422655297,
+          "widths": [
+            640,
+            960,
+            1440,
+            1916
+          ]
+        },
+        "mobile": {
+          "ratio": 0.8,
+          "widths": [
+            720
+          ]
+        }
+      },
+      "sourceSizeBytes": 11057382,
+      "sourceDimensions": {
+        "width": 5632,
+        "height": 3755
+      }
+    },
+    {
+      "id": "contact-work",
+      "project": "BEIT AL RAZZAZ",
+      "source": "assets/projects/BEIT AL RAZZAZ/Phase 1/DSC_7041.JPG",
+      "crops": {
+        "wide": {
+          "ratio": 2.3284671532846715,
+          "widths": [
+            960,
+            1440,
+            1914
+          ]
+        },
+        "mobile": {
+          "ratio": 0.6666666666666666,
+          "widths": [
+            720
+          ]
+        }
+      },
+      "sourceSizeBytes": 12334099,
+      "sourceDimensions": {
+        "width": 6016,
+        "height": 4016
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "file": "assets/projects/featured/real-media/hero-heritage-wide-960.webp",
+      "width": 960,
+      "height": 411,
+      "bytes": 68866
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-heritage-wide-1440.webp",
+      "width": 1440,
+      "height": 617,
+      "bytes": 135738
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-heritage-wide-1916.webp",
+      "width": 1916,
+      "height": 821,
+      "bytes": 211006
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-heritage-mobile-720.webp",
+      "width": 720,
+      "height": 1080,
+      "bytes": 100700
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-construction-wide-960.webp",
+      "width": 960,
+      "height": 411,
+      "bytes": 101532
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-construction-wide-1440.webp",
+      "width": 1440,
+      "height": 617,
+      "bytes": 208146
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-construction-wide-1916.webp",
+      "width": 1916,
+      "height": 821,
+      "bytes": 334938
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-construction-mobile-720.webp",
+      "width": 720,
+      "height": 1080,
+      "bytes": 229046
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-residential-wide-960.webp",
+      "width": 960,
+      "height": 411,
+      "bytes": 38368
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-residential-wide-1440.webp",
+      "width": 1440,
+      "height": 617,
+      "bytes": 72994
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-residential-wide-1916.webp",
+      "width": 1916,
+      "height": 821,
+      "bytes": 109484
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-residential-mobile-720.webp",
+      "width": 720,
+      "height": 1080,
+      "bytes": 45570
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-fitout-wide-960.webp",
+      "width": 960,
+      "height": 411,
+      "bytes": 35636
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-fitout-wide-1440.webp",
+      "width": 1440,
+      "height": 617,
+      "bytes": 66552
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-fitout-wide-1916.webp",
+      "width": 1916,
+      "height": 821,
+      "bytes": 106344
+    },
+    {
+      "file": "assets/projects/featured/real-media/hero-fitout-mobile-720.webp",
+      "width": 720,
+      "height": 1080,
+      "bytes": 74436
+    },
+    {
+      "file": "assets/projects/featured/real-media/about-workmanship-portrait-640.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 74084
+    },
+    {
+      "file": "assets/projects/featured/real-media/about-workmanship-portrait-960.webp",
+      "width": 960,
+      "height": 1200,
+      "bytes": 157506
+    },
+    {
+      "file": "assets/projects/featured/real-media/about-workmanship-portrait-1122.webp",
+      "width": 1122,
+      "height": 1403,
+      "bytes": 220718
+    },
+    {
+      "file": "assets/projects/featured/real-media/service-construction-portrait-640.webp",
+      "width": 640,
+      "height": 1000,
+      "bytes": 142784
+    },
+    {
+      "file": "assets/projects/featured/real-media/service-construction-portrait-960.webp",
+      "width": 960,
+      "height": 1500,
+      "bytes": 275608
+    },
+    {
+      "file": "assets/projects/featured/real-media/service-construction-portrait-1122.webp",
+      "width": 1122,
+      "height": 1753,
+      "bytes": 343104
+    },
+    {
+      "file": "assets/projects/featured/real-media/service-restoration-portrait-640.webp",
+      "width": 640,
+      "height": 1000,
+      "bytes": 84948
+    },
+    {
+      "file": "assets/projects/featured/real-media/service-restoration-portrait-960.webp",
+      "width": 960,
+      "height": 1500,
+      "bytes": 172536
+    },
+    {
+      "file": "assets/projects/featured/real-media/service-restoration-portrait-1122.webp",
+      "width": 1122,
+      "height": 1753,
+      "bytes": 221624
+    },
+    {
+      "file": "assets/projects/featured/real-media/service-renovation-portrait-480.webp",
+      "width": 480,
+      "height": 750,
+      "bytes": 28126
+    },
+    {
+      "file": "assets/projects/featured/real-media/service-renovation-portrait-640.webp",
+      "width": 640,
+      "height": 1000,
+      "bytes": 44796
+    },
+    {
+      "file": "assets/projects/featured/real-media/service-renovation-portrait-847.webp",
+      "width": 847,
+      "height": 1279,
+      "bytes": 75486
+    },
+    {
+      "file": "assets/projects/featured/real-media/story-wide-wide-960.webp",
+      "width": 960,
+      "height": 411,
+      "bytes": 62400
+    },
+    {
+      "file": "assets/projects/featured/real-media/story-wide-wide-1440.webp",
+      "width": 1440,
+      "height": 617,
+      "bytes": 128134
+    },
+    {
+      "file": "assets/projects/featured/real-media/story-wide-wide-1916.webp",
+      "width": 1916,
+      "height": 821,
+      "bytes": 203232
+    },
+    {
+      "file": "assets/projects/featured/real-media/story-wide-mobile-720.webp",
+      "width": 720,
+      "height": 1080,
+      "bytes": 112172
+    },
+    {
+      "file": "assets/projects/featured/real-media/story-portrait-portrait-640.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 30214
+    },
+    {
+      "file": "assets/projects/featured/real-media/story-portrait-portrait-960.webp",
+      "width": 960,
+      "height": 1200,
+      "bytes": 55800
+    },
+    {
+      "file": "assets/projects/featured/real-media/story-portrait-portrait-1122.webp",
+      "width": 1122,
+      "height": 1403,
+      "bytes": 70236
+    },
+    {
+      "file": "assets/projects/featured/real-media/material-study-wide-640.webp",
+      "width": 640,
+      "height": 274,
+      "bytes": 46450
+    },
+    {
+      "file": "assets/projects/featured/real-media/material-study-wide-960.webp",
+      "width": 960,
+      "height": 411,
+      "bytes": 89670
+    },
+    {
+      "file": "assets/projects/featured/real-media/material-study-wide-1440.webp",
+      "width": 1440,
+      "height": 617,
+      "bytes": 173544
+    },
+    {
+      "file": "assets/projects/featured/real-media/material-study-wide-1916.webp",
+      "width": 1916,
+      "height": 821,
+      "bytes": 256176
+    },
+    {
+      "file": "assets/projects/featured/real-media/material-study-mobile-720.webp",
+      "width": 720,
+      "height": 900,
+      "bytes": 158712
+    },
+    {
+      "file": "assets/projects/featured/real-media/contact-work-wide-960.webp",
+      "width": 960,
+      "height": 412,
+      "bytes": 40222
+    },
+    {
+      "file": "assets/projects/featured/real-media/contact-work-wide-1440.webp",
+      "width": 1440,
+      "height": 618,
+      "bytes": 82018
+    },
+    {
+      "file": "assets/projects/featured/real-media/contact-work-wide-1914.webp",
+      "width": 1914,
+      "height": 822,
+      "bytes": 127770
+    },
+    {
+      "file": "assets/projects/featured/real-media/contact-work-mobile-720.webp",
+      "width": 720,
+      "height": 1080,
+      "bytes": 96770
+    }
+  ]
+}

@@ -114,7 +114,7 @@ async function runScenario({
 
     if (imageDelayMs > 0) {
       await client.send('Fetch.enable', {
-        patterns: [{ urlPattern: '*hero-01-heritage*.webp', requestStage: 'Request' }],
+        patterns: [{ urlPattern: '*hero-heritage*.webp', requestStage: 'Request' }],
       })
       client.on('Fetch.requestPaused', ({ requestId }) => {
         setTimeout(() => {
@@ -124,7 +124,7 @@ async function runScenario({
     }
 
     if (blockFirstImage) {
-      await client.send('Network.setBlockedURLs', { urls: ['*hero-01-heritage*.webp'] })
+      await client.send('Network.setBlockedURLs', { urls: ['*hero-heritage*.webp'] })
     }
 
     await client.send('Page.navigate', { url: siteUrl })
@@ -193,7 +193,7 @@ async function runScenario({
           const contactImage = contact?.querySelector('img[data-contact-image]');
           const mailto = contact?.querySelector('a[href="mailto:Projects@Summit-constructions.com"]');
           const heroImages = performance.getEntriesByType('resource')
-            .filter((entry) => entry.name.includes('/assets/generated/hero-'))
+            .filter((entry) => entry.name.includes('/assets/projects/featured/real-media/hero-'))
             .map((entry) => ({ name: entry.name.split('/').pop(), startTime: Math.round(entry.startTime), bytes: entry.transferSize }));
           return {
             viewport: [innerWidth, innerHeight],

@@ -9,14 +9,23 @@ export function useTheme() {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => document.documentElement.dataset.theme === 'light' ? 'light' : 'dark')
+  // Keep the server and first hydrated render deterministic. The early HTML
+  // theme bootstrap still paints the user's saved appearance without a flash.
+  const [theme, setTheme] = useState<Theme>('dark')
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    try { if (localStorage.getItem('summit-theme') === 'light') setTheme('light') } catch { /* Theme remains available for this visit. */ }
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
     document.documentElement.dataset.theme = theme
     document.documentElement.style.colorScheme = theme
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#171816' : '#f3f1ec')
     try { localStorage.setItem('summit-theme', theme) } catch { /* Preference remains available for this visit. */ }
-  }, [theme])
+  }, [theme, mounted])
 
   return <ThemeContext.Provider value={{ theme, toggle: () => setTheme((value) => value === 'dark' ? 'light' : 'dark') }}>{children}</ThemeContext.Provider>
 }

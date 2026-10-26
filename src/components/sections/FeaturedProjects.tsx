@@ -7,6 +7,9 @@ import { assetUrl } from '../../lib/assets'
 import { Container } from '../ui/Container'
 import { Icon } from '../ui/Icon'
 import { SectionHeading } from '../ui/SectionHeading'
+import { useHomeCopy, useLocale } from '../../content/site'
+import { publishedProjects } from '../../data/portfolio'
+import { routePath } from '../../lib/routes'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -77,6 +80,8 @@ function decodePhotograph(image: HTMLImageElement, signal: AbortSignal): Promise
 }
 
 export function FeaturedProjects() {
+  const locale = useLocale()
+  const copy = useHomeCopy().featured
   const sectionRef = useRef<HTMLElement>(null)
   const layerRefs = useRef<[HTMLElement | null, HTMLElement | null]>([null, null])
   const transitionRef = useRef<gsap.core.Timeline | null>(null)
@@ -101,6 +106,7 @@ export function FeaturedProjects() {
   const activeProjectIndex = copySelection.projectIndex
   const activeImageIndex = copySelection.imageIndex
   const activeProject = projects[activeProjectIndex]
+  const activePortfolioProject = publishedProjects[activeProjectIndex]
   const activeImage = activeProject.images[activeImageIndex]
 
   useLayoutEffect(() => {
@@ -345,6 +351,7 @@ export function FeaturedProjects() {
     )
     const project = projects[selection.projectIndex]
     const image = project.images[selection.imageIndex]
+    const galleryAlt = publishedProjects[selection.projectIndex].gallery[selection.imageIndex]?.alt[locale] ?? image.alt
     const isPortrait = image.fit === 'contain'
     const isActive = gallery.activeLayer === layer
     const isIncoming = gallery.pending?.layer === layer
@@ -362,12 +369,12 @@ export function FeaturedProjects() {
         style={{ opacity: isActive ? 1 : 0, visibility: isActive || isIncoming ? 'visible' : 'hidden', zIndex: isIncoming ? 2 : isActive ? 1 : 0 }}
       >
         <div className="project-image-fallback absolute inset-0 grid place-items-center bg-gradient-to-br from-summit-charcoal via-summit-black to-summit-charcoal p-8 text-center text-summit-ivory" aria-hidden="true">
-          {!readyImages.has(image.src) || unavailable ? <span className="max-w-xs font-display text-2xl">{project.name}<span className="mt-3 block font-body text-xs uppercase tracking-[0.16em] text-summit-gold">{image.label}</span></span> : null}
+          {!readyImages.has(image.src) || unavailable ? <span className="max-w-xs font-display text-2xl">{publishedProjects[selection.projectIndex].title[locale]}<span className="mt-3 block font-body text-xs uppercase tracking-[0.16em] text-summit-gold">{image.label}</span></span> : null}
         </div>
         {!unavailable ? <img
           data-project-image
           src={assetUrl(image.src)}
-          alt={image.alt}
+          alt={galleryAlt}
           loading={isIncoming ? 'eager' : 'lazy'}
           decoding="async"
           onLoad={(event) => {
@@ -394,7 +401,7 @@ export function FeaturedProjects() {
     <section
       ref={sectionRef}
       id="projects"
-      aria-label="Featured projects"
+      aria-label={locale === 'en' ? 'Featured projects' : 'مشروعات مختارة'}
       className="featured-projects relative overflow-hidden bg-[var(--color-panel)] py-section-lg text-[var(--color-ink)]"
     >
       <div className="pointer-events-none absolute inset-0 hidden grid-cols-12 px-[var(--page-gutter)] opacity-60 lg:grid" aria-hidden="true">
@@ -406,15 +413,15 @@ export function FeaturedProjects() {
       <Container className="relative z-10">
         <div data-projects-intro>
           <SectionHeading
-            eyebrow="03 · Selected projects"
-            title="Three expressions of one exacting practice."
-            description="A focused preview of SUMMIT Construction’s work across heritage restoration, construction, and residential fit-out."
+            eyebrow={copy.eyebrow}
+            title={copy.title}
+            description={copy.description}
           />
         </div>
 
         <div className="mt-16 grid gap-10 sm:mt-20 lg:mt-28 lg:grid-cols-12 lg:gap-8 xl:gap-12">
           <div className="lg:col-span-4 lg:flex lg:flex-col lg:justify-between">
-            <nav data-projects-navigation aria-label="Choose a featured project" className="border-t border-[var(--color-border)]">
+            <nav data-projects-navigation aria-label={locale === 'en' ? 'Choose a featured project' : 'اختر مشروعًا'} className="border-t border-[var(--color-border)]">
               {projects.map((project, projectIndex) => {
                 const isActive = activeProjectIndex === projectIndex
 
@@ -433,10 +440,10 @@ export function FeaturedProjects() {
                     </span>
                     <span>
                       <span className="block font-body text-[0.5625rem] font-bold uppercase tracking-[0.16em] text-[var(--color-muted)]">
-                        {project.category}
+                        {locale === 'ar' ? ['ترميم التراث', 'الإنشاءات', 'التشطيبات السكنية'][projectIndex] : project.category}
                       </span>
                       <span className="mt-2 block font-display text-[clamp(1.35rem,2.2vw,2.25rem)] font-medium leading-[1.05] tracking-[-0.045em]">
-                        {project.name}
+                        {publishedProjects[projectIndex].title[locale]}
                       </span>
                     </span>
                     <span
@@ -449,9 +456,9 @@ export function FeaturedProjects() {
             </nav>
 
             <div className="mt-8 hidden max-w-xs border-l border-summit-gold pl-5 lg:block">
-              <p className="font-body text-[0.625rem] font-bold uppercase tracking-[0.18em] text-[var(--color-accent)]">Explore the work</p>
+              <p className="font-body text-[0.625rem] font-bold uppercase tracking-[0.18em] text-[var(--color-accent)]">{copy.explore}</p>
               <p className="mt-3 font-body text-xs leading-6 text-[var(--color-muted)]">
-                Three projects, seen through their architecture, materials, and interior details.
+                {copy.note}
               </p>
             </div>
           </div>
@@ -461,7 +468,7 @@ export function FeaturedProjects() {
               data-projects-gallery
               role="group"
               aria-roledescription="image gallery"
-              aria-label={`${activeProject.name} photography`}
+              aria-label={locale === 'en' ? `${activePortfolioProject.title[locale]} photography` : `صور ${activePortfolioProject.title[locale]}`}
               aria-busy={isLoading || gallery.pending !== null}
               tabIndex={0}
               onKeyDown={handleGalleryKeyDown}
@@ -498,13 +505,13 @@ export function FeaturedProjects() {
               <div>
                 <p data-project-active-copy className="flex items-center gap-2 font-body text-[0.625rem] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
                   <Icon name={activeProjectIndex === 0 ? 'restoration' : activeProjectIndex === 1 ? 'construction' : 'renovation'} size={16} />
-                  {activeProject.category}
+                  {locale === 'ar' ? ['ترميم التراث', 'الإنشاءات', 'التشطيبات السكنية'][activeProjectIndex] : activeProject.category}
                 </p>
                 <h3 data-project-active-copy className="project-title mt-3 max-w-3xl font-display text-[clamp(2.5rem,5.7vw,6rem)] font-medium leading-[0.95] tracking-[-0.05em] text-[var(--color-ink)]">
-                  {activeProject.name}
+                  {activePortfolioProject.title[locale]}
                 </h3>
                 <p data-project-active-copy className="mt-5 max-w-xl font-body text-sm leading-7 text-[var(--color-muted)] sm:text-base">
-                  {activeProject.description}
+                  {activePortfolioProject.description?.[locale]}
                 </p>
               </div>
 
@@ -552,6 +559,10 @@ export function FeaturedProjects() {
             </div>
           </div>
         </div>
+      </Container>
+
+      <Container className="relative z-10 mt-6 flex justify-end">
+        <a className="text-link" href={routePath(locale, 'projects')}>{copy.all}<span aria-hidden="true">↗</span></a>
       </Container>
 
       <p className="sr-only" aria-live="polite" aria-atomic="true">

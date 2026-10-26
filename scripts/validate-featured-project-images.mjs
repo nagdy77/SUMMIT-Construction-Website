@@ -13,6 +13,9 @@ const outputRoot = path.join(workspace, ...manifest.outputRoot.split('/'))
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true })
   const nested = await Promise.all(entries.map((entry) => {
+    // Homepage real-media derivatives have their own source manifest and are
+    // intentionally separate from the original nine-image project mapping.
+    if (directory === outputRoot && entry.name === 'real-media') return []
     const absolute = path.join(directory, entry.name)
     return entry.isDirectory() ? walk(absolute) : [absolute]
   }))

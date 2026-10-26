@@ -1,0 +1,22 @@
+import { portfolioProjects } from '../data/portfolio'
+
+export const staticRoutePaths = [
+  ...(['en', 'ar'] as const).flatMap((locale) => [
+    `/${locale}/`, `/${locale}/about/`, `/${locale}/services/`, `/${locale}/projects/`, `/${locale}/clients/`,
+    `/${locale}/downloads/`, `/${locale}/contact/`, `/${locale}/privacy/`,
+    ...['construction', 'restoration', 'renovation', 'fit-out'].map((slug) => `/${locale}/services/${slug}/`),
+    ...portfolioProjects.map(({ slug }) => `/${locale}/projects/${slug}/`),
+  ]),
+]
+
+const indexableBasePages = ['', 'about/', 'services/', 'projects/', 'clients/', 'downloads/', 'contact/']
+const indexableServiceSlugs = ['construction', 'restoration', 'renovation', 'fit-out']
+const indexableProjects = portfolioProjects.filter((project) => project.state === 'published')
+
+export const indexableRoutePaths = [
+  ...(['en', 'ar'] as const).flatMap((locale) => [
+    ...indexableBasePages.map((page) => `/${locale}/${page}`),
+    ...indexableServiceSlugs.map((slug) => `/${locale}/services/${slug}/`),
+    ...indexableProjects.map(({ slug }) => `/${locale}/projects/${slug}/`),
+  ]),
+]

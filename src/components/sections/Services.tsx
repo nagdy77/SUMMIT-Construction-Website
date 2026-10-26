@@ -5,12 +5,15 @@ import { Container } from '../ui/Container'
 import { assetSrcSet, assetUrl } from '../../lib/assets'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Icon } from '../ui/Icon'
+import { useHomeCopy, useLocale } from '../../content/site'
 
 gsap.registerPlugin(ScrollTrigger)
 
 type Service = {
   name: string
   image: string
+  srcSet: string
+  alt: string
   imagePosition: string
   description: string
   portfolioScope: string
@@ -20,7 +23,9 @@ type Service = {
 const services: Service[] = [
   {
     name: 'Construction',
-    image: '/assets/generated/service-construction.webp',
+    image: '/assets/projects/featured/real-media/service-construction-portrait-960.webp',
+    srcSet: '/assets/projects/featured/real-media/service-construction-portrait-640.webp 640w, /assets/projects/featured/real-media/service-construction-portrait-960.webp 960w, /assets/projects/featured/real-media/service-construction-portrait-1122.webp 1122w',
+    alt: 'Ceiling and interior construction work in progress at New Capital Downtown Mall',
     imagePosition: 'object-center',
     description: 'Construction delivery across administrative and residential settings, including marble installation, full finishing, and external finishing works.',
     portfolioScope: 'Marble installation · Full finishing · External finishes',
@@ -28,7 +33,9 @@ const services: Service[] = [
   },
   {
     name: 'Restoration',
-    image: '/assets/generated/service-heritage.webp',
+    image: '/assets/projects/featured/real-media/service-restoration-portrait-960.webp',
+    srcSet: '/assets/projects/featured/real-media/service-restoration-portrait-640.webp 640w, /assets/projects/featured/real-media/service-restoration-portrait-960.webp 960w, /assets/projects/featured/real-media/service-restoration-portrait-1122.webp 1122w',
+    alt: 'SUMMIT worker polishing the marble entrance at Mohamed Ali Palace',
     imagePosition: 'object-[66%_center]',
     description: 'Heritage work spanning marble restoration, structural repair, adaptive reuse, rehabilitation, and specialist dewatering systems.',
     portfolioScope: 'Heritage restoration · Structural repair · Rehabilitation',
@@ -36,7 +43,9 @@ const services: Service[] = [
   },
   {
     name: 'Renovation',
-    image: '/assets/generated/service-residential.webp',
+    image: '/assets/projects/featured/real-media/service-renovation-portrait-640.webp',
+    srcSet: '/assets/projects/featured/real-media/service-renovation-portrait-480.webp 480w, /assets/projects/featured/real-media/service-renovation-portrait-640.webp 640w, /assets/projects/featured/real-media/service-renovation-portrait-847.webp 847w',
+    alt: 'Finished bathroom interior at Lakeview Residence',
     imagePosition: 'object-center',
     description: 'Renovation and finishing work shaped for heritage, residential, and commercial environments, with coordinated architectural and MEP scopes.',
     portfolioScope: 'Residential fit-out · Retail fit-out · Finishing works',
@@ -45,6 +54,8 @@ const services: Service[] = [
 ]
 
 export function Services() {
+  const copy = useHomeCopy().services
+  const locale = useLocale()
   const sectionRef = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -125,9 +136,9 @@ export function Services() {
       <Container>
         <div data-services-intro>
           <SectionHeading
-            eyebrow="02 · Services"
-            title="Three disciplines. One considered approach."
-            description="SUMMIT Construction’s formal services are construction, restoration, and renovation. Its portfolio also includes residential and retail fit-out specializations."
+            eyebrow={copy.eyebrow}
+            title={copy.title}
+            description={copy.description}
             tone="light"
           />
         </div>
@@ -144,12 +155,11 @@ export function Services() {
                   <div data-service-image-motion className="size-full">
                     <img
                       src={assetUrl(service.image)}
-                      srcSet={assetSrcSet(`${service.image.replace('.webp', '-640.webp')} 640w, ${service.image.replace('.webp', '-960.webp')} 960w, ${service.image} ${index === 1 ? 1672 : 1122}w`)}
+                      srcSet={assetSrcSet(service.srcSet)}
                       sizes="(max-width: 767px) 100vw, 33vw"
-                      width={index === 1 ? 1672 : 1122}
-                      height={index === 1 ? 941 : 1402}
-                      alt=""
-                      aria-hidden="true"
+                      width={1122}
+                      height={1753}
+                      alt={service.alt}
                       loading="lazy"
                       decoding="async"
                       className={`size-full object-cover transition-transform duration-700 ease-summit group-hover:scale-[1.055] ${service.imagePosition}`}
@@ -173,15 +183,15 @@ export function Services() {
                 <span data-service-copy className="flex items-center gap-3 font-body text-[0.625rem] font-bold tracking-[0.2em] text-summit-gold"><Icon name={index === 0 ? 'construction' : index === 1 ? 'restoration' : 'renovation'} size={23} />0{index + 1}</span>
 
                 <div>
-                  <p data-service-copy className="mb-4 font-body text-[0.5625rem] font-bold uppercase tracking-[0.2em] text-summit-stone">Formal service</p>
+                  <p data-service-copy className="mb-4 font-body text-[0.5625rem] font-bold uppercase tracking-[0.2em] text-summit-stone">{copy.formal}</p>
                   <h3 data-service-copy className="font-display text-[clamp(2rem,3.2vw,3.5rem)] font-medium leading-none tracking-[-0.05em] text-summit-ivory">
-                    {service.name}
+                    {copy.cards[index].name}
                   </h3>
                   <p data-service-copy className="mt-5 max-w-sm font-body text-xs leading-6 text-summit-stone sm:text-sm">
-                    {service.description}
+                    {copy.cards[index].description}
                   </p>
                   <p data-service-copy className="mt-6 border-t border-white/20 pt-4 font-body text-[0.5625rem] font-bold uppercase leading-5 tracking-[0.13em] text-summit-gold">
-                    {service.portfolioScope}
+                    {copy.cards[index].scope}
                   </p>
                 </div>
               </div>
@@ -193,9 +203,11 @@ export function Services() {
           data-services-note
           className="mt-10 grid gap-3 border-t border-[var(--color-border)] pt-6 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-8 lg:mt-16"
         >
-          <span className="font-body text-[0.625rem] font-bold uppercase tracking-[0.18em] text-summit-gold">Portfolio specializations</span>
+          <span className="font-body text-[0.625rem] font-bold uppercase tracking-[0.18em] text-summit-gold">{copy.specialization}</span>
           <p className="font-display text-xl font-medium tracking-[-0.03em] text-[var(--color-ink)] sm:text-right sm:text-2xl">
-            Residential Fit-Out <span className="mx-2 text-summit-gold">/</span> Retail Fit-Out
+            {locale === 'en' ? 'Residential Fit-Out' : 'التشطيب السكني'}
+            <span className="mx-2 text-summit-gold">/</span>
+            {locale === 'en' ? 'Retail Fit-Out' : 'التشطيب التجاري'}
           </p>
         </div>
       </Container>

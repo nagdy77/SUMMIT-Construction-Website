@@ -3,16 +3,16 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container } from '../ui/Container'
 import { assetSrcSet, assetUrl } from '../../lib/assets'
+import { useHomeCopy, useLocale } from '../../content/site'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const companyFacts = [
-  { label: 'Established', value: '2018' },
-  { label: 'Founders', value: 'Ahmed Elesawy & Mohamed Haron' },
-  { label: 'Origin', value: 'Egypt' },
-]
-
 export function AboutPreview() {
+  const locale = useLocale()
+  const copy = useHomeCopy().about
+  const facts = locale === 'en'
+    ? [{ label: 'Established', value: '2018' }, { label: 'Founders', value: 'Ahmed Elesawy & Mohamed Haron' }, { label: 'Origin', value: 'Egypt' }]
+    : [{ label: 'التأسيس', value: '2018' }, { label: 'المؤسسون', value: 'أحمد العيسوي ومحمد هارون' }, { label: 'الموطن', value: 'مصر' }]
   const sectionRef = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -76,7 +76,7 @@ export function AboutPreview() {
     <section
       ref={sectionRef}
       id="about"
-      aria-label="About SUMMIT Construction"
+      aria-label={locale === 'en' ? 'About SUMMIT Construction' : 'عن شركة سوميت للإنشاءات'}
       className="about-section relative overflow-hidden bg-[var(--color-page)] py-section-lg text-[var(--color-ink)]"
     >
       <div className="absolute right-0 top-0 hidden h-full w-px bg-summit-line lg:block" aria-hidden="true" />
@@ -86,7 +86,7 @@ export function AboutPreview() {
           <div data-about-copy className="lg:col-span-3">
             <p className="flex items-center gap-3 font-body text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-summit-gold">
               <span className="h-px w-8 bg-summit-gold" aria-hidden="true" />
-              01 · About
+              {copy.eyebrow}
             </p>
           </div>
 
@@ -94,9 +94,9 @@ export function AboutPreview() {
             data-about-copy
             className="max-w-[13ch] font-display text-[clamp(2.6rem,6.8vw,6.9rem)] font-medium leading-[0.98] tracking-[-0.055em] text-[var(--color-ink)] lg:col-span-9"
           >
-            We Build the Future
-            <span className="editorial-accent block text-[var(--color-accent)]">with the Spirit</span>
-            <span className="block">of Heritage.</span>
+            {copy.title[0]}
+            <span className="editorial-accent block text-[var(--color-accent)]">{copy.title[1]}</span>
+            <span className="block">{copy.title[2]}</span>
           </h2>
         </header>
 
@@ -109,12 +109,12 @@ export function AboutPreview() {
               <div data-about-reveal className="h-full w-full">
                 <div data-about-image-motion className="h-full w-full">
                   <img
-                    src={assetUrl('/assets/generated/about-architectural-vision.webp')}
-                    srcSet={assetSrcSet('/assets/generated/about-architectural-vision-640.webp 640w, /assets/generated/about-architectural-vision-960.webp 960w, /assets/generated/about-architectural-vision.webp 1122w')}
+                    src={assetUrl('/assets/projects/featured/real-media/about-workmanship-portrait-1122.webp')}
+                    srcSet={assetSrcSet('/assets/projects/featured/real-media/about-workmanship-portrait-640.webp 640w, /assets/projects/featured/real-media/about-workmanship-portrait-960.webp 960w, /assets/projects/featured/real-media/about-workmanship-portrait-1122.webp 1122w')}
                     sizes="(max-width: 767px) 100vw, 54vw"
                     width="1122"
-                    height="1402"
-                    alt="Conceptual architecture combining heritage columns and contemporary forms"
+                    height="1403"
+                    alt={locale === 'en' ? 'SUMMIT worker installing wall insulation at Wajha Office' : 'عامل من سوميت ينفذ أعمال العزل في مكتب وجهة'}
                     loading="lazy"
                     decoding="async"
                     className="aspect-[4/5] size-full object-cover"
@@ -136,21 +136,21 @@ export function AboutPreview() {
             </div>
 
             <div className="absolute -bottom-6 left-5 bg-summit-charcoal px-5 py-4 text-summit-ivory sm:left-8 sm:px-7 sm:py-5">
-              <span className="block font-body text-[0.5625rem] font-bold uppercase tracking-[0.2em] text-summit-gold">Established</span>
+              <span className="block font-body text-[0.5625rem] font-bold uppercase tracking-[0.2em] text-summit-gold">{copy.established}</span>
               <span className="mt-1 block font-display text-2xl font-medium tracking-[-0.04em] sm:text-3xl">2018</span>
             </div>
           </div>
 
           <div className="flex flex-col justify-end pt-8 lg:col-span-4 lg:col-start-9 lg:pt-28">
             <p data-about-copy className="font-display text-2xl font-medium leading-tight tracking-[-0.04em] text-[var(--color-ink)] sm:text-3xl">
-              Egyptian in origin.<br />Future-facing in form.
+              {copy.strapline}
             </p>
             <p data-about-copy className="mt-7 max-w-md font-body text-sm leading-7 text-[var(--color-muted)] sm:text-base">
-              SUMMIT Construction is an Egyptian construction company established in 2018 by Ahmed Elesawy and Mohamed Haron. Its formal services are construction, restoration, and renovation.
+              {copy.body}
             </p>
 
             <dl className="mt-10 border-t border-[var(--color-border)]">
-              {companyFacts.map((fact, index) => (
+              {facts.map((fact, index) => (
                 <div
                   key={fact.label}
                   data-about-fact

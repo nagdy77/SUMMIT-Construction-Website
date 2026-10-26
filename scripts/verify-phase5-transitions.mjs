@@ -331,13 +331,13 @@ async function responsiveHeroScenario(client, result) {
   await waitHero(client, 1)
   const imageExpression = `document.querySelectorAll('[data-hero-image]')[1]`
   result.mobileSource = await client.evaluate(`${imageExpression}.currentSrc`)
-  assert.ok(result.mobileSource.includes('-mobile.webp'), 'Prepared slide did not select its portrait source')
+  assert.match(result.mobileSource, /-mobile(?:-\d+)?\.webp(?:$|\?)/, 'Prepared slide did not select its portrait source')
   // A responsive source replacement may retain the previous bitmap while its
   // complete flag is false; verify decode/source selection separately from the
   // carousel handoff coverage sampler during this viewport change.
   await client.evaluate('window.__transitionQA.heroArmed = false')
   await client.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false })
-  await waitFor(client, `(() => { const image = ${imageExpression}; return image.complete && image.naturalWidth >= 960 && !image.currentSrc.includes('-mobile.webp'); })()`, 'prepared slide responsive desktop source')
+  await waitFor(client, `(() => { const image = ${imageExpression}; return image.complete && image.naturalWidth >= 960 && !/-mobile(?:-\\d+)?\\.webp(?:$|\\?)/.test(image.currentSrc); })()`, 'prepared slide responsive desktop source')
   await client.evaluate(`${imageExpression}.decode()`)
   result.desktopSource = await client.evaluate(`${imageExpression}.currentSrc`)
   result.preparedSlideRespondsToViewport = true
@@ -446,9 +446,9 @@ const scenarios = [
   { name: 'animated-desktop-complete-gallery-and-hero' },
   { name: 'mobile-complete-gallery', mobile: true, galleryOnly: true },
   { name: 'mobile-to-desktop-responsive-hero', mobile: true, responsive: true },
-  { name: 'mobile-hero-slow-image', mobile: true, section: 'hero', mode: 'slow', pattern: 'hero-02-modern' },
-  { name: 'mobile-hero-failed-image', mobile: true, section: 'hero', mode: 'failed', pattern: 'hero-02-modern' },
-  { name: 'mobile-hero-reduced-motion-during-load', mobile: true, section: 'hero', mode: 'slow', pattern: 'hero-02-modern', motionDuringLoad: true },
+  { name: 'mobile-hero-slow-image', mobile: true, section: 'hero', mode: 'slow', pattern: 'hero-construction' },
+  { name: 'mobile-hero-failed-image', mobile: true, section: 'hero', mode: 'failed', pattern: 'hero-construction' },
+  { name: 'mobile-hero-reduced-motion-during-load', mobile: true, section: 'hero', mode: 'slow', pattern: 'hero-construction', motionDuringLoad: true },
   { name: 'mobile-gallery-slow-image', mobile: true, section: 'gallery', mode: 'slow', pattern: '/featured/ministries-district/ministries-district-main-facade.webp' },
   { name: 'mobile-gallery-failed-image', mobile: true, section: 'gallery', mode: 'failed', pattern: '/featured/ministries-district/ministries-district-main-facade.webp' },
   { name: 'mobile-gallery-reduced-motion-during-load', mobile: true, section: 'gallery', mode: 'slow', pattern: '/featured/ministries-district/ministries-district-main-facade.webp', motionDuringLoad: true },

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AboutPreview } from '../components/sections/AboutPreview'
 import { ContactCTA } from '../components/sections/ContactCTA'
 import { FeaturedProjects } from '../components/sections/FeaturedProjects'
@@ -10,10 +10,18 @@ import { EntranceIntro, shouldPlayEntrance } from '../components/layout/Entrance
 import { Footer } from '../components/layout/Footer'
 import { Header } from '../components/layout/Header'
 import { FloatingControls } from '../components/layout/FloatingControls'
+import { useHomeCopy } from '../content/site'
 
 export default function Home() {
-  const [introActive, setIntroActive] = useState(shouldPlayEntrance)
+  const copy = useHomeCopy()
+  const [introActive, setIntroActive] = useState(false)
   const [heroEntranceReady, setHeroEntranceReady] = useState(() => !introActive)
+
+  useEffect(() => {
+    if (!shouldPlayEntrance()) return
+    setHeroEntranceReady(false)
+    setIntroActive(true)
+  }, [])
 
   const revealHero = useCallback(() => setHeroEntranceReady(true), [])
   const completeIntro = useCallback(() => setIntroActive(false), [])
@@ -24,7 +32,7 @@ export default function Home() {
 
       <div className="site-shell flex min-h-screen flex-col bg-[var(--color-page)] text-[var(--color-ink)]">
         <a className="skip-link" href="#main-content">
-          Skip to content
+          {copy.skip}
         </a>
         <Header />
         <main id="main-content" className="w-full flex-1">
