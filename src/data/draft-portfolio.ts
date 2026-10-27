@@ -1,6 +1,6 @@
 // Client-supplied public working records. Missing facts remain null and the three
 // unresolved identities retain their folder labels as explicitly provisional titles.
-import type { PortfolioImage, PortfolioProject, ProjectState } from './portfolio'
+import type { PortfolioImage, PortfolioProject, ProjectCategory, ProjectState } from './portfolio'
 
 const media = (slug: string, index: number, name: string, titleAr: string): PortfolioImage => {
   const base = `/assets/projects/featured/phase3-curated/${slug}/${String(index).padStart(2, '0')}-${name}`
@@ -31,14 +31,14 @@ const media = (slug: string, index: number, name: string, titleAr: string): Port
 }
 
 function draftRecord({
-  id, titleEn, folder, state = 'verified-pending-approval', mediaFiles = [], titleAr = 'الاسم بانتظار اعتماد العميل', approvalNeeds = [],
+  id, titleEn, folder, state = 'verified-pending-approval', category = null, mediaFiles = [], titleAr = 'الاسم بانتظار اعتماد العميل', approvalNeeds = [],
 }: {
-  id: string; titleEn: string; folder: string; state?: ProjectState; mediaFiles?: string[]; titleAr?: string; approvalNeeds?: string[]
+  id: string; titleEn: string; folder: string; state?: ProjectState; category?: ProjectCategory | null; mediaFiles?: string[]; titleAr?: string; approvalNeeds?: string[]
 }): PortfolioProject {
   const gallery = mediaFiles.map((file, index) => media(id, index + 1, file, titleAr))
   return {
     id, slug: id, title: { en: titleEn, ar: titleAr }, sourceFolder: folder, state,
-    category: null, location: null, client: null, description: null, scope: null,
+    category, location: null, client: null, description: null, scope: null,
     cover: gallery[0] ?? null,
     gallery,
     seo: {
@@ -50,11 +50,11 @@ function draftRecord({
 }
 
 const drafts: PortfolioProject[] = [
-  draftRecord({ id: 'beit-al-razzaz', titleEn: 'Beit Al-Razzaz', folder: 'BEIT AL RAZZAZ', titleAr: 'بيت الرزاز', mediaFiles: ['img-20250908-110032', 'dsc-6630', 'dsc-6757', 'dsc-7041', 'dsc-7244'], approvalNeeds: ['project-specific scope and location confirmation'] }),
-  draftRecord({ id: 'marvel', titleEn: 'Marvel', folder: 'Marvel', titleAr: 'مارفل', mediaFiles: ['img-20240408-wa0019', 'img20211121115529', 'img20211205125400', 'whatsapp-image-2024-04-10-at-16-58-41-19bb7284'], approvalNeeds: ['project category and scope', 'worker/photo consent where identifiable people appear'] }),
-  draftRecord({ id: 'oriana-cfc', titleEn: 'Oriana CFC', folder: 'ORIANA - CFC', titleAr: 'أوريانا سي إف سي', mediaFiles: ['img20200123104212', 'img20200109104211', 'img-20210307-095545', 'img-20210307-095328'], approvalNeeds: ['confirm each selected image is a real project photograph and approved for SUMMIT publication', 'project category, location and scope'] }),
-  draftRecord({ id: 'stream-3', titleEn: 'Stream 3', folder: 'STREAM 3', titleAr: 'ستريم 3', mediaFiles: ['fb-img-1602655964163', 'whatsapp-image-2024-04-16-at-12-05-14-443a6769', 'whatsapp-image-2024-04-16-at-12-05-12-0de713c6'], approvalNeeds: ['higher-resolution originals for large display placements', 'project category, location and scope'] }),
-  draftRecord({ id: 'safi-al-din-gawhar', titleEn: 'Safi Al-Din Gawhar', folder: 'SAFI AL-DIN GAWHAR', titleAr: 'صافي الدين جوهر', approvalNeeds: ['authentic project photographs or approval for image-free publication', 'project category, location and scope'] }),
+  draftRecord({ id: 'beit-al-razzaz', titleEn: 'Beit Al-Razzaz', folder: 'BEIT AL RAZZAZ', titleAr: 'بيت الرزاز', category: 'Heritage Restoration', mediaFiles: ['img-20250908-110032', 'dsc-6630', 'dsc-6757', 'dsc-7041', 'dsc-7244'], approvalNeeds: ['project-specific scope and location confirmation'] }),
+  draftRecord({ id: 'marvel', titleEn: 'Marvel', folder: 'Marvel', titleAr: 'مارفل', category: 'Residential Fit-Out', mediaFiles: ['img-20240408-wa0019', 'img20211121115529', 'img20211205125400', 'whatsapp-image-2024-04-10-at-16-58-41-19bb7284'], approvalNeeds: ['project scope', 'worker/photo consent where identifiable people appear'] }),
+  draftRecord({ id: 'oriana-cfc', titleEn: 'Oriana CFC', folder: 'ORIANA - CFC', titleAr: 'أوريانا سي إف سي', category: 'Construction', mediaFiles: ['img20200123104212', 'img20200109104211', 'img-20210307-095545', 'img-20210307-095328'], approvalNeeds: ['confirm each selected image is a real project photograph and approved for SUMMIT publication', 'project location and scope'] }),
+  draftRecord({ id: 'stream-3', titleEn: 'Stream 3', folder: 'STREAM 3', titleAr: 'ستريم 3', category: 'Construction', mediaFiles: ['fb-img-1602655964163', 'whatsapp-image-2024-04-16-at-12-05-14-443a6769', 'whatsapp-image-2024-04-16-at-12-05-12-0de713c6'], approvalNeeds: ['higher-resolution originals for large display placements', 'project location and scope'] }),
+  draftRecord({ id: 'safi-al-din-gawhar', titleEn: 'Safi Al-Din Gawhar', folder: 'SAFI AL-DIN GAWHAR', titleAr: 'صافي الدين جوهر', category: 'Heritage Restoration', approvalNeeds: ['authentic project photographs or approval for image-free publication', 'project location and scope'] }),
   draftRecord({ id: 'mountain-view', titleEn: 'Mountain view — folder label', titleAr: 'Mountain view — اسم مجلد مؤقت', folder: 'Mountain view', state: 'provisional', approvalNeeds: ['confirmed project identity and approved bilingual title', 'still photography or video review and frame approval', 'project category, location and scope'] }),
   draftRecord({ id: 'new-capital-downtown-mall', titleEn: 'New Capital down town mall — folder label', titleAr: 'New Capital down town mall — اسم مجلد مؤقت', folder: 'New Capital down town mall', state: 'provisional', mediaFiles: ['img-20250602-153218', 'img-20250628-133031', 'img-20250719-150853', 'img-20250730-141201', 'img-20260510-120354'], approvalNeeds: ['confirmed project identity and approved bilingual title', 'project category, location and scope', 'worker/photo consent where identifiable people appear'] }),
   draftRecord({ id: 'wajha-office', titleEn: 'Wajha Office — folder label', titleAr: 'Wajha Office — اسم مجلد مؤقت', folder: 'Wajha Office', state: 'provisional', mediaFiles: ['img-20251207-002557'], approvalNeeds: ['confirmed project identity and approved bilingual title', 'project category, location and scope', 'worker consent for the selected photograph'] }),

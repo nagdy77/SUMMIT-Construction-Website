@@ -7,5 +7,5 @@ type ContainerProps = HTMLAttributes<HTMLDivElement> & {
 export function Container({ className = '', size = 'default', ...props }: ContainerProps) {
   const maxWidth = size === 'narrow' ? 'max-w-[1120px]' : 'max-w-[var(--content-width)]'
 
-  return <div className={`mx-auto w-full ${maxWidth} px-[var(--page-gutter)] ${className}`} {...props} />
+  return <div className={`site-container mx-auto w-full ${maxWidth} px-[var(--page-gutter)] ${className}`} {...props} />
 }

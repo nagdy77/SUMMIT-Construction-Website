@@ -24,7 +24,7 @@ async function walk(directory) {
 const dist = path.resolve('dist')
 const routeFiles = [...await walk(path.join(dist, 'en')), ...await walk(path.join(dist, 'ar'))]
 const routes = routeFiles.map((file) => `/${path.relative(dist, path.dirname(file)).split(path.sep).join('/')}/`).sort()
-assert.equal(routes.length, 46)
+assert.equal(routes.length, 44)
 
 class CdpClient {
   constructor(socket) {
@@ -135,6 +135,12 @@ try {
     assert.equal(metrics.generatedResources, 0, `${route} must not load generated architectural imagery`)
   }
 
+  for (const route of ['/en/downloads/', '/ar/downloads/']) {
+    await navigate(route)
+    await waitFor("document.querySelector('#root')?.dataset.clientReady === 'true' && document.querySelector('main .eyebrow')?.textContent.trim() === '404'")
+    assert.equal(await evaluate("document.querySelectorAll('a[href*=" + JSON.stringify('/downloads/') + "]').length"), 0, `${route} must render the not-found page without a Downloads link`)
+  }
+
   for (const route of ['/en/', '/ar/about/', '/en/services/restoration/', '/ar/projects/mohamed-ali-palace/', '/en/contact/']) {
     await navigate(route)
     await client.send('Page.reload', { ignoreCache: true })
@@ -231,12 +237,12 @@ try {
   await navigate('/en/about/')
   const menuButton = "document.querySelector('[aria-controls=mobile-navigation]')"
   await evaluate(`${menuButton}.click(); true`)
-  await waitFor("Boolean(document.querySelector('#mobile-navigation'))")
+  await waitFor("document.querySelector('#mobile-navigation')?.getAttribute('aria-hidden') === 'false' && Number(getComputedStyle(document.querySelector('#mobile-navigation')).opacity) > .95")
   await evaluate("document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); true")
-  await waitFor("!document.querySelector('#mobile-navigation')")
+  await waitFor("document.querySelector('#mobile-navigation')?.getAttribute('aria-hidden') === 'true' && getComputedStyle(document.querySelector('#mobile-navigation')).visibility === 'hidden'")
   assert.equal(await evaluate(`${menuButton} === document.activeElement`), true)
 
-  console.log(`Verified 46 direct localized routes, refreshes, navigation, language switching, both themes, mobile/desktop layouts, service alignment, filters, gallery controls, ${configuredEndpointTest ? 'configured form loading/success/error states' : 'unconfigured form error behavior'}, accessibility basics, reduced motion and image loading in Edge.`)
+  console.log(`Verified 44 direct localized routes, refreshes, navigation, language switching, both themes, mobile/desktop layouts, service alignment, filters, gallery controls, ${configuredEndpointTest ? 'configured form loading/success/error states' : 'unconfigured form error behavior'}, accessibility basics, reduced motion and image loading in Edge.`)
 } finally {
   browser.kill()
   await delay(250)

@@ -6,12 +6,10 @@ import { createServer } from 'node:net'
 
 const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
 const siteUrl = process.argv[2] ?? 'http://127.0.0.1:4173/'
-const dialogProbe = process.argv[3] === '--dialog-probe'
 const desktopOnly = process.argv[3] === '--desktop-only'
 const galleryOnly = process.argv[3] === '--gallery-only'
 const outputDirectory = path.resolve('references', 'qa', 'phase-5')
-const disclaimer = 'This is a design preview, not the official live SUMMIT Construction website. Content, visuals, and functionality are subject to review and approval.'
-const widths = dialogProbe || galleryOnly ? [390] : desktopOnly ? [1440] : [320, 375, 390, 430, 768, 1440, 1920]
+const widths = galleryOnly ? [390] : desktopOnly ? [1440] : [320, 375, 390, 430, 768, 1440, 1920]
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 const results = { startedAt: new Date().toISOString(), url: siteUrl, assertions: [], layouts: [], scenarios: [], errors: [], warnings: [] }
 
@@ -186,7 +184,7 @@ try {
       return true;
     };
     const overlap = (a,b) => Math.min(a.right,b.right) - Math.max(a.left,b.left) > 2 && Math.min(a.bottom,b.bottom) - Math.max(a.top,b.top) > 2;
-    const floating = [...document.querySelectorAll('[aria-controls="summit-preview-dialog"],a[aria-label^="Contact SUMMIT Construction by email"]')].filter(visible);
+    const floating = [...document.querySelectorAll('a[aria-label^="Contact SUMMIT Construction by email"]')].filter(visible);
     const controls = [...document.querySelectorAll('button[aria-label^="Show"]')].filter(visible);
     return {
       scrollY: Math.round(scrollY), viewport: [innerWidth,innerHeight],
@@ -330,17 +328,17 @@ try {
         await evaluate("document.querySelector('button[aria-label=\"Open navigation\"]')?.click()")
         check(await waitFor("document.querySelector('button[aria-label=\"Close navigation\"]')?.getAttribute('aria-expanded') === 'true' && Boolean(document.querySelector('#mobile-navigation'))"), `${scenario}: mobile menu opens`)
         const mobileNav = await evaluate(`(() => { const nav=document.querySelector('#mobile-navigation'); return {links:[...nav.querySelectorAll('a')].map(link=>({label:link.textContent.trim(),height:link.getBoundingClientRect().height})),toggle:Boolean(nav.querySelector('button[aria-label^="Switch to"]')),width:nav.getBoundingClientRect().width}; })()`)
-        check(mobileNav.links.length === 8 && mobileNav.links.every((link) => link.height >= 44), `${scenario}: all eight mobile navigation links are touch safe`, mobileNav)
+        check(mobileNav.links.length === 7 && mobileNav.links.every((link) => link.height >= 44), `${scenario}: all seven mobile navigation links are touch safe`, mobileNav)
         await evaluate("document.querySelector('#mobile-navigation button[aria-label^=\"Switch to\"]')?.click()")
         check(await waitFor(`document.documentElement.dataset.theme === '${theme === 'dark' ? 'light' : 'dark'}'`), `${scenario}: mobile theme toggle works`)
         await evaluate("document.querySelector('#mobile-navigation button[aria-label^=\"Switch to\"]')?.click()")
         check(await waitFor(`document.documentElement.dataset.theme === '${theme}'`), `${scenario}: mobile theme returns to current scenario`)
         if (width === 390) await screenshot(`${scenario}-menu`)
         await key('Escape', 'Escape', 27)
-        check(await waitFor("!document.querySelector('#mobile-navigation') && document.activeElement?.getAttribute('aria-label') === 'Open navigation'"), `${scenario}: Escape closes menu and restores focus`)
+        check(await waitFor("document.querySelector('#mobile-navigation')?.getAttribute('aria-hidden') === 'true' && getComputedStyle(document.querySelector('#mobile-navigation')).visibility === 'hidden' && document.activeElement?.getAttribute('aria-label') === 'Open navigation'"), `${scenario}: Escape closes menu and restores focus`)
       }
 
-      const sections = dialogProbe ? [] : await evaluate(`([...document.querySelectorAll('main > section')]).map((section,index)=>({name:section.id || (section.getAttribute('aria-label')?.includes('perspective')?'story':section.getAttribute('aria-label')?.includes('material')?'materials':'section-'+index),top:section.getBoundingClientRect().top+scrollY,height:section.getBoundingClientRect().height}))`)
+      const sections = await evaluate(`([...document.querySelectorAll('main > section')]).map((section,index)=>({name:section.id || (section.getAttribute('aria-label')?.includes('perspective')?'story':section.getAttribute('aria-label')?.includes('material')?'materials':'section-'+index),top:section.getBoundingClientRect().top+scrollY,height:section.getBoundingClientRect().height}))`)
       const measured = []
       for (const section of sections) {
         const positions = [...new Set([Math.max(0,Math.round(section.top-84)),Math.max(0,Math.round(section.top+section.height/2-(width === 1440?900:844)/2)),Math.max(0,Math.round(section.top+section.height-(width === 1440?900:844)+84))])]
@@ -358,32 +356,15 @@ try {
       }
 
       await scrollTo(0)
-      await evaluate("document.querySelector('[aria-controls=\"summit-preview-dialog\"]')?.focus();document.querySelector('[aria-controls=\"summit-preview-dialog\"]')?.click()")
-      check(await waitFor("document.querySelector('#summit-preview-dialog')?.open === true"), `${scenario}: preview dialog opens`)
-      const dialog = await evaluate(`(() => {const dialog=document.querySelector('#summit-preview-dialog');const box=dialog.getBoundingClientRect();return {description:document.querySelector('#summit-preview-description').textContent.trim(),labelledby:dialog.getAttribute('aria-labelledby'),describedby:dialog.getAttribute('aria-describedby'),initialFocus:dialog.contains(document.activeElement),width:box.width,left:box.left,right:box.right,buttons:[...dialog.querySelectorAll('button')].map(button=>button.getBoundingClientRect().height),label:document.querySelector('[aria-controls="summit-preview-dialog"]').textContent.trim()};})()`)
-      check(dialog.description === disclaimer && Boolean(dialog.labelledby && dialog.describedby), `${scenario}: dialog has exact disclaimer and accessible associations`, dialog)
-      check(dialog.initialFocus && dialog.left >= 0 && dialog.right <= width && dialog.buttons.every((height) => height >= 44), `${scenario}: dialog fits viewport and focuses touch-safe control`, dialog)
-      check(dialog.label === '48-HOUR PREVIEW', `${scenario}: truthful preview duration label has no invented countdown`, dialog.label)
-      for (let tab = 0; tab < 4; tab += 1) {
-        await key('Tab', 'Tab', 9)
-        const focus = await evaluate(`({inDialog:document.querySelector('#summit-preview-dialog').contains(document.activeElement),documentFocused:document.hasFocus(),tag:document.activeElement?.tagName,id:document.activeElement?.id,label:document.activeElement?.getAttribute('aria-label')})`)
-        // Native modal dialogs may yield to browser chrome. That is allowed;
-        // background page controls must never become reachable while it is open.
-        check(focus.inDialog || (!focus.documentFocused && focus.tag === 'BODY'), `${scenario}: dialog Tab ${tab + 1} avoids background page controls`, focus)
-        if (dialogProbe) console.log(`${scenario} Tab${tab + 1} ${JSON.stringify(focus)}`)
-      }
-      if (width === 390 || width === 1440) await screenshot(`${scenario}-preview-dialog`)
-      await key('Escape', 'Escape', 27)
-      check(await waitFor("!document.querySelector('#summit-preview-dialog').open && document.activeElement?.getAttribute('aria-controls') === 'summit-preview-dialog'"), `${scenario}: dialog Escape closes and restores trigger focus`)
       const contact = await evaluate(`({floating:document.querySelector('a[aria-label^="Contact SUMMIT Construction by email"]')?.getAttribute('href'),section:[...document.querySelectorAll('#contact a')].map(link=>link.getAttribute('href'))})`)
       check(contact.floating === 'mailto:Projects@Summit-constructions.com' && contact.section.length >= 1 && contact.section.every((href) => href === contact.floating), `${scenario}: all contact actions use verified email`, contact)
       check(results.errors.length === initialErrors, `${scenario}: no new JavaScript console/runtime errors`, results.errors.slice(initialErrors))
-      results.layouts.push({ scenario, width, theme, initialState, fonts, sectionThemes, sections: measured, dialog, contact })
+      results.layouts.push({ scenario, width, theme, initialState, fonts, sectionThemes, sections: measured, contact })
       console.log(`Completed ${scenario}: ${measured.length} scroll positions checked`)
     }
   }
 
-  if (!dialogProbe && !desktopOnly) {
+  if (!desktopOnly) {
   scenario = 'reduced-motion'
   await setViewport(390)
   await setMedia(true)
@@ -417,7 +398,7 @@ try {
 } finally {
   results.finishedAt = new Date().toISOString()
   results.summary = { assertions: results.assertions.length, passed: results.assertions.filter((assertion) => assertion.passed).length, failed: results.assertions.filter((assertion) => !assertion.passed).length, layouts: results.layouts.length, runtimeErrors: results.errors.length }
-  await writeFile(path.join(outputDirectory, galleryOnly ? 'galleryscreenshots.json' : dialogProbe ? 'dialog-focus-probe.json' : desktopOnly ? 'layout-results-desktop-followup.json' : 'layout-results.json'), `${JSON.stringify(results, null, 2)}\n`, 'utf8')
+  await writeFile(path.join(outputDirectory, galleryOnly ? 'galleryscreenshots.json' : desktopOnly ? 'layout-results-desktop-followup.json' : 'layout-results.json'), `${JSON.stringify(results, null, 2)}\n`, 'utf8')
   if (client) {
     try { await client.send('Browser.close') } catch { /* Browser may already have closed. */ }
   }

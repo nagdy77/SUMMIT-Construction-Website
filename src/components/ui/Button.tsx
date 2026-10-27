@@ -17,6 +17,7 @@ const variants: Record<ButtonVariant, string> = {
 export function ButtonLink({ children, className = '', variant = 'gold', ...props }: ButtonLinkProps) {
   return (
     <a
+      data-magnetic
       className={`summit-button group inline-flex min-h-12 items-center justify-center gap-5 border px-6 py-3 font-body text-[0.6875rem] font-bold uppercase tracking-[0.16em] transition-colors duration-200 ${variants[variant]} ${className}`}
       {...props}
     >

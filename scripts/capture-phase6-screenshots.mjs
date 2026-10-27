@@ -6,7 +6,7 @@ import path from 'node:path'
 
 const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
 const base = (process.argv[2] ?? 'http://127.0.0.1:4173/SUMMIT-Construction-Website').replace(/\/$/, '')
-const outputDirectory = path.resolve('references', 'qa', 'phase-6', 'screenshots')
+const outputDirectory = path.resolve(process.argv[3] ?? path.join('references', 'qa', 'phase-6', 'screenshots'))
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 const pages = [
   ['', 'home'],
@@ -18,7 +18,6 @@ const pages = [
   ['services/fit-out/', 'service-commercial-fit-out'],
   ['projects/', 'projects'],
   ['clients/', 'clients'],
-  ['downloads/', 'downloads'],
   ['contact/', 'contact'],
   ['privacy/', 'privacy'],
 ]

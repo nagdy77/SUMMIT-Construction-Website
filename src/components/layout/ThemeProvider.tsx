@@ -36,7 +36,7 @@ export function ThemeToggle({ labelled = false }: { labelled?: boolean }) {
   const next = context.theme === 'dark' ? 'light' : 'dark'
 
   return (
-    <button type="button" onClick={context.toggle} aria-label={`Switch to ${next} theme`} className={`theme-toggle ${labelled ? 'theme-toggle-labelled' : ''}`}>
+    <button data-magnetic type="button" onClick={context.toggle} aria-label={`Switch to ${next} theme`} className={`theme-toggle ${labelled ? 'theme-toggle-labelled' : ''}`}>
       <Icon name={context.theme === 'dark' ? 'sun' : 'moon'} size={18} />
       {labelled ? <span>{next === 'light' ? 'Light appearance' : 'Dark appearance'}</span> : null}
     </button>

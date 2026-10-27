@@ -90,7 +90,7 @@ export function ContactCTA() {
             {copy.body}
           </p>
           <p data-contact-copy className="mt-7 font-body text-xs uppercase tracking-[0.14em] text-summit-ivory sm:mt-9 sm:text-sm">
-            <a className="inline-flex min-h-11 max-w-full items-center gap-3 border-b border-summit-gold/70 pb-2 transition-colors hover:border-summit-gold hover:text-summit-gold" href="mailto:Projects@Summit-constructions.com">
+            <a data-magnetic className="inline-flex min-h-11 max-w-full items-center gap-3 rounded-[var(--radius-control)] border border-transparent border-b-summit-gold/70 px-2 pb-2 transition-colors hover:border-summit-gold/70 hover:text-summit-gold" href="mailto:Projects@Summit-constructions.com">
               <Icon name="mail" size={18} className="shrink-0" /><span className="min-w-0">Projects@Summit-constructions.com</span>
             </a>
           </p>

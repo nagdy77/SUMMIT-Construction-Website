@@ -15,7 +15,6 @@ export type IconName =
   | 'construction'
   | 'restoration'
   | 'renovation'
-  | 'clock'
   | 'location'
 
 type IconProps = SVGProps<SVGSVGElement> & {
@@ -38,7 +37,6 @@ const paths: Record<IconName, ReactNode> = {
   construction: <><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-7h6v7M3 5l9-3 9 3" /><path d="M9 10h.01M15 10h.01" /></>,
   restoration: <><path d="M3 21h18M5 18V9m5 9V9m4 9V9m5 9V9M3 9h18L12 3 3 9ZM4 18h16v3" /></>,
   renovation: <><path d="M4 21V9l8-6 8 6v12M8 21v-8h8v8M3 21h18" /><path d="m14 7 3 3m-9 0 2-2" /></>,
-  clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
   location: <><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.5" /></>,
 }
 

@@ -656,27 +656,30 @@ export function Hero({ entranceReady = true }: HeroProps) {
 
           <div className="pointer-events-auto flex items-center gap-1 sm:gap-2">
             <button
+              data-magnetic
               type="button"
               onClick={() => toggleAutoplayRef.current()}
               disabled={reducedMotion}
               aria-label={reducedMotion ? 'Autoplay disabled by reduced motion preference' : autoplayPaused ? 'Resume carousel autoplay' : 'Pause carousel autoplay'}
-              className="grid size-11 place-items-center border border-white/25 text-[var(--color-photo-text)] transition-colors hover:border-summit-gold hover:text-summit-gold disabled:cursor-not-allowed disabled:opacity-40"
+              className="icon-control grid size-11 place-items-center border border-white/25 text-[var(--color-photo-text)] transition-colors hover:border-summit-gold hover:text-summit-gold disabled:cursor-not-allowed disabled:opacity-40"
             >
               <Icon name={autoplayPaused ? 'play' : 'pause'} size={16} />
             </button>
             <button
+              data-magnetic
               type="button"
               onClick={showPreviousSlide}
               aria-label="Show previous slide"
-              className="grid size-11 place-items-center border border-white/25 text-[var(--color-photo-text)] transition-colors hover:border-summit-gold hover:text-summit-gold"
+              className="icon-control grid size-11 place-items-center border border-white/25 text-[var(--color-photo-text)] transition-colors hover:border-summit-gold hover:text-summit-gold"
             >
               <Icon name="arrow-left" size={18} />
             </button>
             <button
+              data-magnetic
               type="button"
               onClick={showNextSlide}
               aria-label="Show next slide"
-              className="grid size-11 place-items-center border border-white/25 text-[var(--color-photo-text)] transition-colors hover:border-summit-gold hover:text-summit-gold"
+              className="icon-control grid size-11 place-items-center border border-white/25 text-[var(--color-photo-text)] transition-colors hover:border-summit-gold hover:text-summit-gold"
             >
               <Icon name="arrow-right" size={18} />
             </button>

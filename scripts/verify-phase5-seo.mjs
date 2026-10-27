@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { readdir, readFile } from 'node:fs/promises'
+import { access, readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 const dist = path.resolve('dist')
@@ -23,7 +23,10 @@ function one(html, expression, label, route) {
 }
 
 const routeFiles = [...await walk(path.join(dist, 'en')), ...await walk(path.join(dist, 'ar'))]
-assert.equal(routeFiles.length, 46, 'exactly 46 localized static route files must exist')
+assert.equal(routeFiles.length, 44, 'exactly 44 localized static route files must exist')
+await assert.rejects(access(path.join(dist, 'en', 'downloads', 'index.html')), 'English Downloads HTML must be absent')
+await assert.rejects(access(path.join(dist, 'ar', 'downloads', 'index.html')), 'Arabic Downloads HTML must be absent')
+await assert.rejects(access(path.join(dist, 'assets', 'downloads', 'summit-company-profile.pdf')), 'company profile PDF must be absent from production output')
 const indexedTitles = new Set()
 const indexedDescriptions = new Set()
 let indexedCount = 0
@@ -75,14 +78,14 @@ for (const file of routeFiles) {
   } else assert.equal(robots, 'noindex,follow', `${route} must stay out of search indexing`)
 }
 
-assert.equal(indexedCount, 28, '28 approved localized URLs must be indexable')
+assert.equal(indexedCount, 26, '26 approved localized URLs must be indexable')
 const sitemap = await readFile(path.join(dist, 'sitemap.xml'), 'utf8')
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
-assert.equal(sitemapUrls.length, 28, 'sitemap must contain only 28 approved URLs')
+assert.equal(sitemapUrls.length, 26, 'sitemap must contain only 26 approved URLs')
 assert.equal(new Set(sitemapUrls).size, sitemapUrls.length, 'sitemap URLs must be unique')
 assert.ok(sitemapUrls.every((url) => url.startsWith(`${siteUrl}/`)), 'sitemap URLs must be absolute and canonical')
-assert.ok(!sitemapUrls.some((url) => /privacy|mountain-view|new-capital-downtown-mall|wajha-office/.test(url)), 'privacy and provisional records must be excluded from the sitemap')
+assert.ok(!sitemapUrls.some((url) => /privacy|downloads|mountain-view|new-capital-downtown-mall|wajha-office/.test(url)), 'privacy, downloads, and provisional records must be excluded from the sitemap')
 const robots = await readFile(path.join(dist, 'robots.txt'), 'utf8')
 assert.match(robots, new RegExp(`Sitemap: ${siteUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/sitemap\\.xml`))
 
-console.log('Verified 46 localized static routes, 28 approved indexable URLs, unique metadata, canonical/hreflang pairs, sitemap, robots, Open Graph and Organization/Service/Breadcrumb JSON-LD.')
+console.log('Verified 44 localized static routes, 26 approved indexable URLs, unique metadata, canonical/hreflang pairs, sitemap, robots, Open Graph and Organization/Service/Breadcrumb JSON-LD.')

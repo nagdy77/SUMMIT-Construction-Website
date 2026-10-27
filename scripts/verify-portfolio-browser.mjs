@@ -110,8 +110,10 @@ try {
           width: innerWidth,
           documentWidth: document.documentElement.scrollWidth,
           cards: document.querySelectorAll('.portfolio-card').length,
-          headerPattern: getComputedStyle(header, '::before').maskImage,
-          footerPattern: getComputedStyle(footer, '::before').maskImage,
+          headerPattern: getComputedStyle(header, '::before').backgroundImage,
+          footerPattern: getComputedStyle(footer, '::before').backgroundImage,
+          headerPatternSize: getComputedStyle(header, '::before').backgroundSize,
+          footerPatternSize: getComputedStyle(footer, '::before').backgroundSize,
           headerOpacity: Number(getComputedStyle(header, '::before').opacity),
           footerOpacity: Number(getComputedStyle(footer, '::before').opacity),
           menuVisible: getComputedStyle(menu).display !== 'none',
@@ -122,9 +124,11 @@ try {
       assert.equal(metrics.width, width, `${width}px viewport must be emulated exactly`)
       assert.ok(metrics.documentWidth <= width, `${width}px ${theme} listing must not overflow horizontally`)
       assert.equal(metrics.cards, 11, `${theme} listing must show all 11 projects`)
-      assert.match(metrics.headerPattern, /summit-quotation-grid\.svg/, 'header must use the repeating SVG mask')
-      assert.match(metrics.footerPattern, /summit-quotation-grid\.svg/, 'footer must use the repeating SVG mask')
-      assert.ok(metrics.headerOpacity <= 0.5 && metrics.footerOpacity <= 0.5, 'dark-on-charcoal pattern opacity must remain restrained')
+      assert.match(metrics.headerPattern, /summit-reference-pattern\.png/, 'header must use the exact extracted reference tile')
+      assert.match(metrics.footerPattern, /summit-reference-pattern\.png/, 'footer must use the exact extracted reference tile')
+      assert.match(metrics.headerPatternSize, /485px 358px/, 'header must use the exact client-approved pattern panel')
+      assert.match(metrics.footerPatternSize, /485px 358px/, 'footer must use the exact client-approved pattern panel')
+      assert.ok(metrics.headerOpacity >= 0.8 && metrics.footerOpacity === 1, 'reference pattern must remain visible while preserving the scrolled header treatment')
       assert.deepEqual(metrics.failedImages, [], `${width}px ${theme} listing must have no failed images`)
       assert.equal(metrics.menuVisible, width === 390, 'mobile menu visibility must match the viewport')
       assert.equal(metrics.desktopNavVisible, width === 1440, 'desktop navigation visibility must match the viewport')
@@ -141,7 +145,7 @@ try {
     assert.equal(metrics.placeholder, true, `${slug} must use the typography media treatment`)
   }
 
-  console.log('Verified the 11-project portfolio, dark/light SVG pattern, exact 390px mobile layout, desktop navigation, image loading, and image-free project treatments in Edge.')
+  console.log('Verified the 11-project portfolio, exact extracted pattern, dark/light overlays, 390px mobile layout, desktop navigation, image loading, and image-free project treatments in Edge.')
 } finally {
   browser.kill()
   await delay(250)

@@ -7,7 +7,7 @@ import path from 'node:path'
 const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
 const base = (process.argv[2] ?? 'http://127.0.0.1:4173/SUMMIT-Construction-Website').replace(/\/$/, '')
 const outputDirectory = path.resolve('references', 'qa', 'phase-6')
-const widths = [320, 390, 768, 1440, 1920]
+const widths = [320, 390, 430, 768, 1440]
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 const results = {
   startedAt: new Date().toISOString(),
@@ -120,7 +120,7 @@ const routeFiles = [
 const routes = routeFiles
   .map((file) => `/${path.relative(path.resolve('dist'), path.dirname(file)).split(path.sep).join('/')}/`)
   .sort()
-check(routes.length === 46, 'The production build contains all 46 localized route files', routes.length)
+check(routes.length === 44, 'The production build contains all 44 localized route files', routes.length)
 
 for (const route of routes) {
   const response = await fetch(`${base}${route}`)
@@ -203,6 +203,10 @@ try {
     const brokenImages = [...document.images].filter((image) => image.getAttribute('src') && image.complete && image.naturalWidth === 0).map((image) => image.currentSrc || image.src);
     const missingAlt = [...document.images].filter((image) => !image.hasAttribute('alt')).map((image) => image.currentSrc || image.src);
     const hiddenReveals = [...document.querySelectorAll('[data-reveal]')].filter((node) => Number(getComputedStyle(node).opacity) < .01).length;
+    const header = document.querySelector('.site-header');
+    const headerStyle = header ? getComputedStyle(header) : null;
+    const headerPattern = header ? getComputedStyle(header, '::before') : null;
+    const patternFields = [...document.querySelectorAll('.brand-pattern-field')].map((node) => { const style=getComputedStyle(node, '::before'); return { mask: style.maskImage || style.webkitMaskImage, size: style.maskSize || style.webkitMaskSize, opacity: style.opacity }; });
     return {
       width: innerWidth,
       documentWidth: document.documentElement.scrollWidth,
@@ -218,7 +222,15 @@ try {
       brokenImages,
       missingAlt,
       hiddenReveals,
+      headerPosition: headerStyle?.position,
+      headerTop: header?.getBoundingClientRect().top,
+      headerHeight: header?.getBoundingClientRect().height,
+      headerPatternSize: headerPattern?.backgroundSize,
+      patternFields,
       generatedResources: performance.getEntriesByType('resource').filter((entry) => entry.name.includes('/assets/generated/')).map((entry) => entry.name),
+      temporaryPreviewCount: [...document.querySelectorAll('body *')].filter((node) => /48[- ]hour preview|private design preview|review period/i.test(node.textContent || '')).length,
+      downloadsLinkCount: [...document.querySelectorAll('a[href]')].filter((link) => { const href=(link.getAttribute('href') || '').toLowerCase(); return href.includes('/downloads/') || href.includes('summit-company-profile.pdf'); }).length,
+      patternSurfaces: ['.site-header', '.site-footer'].map((selector) => { const node=document.querySelector(selector); const style=getComputedStyle(node, '::before'); return { selector, image: style.backgroundImage, size: style.backgroundSize, position: style.backgroundPosition, opacity: style.opacity }; }),
       textHasMojibake: /(?:Ã.|Â.|Ø.|Ù.)/.test(document.body.innerText),
       languageHref: document.querySelector('.language-switch')?.getAttribute('href'),
       hrefs: [...document.querySelectorAll('a[href]')].map((link) => link.href),
@@ -245,6 +257,12 @@ try {
       check(metrics.brokenImages.length === 0, `${route} has no broken loaded images at ${width}px`, metrics.brokenImages)
       check(metrics.hiddenReveals === 0, `${route} keeps revealed content visible with reduced motion at ${width}px`, metrics.hiddenReveals)
       check(metrics.generatedResources.length === 0, `${route} loads no generated architectural imagery at ${width}px`, metrics.generatedResources)
+      check(metrics.temporaryPreviewCount === 0, `${route} exposes no temporary preview messaging at ${width}px`, metrics.temporaryPreviewCount)
+      check(metrics.downloadsLinkCount === 0, `${route} exposes no Downloads or public profile PDF link at ${width}px`, metrics.downloadsLinkCount)
+      check(metrics.patternSurfaces.every((item) => item.image.includes('summit-reference-pattern.png') && item.size.includes('485px 358px') && Number(item.opacity) > 0), `${route} retains the exact client-approved pattern in the header and footer at ${width}px`, metrics.patternSurfaces)
+      check(metrics.headerPosition === 'sticky' && Math.abs(metrics.headerTop) < 1, `${route} keeps the header sticky at the viewport top at ${width}px`, { position: metrics.headerPosition, top: metrics.headerTop })
+      check(metrics.headerPatternSize?.includes('485px 358px'), `${route} uses the exact client-approved pattern scale at ${width}px`, metrics.headerPatternSize)
+      check(metrics.patternFields.length > 0 && metrics.patternFields.every((item) => item.mask.includes('summit-reference-pattern-mask.png') && item.size.includes('485px 358px') && Number(item.opacity) > 0), `${route} uses the exact client-approved geometry for text-only fields at ${width}px`, metrics.patternFields)
       check(!metrics.textHasMojibake, `${route} contains no visible encoding corruption at ${width}px`)
       check(metrics.languageHref?.endsWith(expectedAlternate(route)), `${route} language switch preserves its route`, metrics.languageHref)
       if (width === 390) [...metrics.hrefs, ...metrics.imageUrls].forEach((url) => collectedUrls.add(url))
@@ -271,6 +289,13 @@ try {
     check(await waitFor("document.querySelector('#root')?.dataset.clientReady === 'true' && document.documentElement.dataset.theme === 'light'"), `Light theme persists after refresh at ${width}px`)
     await evaluate("document.querySelector('.site-header button[aria-label^=\"Switch to\"]')?.click();true")
     check(await waitFor("document.documentElement.dataset.theme === 'dark'"), `Theme switches back to dark at ${width}px`)
+    const headerAtTop = await evaluate("(() => { const node=document.querySelector('.site-header'); scrollTo(0,0); return { top:node.getBoundingClientRect().top, height:node.getBoundingClientRect().height }; })()")
+    await evaluate("scrollTo(0, Math.max(600, document.documentElement.scrollHeight * .5)); true")
+    check(await waitFor("document.querySelector('.site-header')?.dataset.scrolled === 'true'"), `Header enters its scrolled state at ${width}px`)
+    const headerAtMiddle = await evaluate("(() => { const node=document.querySelector('.site-header'); return { top:node.getBoundingClientRect().top, height:node.getBoundingClientRect().height, position:getComputedStyle(node).position }; })()")
+    await evaluate("scrollTo(0, document.documentElement.scrollHeight); true")
+    const headerAtBottom = await evaluate("(() => { const node=document.querySelector('.site-header'); return { top:node.getBoundingClientRect().top, height:node.getBoundingClientRect().height }; })()")
+    check([headerAtTop, headerAtMiddle, headerAtBottom].every((state) => Math.abs(state.top) < 1 && Math.abs(state.height - headerAtTop.height) < 1) && headerAtMiddle.position === 'sticky', `Header remains fixed without resizing at top, middle and bottom at ${width}px`, { headerAtTop, headerAtMiddle, headerAtBottom })
   }
 
   await setViewport(390)
@@ -300,7 +325,7 @@ try {
   await navigate('/en/about/')
   await evaluate("document.querySelector('[aria-controls=\"mobile-navigation\"]').focus();true")
   await key('Enter', 'Enter', 13, 0, '\r')
-  check(await waitFor("Boolean(document.querySelector('#mobile-navigation'))"), 'Mobile navigation opens from the keyboard')
+  check(await waitFor("document.querySelector('#mobile-navigation')?.getAttribute('aria-hidden') === 'false' && Number(getComputedStyle(document.querySelector('#mobile-navigation')).opacity) > .95"), 'Mobile navigation opens from the keyboard')
   check(await evaluate("document.body.style.overflow === 'hidden'"), 'Open mobile navigation locks background scrolling')
   let menuFocusContained = true
   for (let index = 0; index < 14; index += 1) {
@@ -309,8 +334,12 @@ try {
   }
   check(menuFocusContained, 'Mobile navigation keeps keyboard focus inside the open header')
   await key('Escape', 'Escape', 27)
-  check(await waitFor("!document.querySelector('#mobile-navigation') && document.activeElement === document.querySelector('[aria-controls=\"mobile-navigation\"]')"), 'Escape closes mobile navigation and restores focus')
+  check(await waitFor("document.querySelector('#mobile-navigation')?.getAttribute('aria-hidden') === 'true' && getComputedStyle(document.querySelector('#mobile-navigation')).visibility === 'hidden' && document.activeElement === document.querySelector('[aria-controls=\"mobile-navigation\"]')"), 'Escape closes mobile navigation and restores focus')
   check(await evaluate("document.body.style.overflow !== 'hidden'"), 'Closing mobile navigation restores page scrolling')
+  await evaluate(`(async () => { const button=document.querySelector('[aria-controls="mobile-navigation"]'); for (let index=0; index<5; index+=1) { button.click(); await new Promise((resolve)=>setTimeout(resolve,45)); } return true; })()`, true)
+  check(await waitFor("document.querySelector('#mobile-navigation')?.getAttribute('aria-hidden') === 'false' && Number(getComputedStyle(document.querySelector('#mobile-navigation')).opacity) > .95"), 'Rapid repeated taps settle in the requested open state')
+  await evaluate("document.querySelector('[aria-controls=\"mobile-navigation\"]').click();true")
+  check(await waitFor("document.querySelector('#mobile-navigation')?.getAttribute('aria-hidden') === 'true' && getComputedStyle(document.querySelector('#mobile-navigation')).visibility === 'hidden'"), 'Mobile navigation reverses cleanly after rapid taps')
 
   await navigate('/en/contact/')
   await delay(1600)
@@ -321,6 +350,11 @@ try {
   check((await evaluate("document.querySelector('.contact-direct').getAttribute('href')")) === 'mailto:Projects@Summit-constructions.com', 'Direct email fallback uses the verified destination')
 
   await setReducedMotion(true)
+  await navigate('/ar/about/')
+  await evaluate("document.querySelector('[aria-controls=\"mobile-navigation\"]').click();true")
+  check(await waitFor("document.querySelector('#mobile-navigation')?.getAttribute('aria-hidden') === 'false' && Number(getComputedStyle(document.querySelector('#mobile-navigation')).opacity) === 1"), 'Reduced motion opens the RTL mobile menu without a transition delay')
+  await evaluate("document.querySelector('[aria-controls=\"mobile-navigation\"]').click();true")
+  check(await waitFor("document.querySelector('#mobile-navigation')?.getAttribute('aria-hidden') === 'true'"), 'Reduced motion closes the RTL mobile menu immediately')
   await navigate('/en/')
   check(await evaluate("matchMedia('(prefers-reduced-motion: reduce)').matches"), 'Reduced-motion preference is active in the browser')
   check(await evaluate("!document.querySelector('[data-skip-intro]') && document.querySelector('button[aria-label=\"Autoplay disabled by reduced motion preference\"]')?.disabled === true"), 'Reduced motion skips the intro and disables hero autoplay')

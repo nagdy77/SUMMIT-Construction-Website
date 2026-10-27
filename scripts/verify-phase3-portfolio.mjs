@@ -52,7 +52,8 @@ for (const [slug, project] of Object.entries(selection.projects)) {
 }
 
 await access(path.join(dist, 'assets/projects/featured/phase3-curated'))
-await access(path.join(dist, 'assets/patterns/summit-quotation-grid.svg'))
+await access(path.join(dist, 'assets/patterns/summit-reference-pattern.png'))
+await access(path.join(dist, 'assets/patterns/summit-reference-pattern-mask.png'))
 for (const locale of ['en', 'ar']) {
   const listing = await readFile(path.join(dist, locale, 'projects/index.html'), 'utf8')
   for (const slug of projectSlugs) {
@@ -60,4 +61,4 @@ for (const locale of ['en', 'ar']) {
     await access(path.join(dist, locale, 'projects', slug, 'index.html'))
   }
 }
-console.log(`Verified 11 public-working projects, 368 preserved photographs, 47 preserved videos, ${Object.values(selection.projects).reduce((sum, project) => sum + project.candidates.length, 0)} authentic photo selections, bilingual static routes, and the repeating SVG surface pattern.`)
+console.log(`Verified 11 public-working projects, 368 preserved photographs, 47 preserved videos, ${Object.values(selection.projects).reduce((sum, project) => sum + project.candidates.length, 0)} authentic photo selections, bilingual static routes, and the exact extracted surface pattern.`)

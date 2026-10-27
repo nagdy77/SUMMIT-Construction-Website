@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import Home from './pages/Home'
 import { ProjectDetailPage, ProjectsPage } from './pages/PortfolioPages'
-import { AboutPage, ClientsPage, ContactPage, DownloadsPage, PrivacyPage, ServiceDetailPage, ServicesPage } from './pages/InnerPages'
+import { AboutPage, ClientsPage, ContactPage, PrivacyPage, ServiceDetailPage, ServicesPage } from './pages/InnerPages'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { LocaleProvider } from './content/site'
 import { resolveRoute } from './lib/routes'
@@ -23,7 +23,6 @@ export function App({ path }: { path: string }) {
   else if (route.page === 'project-detail') page = <ProjectDetailPage slug={route.slug} />
   else if (route.page === 'service-detail') page = <ServiceDetailPage slug={route.slug} />
   else if (route.page === 'clients') page = <ClientsPage />
-  else if (route.page === 'downloads') page = <DownloadsPage />
   else if (route.page === 'contact') page = <ContactPage />
   else if (route.page === 'privacy') page = <PrivacyPage />
   else page = <NotFoundPage />

@@ -5,7 +5,7 @@ import path from 'node:path'
 const dist = path.resolve('dist')
 const previewBase = process.argv[2]?.replace(/\/$/, '') ?? null
 const locales = ['en', 'ar']
-const pages = ['about', 'services', 'projects', 'clients', 'downloads', 'contact', 'privacy']
+const pages = ['about', 'services', 'projects', 'clients', 'contact', 'privacy']
 const services = ['construction', 'restoration', 'renovation', 'fit-out']
 const projects = [
   'mohamed-ali-palace', 'ministries-district', 'lakeview-residence', 'beit-al-razzaz', 'marvel', 'oriana-cfc',
@@ -49,6 +49,7 @@ for (const slug of projects) {
   }
 }
 
-await access(path.join(dist, 'assets/downloads/summit-company-profile.pdf'))
-console.log(`Verified ${routes.length} localized static routes${previewBase ? ' over HTTP' : ''}, all 11 public-working projects, gallery limits, and the company profile download.`)
+await assert.rejects(access(path.join(dist, 'assets/downloads/summit-company-profile.pdf')), 'the company profile PDF must not be publicly served')
+await access(path.resolve('SUMMIT Profile new 2025 final (1).pdf'))
+console.log(`Verified ${routes.length} localized static routes${previewBase ? ' over HTTP' : ''}, all 11 public-working projects, gallery limits, public PDF removal, and preservation of the internal profile source.`)
 

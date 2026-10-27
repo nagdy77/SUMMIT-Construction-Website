@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container } from '../components/ui/Container'
@@ -14,6 +14,21 @@ const categoryLabels: Record<'en' | 'ar', Record<ProjectCategory, string>> = {
   ar: { 'Heritage Restoration': 'ترميم التراث', Construction: 'الإنشاءات', 'Residential Fit-Out': 'التشطيبات السكنية', 'Retail Fit-Out': 'تشطيبات تجارية', 'Commercial Fit-Out': 'تشطيبات تجارية' },
 }
 gsap.registerPlugin(ScrollTrigger)
+
+type ProjectFilter = 'all' | ProjectCategory | 'provisional'
+
+const projectFilters: ProjectFilter[] = ['all', 'Heritage Restoration', 'Construction', 'Residential Fit-Out', 'provisional']
+
+function projectFilterBucket(project: PortfolioProject): Exclude<ProjectFilter, 'all'> | null {
+  if (project.state === 'provisional') return 'provisional'
+  return project.category
+}
+
+function filterLabel(filter: ProjectFilter, locale: 'en' | 'ar', allLabel: string) {
+  if (filter === 'all') return allLabel
+  if (filter === 'provisional') return locale === 'en' ? 'Provisional' : 'عناوين مؤقتة'
+  return categoryLabels[locale][filter]
+}
 
 function projectStatusLabel(project: PortfolioProject, locale: 'en' | 'ar') {
   if (project.category) return categoryLabels[locale][project.category]
@@ -43,7 +58,7 @@ function PageFrame({ children }: { children: ReactNode }) {
 }
 
 function EditorialHeader({ eyebrow, title, intro }: { eyebrow: string; title: string; intro?: string }) {
-  return <header className="editorial-page-heading"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1>{intro ? <p className="editorial-intro">{intro}</p> : null}</header>
+  return <header className="editorial-page-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1>{intro ? <p className="editorial-intro">{intro}</p> : null}</header>
 }
 
 function ProjectCard({ project, index }: { project: PortfolioProject; index: number }) {
@@ -63,25 +78,26 @@ function ProjectCard({ project, index }: { project: PortfolioProject; index: num
 export function ProjectsPage() {
   const locale = useLocale()
   const copy = useCopy()
-  const [filter, setFilter] = useState<'all' | ProjectCategory>('all')
+  const [filter, setFilter] = useState<ProjectFilter>('all')
   const pageRef = useRef<HTMLElement>(null)
-  const filters = useMemo(() => ['all', ...Array.from(new Set(publishedProjects.map((project) => project.category).filter((category): category is ProjectCategory => Boolean(category))))] as Array<'all' | ProjectCategory>, [])
-  const filtered = filter === 'all' ? publishedProjects : publishedProjects.filter((project) => project.category === filter)
+  const gridRef = useRef<HTMLDivElement>(null)
+  const filtered = filter === 'all' ? publishedProjects : publishedProjects.filter((project) => projectFilterBucket(project) === filter)
+  const categoryCount = (category: ProjectFilter) => category === 'all' ? publishedProjects.length : publishedProjects.filter((project) => projectFilterBucket(project) === category).length
   useEffect(() => {
-    const root = pageRef.current
-    if (!root) return
+    const grid = gridRef.current
+    if (!grid) return
     const media = gsap.matchMedia()
     media.add('(prefers-reduced-motion: no-preference)', () => {
-      const cards = root.querySelectorAll<HTMLElement>('.portfolio-card-image')
-      gsap.from(cards, { clipPath: 'inset(0 0 100% 0)', y: 20, duration: 1, stagger: 0.12, ease: 'power3.inOut', scrollTrigger: { trigger: root.querySelector('.portfolio-grid'), start: 'top 82%', once: true } })
+      const cards = grid.querySelectorAll<HTMLElement>('.portfolio-card')
+      gsap.fromTo(cards, { autoAlpha: 0, y: 22, scale: .988 }, { autoAlpha: 1, y: 0, scale: 1, duration: .72, stagger: .065, ease: 'power3.out', clearProps: 'opacity,visibility,transform' })
     })
     return () => media.revert()
   }, [filter])
   return <PageFrame><section ref={pageRef} className="portfolio-page"><Container>
     <EditorialHeader eyebrow={copy.pages.projects.eyebrow} title={copy.pages.projects.title} intro={copy.pages.projects.intro} />
-    <div className="portfolio-toolbar"><p>{String(filtered.length).padStart(2, '0')} <span>{copy.labels.projects}</span></p><div role="group" aria-label={copy.actions.filter} className="portfolio-filters">{filters.map((category) => <button key={category} type="button" aria-pressed={filter === category} onClick={() => setFilter(category)}>{category === 'all' ? copy.actions.all : categoryLabels[locale][category]}</button>)}</div></div>
-    <div className="portfolio-grid" aria-live="polite">{filtered.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</div>
-    <aside className="portfolio-contact"><p className="eyebrow">{copy.labels.contact}</p><h2>{locale === 'en' ? 'Every project begins with a conversation.' : 'تبدأ كل حكاية مشروع بحوار.'}</h2><a className="text-link" href={routePath(locale, 'contact')}>{copy.actions.enquire}<span aria-hidden="true">↗</span></a></aside>
+    <div className="portfolio-toolbar"><p>{String(filtered.length).padStart(2, '0')} <span>{copy.labels.projects}</span></p><div role="group" aria-label={copy.actions.filter} className="portfolio-filters">{projectFilters.map((category) => <button data-magnetic key={category} type="button" aria-pressed={filter === category} onClick={() => setFilter(category)}><span>{filterLabel(category, locale, copy.actions.all)}</span><b aria-hidden="true">{String(categoryCount(category)).padStart(2, '0')}</b></button>)}</div></div>
+    <div ref={gridRef} className="portfolio-grid" aria-live="polite">{filtered.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</div>
+    <aside className="portfolio-contact"><p className="eyebrow">{copy.labels.contact}</p><h2>{locale === 'en' ? 'Every project begins with a conversation.' : 'تبدأ كل حكاية مشروع بحوار.'}</h2><a data-magnetic className="text-link" href={routePath(locale, 'contact')}>{copy.actions.enquire}<span aria-hidden="true">↗</span></a></aside>
   </Container></section></PageFrame>
 }
 
@@ -99,10 +115,10 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
   const description = projectWorkingDescription(project, locale)
   return <PageFrame><article className="detail-page"><Container>
     <Breadcrumbs items={[{ label: copy.nav.home, href: routePath(locale) }, { label: copy.nav.projects, href: routePath(locale, 'projects') }, { label: project.title[locale] }]} />
-    <header className="detail-heading"><p className="eyebrow">{projectStatusLabel(project, locale)}</p><h1>{project.title[locale]}</h1>{project.location ? <p className="detail-location">{project.location[locale]}</p> : null}<p>{description}</p></header>
+    <header className="detail-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{projectStatusLabel(project, locale)}</p><h1>{project.title[locale]}</h1>{project.location ? <p className="detail-location">{project.location[locale]}</p> : null}<p>{description}</p></header>
     <ProjectGallery project={project} locale={locale} />
-    {project.scope?.[locale]?.length ? <section className="detail-scope"><p className="eyebrow">{copy.labels.scope}</p><ul>{project.scope[locale].map((item) => <li key={item}>{item}</li>)}</ul></section> : null}
-    <div className="detail-cta"><a className="text-link" href={routePath(locale, 'contact')}>{copy.actions.enquire}<span aria-hidden="true">↗</span></a></div>
+    {project.scope?.[locale]?.length ? <section className="detail-scope brand-pattern-field brand-pattern-field--metadata"><p className="eyebrow">{copy.labels.scope}</p><ul>{project.scope[locale].map((item) => <li key={item}>{item}</li>)}</ul></section> : null}
+    <div className="detail-cta"><a data-magnetic className="text-link" href={routePath(locale, 'contact')}>{copy.actions.enquire}<span aria-hidden="true">↗</span></a></div>
     <section className="related-projects"><p className="eyebrow">{copy.labels.related}</p><div className="portfolio-grid">{related.map((item, index) => <ProjectCard project={item} index={index} key={item.id} />)}</div></section>
   </Container></article></PageFrame>
 }
@@ -125,7 +141,7 @@ function ProjectGallery({ project, locale }: { project: PortfolioProject; locale
     const motion = gsap.matchMedia()
     motion.add('(prefers-reduced-motion: no-preference)', () => {
       const tiles = root.querySelectorAll('button')
-      gsap.from(tiles, { clipPath: 'inset(0 0 100% 0)', y: 16, duration: .85, stagger: .1, ease: 'power3.inOut', scrollTrigger: { trigger: root, start: 'top 88%', once: true } })
+      gsap.from(tiles, { autoAlpha: 0, y: 24, scale: .985, duration: .8, stagger: .08, ease: 'power3.out', scrollTrigger: { trigger: root, start: 'top 88%', once: true }, clearProps: 'opacity,visibility,transform' })
     })
     return () => motion.revert()
   }, [project.id])
@@ -133,7 +149,7 @@ function ProjectGallery({ project, locale }: { project: PortfolioProject; locale
     const image = dialog.current?.querySelector('figure img')
     if (active === null || !image) return
     const motion = gsap.matchMedia()
-    motion.add('(prefers-reduced-motion: no-preference)', () => gsap.fromTo(image, { opacity: 0, scale: .985, clipPath: 'inset(0 0 6% 0)' }, { opacity: 1, scale: 1, clipPath: 'inset(0)', duration: .5, ease: 'power2.out' }))
+    motion.add('(prefers-reduced-motion: no-preference)', () => gsap.fromTo(image, { opacity: 0, scale: 1.018, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: .62, ease: 'power3.out', clearProps: 'opacity,transform' }))
     return () => motion.revert()
   }, [active])
   const close = () => setActive(null)
@@ -149,9 +165,9 @@ function ProjectGallery({ project, locale }: { project: PortfolioProject; locale
       <img src={sitePath(image.src)} srcSet={responsiveSrcSet(image)} sizes="(max-width: 700px) 100vw, 50vw" alt={image.alt[locale]} loading="lazy" decoding="async" width="1200" height="800" />
     </button>)}</section> : null}
     <dialog ref={dialog} className="portfolio-lightbox" aria-label={copy.labels.projects} onClose={close} onClick={(event) => { if (event.target === dialog.current) close() }} onKeyDown={(event) => { if (event.key === 'ArrowRight') { event.preventDefault(); step(1) } if (event.key === 'ArrowLeft') { event.preventDefault(); step(-1) } }}>
-      <div className="lightbox-toolbar"><span>{active === null ? '' : `${String(active + 1).padStart(2, '0')} / ${String(images.length).padStart(2, '0')}`}</span><button type="button" onClick={close} aria-label={locale === 'en' ? 'Close gallery' : 'إغلاق المعرض'}>×</button></div>
+      <div className="lightbox-toolbar"><span>{active === null ? '' : `${String(active + 1).padStart(2, '0')} / ${String(images.length).padStart(2, '0')}`}</span><span className="lightbox-progress" aria-hidden="true"><i style={{ transform: `scaleX(${active === null ? 0 : (active + 1) / images.length})` }} /></span><button data-magnetic type="button" onClick={close} aria-label={locale === 'en' ? 'Close gallery' : 'إغلاق المعرض'}>×</button></div>
       {active !== null && images[active] ? <figure><img src={sitePath(images[active].src)} srcSet={responsiveSrcSet(images[active])} sizes="100vw" alt={images[active].alt[locale]} /><figcaption>{images[active].alt[locale]}</figcaption></figure> : null}
-      {images.length > 1 ? <div className="lightbox-controls"><button type="button" onClick={() => step(-1)} aria-label={locale === 'en' ? 'Previous image' : 'الصورة السابقة'}>←</button><button type="button" onClick={() => step(1)} aria-label={locale === 'en' ? 'Next image' : 'الصورة التالية'}>→</button></div> : null}
+      {images.length > 1 ? <div className="lightbox-controls"><button data-magnetic type="button" onClick={() => step(-1)} aria-label={locale === 'en' ? 'Previous image' : 'الصورة السابقة'}>←</button><button data-magnetic type="button" onClick={() => step(1)} aria-label={locale === 'en' ? 'Next image' : 'الصورة التالية'}>→</button></div> : null}
     </dialog>
   </>
 }
@@ -159,6 +175,6 @@ function ProjectGallery({ project, locale }: { project: PortfolioProject; locale
 export function NotFoundPage() {
   const locale = useLocale()
   const copy = useCopy()
-  return <PageFrame><section className="editorial-content-page"><Container><EditorialHeader eyebrow="404" title={locale === 'en' ? 'Page not found.' : 'الصفحة غير موجودة.'} /><a className="text-link" href={routePath(locale)}>{copy.nav.home}<span aria-hidden="true">↗</span></a></Container></section></PageFrame>
+  return <PageFrame><section className="editorial-content-page"><Container><EditorialHeader eyebrow="404" title={locale === 'en' ? 'Page not found.' : 'الصفحة غير موجودة.'} /><a data-magnetic className="text-link" href={routePath(locale)}>{copy.nav.home}<span aria-hidden="true">↗</span></a></Container></section></PageFrame>
 }
 

@@ -517,18 +517,20 @@ export function FeaturedProjects() {
 
               <div className="flex items-center gap-2 sm:pb-1">
                 <button
+                  data-magnetic
                   type="button"
                   onClick={showPreviousImage}
                   aria-label={`Show previous photograph of ${activeProject.name}`}
-                  className="grid size-11 place-items-center border border-[var(--color-border)] text-[var(--color-ink)] transition-colors hover:border-summit-gold hover:bg-summit-gold hover:text-summit-black sm:size-12"
+                  className="icon-control grid size-11 place-items-center border border-[var(--color-border)] text-[var(--color-ink)] transition-colors hover:border-summit-gold hover:bg-summit-gold hover:text-summit-black sm:size-12"
                 >
                   <Icon name="arrow-left" size={18} />
                 </button>
                 <button
+                  data-magnetic
                   type="button"
                   onClick={showNextImage}
                   aria-label={`Show next photograph of ${activeProject.name}`}
-                  className="grid size-11 place-items-center border border-[var(--color-border)] text-[var(--color-ink)] transition-colors hover:border-summit-gold hover:bg-summit-gold hover:text-summit-black sm:size-12"
+                  className="icon-control grid size-11 place-items-center border border-[var(--color-border)] text-[var(--color-ink)] transition-colors hover:border-summit-gold hover:bg-summit-gold hover:text-summit-black sm:size-12"
                 >
                   <Icon name="arrow-right" size={18} />
                 </button>
@@ -562,7 +564,7 @@ export function FeaturedProjects() {
       </Container>
 
       <Container className="relative z-10 mt-6 flex justify-end">
-        <a className="text-link" href={routePath(locale, 'projects')}>{copy.all}<span aria-hidden="true">↗</span></a>
+        <a data-magnetic className="text-link" href={routePath(locale, 'projects')}>{copy.all}<span aria-hidden="true">↗</span></a>
       </Container>
 
       <p className="sr-only" aria-live="polite" aria-atomic="true">

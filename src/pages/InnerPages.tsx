@@ -70,6 +70,16 @@ const images = {
     src: '/assets/projects/featured/lakeview/lakeview-interior-joinery.webp',
     alt: { en: 'Interior joinery in the Lakeview Residence project', ar: 'أعمال نجارة داخلية في مشروع ليك فيو ريزيدنس' },
   },
+  workmanship: {
+    src: '/assets/projects/featured/real-media/about-workmanship-portrait-1122.webp',
+    srcSet: '/assets/projects/featured/real-media/about-workmanship-portrait-640.webp 640w, /assets/projects/featured/real-media/about-workmanship-portrait-960.webp 960w, /assets/projects/featured/real-media/about-workmanship-portrait-1122.webp 1122w',
+    alt: { en: 'Craft workmanship documented on a SUMMIT project', ar: 'أعمال حرفية موثقة في أحد مشروعات سوميت' },
+  },
+  contact: {
+    src: '/assets/projects/featured/real-media/contact-work-wide-1914.webp',
+    srcSet: '/assets/projects/featured/real-media/contact-work-wide-960.webp 960w, /assets/projects/featured/real-media/contact-work-wide-1440.webp 1440w, /assets/projects/featured/real-media/contact-work-wide-1914.webp 1914w',
+    alt: { en: 'SUMMIT project team working on site', ar: 'فريق مشروع سوميت أثناء العمل في الموقع' },
+  },
 } satisfies Record<string, EditorialImage>
 
 const profileOrganisations = [
@@ -118,9 +128,12 @@ function useEditorialMotion<T extends HTMLElement>() {
         })
         gsap.utils.toArray<HTMLElement>('[data-image-reveal]').forEach((node) => {
           if (node.getBoundingClientRect().top < window.innerHeight * .92) return
-          gsap.from(node, { clipPath: 'inset(0 0 100% 0)', duration: 1.15, ease: 'power3.inOut', scrollTrigger: { trigger: node, start: 'top 88%', once: true } })
+          const image = node.querySelector<HTMLElement>('img')
+          const timeline = gsap.timeline({ scrollTrigger: { trigger: node, start: 'top 88%', once: true } })
+          timeline.from(node, { autoAlpha: 0, y: 42, duration: 1, ease: 'power3.out', clearProps: 'opacity,visibility,transform' })
+          if (image) timeline.from(image, { yPercent: -5, scale: 1.075, duration: 1.15, ease: 'power3.out', clearProps: 'transform' }, 0)
         })
-        gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((node) => gsap.fromTo(node, { yPercent: -3 }, { yPercent: 3, ease: 'none', scrollTrigger: { trigger: node.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }))
+        gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((node) => gsap.fromTo(node, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: node.parentElement, start: 'top bottom', end: 'bottom top', scrub: .65 } }))
       })
       return () => media.revert()
     }, ref)
@@ -151,10 +164,14 @@ export function AboutPage() {
     ]
   return <PageFrame><article ref={root} className="inner-page about-editorial"><Container>
     <header className="inner-hero about-hero">
-      <div className="inner-hero-copy"><p className="eyebrow">{copy.pages.about.eyebrow}</p><h1>{copy.pages.about.title}</h1><p>{copy.pages.about.body}</p></div>
+      <div className="inner-hero-copy brand-pattern-field brand-pattern-field--panel"><p className="eyebrow">{copy.pages.about.eyebrow}</p><h1>{copy.pages.about.title}</h1><p>{copy.pages.about.body}</p></div>
       <figure className="inner-hero-media"><EditorialImageView image={images.aboutWide} priority /></figure>
     </header>
     <dl className="company-facts" data-reveal>{facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
+    <section className="editorial-photo-strip" aria-label={isEnglish ? 'SUMMIT project workmanship' : 'أعمال من مشروعات سوميت'}>
+      <figure className="editorial-photo-strip__portrait" data-image-reveal><EditorialImageView image={images.workmanship} sizes="(max-width: 760px) 72vw, 34vw" /><figcaption><span>01</span>{isEnglish ? 'Workmanship / authentic project record' : 'الحرفية / توثيق أصلي للمشروع'}</figcaption></figure>
+      <figure className="editorial-photo-strip__wide" data-image-reveal><div data-parallax><EditorialImageView image={images.restorationWide} sizes="(max-width: 760px) 100vw, 58vw" /></div><figcaption><span>02</span>{isEnglish ? 'Heritage fabric / authentic project record' : 'النسيج التراثي / توثيق أصلي للمشروع'}</figcaption></figure>
+    </section>
     <section className="founders-story">
       <div className="founders-sticky" data-reveal><p className="eyebrow">{isEnglish ? 'The founders' : 'المؤسسون'}</p><h2>{home.about.founders}</h2><p>{home.about.body}</p></div>
       <figure className="founders-image" data-image-reveal><div data-parallax><EditorialImageView image={images.aboutPortrait} sizes="(max-width: 760px) 100vw, 45vw" /></div></figure>
@@ -172,11 +189,12 @@ export function ServicesPage() {
   const home = useHomeCopy()
   const root = useEditorialMotion<HTMLElement>()
   return <PageFrame><section ref={root} className="inner-page services-editorial"><Container>
-    <header className="services-index-heading"><p className="eyebrow">{copy.pages.services.eyebrow}</p><h1>{copy.pages.services.title}</h1><p>{copy.pages.services.body}</p></header>
+    <header className="services-index-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{copy.pages.services.eyebrow}</p><h1>{copy.pages.services.title}</h1><p>{copy.pages.services.body}</p></header>
     <section className="formal-disciplines" aria-labelledby="formal-disciplines-title">
       <div className="formal-disciplines-heading" data-reveal><p className="eyebrow">{locale === 'en' ? 'Corporate terminology' : 'المصطلحات المؤسسية'}</p><h2 id="formal-disciplines-title">{locale === 'en' ? 'Formal disciplines' : 'التخصصات الرسمية'}</h2></div>
       <div className="formal-disciplines-grid">{home.services.cards.map((discipline, index) => <article key={discipline.name} data-reveal><span>0{index + 1}</span><h3>{discipline.name}</h3><p>{discipline.description}</p></article>)}</div>
     </section>
+    <figure className="editorial-panorama" data-image-reveal><div data-parallax><EditorialImageView image={images.constructionWide} sizes="100vw" /></div><figcaption><span>01 / 04</span>{locale === 'en' ? 'Construction in progress / authentic SUMMIT photography' : 'أعمال إنشاء قيد التنفيذ / تصوير أصلي لسوميت'}</figcaption></figure>
     <div className="service-landing-label" data-reveal><p className="eyebrow">{locale === 'en' ? 'Dedicated service pages' : 'صفحات الخدمات المخصصة'}</p><p>{locale === 'en' ? 'Four focused landing pages aligned with the agreed website scope.' : 'أربع صفحات متخصصة متوافقة مع نطاق الموقع المتفق عليه.'}</p></div>
     <div className="services-index-list">{copy.serviceDetails.map((service) => {
       const visual = serviceVisuals[service.slug]
@@ -204,7 +222,7 @@ export function ServiceDetailPage({ slug }: { slug?: string }) {
   return <PageFrame><article ref={root} className={`inner-page service-detail service-detail--${composition}`}><Container>
     <Breadcrumbs items={[{ label: copy.nav.home, href: routePath(locale) }, { label: copy.nav.services, href: routePath(locale, 'services') }, { label: service.title }]} />
     <header className="service-detail-hero">
-      <div><p className="eyebrow">{visual.number} · {copy.pages.services.eyebrow}</p><h1>{service.title}</h1><p>{service.desc}</p></div>
+      <div className="brand-pattern-field brand-pattern-field--panel"><p className="eyebrow">{visual.number} · {copy.pages.services.eyebrow}</p><h1>{service.title}</h1><p>{service.desc}</p></div>
       <figure><EditorialImageView image={visual.primary} priority /></figure>
     </header>
     <section className="service-detail-body">
@@ -212,7 +230,7 @@ export function ServiceDetailPage({ slug }: { slug?: string }) {
       <figure data-image-reveal><div data-parallax><EditorialImageView image={visual.secondary} sizes="(max-width: 760px) 100vw, 50vw" /></div></figure>
     </section>
     <nav className="service-next" aria-label={locale === 'en' ? 'Service navigation' : 'التنقل بين الخدمات'} data-reveal>
-      <span>{locale === 'en' ? 'Next service' : 'الخدمة التالية'}</span><a href={routePath(locale, 'service-detail', next.slug)}>{next.title}<b aria-hidden="true">↗</b></a>
+      <span>{locale === 'en' ? 'Next service' : 'الخدمة التالية'}</span><a data-magnetic href={routePath(locale, 'service-detail', next.slug)}>{next.title}<b aria-hidden="true">↗</b></a>
     </nav>
     <InnerCta title={locale === 'en' ? 'Discuss this service with SUMMIT.' : 'ناقش هذه الخدمة مع سوميت.'} href={`${routePath(locale, 'contact')}?interest=${encodeURIComponent(slug)}`} label={copy.actions.enquire} />
   </Container></article></PageFrame>
@@ -223,24 +241,10 @@ export function ClientsPage() {
   const copy = useCopy()
   const root = useEditorialMotion<HTMLElement>()
   return <PageFrame><section ref={root} className="inner-page clients-editorial"><Container>
-    <header className="clients-heading"><p className="eyebrow">{copy.pages.clients.eyebrow}</p><h1>{copy.pages.clients.title}</h1><p>{copy.pages.clients.body}</p></header>
+    <header className="clients-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{copy.pages.clients.eyebrow}</p><h1>{copy.pages.clients.title}</h1><p>{copy.pages.clients.body}</p></header>
     <p className="profile-source-note" data-reveal>{locale === 'en' ? 'The following marks are reproduced from the client-supplied SUMMIT company profile.' : 'العلامات التالية مأخوذة من الملف التعريفي لشركة سوميت المقدم من العميل.'}</p>
     <div className="client-logo-grid">{profileOrganisations.map((organisation, index) => <figure key={organisation.name} data-reveal><span>{String(index + 1).padStart(2, '0')}</span><div><img src={sitePath(organisation.logo)} alt={`${organisation.name} logo`} loading="lazy" decoding="async" /></div><figcaption>{organisation.name}</figcaption></figure>)}</div>
     <InnerCta title={locale === 'en' ? 'Explore selected SUMMIT projects.' : 'استكشف مشروعات مختارة لسوميت.'} href={routePath(locale, 'projects')} label={copy.nav.projects} />
-  </Container></section></PageFrame>
-}
-
-export function DownloadsPage() {
-  const locale = useLocale()
-  const copy = useCopy()
-  const root = useEditorialMotion<HTMLElement>()
-  const profileHref = sitePath('/assets/downloads/summit-company-profile.pdf')
-  return <PageFrame><section ref={root} className="inner-page downloads-editorial"><Container>
-    <header className="downloads-heading"><p className="eyebrow">{copy.pages.downloads.eyebrow}</p><h1>{copy.pages.downloads.title}</h1><p>{copy.pages.downloads.body}</p></header>
-    <article className="profile-download" data-reveal>
-      <div className="profile-document" aria-hidden="true"><span>SUMMIT</span><strong>Construction</strong><i>Company profile · 2025</i></div>
-      <div className="profile-download-copy"><p className="eyebrow">PDF · 7.8 MB</p><h2>{locale === 'en' ? 'SUMMIT Construction — Company Profile' : 'سوميت للإنشاءات — الملف التعريفي'}</h2><p>{locale === 'en' ? 'Company background, services, selected projects and contact information in one client-supplied document.' : 'نبذة عن الشركة وخدماتها ومشروعات مختارة ومعلومات التواصل في وثيقة مقدمة من العميل.'}</p><a className="button-link" href={profileHref} download>{copy.actions.download}<span aria-hidden="true">↓</span></a></div>
-    </article>
   </Container></section></PageFrame>
 }
 
@@ -300,7 +304,7 @@ export function ContactPage() {
   }
   return <PageFrame><section ref={root} className="inner-page contact-editorial"><Container>
     <div className="contact-layout">
-      <header><p className="eyebrow">{copy.pages.contact.eyebrow}</p><h1>{copy.pages.contact.title}</h1><p>{copy.pages.contact.body}</p><a className="contact-direct" href="mailto:Projects@Summit-constructions.com">Projects@Summit-constructions.com <span aria-hidden="true">↗</span></a></header>
+      <header className="brand-pattern-field brand-pattern-field--panel"><p className="eyebrow">{copy.pages.contact.eyebrow}</p><h1>{copy.pages.contact.title}</h1><p>{copy.pages.contact.body}</p><a data-magnetic className="contact-direct" href="mailto:Projects@Summit-constructions.com">Projects@Summit-constructions.com <span aria-hidden="true">↗</span></a></header>
       <form ref={formRef} className="enquiry-form" onSubmit={handleSubmit} noValidate aria-busy={formState === 'loading'} data-delivery-configured={endpointConfigured ? 'true' : 'false'}>
         <div className="form-field"><label htmlFor="contact-name">{labels.name}</label><input id="contact-name" name="name" autoComplete="name" required minLength={2} /></div>
         <div className="form-field"><label htmlFor="contact-email">{labels.email}</label><input id="contact-email" name="email" type="email" autoComplete="email" required /></div>
@@ -311,10 +315,11 @@ export function ContactPage() {
         <div className="form-trap" aria-hidden="true"><label htmlFor="contact-website">Website</label><input id="contact-website" name="website" tabIndex={-1} autoComplete="off" /></div>
         <p className="form-privacy">{labels.privacy} <a href={routePath(locale, 'privacy')}>{copy.nav.privacy}</a></p>
         {!endpointConfigured ? <p className="form-configuration" role="note">{labels.unavailable}</p> : null}
-        <div className="form-actions"><button className="button-link" type="submit" disabled={formState === 'loading'}>{formState === 'loading' ? labels.sending : labels.submit}<span aria-hidden="true">↗</span></button><a href="mailto:Projects@Summit-constructions.com">{labels.alternative}</a></div>
+        <div className="form-actions"><button data-magnetic className="button-link" type="submit" disabled={formState === 'loading'}>{formState === 'loading' ? labels.sending : labels.submit}<span aria-hidden="true">↗</span></button><a href="mailto:Projects@Summit-constructions.com">{labels.alternative}</a></div>
         <p className="form-status" data-state={formState} role={formState === 'error' ? 'alert' : 'status'} aria-live="polite">{status}</p>
       </form>
     </div>
+    <figure className="contact-photo-band" data-image-reveal><div data-parallax><EditorialImageView image={images.contact} sizes="100vw" /></div><figcaption><span>SUMMIT / 01</span>{locale === 'en' ? 'From the client-supplied project archive' : 'من أرشيف المشروعات المقدم من العميل'}</figcaption></figure>
   </Container></section></PageFrame>
 }
 
@@ -325,9 +330,9 @@ export function PrivacyPage() {
   const paragraphs = locale === 'en'
     ? ['This website stores your selected appearance in local browser storage and may remember whether the introductory animation has played during your session.', 'When an approved form endpoint is configured, the enquiry form sends the entered contact and project information to that external provider for email delivery. The provider’s privacy and retention terms will apply. Direct email remains available as an alternative.', 'Google Analytics loads only when a valid GA4 measurement ID is configured and analytics consent has been recorded. No analytics account is connected in the current local configuration.']
     : ['يحفظ هذا الموقع المظهر الذي تختاره في مساحة التخزين المحلية للمتصفح، وقد يتذكر ما إذا كان العرض التمهيدي قد ظهر خلال الجلسة.', 'عند إعداد نقطة نهاية معتمدة للنموذج، يرسل نموذج الاستفسار بيانات التواصل والمشروع المدخلة إلى ذلك المزود الخارجي لتسليم البريد الإلكتروني، وتطبق شروط الخصوصية والاحتفاظ الخاصة بالمزود. ويظل البريد المباشر خيارًا بديلًا.', 'لا تُحمّل خدمة Google Analytics إلا بعد إعداد معرّف قياس GA4 صالح وتسجيل الموافقة على التحليلات. ولا يوجد حساب تحليلات متصل في الإعداد المحلي الحالي.']
-  return <PageFrame><section ref={root} className="inner-page privacy-editorial"><Container><header><p className="eyebrow">{copy.pages.privacy.eyebrow}</p><h1>{copy.pages.privacy.title}</h1></header><div className="privacy-copy">{paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></Container></section></PageFrame>
+  return <PageFrame><section ref={root} className="inner-page privacy-editorial"><Container><header className="brand-pattern-field brand-pattern-field--panel"><p className="eyebrow">{copy.pages.privacy.eyebrow}</p><h1>{copy.pages.privacy.title}</h1></header><div className="privacy-copy">{paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></Container></section></PageFrame>
 }
 
 function InnerCta({ title, href, label }: { title: string; href: string; label: string }) {
-  return <aside className="inner-cta" data-reveal><h2>{title}</h2><a className="text-link" href={href}>{label}<span aria-hidden="true">↗</span></a></aside>
+  return <aside className="inner-cta" data-reveal><h2>{title}</h2><a data-magnetic className="text-link" href={href}>{label}<span aria-hidden="true">↗</span></a></aside>
 }

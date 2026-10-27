@@ -91,7 +91,7 @@ try {
     await delay(120)
   }
 
-  const routes = ['about', 'services', 'services/construction', 'services/restoration', 'services/renovation', 'services/fit-out', 'clients', 'downloads', 'contact', 'privacy']
+  const routes = ['about', 'services', 'services/construction', 'services/restoration', 'services/renovation', 'services/fit-out', 'clients', 'contact', 'privacy']
   for (const width of [390, 1440]) {
     await client.send('Emulation.setDeviceMetricsOverride', { width, height: width === 390 ? 844 : 900, deviceScaleFactor: 1, mobile: width === 390 })
     for (const locale of ['en', 'ar']) {
@@ -138,9 +138,6 @@ try {
 
   await navigate(`${base}/en/clients/`)
   assert.equal(await evaluate("document.querySelectorAll('.client-logo-grid figure').length"), 8)
-  await navigate(`${base}/en/downloads/`)
-  assert.match(await evaluate("document.querySelector('.profile-download a[download]').href"), /summit-company-profile\.pdf$/)
-
   await navigate(`${base}/en/contact/`)
   await delay(1600)
   await evaluate("document.querySelector('.enquiry-form').requestSubmit(); true")
@@ -151,7 +148,7 @@ try {
   await navigate(`${base}/en/about/`)
   assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-reveal]')).opacity"), '1')
 
-  console.log('Verified 40 responsive EN/AR inner-page renders, four distinct service compositions, 8 profile-supplied marks, the PDF download, form validation, image loading, RTL and reduced motion in Edge.')
+  console.log('Verified 36 responsive EN/AR inner-page renders, four distinct service compositions, 8 profile-supplied marks, form validation, image loading, RTL and reduced motion in Edge.')
 } finally {
   browser.kill()
   await delay(250)

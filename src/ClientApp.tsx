@@ -2,6 +2,7 @@ import { useEffect, type ComponentType } from 'react'
 import { LocaleProvider } from './content/site'
 import { trackPageView } from './lib/analytics'
 import { resolveRoute, type RouteInfo } from './lib/routes'
+import { useMagneticControls } from './hooks/useMagneticControls'
 
 type ClientPage = ComponentType<{ slug?: string }>
 
@@ -18,7 +19,6 @@ export async function loadClientPage(route: RouteInfo): Promise<ClientPage> {
   if (route.page === 'services') return pages.ServicesPage
   if (route.page === 'service-detail') return pages.ServiceDetailPage
   if (route.page === 'clients') return pages.ClientsPage
-  if (route.page === 'downloads') return pages.DownloadsPage
   if (route.page === 'contact') return pages.ContactPage
   if (route.page === 'privacy') return pages.PrivacyPage
 
@@ -27,6 +27,7 @@ export async function loadClientPage(route: RouteInfo): Promise<ClientPage> {
 
 export function ClientApp({ path, Page }: { path: string; Page: ClientPage }) {
   const route = resolveRoute(path)
+  useMagneticControls()
 
   useEffect(() => {
     document.documentElement.lang = route.locale

@@ -3,15 +3,14 @@ import type { Locale } from '../data/portfolio'
 
 export const siteCopy = {
   en: {
-    nav: { home: 'Home', about: 'About', services: 'Services', projects: 'Projects', clients: 'Clients & Partners', downloads: 'Downloads', contact: 'Contact', privacy: 'Privacy' },
-    actions: { explore: 'Explore the project', allProjects: 'View all projects', enquire: 'Discuss a project', download: 'Download company profile', back: 'Back to projects', filter: 'Filter by discipline', all: 'All projects', menu: 'Open navigation', close: 'Close navigation', theme: 'Appearance', skip: 'Skip to content' },
-    labels: { featured: 'Selected work', projects: 'Projects', about: 'About SUMMIT', services: 'Services', clients: 'Clients & Partners', downloads: 'Downloads', contact: 'Contact', privacy: 'Privacy', category: 'Discipline', location: 'Location', client: 'Client', scope: 'Scope', related: 'Related projects', page: 'Page' },
+    nav: { home: 'Home', about: 'About', services: 'Services', projects: 'Projects', clients: 'Clients & Partners', contact: 'Contact', privacy: 'Privacy' },
+    actions: { explore: 'Explore the project', allProjects: 'View all projects', enquire: 'Discuss a project', back: 'Back to projects', filter: 'Filter by discipline', all: 'All projects', menu: 'Open navigation', close: 'Close navigation', theme: 'Appearance', skip: 'Skip to content' },
+    labels: { featured: 'Selected work', projects: 'Projects', about: 'About SUMMIT', services: 'Services', clients: 'Clients & Partners', contact: 'Contact', privacy: 'Privacy', category: 'Discipline', location: 'Location', client: 'Client', scope: 'Scope', related: 'Related projects', page: 'Page' },
     pages: {
       projects: { eyebrow: 'A considered body of work', title: 'Built with purpose.\nMade to endure.', intro: 'A selection of restoration, construction, and finishing work recorded in the SUMMIT portfolio.', description: 'Explore selected SUMMIT projects across heritage restoration, contemporary construction, and residential finishing.' },
       about: { eyebrow: 'The company', title: 'Building with a sense of place.', body: 'SUMMIT Construction brings together construction, restoration, and renovation. Its work spans heritage settings and contemporary projects, with attention to material, execution, and lasting use.', description: 'Learn about SUMMIT Construction and its work in construction, restoration, and renovation.' },
       services: { eyebrow: 'What we do', title: 'Three disciplines. One considered approach.', body: 'SUMMIT Construction’s formal services are construction, restoration, and renovation. Its portfolio also includes residential and retail fit-out specializations.', description: 'Explore SUMMIT Construction services: construction, restoration, renovation, and fit-out specializations.' },
       clients: { eyebrow: 'Company profile', title: 'Clients & Partners', body: 'A presentation of organisation marks included in the client-supplied SUMMIT company profile. Individual client and partner classifications remain unassigned.', description: 'View the organisation marks included in the SUMMIT Construction company profile.' },
-      downloads: { eyebrow: 'Company documents', title: 'Downloads', body: 'Company information for review and reference.', description: 'Download the SUMMIT Construction company profile.' },
       contact: { eyebrow: 'Start a conversation', title: 'Let’s build something that lasts.', body: 'Send SUMMIT Construction a project enquiry or use the direct email alternative.', description: 'Contact SUMMIT Construction about construction, heritage restoration, residential fit-out, or commercial fit-out.' },
       privacy: { eyebrow: 'Website information', title: 'Privacy', body: 'This website stores limited interface preferences locally. Enquiry delivery uses a configured external form provider only after submission.', description: 'Privacy information for the SUMMIT Construction website and enquiry form.' },
     },
@@ -24,15 +23,14 @@ export const siteCopy = {
     home: { language: 'العربية', skip: 'Skip to content' },
   },
   ar: {
-    nav: { home: 'الرئيسية', about: 'من نحن', services: 'خدماتنا', projects: 'المشروعات', clients: 'العملاء والشركاء', downloads: 'التنزيلات', contact: 'تواصل معنا', privacy: 'الخصوصية' },
-    actions: { explore: 'استكشف المشروع', allProjects: 'عرض جميع المشروعات', enquire: 'ناقش مشروعك', download: 'تنزيل ملف الشركة', back: 'العودة إلى المشروعات', filter: 'التصفية حسب التخصص', all: 'كل المشروعات', menu: 'فتح القائمة', close: 'إغلاق القائمة', theme: 'المظهر', skip: 'انتقل إلى المحتوى' },
-    labels: { featured: 'أعمال مختارة', projects: 'المشروعات', about: 'عن سوميت', services: 'الخدمات', clients: 'العملاء والشركاء', downloads: 'التنزيلات', contact: 'تواصل', privacy: 'الخصوصية', category: 'التخصص', location: 'الموقع', client: 'العميل', scope: 'نطاق العمل', related: 'مشروعات ذات صلة', page: 'صفحة' },
+    nav: { home: 'الرئيسية', about: 'من نحن', services: 'خدماتنا', projects: 'المشروعات', clients: 'العملاء والشركاء', contact: 'تواصل معنا', privacy: 'الخصوصية' },
+    actions: { explore: 'استكشف المشروع', allProjects: 'عرض جميع المشروعات', enquire: 'ناقش مشروعك', back: 'العودة إلى المشروعات', filter: 'التصفية حسب التخصص', all: 'كل المشروعات', menu: 'فتح القائمة', close: 'إغلاق القائمة', theme: 'المظهر', skip: 'انتقل إلى المحتوى' },
+    labels: { featured: 'أعمال مختارة', projects: 'المشروعات', about: 'عن سوميت', services: 'الخدمات', clients: 'العملاء والشركاء', contact: 'تواصل', privacy: 'الخصوصية', category: 'التخصص', location: 'الموقع', client: 'العميل', scope: 'نطاق العمل', related: 'مشروعات ذات صلة', page: 'صفحة' },
     pages: {
       projects: { eyebrow: 'سجل من الأعمال المدروسة', title: 'أُنجزت بهدف.\nوصُممت لتدوم.', intro: 'مجموعة من أعمال الترميم والإنشاء والتشطيبات الواردة في سجل مشروعات سوميت.', description: 'استكشف مشروعات سوميت المختارة في ترميم التراث والإنشاءات والتشطيبات السكنية.' },
       about: { eyebrow: 'الشركة', title: 'نبني مع مراعاة المكان.', body: 'تجمع شركة سوميت للإنشاءات بين الإنشاء والترميم والتجديد. وتمتد أعمالها بين المواقع التراثية والمشروعات المعاصرة مع الاهتمام بالخامات والتنفيذ والاستدامة.', description: 'تعرف على شركة سوميت للإنشاءات وأعمالها في الإنشاء والترميم والتجديد.' },
       services: { eyebrow: 'مجالات عملنا', title: 'ثلاثة تخصصات. ونهج مدروس.', body: 'تتمثل خدمات سوميت للإنشاءات في الإنشاء والترميم والتجديد. كما تشمل محفظة أعمالها تخصصات التشطيب السكني والتجاري.', description: 'تعرف على خدمات سوميت للإنشاءات في الإنشاء والترميم والتجديد والتشطيبات.' },
       clients: { eyebrow: 'الملف التعريفي', title: 'العملاء والشركاء', body: 'عرض لعلامات المؤسسات الواردة في الملف التعريفي لشركة سوميت والمقدم من العميل. ولم تُصنف كل علامة بشكل منفصل كعميل أو شريك.', description: 'شاهد علامات المؤسسات الواردة في الملف التعريفي لشركة سوميت للإنشاءات.' },
-      downloads: { eyebrow: 'وثائق الشركة', title: 'التنزيلات', body: 'معلومات الشركة للمراجعة والاطلاع.', description: 'تنزيل الملف التعريفي لشركة سوميت للإنشاءات.' },
       contact: { eyebrow: 'لنبدأ حوارًا', title: 'لنبنِ شيئًا يدوم.', body: 'أرسل استفسار مشروع إلى سوميت للإنشاءات أو استخدم البريد الإلكتروني المباشر كخيار بديل.', description: 'تواصل مع سوميت للإنشاءات بشأن الإنشاء أو ترميم التراث أو التشطيبات السكنية أو التجارية.' },
       privacy: { eyebrow: 'معلومات الموقع', title: 'الخصوصية', body: 'يحفظ هذا الموقع قدرًا محدودًا من تفضيلات الواجهة محليًا. ويستخدم إرسال الاستفسارات مزود نماذج خارجيًا بعد إتمام الإرسال فقط.', description: 'معلومات الخصوصية لموقع سوميت للإنشاءات ونموذج الاستفسار.' },
     },

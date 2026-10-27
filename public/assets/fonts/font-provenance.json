@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T22:14:32.470Z",
+  "generatedAt": "2026-10-26T19:55:15.832Z",
   "assets": [
     {
       "family": "DM Sans",
@@ -42,6 +42,62 @@
       "cssSource": "https://fonts.googleapis.com/css2?family=Instrument+Serif%3Aital%400%3B1&display=swap",
       "binarySource": "https://fonts.gstatic.com/s/instrumentserif/v5/jizHRFtNs2ka5fXjeivQ4LroWlx-6zAjjH7M.woff2",
       "licenseFile": "instrument-serif-OFL.txt"
+    },
+    {
+      "family": "IBM Plex Sans Arabic",
+      "style": "normal",
+      "filename": "ibm-plex-sans-arabic-regular.woff2",
+      "bytes": 42848,
+      "sha256": "6010e7fd0dce5d527583951750728cbe3c895efbd16aa0f809ab8c824878c9d8",
+      "format": "woff2",
+      "subset": "arabic",
+      "weight": "400",
+      "unicodeRange": "U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC7, U+10EC9-10EEE, U+10EF0-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1",
+      "cssSource": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic%3Awght%40400%3B500%3B600%3B700&display=swap",
+      "binarySource": "https://fonts.gstatic.com/s/ibmplexsansarabic/v15/Qw3CZRtWPQCuHme67tEYUIx3Kh0PHR9N6Ys43PWrfQ.woff2",
+      "licenseFile": "ibm-plex-sans-arabic-OFL.txt"
+    },
+    {
+      "family": "IBM Plex Sans Arabic",
+      "style": "normal",
+      "filename": "ibm-plex-sans-arabic-medium.woff2",
+      "bytes": 45296,
+      "sha256": "90aef64fea9794f232332e907d45810ab268d1a11721340025eba2a2cdb36d5c",
+      "format": "woff2",
+      "subset": "arabic",
+      "weight": "500",
+      "unicodeRange": "U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC7, U+10EC9-10EEE, U+10EF0-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1",
+      "cssSource": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic%3Awght%40400%3B500%3B600%3B700&display=swap",
+      "binarySource": "https://fonts.gstatic.com/s/ibmplexsansarabic/v15/Qw3NZRtWPQCuHme67tEYUIx3Kh0PHR9N6YPO_-CRXMR5Kw.woff2",
+      "licenseFile": "ibm-plex-sans-arabic-OFL.txt"
+    },
+    {
+      "family": "IBM Plex Sans Arabic",
+      "style": "normal",
+      "filename": "ibm-plex-sans-arabic-semibold.woff2",
+      "bytes": 45688,
+      "sha256": "16734a5adb27b0f363e566cbbeacec480da0dc0baa19c8f0053251c2e2bc0eac",
+      "format": "woff2",
+      "subset": "arabic",
+      "weight": "600",
+      "unicodeRange": "U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC7, U+10EC9-10EEE, U+10EF0-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1",
+      "cssSource": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic%3Awght%40400%3B500%3B600%3B700&display=swap",
+      "binarySource": "https://fonts.gstatic.com/s/ibmplexsansarabic/v15/Qw3NZRtWPQCuHme67tEYUIx3Kh0PHR9N6YPi-OCRXMR5Kw.woff2",
+      "licenseFile": "ibm-plex-sans-arabic-OFL.txt"
+    },
+    {
+      "family": "IBM Plex Sans Arabic",
+      "style": "normal",
+      "filename": "ibm-plex-sans-arabic-bold.woff2",
+      "bytes": 44280,
+      "sha256": "04c730b4292731ccedadd5bd80756124364ae4923895145d9cd7b1f28e443de1",
+      "format": "woff2",
+      "subset": "arabic",
+      "weight": "700",
+      "unicodeRange": "U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC7, U+10EC9-10EEE, U+10EF0-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1",
+      "cssSource": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic%3Awght%40400%3B500%3B600%3B700&display=swap",
+      "binarySource": "https://fonts.gstatic.com/s/ibmplexsansarabic/v15/Qw3NZRtWPQCuHme67tEYUIx3Kh0PHR9N6YOG-eCRXMR5Kw.woff2",
+      "licenseFile": "ibm-plex-sans-arabic-OFL.txt"
     }
   ],
   "licenses": [
@@ -55,6 +111,12 @@
       "family": "Instrument Serif",
       "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/instrumentserif/OFL.txt",
       "filename": "instrument-serif-OFL.txt",
+      "license": "SIL Open Font License 1.1"
+    },
+    {
+      "family": "IBM Plex Sans Arabic",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsansarabic/OFL.txt",
+      "filename": "ibm-plex-sans-arabic-OFL.txt",
       "license": "SIL Open Font License 1.1"
     }
   ]
