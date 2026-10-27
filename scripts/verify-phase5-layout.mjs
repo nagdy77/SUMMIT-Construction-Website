@@ -158,9 +158,8 @@ try {
     const mounted = await waitFor("Boolean(document.querySelector('#top'))", 10000)
     check(mounted, `${scenario}: React homepage mounted`)
     if (!mounted) throw new Error('Homepage did not mount')
-    // Home decides whether to show its session entrance in a React effect. Give
-    // that effect one frame before testing for the overlay's removal; otherwise
-    // a fresh session can look complete during the brief pre-effect render.
+    // The route shell mounts the entrance in a React effect. Give that effect
+    // one frame before testing for the overlay's removal.
     await delay(50)
     if (skip) await evaluate("document.querySelector('[data-skip-intro]')?.click()")
     const completed = await waitFor("!document.querySelector('[data-skip-intro]')", 3000)
@@ -284,13 +283,13 @@ try {
   const introResult = await evaluate(`({theme:document.documentElement.dataset.theme,firstFrame:window.__phase5FirstFrameTheme,bodyOverflow:document.body.style.overflow,htmlOverflow:document.documentElement.style.overflow,seen:sessionStorage.getItem('summit-intro-seen')})`)
   check(introResult.theme === 'dark' && introResult.firstFrame === 'dark', 'Fresh session: default dark despite emulated OS light', introResult)
   check(introResult.bodyOverflow !== 'hidden' && introResult.htmlOverflow !== 'hidden', 'Skip intro: scrolling restored', introResult)
-  check(introResult.seen === 'true', 'Skip intro: session state persisted')
+  check(introResult.seen === null, 'Skip intro: no session gate suppresses later route entrances')
   results.scenarios.push({ name: scenario, elapsedIncludingHeroRevealMs: Date.now() - introStart, ...introResult })
 
   for (const width of widths) {
     await setViewport(width)
     await setMedia()
-    await evaluate("localStorage.removeItem('summit-theme');sessionStorage.setItem('summit-intro-seen','true')")
+    await evaluate("localStorage.removeItem('summit-theme')")
     scenario = `${width}-dark`
     await reload()
     await waitForPage()
@@ -368,7 +367,7 @@ try {
   scenario = 'reduced-motion'
   await setViewport(390)
   await setMedia(true)
-  await evaluate("sessionStorage.removeItem('summit-intro-seen');localStorage.removeItem('summit-theme')")
+  await evaluate("localStorage.removeItem('summit-theme')")
   await reload()
   await waitForPage()
   const reduced = await evaluate(`({intro:Boolean(document.querySelector('[data-skip-intro]')),reduced:matchMedia('(prefers-reduced-motion:reduce)').matches,disabled:document.querySelector('button[aria-label="Autoplay disabled by reduced motion preference"]')?.disabled,bodyOverflow:document.body.style.overflow,htmlOverflow:document.documentElement.style.overflow,headingHeight:document.querySelector('#top h1')?.getBoundingClientRect().height})`)
@@ -380,7 +379,6 @@ try {
   await setMedia()
   await client.send('Network.setCacheDisabled', { cacheDisabled: true })
   await client.send('Network.setBlockedURLs', { urls: ['*hero-heritage*.webp'] })
-  await evaluate("sessionStorage.removeItem('summit-intro-seen')")
   const failedStarted = Date.now()
   await reload(true)
   await waitForPage()

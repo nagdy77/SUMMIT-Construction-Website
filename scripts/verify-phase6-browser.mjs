@@ -367,7 +367,6 @@ try {
     uploadThroughput: 25000,
     connectionType: 'cellular3g',
   })
-  await evaluate("sessionStorage.removeItem('summit-intro-seen');true")
   const slowStarted = Date.now()
   await client.send('Page.reload', { ignoreCache: true })
   const slowHydrated = await waitFor("document.querySelector('#root')?.dataset.clientReady === 'true'", 30000)

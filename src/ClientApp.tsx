@@ -1,10 +1,11 @@
-import { useEffect, type ComponentType } from 'react'
+import { useCallback, useEffect, useState, type ComponentType } from 'react'
+import { EntranceIntro, shouldPlayEntrance } from './components/layout/EntranceIntro'
 import { LocaleProvider } from './content/site'
 import { trackPageView } from './lib/analytics'
 import { resolveRoute, type RouteInfo } from './lib/routes'
 import { useMagneticControls } from './hooks/useMagneticControls'
 
-type ClientPage = ComponentType<{ slug?: string }>
+type ClientPage = ComponentType<{ slug?: string; entranceReady?: boolean }>
 
 export async function loadClientPage(route: RouteInfo): Promise<ClientPage> {
   if (route.page === 'home') return (await import('./pages/Home')).default
@@ -27,7 +28,25 @@ export async function loadClientPage(route: RouteInfo): Promise<ClientPage> {
 
 export function ClientApp({ path, Page }: { path: string; Page: ClientPage }) {
   const route = resolveRoute(path)
+  const [introActive, setIntroActive] = useState(false)
+  const [introRun, setIntroRun] = useState(0)
+  const [entranceReady, setEntranceReady] = useState(false)
   useMagneticControls()
+
+  const startEntrance = useCallback(() => {
+    if (!shouldPlayEntrance()) {
+      setIntroActive(false)
+      setEntranceReady(true)
+      return
+    }
+
+    setEntranceReady(false)
+    setIntroRun((run) => run + 1)
+    setIntroActive(true)
+  }, [])
+
+  const revealPage = useCallback(() => setEntranceReady(true), [])
+  const completeIntro = useCallback(() => setIntroActive(false), [])
 
   useEffect(() => {
     document.documentElement.lang = route.locale
@@ -35,9 +54,21 @@ export function ClientApp({ path, Page }: { path: string; Page: ClientPage }) {
     trackPageView(path)
   }, [path, route.locale])
 
+  useEffect(() => {
+    startEntrance()
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) startEntrance()
+    }
+    window.addEventListener('pageshow', handlePageShow)
+    return () => window.removeEventListener('pageshow', handlePageShow)
+  }, [path, startEntrance])
+
   return (
-    <LocaleProvider locale={route.locale} path={path}>
-      <Page slug={route.slug} />
-    </LocaleProvider>
+    <>
+      {introActive ? <EntranceIntro key={introRun} onRevealHero={revealPage} onComplete={completeIntro} /> : null}
+      <LocaleProvider locale={route.locale} path={path}>
+        <Page slug={route.slug} entranceReady={entranceReady} />
+      </LocaleProvider>
+    </>
   )
 }

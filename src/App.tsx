@@ -16,7 +16,7 @@ export function App({ path }: { path: string }) {
   }, [path, route.locale])
 
   let page
-  if (route.page === 'home') page = <Home />
+  if (route.page === 'home') page = <Home entranceReady={false} />
   else if (route.page === 'about') page = <AboutPage />
   else if (route.page === 'services') page = <ServicesPage />
   else if (route.page === 'projects') page = <ProjectsPage />

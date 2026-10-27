@@ -96,7 +96,11 @@ try {
   const navigate = async (route, theme = 'dark') => {
     await client.send('Page.navigate', { url: `${base}${route}` })
     if (!await waitFor("document.readyState === 'complete' && document.querySelector('#root')?.dataset.clientReady === 'true'")) throw new Error(`Timed out loading ${route}`)
-    await evaluate(`sessionStorage.setItem('summit-intro-seen','true'); localStorage.setItem('summit-theme', '${theme}'); document.documentElement.dataset.theme='${theme}'; document.documentElement.style.colorScheme='${theme}'; true`)
+    if (await waitFor("Boolean(document.querySelector('[data-skip-intro]'))", 1500)) {
+      await evaluate("document.querySelector('[data-skip-intro]').click();true")
+      await waitFor("!document.querySelector('[data-skip-intro]')", 3000)
+    }
+    await evaluate(`localStorage.setItem('summit-theme', '${theme}'); document.documentElement.dataset.theme='${theme}'; document.documentElement.style.colorScheme='${theme}'; true`)
     await evaluate("document.fonts.ready", true)
     await delay(180)
   }

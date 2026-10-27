@@ -2,7 +2,6 @@ import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { assetUrl } from '../../lib/assets'
 
-const INTRO_SESSION_KEY = 'summit-intro-seen'
 const ESSENTIAL_ASSET_WAIT_MS = 1200
 const MINIMUM_INTRO_MS = 1050
 
@@ -15,13 +14,7 @@ type ImageResult = 'loaded' | 'failed' | 'timeout'
 
 export function shouldPlayEntrance() {
   if (typeof window === 'undefined') return false
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
-
-  try {
-    return window.sessionStorage.getItem(INTRO_SESSION_KEY) !== 'true'
-  } catch {
-    return true
-  }
+  return !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
 function waitForImage(image: HTMLImageElement | null, timeoutMs: number): Promise<ImageResult> {
@@ -78,12 +71,6 @@ export function EntranceIntro({ onRevealHero, onComplete }: EntranceIntroProps) 
     restoreOverflowRef.current = () => {
       document.body.style.overflow = previousBodyOverflow
       document.documentElement.style.overflow = previousHtmlOverflow
-    }
-
-    try {
-      window.sessionStorage.setItem(INTRO_SESSION_KEY, 'true')
-    } catch {
-      // The entrance still works when session storage is unavailable.
     }
 
     const revealHero = () => {
