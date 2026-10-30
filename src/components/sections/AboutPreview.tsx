@@ -10,6 +10,9 @@ gsap.registerPlugin(ScrollTrigger)
 export function AboutPreview() {
   const locale = useLocale()
   const copy = useHomeCopy().about
+  const foundersPortraitAlt = locale === 'en'
+    ? 'Ahmed Elesawy, left, and Mohamed Haron, right, founders of SUMMIT Construction'
+    : 'أحمد العيسوي، يسارًا، ومحمد هارون، يمينًا، مؤسسا شركة سوميت للإنشاءات'
   const facts = locale === 'en'
     ? [{ label: 'Established', value: '2018' }, { label: 'Founders', value: 'Ahmed Elesawy & Mohamed Haron' }, { label: 'Origin', value: 'Egypt' }]
     : [{ label: 'التأسيس', value: '2018' }, { label: 'المؤسسون', value: 'أحمد العيسوي ومحمد هارون' }, { label: 'الموطن', value: 'مصر' }]
@@ -100,24 +103,24 @@ export function AboutPreview() {
           </h2>
         </header>
 
-        <div className="mt-16 grid gap-12 sm:mt-20 lg:mt-28 lg:grid-cols-12 lg:gap-6">
-          <div className="relative lg:col-span-7 lg:col-start-2">
+        <div className="about-executive-grid mt-16 grid gap-14 sm:mt-20 lg:mt-28 lg:grid-cols-12 lg:gap-x-10 xl:gap-x-14">
+          <div className="about-executive-visual relative lg:col-span-7">
             <div className="absolute -left-4 top-10 hidden h-[72%] w-px bg-summit-gold lg:block" aria-hidden="true" />
             <div className="absolute -left-4 top-10 hidden h-px w-20 bg-summit-gold lg:block" aria-hidden="true" />
 
-            <div className="overflow-hidden [clip-path:polygon(0_0,100%_0,100%_91%,91%_100%,0_100%)]">
+            <div className="about-executive-frame overflow-hidden">
               <div data-about-reveal className="h-full w-full">
                 <div data-about-image-motion className="h-full w-full">
                   <img
-                    src={assetUrl('/assets/projects/featured/real-media/about-workmanship-portrait-1122.webp')}
-                    srcSet={assetSrcSet('/assets/projects/featured/real-media/about-workmanship-portrait-640.webp 640w, /assets/projects/featured/real-media/about-workmanship-portrait-960.webp 960w, /assets/projects/featured/real-media/about-workmanship-portrait-1122.webp 1122w')}
-                    sizes="(max-width: 767px) 100vw, 54vw"
-                    width="1122"
-                    height="1403"
-                    alt={locale === 'en' ? 'SUMMIT worker installing wall insulation at Wajha Office' : 'عامل من سوميت ينفذ أعمال العزل في مكتب وجهة'}
+                    src={assetUrl('/assets/about/founders/founders-monochrome-1536.webp')}
+                    srcSet={assetSrcSet('/assets/about/founders/founders-monochrome-960.webp 960w, /assets/about/founders/founders-monochrome-1536.webp 1536w')}
+                    sizes="(max-width: 767px) calc(100vw - 2.5rem), (max-width: 1279px) 58vw, 720px"
+                    width="1536"
+                    height="1024"
+                    alt={foundersPortraitAlt}
                     loading="lazy"
                     decoding="async"
-                    className="aspect-[4/5] size-full object-cover"
+                    className="about-executive-photo"
                   />
                 </div>
               </div>
@@ -125,23 +128,26 @@ export function AboutPreview() {
 
             <div
               data-about-geometry
-              className="absolute -bottom-10 -right-4 hidden size-52 text-summit-gold lg:block xl:-right-16 xl:size-64"
+              className="about-executive-mark"
               aria-hidden="true"
             >
-              <svg viewBox="0 0 260 220" fill="none" className="size-full">
-                <path d="M14 204 104 22l90 182H14Z" stroke="currentColor" strokeWidth="1.2" />
-                <path d="m82 204 63-127 63 127H82Z" stroke="currentColor" strokeWidth="1.2" />
-                <path d="m148 204 42-82 42 82h-84Z" stroke="currentColor" strokeWidth="1.2" />
-              </svg>
+              <img
+                src={assetUrl('/assets/brand/summit-mountain-symbol.webp')}
+                width="480"
+                height="388"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
             </div>
 
-            <div className="absolute -bottom-6 left-5 bg-summit-charcoal px-5 py-4 text-summit-ivory sm:left-8 sm:px-7 sm:py-5">
+            <div className="about-established-badge absolute -bottom-7 left-5 px-5 py-4 sm:left-8 sm:px-7 sm:py-5">
               <span className="block font-body text-[0.5625rem] font-bold uppercase tracking-[0.2em] text-summit-gold">{copy.established}</span>
               <span className="mt-1 block font-display text-2xl font-medium tracking-[-0.04em] sm:text-3xl">2018</span>
             </div>
           </div>
 
-          <div className="flex flex-col justify-end pt-8 lg:col-span-4 lg:col-start-9 lg:pt-28">
+          <div className="about-executive-copy flex flex-col justify-end pt-6 lg:col-span-4 lg:col-start-9 lg:pt-16">
             <p data-about-copy className="font-display text-2xl font-medium leading-tight tracking-[-0.04em] text-[var(--color-ink)] sm:text-3xl">
               {copy.strapline}
             </p>

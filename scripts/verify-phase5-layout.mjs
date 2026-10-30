@@ -327,7 +327,7 @@ try {
         await evaluate("document.querySelector('button[aria-label=\"Open navigation\"]')?.click()")
         check(await waitFor("document.querySelector('button[aria-label=\"Close navigation\"]')?.getAttribute('aria-expanded') === 'true' && Boolean(document.querySelector('#mobile-navigation'))"), `${scenario}: mobile menu opens`)
         const mobileNav = await evaluate(`(() => { const nav=document.querySelector('#mobile-navigation'); return {links:[...nav.querySelectorAll('a')].map(link=>({label:link.textContent.trim(),height:link.getBoundingClientRect().height})),toggle:Boolean(nav.querySelector('button[aria-label^="Switch to"]')),width:nav.getBoundingClientRect().width}; })()`)
-        check(mobileNav.links.length === 7 && mobileNav.links.every((link) => link.height >= 44), `${scenario}: all seven mobile navigation links are touch safe`, mobileNav)
+        check(mobileNav.links.length === 6 && mobileNav.links.every((link) => link.height >= 44), `${scenario}: all six mobile navigation links are touch safe`, mobileNav)
         await evaluate("document.querySelector('#mobile-navigation button[aria-label^=\"Switch to\"]')?.click()")
         check(await waitFor(`document.documentElement.dataset.theme === '${theme === 'dark' ? 'light' : 'dark'}'`), `${scenario}: mobile theme toggle works`)
         await evaluate("document.querySelector('#mobile-navigation button[aria-label^=\"Switch to\"]')?.click()")

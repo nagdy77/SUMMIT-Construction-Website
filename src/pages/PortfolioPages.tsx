@@ -10,46 +10,41 @@ import { routePath, sitePath } from '../lib/routes'
 import { NotFoundPage as SharedNotFoundPage } from './NotFoundPage'
 
 const categoryLabels: Record<'en' | 'ar', Record<ProjectCategory, string>> = {
-  en: { 'Heritage Restoration': 'Heritage Restoration', Construction: 'Construction', 'Residential Fit-Out': 'Residential Fit-Out', 'Retail Fit-Out': 'Retail Fit-Out', 'Commercial Fit-Out': 'Commercial Fit-Out' },
-  ar: { 'Heritage Restoration': 'ترميم التراث', Construction: 'الإنشاءات', 'Residential Fit-Out': 'التشطيبات السكنية', 'Retail Fit-Out': 'تشطيبات تجارية', 'Commercial Fit-Out': 'تشطيبات تجارية' },
+  en: { 'Heritage Restoration': 'Heritage Restoration', Construction: 'Construction', 'Residential Fit-Out': 'Residential Fit-Out', 'Retail Fit-Out': 'Retail Fit-Out' },
+  ar: { 'Heritage Restoration': 'ترميم التراث', Construction: 'الإنشاءات', 'Residential Fit-Out': 'التشطيبات السكنية', 'Retail Fit-Out': 'تشطيبات تجارية' },
 }
 gsap.registerPlugin(ScrollTrigger)
 
-type ProjectFilter = 'all' | ProjectCategory | 'provisional'
+type ProjectFilter = 'all' | ProjectCategory
 
-const projectFilters: ProjectFilter[] = ['all', 'Heritage Restoration', 'Construction', 'Residential Fit-Out', 'provisional']
+const projectFilters: ProjectFilter[] = ['all', 'Heritage Restoration', 'Construction', 'Residential Fit-Out', 'Retail Fit-Out']
 
 function projectFilterBucket(project: PortfolioProject): Exclude<ProjectFilter, 'all'> | null {
-  if (project.state === 'provisional') return 'provisional'
   return project.category
 }
 
 function filterLabel(filter: ProjectFilter, locale: 'en' | 'ar', allLabel: string) {
   if (filter === 'all') return allLabel
-  if (filter === 'provisional') return locale === 'en' ? 'Provisional' : 'عناوين مؤقتة'
   return categoryLabels[locale][filter]
 }
 
 function projectStatusLabel(project: PortfolioProject, locale: 'en' | 'ar') {
-  if (project.category) return categoryLabels[locale][project.category]
-  if (project.state === 'provisional') return locale === 'en' ? 'Provisional folder title' : 'اسم مجلد مؤقت'
-  return locale === 'en' ? 'Client-supplied project record' : 'سجل مشروع مقدم من العميل'
+  return categoryLabels[locale][project.category]
 }
 
 function projectWorkingDescription(project: PortfolioProject, locale: 'en' | 'ar') {
   if (project.description) return project.description[locale]
-  if (project.state === 'provisional') {
+  if (project.state === 'awaiting-client-correction') {
     return locale === 'en'
-      ? 'The displayed title follows the client-supplied folder label. Verified project facts are pending.'
-      : 'العنوان المعروض مأخوذ من اسم المجلد المقدم من العميل. بيانات المشروع الموثقة قيد الاستكمال.'
+      ? 'The supplied project overview is awaiting client correction before publication.'
+      : 'وصف المشروع المقدم بانتظار تصحيح العميل قبل النشر.'
   }
   return locale === 'en'
-    ? 'This client-supplied project record is part of the working portfolio. Verified project facts are pending.'
-    : 'سجل المشروع المقدم من العميل جزء من محفظة الأعمال الحالية. بيانات المشروع الموثقة قيد الاستكمال.'
+    ? 'Replacement project photography is pending.'
+    : 'صور المشروع البديلة قيد الاستكمال.'
 }
 
-function pendingMediaLabel(project: PortfolioProject, locale: 'en' | 'ar') {
-  if (project.id === 'mountain-view') return locale === 'en' ? 'Source video still review pending' : 'مراجعة لقطات الفيديو الأصلية قيد الاستكمال'
+function pendingMediaLabel(_project: PortfolioProject, locale: 'en' | 'ar') {
   return locale === 'en' ? 'Project photography pending' : 'صور المشروع قيد الاستكمال'
 }
 

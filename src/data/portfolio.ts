@@ -1,9 +1,8 @@
-import { projects as featuredProjects, type FeaturedProject } from './projects'
-import { publicWorkingProjects } from './draft-portfolio'
+import { projects, type ProjectCategory, type ProjectRecord } from './projects'
 
 export type Locale = 'en' | 'ar'
-export type ProjectCategory = FeaturedProject['category'] | 'Retail Fit-Out' | 'Commercial Fit-Out'
-export type ProjectState = 'published' | 'verified-pending-approval' | 'provisional'
+export type { ProjectCategory }
+export type ProjectState = 'published' | 'pending-media' | 'awaiting-client-correction'
 
 export type PortfolioImage = {
   src: string
@@ -17,56 +16,60 @@ export type PortfolioProject = {
   title: Record<Locale, string>
   sourceFolder: string
   state: ProjectState
-  category: ProjectCategory | null
-  location: Record<Locale, string> | null
+  category: ProjectCategory
+  location: Record<Locale, string>
   client: string | null
   description: Record<Locale, string> | null
-  scope: Record<Locale, string[]> | null
+  scope: Record<Locale, string[]>
+  duration: string
+  bua: string | null
+  year: string | null
   cover: PortfolioImage | null
   gallery: PortfolioImage[]
+  pendingMedia: boolean
   seo: { title: Record<Locale, string>; description: Record<Locale, string> }
   approvalNeeds: string[]
 }
 
-const publishedRecord = (project: FeaturedProject, location: Record<Locale, string> | null, titleAr: string, descriptionAr: string, scope: Record<Locale, string[]>): PortfolioProject => ({
-  id: project.id,
-  slug: project.id,
-  title: { en: project.name, ar: titleAr },
-  sourceFolder: project.id === 'mohamed-ali-palace' ? 'M.ALI PALACE' : project.id === 'ministries-district' ? 'MINISTRIES DISTRICT' : 'Lakeview',
-  state: 'published',
-  category: project.category,
-  location,
-  client: null,
-  description: { en: project.description, ar: descriptionAr },
-  scope,
-  cover: project.images[0] ? { src: project.images[0].src, alt: { en: project.images[0].alt, ar: `${titleAr} — صورة للمشروع` } } : null,
-  gallery: project.images.slice(0, 5).map((image) => ({ src: image.src, alt: { en: image.alt, ar: `${titleAr} — ${image.label}` } })),
-  seo: {
-    title: { en: `${project.name} | SUMMIT Construction`, ar: `${titleAr} | سوميت للإنشاءات` },
-    description: { en: project.description, ar: descriptionAr },
-  },
-  approvalNeeds: [],
-})
+function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
+  const titleAr = project.title.ar ?? project.title.en
+  const publicDescription = project.publicOverview
+  const correctionPending = project.contentStatus !== 'source-supplied'
+  const pendingDescription = 'Project information is awaiting client correction. Replacement project photography is also pending.'
+  const descriptionEn = publicDescription ?? pendingDescription
 
-const palace = featuredProjects.find((project) => project.id === 'mohamed-ali-palace')!
-const ministries = featuredProjects.find((project) => project.id === 'ministries-district')!
-const lakeview = featuredProjects.find((project) => project.id === 'lakeview-residence')!
+  return {
+    id: project.id,
+    slug: project.slug,
+    title: { en: project.title.en, ar: titleAr },
+    sourceFolder: project.inboxFolder,
+    state: correctionPending ? 'awaiting-client-correction' : 'pending-media',
+    category: project.category,
+    location: { en: project.specifications.location, ar: project.specifications.location },
+    client: project.specifications.client,
+    description: publicDescription ? { en: publicDescription, ar: publicDescription } : null,
+    scope: { en: [project.specifications.scope], ar: [project.specifications.scope] },
+    duration: project.specifications.projectDuration,
+    bua: project.specifications.bua ?? null,
+    year: project.specifications.year ?? null,
+    cover: null,
+    gallery: [],
+    pendingMedia: true,
+    seo: {
+      title: { en: `${project.title.en} | SUMMIT Construction`, ar: `${titleAr} | SUMMIT Construction` },
+      description: { en: descriptionEn, ar: descriptionEn },
+    },
+    approvalNeeds: [
+      'replacement project photography',
+      'approved Arabic title and translation',
+      ...project.reviewNotes,
+    ],
+  }
+}
 
-const verifiedPublishedProjects: PortfolioProject[] = [
-  publishedRecord(palace, null, 'قصر محمد علي', 'ترميم وتجديد الأعمال الرخامية في قصر الفسقية.', {
-    en: ['Marble restoration', 'Palace renovation'], ar: ['ترميم الرخام', 'تجديد القصر'],
-  }),
-  publishedRecord(ministries, { en: 'Ministries District, New Administrative Capital', ar: 'منطقة الوزارات، العاصمة الإدارية الجديدة' }, 'منطقة الوزارات', 'أعمال الرخام الميكانيكي لواجهة وزارة النقل في منطقة الوزارات بالعاصمة الإدارية الجديدة.', {
-    en: ['Mechanical marble works', 'Ministry elevation'], ar: ['أعمال الرخام الميكانيكي', 'واجهة الوزارة'],
-  }),
-  publishedRecord(lakeview, { en: 'Fifth Settlement', ar: 'التجمع الخامس' }, 'ليك ڤيو ريزيدنس', 'تشطيبات متكاملة لمشروع ليك ڤيو ريزيدنس في التجمع الخامس.', {
-    en: ['Turnkey finishing'], ar: ['تشطيبات متكاملة'],
-  }),
-]
-
-export const portfolioProjects: PortfolioProject[] = [...verifiedPublishedProjects, ...publicWorkingProjects]
+export const portfolioProjects: PortfolioProject[] = projects.map(recordToPortfolioProject)
 export const publishedProjects = portfolioProjects
 
 export const portfolioCapacity = 16
-export const registeredProjectFolderCount = 11
+export const registeredProjectFolderCount = projects.length
 export const remainingProjectIdentities = portfolioCapacity - registeredProjectFolderCount

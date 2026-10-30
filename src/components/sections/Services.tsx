@@ -172,11 +172,15 @@ export function Services() {
               <div className="absolute inset-0 border border-white/15 transition-colors duration-500 group-hover:border-summit-gold/70" />
               <div className="absolute inset-y-0 left-0 w-px origin-bottom scale-y-0 bg-summit-gold transition-transform duration-700 ease-summit group-hover:scale-y-100" aria-hidden="true" />
 
-              <div className="absolute right-5 top-5 size-20 text-summit-gold/50 transition-all duration-700 ease-summit group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-summit-gold sm:right-7 sm:top-7 sm:size-24" aria-hidden="true">
-                <svg viewBox="0 0 100 90" fill="none" className="size-full">
-                  <path d="M4 84 39 8l35 76H4Z" stroke="currentColor" />
-                  <path d="m39 84 25-51 25 51H39Z" stroke="currentColor" />
-                </svg>
+              <div className="service-brand-mark absolute right-5 top-5 size-20 transition-all duration-700 ease-summit group-hover:translate-x-1 group-hover:-translate-y-1 sm:right-7 sm:top-7 sm:size-24" aria-hidden="true">
+                <img
+                  src={assetUrl('/assets/brand/summit-mountain-symbol.webp')}
+                  width="480"
+                  height="388"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
 
               <div className="relative z-10 flex min-h-[38rem] flex-col justify-between p-6 sm:min-h-[44rem] sm:p-8 lg:min-h-[42rem]">

@@ -9,6 +9,7 @@ import { Footer } from '../components/layout/Footer'
 import { Header } from '../components/layout/Header'
 import { FloatingControls } from '../components/layout/FloatingControls'
 import { useHomeCopy } from '../content/site'
+import { hasProjectMedia } from '../data/projects'
 
 export default function Home({ entranceReady = true }: { entranceReady?: boolean }) {
   const copy = useHomeCopy()
@@ -25,7 +26,7 @@ export default function Home({ entranceReady = true }: { entranceReady?: boolean
           <AboutPreview />
           <Services />
           <ParallaxStory />
-          <FeaturedProjects />
+          {hasProjectMedia ? <FeaturedProjects /> : null}
           <MaterialStudy />
           <ContactCTA />
         </main>

@@ -520,7 +520,7 @@ export function FeaturedProjects() {
                   data-magnetic
                   type="button"
                   onClick={showPreviousImage}
-                  aria-label={`Show previous photograph of ${activeProject.name}`}
+                  aria-label={`Show previous photograph of ${activeProject.title.en}`}
                   className="icon-control grid size-11 place-items-center border border-[var(--color-border)] text-[var(--color-ink)] transition-colors hover:border-summit-gold hover:bg-summit-gold hover:text-summit-black sm:size-12"
                 >
                   <Icon name="arrow-left" size={18} />
@@ -529,7 +529,7 @@ export function FeaturedProjects() {
                   data-magnetic
                   type="button"
                   onClick={showNextImage}
-                  aria-label={`Show next photograph of ${activeProject.name}`}
+                  aria-label={`Show next photograph of ${activeProject.title.en}`}
                   className="icon-control grid size-11 place-items-center border border-[var(--color-border)] text-[var(--color-ink)] transition-colors hover:border-summit-gold hover:bg-summit-gold hover:text-summit-black sm:size-12"
                 >
                   <Icon name="arrow-right" size={18} />
@@ -537,7 +537,7 @@ export function FeaturedProjects() {
               </div>
             </div>
 
-            <div className="mt-5 grid grid-cols-3 gap-2 sm:mt-6 sm:gap-3" aria-label={`Choose a photograph of ${activeProject.name}`}>
+            <div className="mt-5 grid grid-cols-3 gap-2 sm:mt-6 sm:gap-3" aria-label={`Choose a photograph of ${activeProject.title.en}`}>
               {activeProject.images.map((image, imageIndex) => {
                 const isActive = activeImageIndex === imageIndex
                 return (
@@ -568,7 +568,7 @@ export function FeaturedProjects() {
       </Container>
 
       <p className="sr-only" aria-live="polite" aria-atomic="true">
-        {activeProject.name}, photograph {activeImageIndex + 1} of {activeProject.images.length}: {activeImage.label}.
+        {activeProject.title.en}, photograph {activeImageIndex + 1} of {activeProject.images.length}: {activeImage.label}.
       </p>
       <p role="status" aria-live="polite" className={loadMessage ? 'mx-auto mt-5 max-w-xl px-5 text-center font-body text-sm text-[var(--color-muted)]' : 'sr-only'}>
         {loadMessage || (isLoading ? 'Preparing photograph. Your current view remains visible.' : '')}

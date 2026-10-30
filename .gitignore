@@ -8,6 +8,12 @@ public/assets/projects/*
 !public/assets/projects/featured/
 !public/assets/projects/featured/**
 
+# Protected client originals and replacement project inbox stay local.
+/client-media-archive/
+/project-inbox/*
+!/project-inbox/README.md
+!/project-inbox/.gitignore
+
 # Local backups and confidential source documents.
 backups/
 backup/
@@ -25,4 +31,5 @@ backup/
 /references/downloaded/
 /references/qa/
 
-/references/
+/references/*
+!/references/SUMMIT-PROJECT-MASTER-DATA.md

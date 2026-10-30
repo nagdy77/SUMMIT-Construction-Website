@@ -25,7 +25,6 @@ export function Header() {
     { label: copy.nav.projects, page: 'projects', href: routePath(locale, 'projects') },
     { label: copy.nav.clients, page: 'clients', href: routePath(locale, 'clients') },
     { label: copy.nav.contact, page: 'contact', href: routePath(locale, 'contact') },
-    { label: copy.nav.privacy, page: 'privacy', href: routePath(locale, 'privacy') },
   ]
   const currentRoute = resolveRoute(currentPath)
   const alternateLocale = locale === 'en' ? 'ar' : 'en'

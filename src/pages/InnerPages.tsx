@@ -5,6 +5,7 @@ import { Container } from '../components/ui/Container'
 import { Footer } from '../components/layout/Footer'
 import { Header } from '../components/layout/Header'
 import { useCopy, useHomeCopy, useLocale } from '../content/site'
+import { privacyPolicyContent } from '../content/privacy'
 import { routePath, sitePath } from '../lib/routes'
 import { trackEvent } from '../lib/analytics'
 import { NotFoundPage } from './NotFoundPage'
@@ -67,7 +68,7 @@ const images = {
     alt: { en: 'Completed interior fit-out by SUMMIT', ar: 'تشطيب داخلي منفذ بواسطة سوميت' },
   },
   fitoutDetail: {
-    src: '/assets/projects/featured/lakeview/lakeview-interior-joinery.webp',
+    src: '/assets/projects/featured/real-media/service-fitout-detail.webp',
     alt: { en: 'Interior joinery in the Lakeview Residence project', ar: 'أعمال نجارة داخلية في مشروع ليك فيو ريزيدنس' },
   },
   workmanship: {
@@ -93,12 +94,74 @@ const profileOrganisations = [
   { name: 'Egyptian Heritage Rescue Foundation', logo: '/assets/clients/egyptian-heritage-rescue-foundation.webp' },
 ]
 
+function ClientLogoTrackSet({ duplicate = false }: { duplicate?: boolean }) {
+  return <div className="client-logo-set" aria-hidden={duplicate || undefined}>
+    {profileOrganisations.map((organisation, index) => <figure key={`${duplicate ? 'duplicate-' : ''}${organisation.name}`} className="client-logo-card" data-client-logo>
+      <span>{String(index + 1).padStart(2, '0')}</span>
+      <div className="client-logo-image">
+        <img
+          src={sitePath(organisation.logo)}
+          alt={duplicate ? '' : `${organisation.name} logo`}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <figcaption>{organisation.name}</figcaption>
+    </figure>)}
+  </div>
+}
+
 const serviceVisuals: Record<string, { primary: EditorialImage; secondary: EditorialImage; number: string }> = {
   construction: { primary: images.construction, secondary: images.constructionWide, number: '01' },
   restoration: { primary: images.restorationWide, secondary: images.restoration, number: '02' },
   renovation: { primary: images.renovation, secondary: images.renovationWide, number: '03' },
   'fit-out': { primary: images.fitout, secondary: images.fitoutDetail, number: '04' },
 }
+
+const foundersPresentation = {
+  en: {
+    eyebrow: 'Leadership',
+    heading: 'Meet the Founders',
+    portraitAlt: 'Black-and-white portrait of SUMMIT founders Ahmed Elesawy on the left and Mohamed Haron on the right',
+    translationStatus: null,
+    founders: [
+      {
+        id: 'ahmed',
+        name: 'Ahmed Elesawy',
+        quote: 'Summit Company will be one of the most important emerging companies in the field of restoration and contracting because we do what we love, so the results become wonderful.\nOur passion is to build civilization with the spirit of heritage.',
+      },
+      {
+        id: 'mohamed',
+        name: 'Mohamed Haron',
+        quote: 'Power without thinking does not mean anything.\nAt Summit, we care about strength and intelligence\nSo we are growing faster than any other company',
+      },
+    ],
+  },
+  ar: {
+    eyebrow: 'القيادة',
+    heading: 'تعرّف إلى المؤسسين',
+    portraitAlt: 'صورة بالأبيض والأسود لمؤسسي سوميت، أحمد العيسوي على اليسار ومحمد هارون على اليمين',
+    translationStatus: 'الترجمة العربية للمقولتين قيد اعتماد العميل قبل النشر.',
+    founders: [
+      {
+        id: 'ahmed',
+        name: 'أحمد العيسوي',
+        quote: 'ستكون شركة سوميت واحدة من أهم الشركات الناشئة في مجال الترميم والمقاولات لأننا نفعل ما نحبه، فتكون النتائج رائعة.\nشغفنا هو أن نبني الحضارة بروح التراث.',
+      },
+      {
+        id: 'mohamed',
+        name: 'محمد هارون',
+        quote: 'القوة من دون تفكير لا تعني شيئًا.\nفي سوميت، نهتم بالقوة والذكاء\nلذلك ننمو أسرع من أي شركة أخرى',
+      },
+    ],
+  },
+} satisfies Record<Locale, {
+  eyebrow: string
+  heading: string
+  portraitAlt: string
+  translationStatus: string | null
+  founders: Array<{ id: 'ahmed' | 'mohamed'; name: string; quote: string }>
+}>
 
 function PageFrame({ children }: { children: ReactNode }) {
   const copy = useCopy()
@@ -133,6 +196,16 @@ function useEditorialMotion<T extends HTMLElement>() {
           timeline.from(node, { autoAlpha: 0, y: 42, duration: 1, ease: 'power3.out', clearProps: 'opacity,visibility,transform' })
           if (image) timeline.from(image, { yPercent: -5, scale: 1.075, duration: 1.15, ease: 'power3.out', clearProps: 'transform' }, 0)
         })
+        gsap.utils.toArray<HTMLElement>('[data-founder-quote]').forEach((node) => {
+          if (node.getBoundingClientRect().top < window.innerHeight * .92) return
+          const line = node.querySelector<HTMLElement>('[data-founder-line]')
+          const name = node.querySelector<HTMLElement>('[data-founder-name]')
+          const quote = node.querySelector<HTMLElement>('[data-founder-copy]')
+          const timeline = gsap.timeline({ scrollTrigger: { trigger: node, start: 'top 90%', once: true } })
+          if (line) timeline.from(line, { scaleX: 0, duration: .6, ease: 'power3.out', clearProps: 'transform' })
+          if (name) timeline.from(name, { y: 12, opacity: 0, duration: .55, ease: 'power3.out', clearProps: 'opacity,transform' }, '<.05')
+          if (quote) timeline.from(quote, { y: 20, opacity: 0, duration: .75, ease: 'power3.out', clearProps: 'opacity,transform' }, '-=.3')
+        })
         gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((node) => gsap.fromTo(node, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: node.parentElement, start: 'top bottom', end: 'bottom top', scrub: .65 } }))
       })
       return () => media.revert()
@@ -145,9 +218,9 @@ function useEditorialMotion<T extends HTMLElement>() {
 export function AboutPage() {
   const locale = useLocale()
   const copy = useCopy()
-  const home = useHomeCopy()
   const root = useEditorialMotion<HTMLElement>()
   const isEnglish = locale === 'en'
+  const founders = foundersPresentation[locale]
   const facts = isEnglish
     ? [{ label: 'Established', value: '2018' }, { label: 'Founders', value: 'Ahmed Elesawy & Mohamed Haron' }, { label: 'Origin', value: 'Egypt' }]
     : [{ label: 'التأسيس', value: '2018' }, { label: 'المؤسسون', value: 'أحمد العيسوي ومحمد هارون' }, { label: 'الموطن', value: 'مصر' }]
@@ -167,14 +240,39 @@ export function AboutPage() {
       <div className="inner-hero-copy brand-pattern-field brand-pattern-field--panel"><p className="eyebrow">{copy.pages.about.eyebrow}</p><h1>{copy.pages.about.title}</h1><p>{copy.pages.about.body}</p></div>
       <figure className="inner-hero-media"><EditorialImageView image={images.aboutWide} priority /></figure>
     </header>
+    <section className="founders-story" aria-labelledby="founders-heading">
+      <header className="founders-heading" data-reveal>
+        <p className="eyebrow">{founders.eyebrow}</p>
+        <h2 id="founders-heading">{founders.heading}</h2>
+        {founders.translationStatus ? <p className="founders-translation-status" role="note">{founders.translationStatus}</p> : null}
+      </header>
+      <div className="founders-stage">
+        <figure className="founders-image" data-image-reveal>
+          <img
+            src={sitePath('/assets/about/founders/founders-monochrome-1536.webp')}
+            srcSet={`${sitePath('/assets/about/founders/founders-monochrome-960.webp')} 960w, ${sitePath('/assets/about/founders/founders-monochrome-1536.webp')} 1536w`}
+            sizes="(max-width: 1100px) calc(100vw - (2 * var(--page-gutter))), 48vw"
+            alt={founders.portraitAlt}
+            width="1536"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        {founders.founders.map((founder) => (
+          <article className={`founder-quote founder-quote--${founder.id}`} data-founder-quote key={founder.id}>
+            <span className="founder-quotation-mark" aria-hidden="true">“</span>
+            <span className="founder-accent-line" data-founder-line aria-hidden="true" />
+            <h3 data-founder-name>{founder.name}</h3>
+            <blockquote data-founder-copy><p>{founder.quote}</p></blockquote>
+          </article>
+        ))}
+      </div>
+    </section>
     <dl className="company-facts" data-reveal>{facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
     <section className="editorial-photo-strip" aria-label={isEnglish ? 'SUMMIT project workmanship' : 'أعمال من مشروعات سوميت'}>
       <figure className="editorial-photo-strip__portrait" data-image-reveal><EditorialImageView image={images.workmanship} sizes="(max-width: 760px) 72vw, 34vw" /><figcaption><span>01</span>{isEnglish ? 'Workmanship / authentic project record' : 'الحرفية / توثيق أصلي للمشروع'}</figcaption></figure>
       <figure className="editorial-photo-strip__wide" data-image-reveal><div data-parallax><EditorialImageView image={images.restorationWide} sizes="(max-width: 760px) 100vw, 58vw" /></div><figcaption><span>02</span>{isEnglish ? 'Heritage fabric / authentic project record' : 'النسيج التراثي / توثيق أصلي للمشروع'}</figcaption></figure>
-    </section>
-    <section className="founders-story">
-      <div className="founders-sticky" data-reveal><p className="eyebrow">{isEnglish ? 'The founders' : 'المؤسسون'}</p><h2>{home.about.founders}</h2><p>{home.about.body}</p></div>
-      <figure className="founders-image" data-image-reveal><div data-parallax><EditorialImageView image={images.aboutPortrait} sizes="(max-width: 760px) 100vw, 45vw" /></div></figure>
     </section>
     <section className="principles" aria-label={isEnglish ? 'Vision, mission and values' : 'الرؤية والمهمة والقيم'}>
       {principles.map((item, index) => <article key={item.label} data-reveal><span>0{index + 1}</span><p className="eyebrow">{item.label}</p><h2>{item.title}</h2><p>{item.body}</p></article>)}
@@ -240,10 +338,74 @@ export function ClientsPage() {
   const locale = useLocale()
   const copy = useCopy()
   const root = useEditorialMotion<HTMLElement>()
+  const logoCarousel = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const viewport = logoCarousel.current
+    if (!viewport) return
+
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let frame = 0
+
+    const renderLogoColor = () => {
+      const viewportBounds = viewport.getBoundingClientRect()
+      const center = viewportBounds.left + viewportBounds.width / 2
+      const fullColorRadius = Math.min(96, viewportBounds.width * 0.09)
+      const fadeRadius = Math.max(fullColorRadius + 1, viewportBounds.width * 0.34)
+      const cards = Array.from(viewport.querySelectorAll<HTMLElement>('[data-client-logo]'))
+      const strengths = cards.map((card) => {
+        const bounds = card.getBoundingClientRect()
+        const distance = Math.abs(bounds.left + bounds.width / 2 - center)
+        if (distance <= fullColorRadius) return 1
+        const progress = Math.min(1, (distance - fullColorRadius) / (fadeRadius - fullColorRadius))
+        const eased = progress * progress * (3 - 2 * progress)
+        return 1 - eased
+      })
+
+      cards.forEach((card, index) => {
+        const strength = strengths[index]
+        card.style.setProperty('--logo-grayscale', (1 - strength).toFixed(3))
+        card.style.setProperty('--logo-saturation', (0.18 + strength * 0.82).toFixed(3))
+        card.style.setProperty('--logo-opacity', (0.56 + strength * 0.44).toFixed(3))
+      })
+    }
+
+    const tick = () => {
+      renderLogoColor()
+      if (!motionPreference.matches && document.visibilityState === 'visible') frame = window.requestAnimationFrame(tick)
+    }
+
+    const restart = () => {
+      window.cancelAnimationFrame(frame)
+      renderLogoColor()
+      if (!motionPreference.matches && document.visibilityState === 'visible') frame = window.requestAnimationFrame(tick)
+    }
+
+    const resizeObserver = new ResizeObserver(restart)
+    resizeObserver.observe(viewport)
+    motionPreference.addEventListener('change', restart)
+    document.addEventListener('visibilitychange', restart)
+    viewport.addEventListener('scroll', renderLogoColor, { passive: true })
+    restart()
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+      resizeObserver.disconnect()
+      motionPreference.removeEventListener('change', restart)
+      document.removeEventListener('visibilitychange', restart)
+      viewport.removeEventListener('scroll', renderLogoColor)
+    }
+  }, [])
+
   return <PageFrame><section ref={root} className="inner-page clients-editorial"><Container>
     <header className="clients-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{copy.pages.clients.eyebrow}</p><h1>{copy.pages.clients.title}</h1><p>{copy.pages.clients.body}</p></header>
     <p className="profile-source-note" data-reveal>{locale === 'en' ? 'The following marks are reproduced from the client-supplied SUMMIT company profile.' : 'العلامات التالية مأخوذة من الملف التعريفي لشركة سوميت المقدم من العميل.'}</p>
-    <div className="client-logo-grid">{profileOrganisations.map((organisation, index) => <figure key={organisation.name} data-reveal><span>{String(index + 1).padStart(2, '0')}</span><div><img src={sitePath(organisation.logo)} alt={`${organisation.name} logo`} loading="lazy" decoding="async" /></div><figcaption>{organisation.name}</figcaption></figure>)}</div>
+    <div ref={logoCarousel} className="client-logo-carousel" role="region" aria-label={locale === 'en' ? 'SUMMIT clients and partners logos' : 'شعارات عملاء وشركاء سوميت'}>
+      <div className="client-logo-track">
+        <ClientLogoTrackSet />
+        <ClientLogoTrackSet duplicate />
+      </div>
+    </div>
     <InnerCta title={locale === 'en' ? 'Explore selected SUMMIT projects.' : 'استكشف مشروعات مختارة لسوميت.'} href={routePath(locale, 'projects')} label={copy.nav.projects} />
   </Container></section></PageFrame>
 }
@@ -325,12 +487,61 @@ export function ContactPage() {
 
 export function PrivacyPage() {
   const locale = useLocale()
-  const copy = useCopy()
+  const policy = privacyPolicyContent[locale]
   const root = useEditorialMotion<HTMLElement>()
-  const paragraphs = locale === 'en'
-    ? ['This website stores your selected appearance in local browser storage.', 'When an approved form endpoint is configured, the enquiry form sends the entered contact and project information to that external provider for email delivery. The provider’s privacy and retention terms will apply. Direct email remains available as an alternative.', 'Google Analytics loads only when a valid GA4 measurement ID is configured and analytics consent has been recorded. No analytics account is connected in the current local configuration.']
-    : ['يحفظ هذا الموقع المظهر الذي تختاره في مساحة التخزين المحلية للمتصفح.', 'عند إعداد نقطة نهاية معتمدة للنموذج، يرسل نموذج الاستفسار بيانات التواصل والمشروع المدخلة إلى ذلك المزود الخارجي لتسليم البريد الإلكتروني، وتطبق شروط الخصوصية والاحتفاظ الخاصة بالمزود. ويظل البريد المباشر خيارًا بديلًا.', 'لا تُحمّل خدمة Google Analytics إلا بعد إعداد معرّف قياس GA4 صالح وتسجيل الموافقة على التحليلات. ولا يوجد حساب تحليلات متصل في الإعداد المحلي الحالي.']
-  return <PageFrame><section ref={root} className="inner-page privacy-editorial"><Container><header className="brand-pattern-field brand-pattern-field--panel"><p className="eyebrow">{copy.pages.privacy.eyebrow}</p><h1>{copy.pages.privacy.title}</h1></header><div className="privacy-copy">{paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></Container></section></PageFrame>
+  return (
+    <PageFrame>
+      <section ref={root} className="inner-page privacy-editorial">
+        <Container>
+          <header className="privacy-header brand-pattern-field brand-pattern-field--panel">
+            <div data-reveal>
+              <p className="eyebrow">{policy.eyebrow}</p>
+              <h1>{policy.title}</h1>
+            </div>
+            <div className="privacy-header-copy" data-reveal>
+              <p>{policy.introduction}</p>
+              <dl className="privacy-meta">
+                <div><dt>{policy.statusLabel}</dt><dd>{policy.status}</dd></div>
+                <div><dt>{policy.updatedLabel}</dt><dd>{policy.updated}</dd></div>
+              </dl>
+            </div>
+          </header>
+
+          <div className="privacy-document">
+            <nav className="privacy-contents" aria-label={policy.contentsLabel}>
+              <p>{policy.contentsLabel}</p>
+              <ol>
+                {policy.sections.map((section, index) => (
+                  <li key={section.id}>
+                    <a href={`#${section.id}`}><span>{String(index + 1).padStart(2, '0')}</span>{section.title}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+
+            <article className="privacy-sections">
+              {policy.sections.map((section, index) => (
+                <section id={section.id} className="privacy-section" data-reveal key={section.id}>
+                  <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <h2>{section.title}</h2>
+                    {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                    {section.id === 'contact-information' ? (
+                      <address className="privacy-contact">
+                        <p>{policy.emailPrompt}</p>
+                        <a href="mailto:Projects@Summit-constructions.com">Projects@Summit-constructions.com</a>
+                      </address>
+                    ) : null}
+                  </div>
+                </section>
+              ))}
+              <aside className="privacy-review-note" role="note" data-reveal><p>{policy.reviewNotice}</p></aside>
+            </article>
+          </div>
+        </Container>
+      </section>
+    </PageFrame>
+  )
 }
 
 function InnerCta({ title, href, label }: { title: string; href: string; label: string }) {
