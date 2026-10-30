@@ -346,6 +346,7 @@ export function ClientsPage() {
 
     const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
     let frame = 0
+    let isVisible = true
 
     const renderLogoColor = () => {
       const viewportBounds = viewport.getBoundingClientRect()
@@ -372,17 +373,22 @@ export function ClientsPage() {
 
     const tick = () => {
       renderLogoColor()
-      if (!motionPreference.matches && document.visibilityState === 'visible') frame = window.requestAnimationFrame(tick)
+      if (!motionPreference.matches && isVisible && document.visibilityState === 'visible') frame = window.requestAnimationFrame(tick)
     }
 
     const restart = () => {
       window.cancelAnimationFrame(frame)
       renderLogoColor()
-      if (!motionPreference.matches && document.visibilityState === 'visible') frame = window.requestAnimationFrame(tick)
+      if (!motionPreference.matches && isVisible && document.visibilityState === 'visible') frame = window.requestAnimationFrame(tick)
     }
 
     const resizeObserver = new ResizeObserver(restart)
+    const intersectionObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting
+      restart()
+    }, { rootMargin: '10%' })
     resizeObserver.observe(viewport)
+    intersectionObserver.observe(viewport)
     motionPreference.addEventListener('change', restart)
     document.addEventListener('visibilitychange', restart)
     viewport.addEventListener('scroll', renderLogoColor, { passive: true })
@@ -391,6 +397,7 @@ export function ClientsPage() {
     return () => {
       window.cancelAnimationFrame(frame)
       resizeObserver.disconnect()
+      intersectionObserver.disconnect()
       motionPreference.removeEventListener('change', restart)
       document.removeEventListener('visibilitychange', restart)
       viewport.removeEventListener('scroll', renderLogoColor)

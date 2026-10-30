@@ -531,12 +531,19 @@ button:disabled { cursor: default; }
 .service-next b { color: var(--color-accent); font-size: 1.25rem; }
 
 .profile-source-note { max-width: 45rem; margin: 0 0 2rem auto; color: var(--color-muted); font: .75rem/1.7 var(--font-body); }
-.client-logo-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--color-border); border-inline-start: 1px solid var(--color-border); }
-.client-logo-grid figure { position: relative; min-width: 0; margin: 0; border-inline-end: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); padding: clamp(1rem, 2.5vw, 2.2rem); }
-.client-logo-grid figure > span { color: var(--color-accent); font: 500 .72rem var(--font-display); }
-.client-logo-grid figure > div { display: grid; height: 10rem; place-items: center; margin-top: 1rem; padding: 1rem; background: #fff; }
-.client-logo-grid img { display: block; max-width: 100%; max-height: 5.7rem; width: auto; height: auto; }
-.client-logo-grid figcaption { min-height: 2.8rem; margin-top: 1rem; color: var(--color-muted); font: 700 .62rem/1.5 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
+.client-logo-carousel { position: relative; width: 100%; overflow: hidden; border-block: 1px solid var(--color-border); direction: ltr; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%); }
+.client-logo-track { display: flex; width: max-content; will-change: transform; animation: client-logo-marquee 38s linear infinite; }
+.client-logo-set { display: flex; flex: none; }
+.client-logo-card { --logo-grayscale: 1; --logo-saturation: .18; --logo-opacity: .56; position: relative; flex: 0 0 clamp(13.5rem, 20vw, 19rem); min-width: 0; margin: 0; border-inline-end: 1px solid var(--color-border); padding: clamp(1rem, 2.2vw, 2rem); }
+.client-logo-card > span { color: var(--color-accent); font: 500 .72rem var(--font-display); }
+.client-logo-image { display: grid; height: 10rem; place-items: center; margin-top: 1rem; padding: 1rem; background: #fff; }
+.client-logo-image img { display: block; max-width: 100%; max-height: 5.7rem; width: auto; height: auto; opacity: var(--logo-opacity); filter: grayscale(var(--logo-grayscale)) saturate(var(--logo-saturation)); will-change: filter, opacity; }
+.client-logo-card figcaption { min-height: 2.8rem; margin-top: 1rem; color: var(--color-muted); font: 700 .62rem/1.5 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
+
+@keyframes client-logo-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
 
 .button-link { display: inline-flex; min-height: 3.6rem; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2rem; overflow: hidden; border: 1px solid var(--color-accent); border-radius: var(--radius-control); padding: .9rem 1.2rem; color: var(--color-accent-ink); background: var(--color-accent); font: 700 .63rem var(--font-body); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; transition: color .3s ease, background .3s ease, border-color .3s ease; }
 .button-link:hover, .button-link:focus-visible { color: var(--color-accent); background: transparent; }
@@ -645,7 +652,6 @@ button:disabled { cursor: default; }
   .service-detail--offset .service-detail-hero, .service-detail--mosaic .service-detail-body { grid-template-columns: 1fr; }
   .service-detail--offset .service-detail-hero > figure { transform: none; }
   .service-detail--mosaic .service-detail-hero > figure, .service-detail--mosaic .service-detail-body > figure { width: 100%; }
-  .client-logo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .privacy-header, .privacy-document { grid-template-columns: 1fr; }
   .privacy-header { align-items: start; gap: 2rem; }
   .privacy-contents { position: static; }
@@ -707,8 +713,9 @@ button:disabled { cursor: default; }
   .service-detail-body { padding-block: 5rem; }
   .service-detail-body > figure { height: 34rem; }
   .service-next { grid-template-columns: 1fr; gap: .8rem; }
-  .client-logo-grid { grid-template-columns: 1fr; }
-  .client-logo-grid figure > div { height: 9rem; }
+  .client-logo-track { animation-duration: 32s; }
+  .client-logo-card { flex-basis: 13rem; padding: 1rem; }
+  .client-logo-image { height: 8.5rem; }
   .contact-layout { padding-block: 4rem; }
   .enquiry-form { grid-template-columns: 1fr; }
   .form-field--wide, .form-privacy { grid-column: auto; }
@@ -777,6 +784,9 @@ a {
   }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
   [data-magnetic] { translate: 0 0 !important; scale: 1 !important; }
+  .client-logo-carousel { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .client-logo-track { animation: none !important; }
+  .client-logo-set[aria-hidden="true"] { display: none; }
 }
 
 @media (max-width: 767px) {
