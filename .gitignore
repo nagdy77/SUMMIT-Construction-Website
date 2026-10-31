@@ -7,6 +7,12 @@ public/assets/projects/*
 !public/assets/projects/.gitkeep
 !public/assets/projects/featured/
 !public/assets/projects/featured/**
+!public/assets/projects/portfolio/
+!public/assets/projects/portfolio/**
+!public/assets/projects/categories/
+public/assets/projects/categories/*
+!public/assets/projects/categories/optimized/
+!public/assets/projects/categories/optimized/**
 
 # Protected client originals and replacement project inbox stay local.
 /client-media-archive/

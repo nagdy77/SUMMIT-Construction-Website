@@ -1,0 +1,52 @@
+{
+  "categories": {
+    "heritage-restoration": [
+      {
+        "src": "/assets/projects/categories/optimized/heritage-restoration-720.webp",
+        "width": 720,
+        "height": 494
+      },
+      {
+        "src": "/assets/projects/categories/optimized/heritage-restoration-1400.webp",
+        "width": 1400,
+        "height": 961
+      }
+    ],
+    "construction": [
+      {
+        "src": "/assets/projects/categories/optimized/construction-720.webp",
+        "width": 720,
+        "height": 366
+      },
+      {
+        "src": "/assets/projects/categories/optimized/construction-1400.webp",
+        "width": 1400,
+        "height": 711
+      }
+    ],
+    "residential-fit-out": [
+      {
+        "src": "/assets/projects/categories/optimized/residential-fit-out-720.webp",
+        "width": 720,
+        "height": 367
+      },
+      {
+        "src": "/assets/projects/categories/optimized/residential-fit-out-1400.webp",
+        "width": 1400,
+        "height": 713
+      }
+    ],
+    "retail-fit-out": [
+      {
+        "src": "/assets/projects/categories/optimized/retail-fit-out-720.webp",
+        "width": 720,
+        "height": 439
+      },
+      {
+        "src": "/assets/projects/categories/optimized/retail-fit-out-1400.webp",
+        "width": 1400,
+        "height": 853
+      }
+    ]
+  }
+}

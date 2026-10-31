@@ -19,6 +19,13 @@ type ProjectFilter = 'all' | ProjectCategory
 
 const projectFilters: ProjectFilter[] = ['all', 'Heritage Restoration', 'Construction', 'Residential Fit-Out', 'Retail Fit-Out']
 
+const categoryCards: Array<{ category: ProjectCategory; image: string; srcSet: string }> = [
+  { category: 'Heritage Restoration', image: '/assets/projects/categories/optimized/heritage-restoration-1400.webp', srcSet: '/assets/projects/categories/optimized/heritage-restoration-720.webp 720w, /assets/projects/categories/optimized/heritage-restoration-1400.webp 1400w' },
+  { category: 'Construction', image: '/assets/projects/categories/optimized/construction-1400.webp', srcSet: '/assets/projects/categories/optimized/construction-720.webp 720w, /assets/projects/categories/optimized/construction-1400.webp 1400w' },
+  { category: 'Residential Fit-Out', image: '/assets/projects/categories/optimized/residential-fit-out-1400.webp', srcSet: '/assets/projects/categories/optimized/residential-fit-out-720.webp 720w, /assets/projects/categories/optimized/residential-fit-out-1400.webp 1400w' },
+  { category: 'Retail Fit-Out', image: '/assets/projects/categories/optimized/retail-fit-out-1400.webp', srcSet: '/assets/projects/categories/optimized/retail-fit-out-720.webp 720w, /assets/projects/categories/optimized/retail-fit-out-1400.webp 1400w' },
+]
+
 function projectFilterBucket(project: PortfolioProject): Exclude<ProjectFilter, 'all'> | null {
   return project.category
 }
@@ -62,7 +69,7 @@ function ProjectCard({ project, index }: { project: PortfolioProject; index: num
   const description = projectWorkingDescription(project, locale)
   return <article className="portfolio-card" style={{ ['--card-index' as string]: index }}>
     <a className="portfolio-card-link" href={routePath(locale, 'project-detail', project.slug)} aria-label={`${copy.actions.explore}: ${project.title[locale]}`}>
-      {project.cover ? <div className="portfolio-card-image"><img src={sitePath(project.cover.src)} srcSet={project.cover.srcSet?.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" alt={project.cover.alt[locale]} width="1200" height="800" loading="lazy" decoding="async" /><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div> : <div className="portfolio-card-image portfolio-card-placeholder"><div className="portfolio-card-placeholder-copy"><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div>}
+      {project.cover ? <div className="portfolio-card-image"><img src={sitePath(project.cover.src)} srcSet={project.cover.srcSet?.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1200} height={project.cover.height ?? 800} loading="lazy" decoding="async" /><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div> : <div className="portfolio-card-image portfolio-card-placeholder"><div className="portfolio-card-placeholder-copy"><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div>}
       <div className="portfolio-card-meta"><span>{projectStatusLabel(project, locale)}</span><span aria-hidden="true">↗</span></div>
       <h2>{project.title[locale]}</h2>
       <p>{description}</p>
@@ -78,6 +85,10 @@ export function ProjectsPage() {
   const gridRef = useRef<HTMLDivElement>(null)
   const filtered = filter === 'all' ? publishedProjects : publishedProjects.filter((project) => projectFilterBucket(project) === filter)
   const categoryCount = (category: ProjectFilter) => category === 'all' ? publishedProjects.length : publishedProjects.filter((project) => projectFilterBucket(project) === category).length
+  const chooseFilter = (category: ProjectFilter) => {
+    setFilter(category)
+    window.requestAnimationFrame(() => gridRef.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }))
+  }
   useEffect(() => {
     const grid = gridRef.current
     if (!grid) return
@@ -90,8 +101,18 @@ export function ProjectsPage() {
   }, [filter])
   return <PageFrame><section ref={pageRef} className="portfolio-page"><Container>
     <EditorialHeader eyebrow={copy.pages.projects.eyebrow} title={copy.pages.projects.title} intro={copy.pages.projects.intro} />
-    <div className="portfolio-toolbar"><p>{String(filtered.length).padStart(2, '0')} <span>{copy.labels.projects}</span></p><div role="group" aria-label={copy.actions.filter} className="portfolio-filters">{projectFilters.map((category) => <button data-magnetic key={category} type="button" aria-pressed={filter === category} onClick={() => setFilter(category)}><span>{filterLabel(category, locale, copy.actions.all)}</span><b aria-hidden="true">{String(categoryCount(category)).padStart(2, '0')}</b></button>)}</div></div>
-    <div ref={gridRef} className="portfolio-grid" aria-live="polite">{filtered.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</div>
+    <section className="portfolio-category-showcase" aria-labelledby="portfolio-category-heading">
+      <div className="portfolio-category-intro"><p className="eyebrow">{locale === 'en' ? 'Explore by discipline' : 'استكشف حسب التخصص'}</p><h2 id="portfolio-category-heading">{locale === 'en' ? 'Four disciplines. One standard of execution.' : 'أربعة تخصصات. معيار واحد للتنفيذ.'}</h2></div>
+      <div className="portfolio-category-grid">{categoryCards.map((card, index) => <button key={card.category} type="button" className="portfolio-category-card" aria-pressed={filter === card.category} aria-controls="project-grid" onClick={() => chooseFilter(card.category)}>
+        <img src={sitePath(card.image)} srcSet={card.srcSet.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 700px) 100vw, 50vw" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+        <span className="portfolio-category-shade" aria-hidden="true" />
+        <span className="portfolio-category-number">{String(index + 1).padStart(2, '0')}</span>
+        <span className="portfolio-category-copy"><strong>{categoryLabels[locale][card.category]}</strong><span>{String(categoryCount(card.category)).padStart(2, '0')} {copy.labels.projects}</span></span>
+        <span className="portfolio-category-action" aria-hidden="true">↘</span>
+      </button>)}</div>
+    </section>
+    <div className="portfolio-toolbar"><p>{String(filtered.length).padStart(2, '0')} <span>{copy.labels.projects}</span></p><div role="group" aria-label={copy.actions.filter} className="portfolio-filters">{projectFilters.map((category) => <button data-magnetic key={category} type="button" aria-pressed={filter === category} aria-controls="project-grid" onClick={() => chooseFilter(category)}><span>{filterLabel(category, locale, copy.actions.all)}</span><b aria-hidden="true">{String(categoryCount(category)).padStart(2, '0')}</b></button>)}</div></div>
+    <div id="project-grid" ref={gridRef} className="portfolio-grid" aria-live="polite">{filtered.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</div>
     <aside className="portfolio-contact"><p className="eyebrow">{copy.labels.contact}</p><h2>{locale === 'en' ? 'Every project begins with a conversation.' : 'تبدأ كل حكاية مشروع بحوار.'}</h2><a data-magnetic className="text-link" href={routePath(locale, 'contact')}>{copy.actions.enquire}<span aria-hidden="true">↗</span></a></aside>
   </Container></section></PageFrame>
 }
@@ -108,10 +129,23 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
   const sameCategory = publishedProjects.filter((item) => item.id !== project.id && item.category === project.category)
   const related = [...sameCategory, ...publishedProjects.filter((item) => item.id !== project.id && item.category !== project.category)].slice(0, 2)
   const description = projectWorkingDescription(project, locale)
+  const factLabels = locale === 'en'
+    ? { client: 'Client', location: 'Location', duration: 'Project duration', bua: 'Built-up area', year: 'Year' }
+    : { client: 'العميل', location: 'الموقع', duration: 'مدة المشروع', bua: 'المساحة المبنية', year: 'السنة' }
+  const facts = [
+    project.client ? { label: factLabels.client, value: project.client } : null,
+    project.location?.[locale] ? { label: factLabels.location, value: project.location[locale] } : null,
+    project.duration ? { label: factLabels.duration, value: project.duration } : null,
+    project.bua ? { label: factLabels.bua, value: project.bua } : null,
+    project.year ? { label: factLabels.year, value: project.year } : null,
+  ].filter((fact): fact is { label: string; value: string } => Boolean(fact))
   return <PageFrame><article className="detail-page"><Container>
     <Breadcrumbs items={[{ label: copy.nav.home, href: routePath(locale) }, { label: copy.nav.projects, href: routePath(locale, 'projects') }, { label: project.title[locale] }]} />
     <header className="detail-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{projectStatusLabel(project, locale)}</p><h1>{project.title[locale]}</h1>{project.location ? <p className="detail-location">{project.location[locale]}</p> : null}<p>{description}</p></header>
     <ProjectGallery project={project} locale={locale} />
+    {project.state === 'awaiting-client-correction' ? <aside className="project-review-status" role="note"><strong>{locale === 'en' ? 'Source record under review' : 'سجل المصدر قيد المراجعة'}</strong><p>{locale === 'en' ? 'Some supplied project information is awaiting client confirmation. Unverified statements are withheld and this page remains excluded from search indexing.' : 'بعض معلومات المشروع المقدمة بانتظار تأكيد العميل. تم حجب البيانات غير المؤكدة وتظل هذه الصفحة مستبعدة من فهرسة البحث.'}</p></aside> : null}
+    {project.historicalBackground ? <section className="detail-story"><p className="eyebrow">{locale === 'en' ? 'Historical background' : 'الخلفية التاريخية'}</p><div>{project.historicalBackground[locale].split('\n\n').map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section> : null}
+    {facts.length ? <dl className="project-facts">{facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl> : null}
     {project.scope?.[locale]?.length ? <section className="detail-scope brand-pattern-field brand-pattern-field--metadata"><p className="eyebrow">{copy.labels.scope}</p><ul>{project.scope[locale].map((item) => <li key={item}>{item}</li>)}</ul></section> : null}
     <div className="detail-cta"><a data-magnetic className="text-link" href={routePath(locale, 'contact')}>{copy.actions.enquire}<span aria-hidden="true">↗</span></a></div>
     <section className="related-projects"><p className="eyebrow">{copy.labels.related}</p><div className="portfolio-grid">{related.map((item, index) => <ProjectCard project={item} index={index} key={item.id} />)}</div></section>
@@ -123,7 +157,7 @@ function ProjectGallery({ project, locale }: { project: PortfolioProject; locale
   const dialog = useRef<HTMLDialogElement>(null)
   const galleryRef = useRef<HTMLElement>(null)
   const [active, setActive] = useState<number | null>(null)
-  const images = project.gallery.slice(0, 5)
+  const images = project.gallery
   useEffect(() => {
     const node = dialog.current
     if (!node) return
@@ -153,11 +187,11 @@ function ProjectGallery({ project, locale }: { project: PortfolioProject; locale
   if (!project.cover) return <section className="detail-media-placeholder" aria-label={pendingMediaLabel(project, locale)}><div><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div></section>
   return <>
     <button type="button" className="detail-cover gallery-trigger" onClick={() => setActive(0)} aria-label={`${copy.actions.explore}: ${project.title[locale]}`}>
-      <img src={sitePath(project.cover.src)} srcSet={responsiveSrcSet(project.cover)} sizes="100vw" alt={project.cover.alt[locale]} width="1536" height="1024" fetchPriority="high" decoding="async" />
+      <img src={sitePath(project.cover.src)} srcSet={responsiveSrcSet(project.cover)} sizes="100vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1536} height={project.cover.height ?? 1024} fetchPriority="high" decoding="async" />
       {images.length > 1 ? <span className="gallery-count">{locale === 'en' ? 'View gallery' : 'عرض المعرض'} <b>{String(images.length).padStart(2, '0')}</b></span> : null}
     </button>
     {images.length > 1 ? <section ref={galleryRef} aria-label={copy.labels.projects} className="detail-gallery">{images.slice(1).map((image, index) => <button type="button" key={image.src} onClick={() => setActive(index + 1)} aria-label={`${copy.actions.explore}: ${project.title[locale]}, ${index + 2}`}>
-      <img src={sitePath(image.src)} srcSet={responsiveSrcSet(image)} sizes="(max-width: 700px) 100vw, 50vw" alt={image.alt[locale]} loading="lazy" decoding="async" width="1200" height="800" />
+      <img src={sitePath(image.src)} srcSet={responsiveSrcSet(image)} sizes="(max-width: 700px) 100vw, 50vw" alt={image.alt[locale]} loading="lazy" decoding="async" width={image.width ?? 1200} height={image.height ?? 800} />
     </button>)}</section> : null}
     <dialog ref={dialog} className="portfolio-lightbox" aria-label={copy.labels.projects} onClose={close} onClick={(event) => { if (event.target === dialog.current) close() }} onKeyDown={(event) => { if (event.key === 'ArrowRight') { event.preventDefault(); step(1) } if (event.key === 'ArrowLeft') { event.preventDefault(); step(-1) } }}>
       <div className="lightbox-toolbar"><span>{active === null ? '' : `${String(active + 1).padStart(2, '0')} / ${String(images.length).padStart(2, '0')}`}</span><span className="lightbox-progress" aria-hidden="true"><i style={{ transform: `scaleX(${active === null ? 0 : (active + 1) / images.length})` }} /></span><button data-magnetic type="button" onClick={close} aria-label={locale === 'en' ? 'Close gallery' : 'إغلاق المعرض'}>×</button></div>

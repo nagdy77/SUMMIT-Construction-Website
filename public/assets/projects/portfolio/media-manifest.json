@@ -1,0 +1,1425 @@
+{
+  "projects": {
+    "mohamed-ali-palace": {
+      "category": "heritage-restoration",
+      "cover": "1.png",
+      "count": 5,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/heritage-restoration/mohamed-ali-palace/1.png",
+          "sourceWidth": 1202,
+          "sourceHeight": 1309,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/01-720.webp",
+              "width": 720,
+              "height": 784
+            },
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/01-1202.webp",
+              "width": 1202,
+              "height": 1309
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/heritage-restoration/mohamed-ali-palace/2.png",
+          "sourceWidth": 1566,
+          "sourceHeight": 1004,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/02-720.webp",
+              "width": 720,
+              "height": 462
+            },
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/02-1566.webp",
+              "width": 1566,
+              "height": 1004
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/heritage-restoration/mohamed-ali-palace/3.png",
+          "sourceWidth": 1565,
+          "sourceHeight": 1005,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/03-720.webp",
+              "width": 720,
+              "height": 462
+            },
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/03-1565.webp",
+              "width": 1565,
+              "height": 1005
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/heritage-restoration/mohamed-ali-palace/4.png",
+          "sourceWidth": 1565,
+          "sourceHeight": 1005,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/04-720.webp",
+              "width": 720,
+              "height": 462
+            },
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/04-1565.webp",
+              "width": 1565,
+              "height": 1005
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "filename": "5.png",
+          "source": "project-inbox/heritage-restoration/mohamed-ali-palace/5.png",
+          "sourceWidth": 1564,
+          "sourceHeight": 1006,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/05-720.webp",
+              "width": 720,
+              "height": 463
+            },
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/05-1564.webp",
+              "width": 1564,
+              "height": 1006
+            }
+          ]
+        }
+      ]
+    },
+    "beit-al-razzaz": {
+      "category": "heritage-restoration",
+      "cover": "1.png",
+      "count": 5,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/heritage-restoration/beit-al-razzaz/1.png",
+          "sourceWidth": 1203,
+          "sourceHeight": 1308,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/01-720.webp",
+              "width": 720,
+              "height": 783
+            },
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/01-1203.webp",
+              "width": 1203,
+              "height": 1308
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/heritage-restoration/beit-al-razzaz/2.png",
+          "sourceWidth": 1562,
+          "sourceHeight": 1007,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/02-720.webp",
+              "width": 720,
+              "height": 464
+            },
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/02-1562.webp",
+              "width": 1562,
+              "height": 1007
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/heritage-restoration/beit-al-razzaz/3.png",
+          "sourceWidth": 1570,
+          "sourceHeight": 1001,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/03-720.webp",
+              "width": 720,
+              "height": 459
+            },
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/03-1570.webp",
+              "width": 1570,
+              "height": 1001
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/heritage-restoration/beit-al-razzaz/4.png",
+          "sourceWidth": 1563,
+          "sourceHeight": 1006,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/04-720.webp",
+              "width": 720,
+              "height": 463
+            },
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/04-1563.webp",
+              "width": 1563,
+              "height": 1006
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "filename": "5.png",
+          "source": "project-inbox/heritage-restoration/beit-al-razzaz/5.png",
+          "sourceWidth": 1586,
+          "sourceHeight": 992,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/05-720.webp",
+              "width": 720,
+              "height": 450
+            },
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/05-1586.webp",
+              "width": 1586,
+              "height": 992
+            }
+          ]
+        }
+      ]
+    },
+    "safi-al-din-gowhar": {
+      "category": "heritage-restoration",
+      "cover": "1.png",
+      "count": 5,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/heritage-restoration/safi-al-din-gowhar/1.png",
+          "sourceWidth": 1203,
+          "sourceHeight": 1307,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/01-720.webp",
+              "width": 720,
+              "height": 782
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp",
+              "width": 1203,
+              "height": 1307
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/heritage-restoration/safi-al-din-gowhar/2.png",
+          "sourceWidth": 1572,
+          "sourceHeight": 1001,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/02-720.webp",
+              "width": 720,
+              "height": 458
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/02-1572.webp",
+              "width": 1572,
+              "height": 1001
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/heritage-restoration/safi-al-din-gowhar/3.png",
+          "sourceWidth": 1567,
+          "sourceHeight": 1004,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/03-720.webp",
+              "width": 720,
+              "height": 461
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/03-1567.webp",
+              "width": 1567,
+              "height": 1004
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/heritage-restoration/safi-al-din-gowhar/4.png",
+          "sourceWidth": 1568,
+          "sourceHeight": 1003,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/04-720.webp",
+              "width": 720,
+              "height": 461
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/04-1568.webp",
+              "width": 1568,
+              "height": 1003
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "filename": "5.png",
+          "source": "project-inbox/heritage-restoration/safi-al-din-gowhar/5.png",
+          "sourceWidth": 1564,
+          "sourceHeight": 1006,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/05-720.webp",
+              "width": 720,
+              "height": 463
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/05-1564.webp",
+              "width": 1564,
+              "height": 1006
+            }
+          ]
+        }
+      ]
+    },
+    "st-andrews-church": {
+      "category": "heritage-restoration",
+      "cover": "1.png",
+      "count": 4,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/heritage-restoration/st-andrews-church/1.png",
+          "sourceWidth": 1201,
+          "sourceHeight": 1310,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/st-andrews-church/01-720.webp",
+              "width": 720,
+              "height": 785
+            },
+            {
+              "src": "/assets/projects/portfolio/st-andrews-church/01-1201.webp",
+              "width": 1201,
+              "height": 1310
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/heritage-restoration/st-andrews-church/2.png",
+          "sourceWidth": 1774,
+          "sourceHeight": 887,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/st-andrews-church/02-720.webp",
+              "width": 720,
+              "height": 360
+            },
+            {
+              "src": "/assets/projects/portfolio/st-andrews-church/02-1600.webp",
+              "width": 1600,
+              "height": 800
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/heritage-restoration/st-andrews-church/3.png",
+          "sourceWidth": 1201,
+          "sourceHeight": 1309,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/st-andrews-church/03-720.webp",
+              "width": 720,
+              "height": 785
+            },
+            {
+              "src": "/assets/projects/portfolio/st-andrews-church/03-1201.webp",
+              "width": 1201,
+              "height": 1309
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/heritage-restoration/st-andrews-church/4.png",
+          "sourceWidth": 1194,
+          "sourceHeight": 1317,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/st-andrews-church/04-720.webp",
+              "width": 720,
+              "height": 794
+            },
+            {
+              "src": "/assets/projects/portfolio/st-andrews-church/04-1194.webp",
+              "width": 1194,
+              "height": 1317
+            }
+          ]
+        }
+      ]
+    },
+    "new-capital-administrations-district": {
+      "category": "construction",
+      "cover": "1.png",
+      "count": 5,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/construction/new-capital-administrations-district/1.png",
+          "sourceWidth": 1312,
+          "sourceHeight": 1199,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/01-720.webp",
+              "width": 720,
+              "height": 658
+            },
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/01-1312.webp",
+              "width": 1312,
+              "height": 1199
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/construction/new-capital-administrations-district/2.png",
+          "sourceWidth": 1564,
+          "sourceHeight": 1006,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/02-720.webp",
+              "width": 720,
+              "height": 463
+            },
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/02-1564.webp",
+              "width": 1564,
+              "height": 1006
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/construction/new-capital-administrations-district/3.png",
+          "sourceWidth": 1557,
+          "sourceHeight": 1010,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/03-720.webp",
+              "width": 720,
+              "height": 467
+            },
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/03-1557.webp",
+              "width": 1557,
+              "height": 1010
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/construction/new-capital-administrations-district/4.png",
+          "sourceWidth": 1556,
+          "sourceHeight": 1011,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/04-720.webp",
+              "width": 720,
+              "height": 468
+            },
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/04-1556.webp",
+              "width": 1556,
+              "height": 1011
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "filename": "5.png",
+          "source": "project-inbox/construction/new-capital-administrations-district/5.png",
+          "sourceWidth": 1565,
+          "sourceHeight": 1005,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/05-720.webp",
+              "width": 720,
+              "height": 462
+            },
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/05-1565.webp",
+              "width": 1565,
+              "height": 1005
+            }
+          ]
+        }
+      ]
+    },
+    "stream-3": {
+      "category": "construction",
+      "cover": "1.png",
+      "count": 4,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/construction/stream-3/1.png",
+          "sourceWidth": 1205,
+          "sourceHeight": 1306,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/stream-3/01-720.webp",
+              "width": 720,
+              "height": 780
+            },
+            {
+              "src": "/assets/projects/portfolio/stream-3/01-1205.webp",
+              "width": 1205,
+              "height": 1306
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/construction/stream-3/2.png",
+          "sourceWidth": 1572,
+          "sourceHeight": 1001,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/stream-3/02-720.webp",
+              "width": 720,
+              "height": 458
+            },
+            {
+              "src": "/assets/projects/portfolio/stream-3/02-1572.webp",
+              "width": 1572,
+              "height": 1001
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/construction/stream-3/3.png",
+          "sourceWidth": 1570,
+          "sourceHeight": 1001,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/stream-3/03-720.webp",
+              "width": 720,
+              "height": 459
+            },
+            {
+              "src": "/assets/projects/portfolio/stream-3/03-1570.webp",
+              "width": 1570,
+              "height": 1001
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/construction/stream-3/4.png",
+          "sourceWidth": 1099,
+          "sourceHeight": 1431,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/stream-3/04-720.webp",
+              "width": 720,
+              "height": 938
+            },
+            {
+              "src": "/assets/projects/portfolio/stream-3/04-1099.webp",
+              "width": 1099,
+              "height": 1431
+            }
+          ]
+        }
+      ]
+    },
+    "oriana-cairo-festival-city": {
+      "category": "construction",
+      "cover": "1.png",
+      "count": 5,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/construction/oriana-cairo-festival-city/1.png",
+          "sourceWidth": 1205,
+          "sourceHeight": 1306,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/oriana-cairo-festival-city/01-720.webp",
+              "width": 720,
+              "height": 780
+            },
+            {
+              "src": "/assets/projects/portfolio/oriana-cairo-festival-city/01-1205.webp",
+              "width": 1205,
+              "height": 1306
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/construction/oriana-cairo-festival-city/2.png",
+          "sourceWidth": 1568,
+          "sourceHeight": 1003,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/oriana-cairo-festival-city/02-720.webp",
+              "width": 720,
+              "height": 461
+            },
+            {
+              "src": "/assets/projects/portfolio/oriana-cairo-festival-city/02-1568.webp",
+              "width": 1568,
+              "height": 1003
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/construction/oriana-cairo-festival-city/3.png",
+          "sourceWidth": 1570,
+          "sourceHeight": 1001,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/oriana-cairo-festival-city/03-720.webp",
+              "width": 720,
+              "height": 459
+            },
+            {
+              "src": "/assets/projects/portfolio/oriana-cairo-festival-city/03-1570.webp",
+              "width": 1570,
+              "height": 1001
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/construction/oriana-cairo-festival-city/4.png",
+          "sourceWidth": 1573,
+          "sourceHeight": 1000,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/oriana-cairo-festival-city/04-720.webp",
+              "width": 720,
+              "height": 458
+            },
+            {
+              "src": "/assets/projects/portfolio/oriana-cairo-festival-city/04-1573.webp",
+              "width": 1573,
+              "height": 1000
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "filename": "5.png",
+          "source": "project-inbox/construction/oriana-cairo-festival-city/5.png",
+          "sourceWidth": 1571,
+          "sourceHeight": 1001,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/oriana-cairo-festival-city/05-720.webp",
+              "width": 720,
+              "height": 459
+            },
+            {
+              "src": "/assets/projects/portfolio/oriana-cairo-festival-city/05-1571.webp",
+              "width": 1571,
+              "height": 1001
+            }
+          ]
+        }
+      ]
+    },
+    "alto": {
+      "category": "construction",
+      "cover": "1.png",
+      "count": 5,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/construction/alto/1.png",
+          "sourceWidth": 1205,
+          "sourceHeight": 1306,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/alto/01-720.webp",
+              "width": 720,
+              "height": 780
+            },
+            {
+              "src": "/assets/projects/portfolio/alto/01-1205.webp",
+              "width": 1205,
+              "height": 1306
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/construction/alto/2.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/alto/02-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/alto/02-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/construction/alto/3.png",
+          "sourceWidth": 1572,
+          "sourceHeight": 1001,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/alto/03-720.webp",
+              "width": 720,
+              "height": 458
+            },
+            {
+              "src": "/assets/projects/portfolio/alto/03-1572.webp",
+              "width": 1572,
+              "height": 1001
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/construction/alto/4.png",
+          "sourceWidth": 1570,
+          "sourceHeight": 1001,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/alto/04-720.webp",
+              "width": 720,
+              "height": 459
+            },
+            {
+              "src": "/assets/projects/portfolio/alto/04-1570.webp",
+              "width": 1570,
+              "height": 1001
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "filename": "5.png",
+          "source": "project-inbox/construction/alto/5.png",
+          "sourceWidth": 1498,
+          "sourceHeight": 1050,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/alto/05-720.webp",
+              "width": 720,
+              "height": 505
+            },
+            {
+              "src": "/assets/projects/portfolio/alto/05-1498.webp",
+              "width": 1498,
+              "height": 1050
+            }
+          ]
+        }
+      ]
+    },
+    "lakeview-residence": {
+      "category": "residential-fit-out",
+      "cover": "1.png",
+      "count": 4,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/residential-fit-out/lakeview-residence/1.png",
+          "sourceWidth": 1570,
+          "sourceHeight": 1001,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/lakeview-residence/01-720.webp",
+              "width": 720,
+              "height": 459
+            },
+            {
+              "src": "/assets/projects/portfolio/lakeview-residence/01-1570.webp",
+              "width": 1570,
+              "height": 1001
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/residential-fit-out/lakeview-residence/2.png",
+          "sourceWidth": 1098,
+          "sourceHeight": 1433,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/lakeview-residence/02-720.webp",
+              "width": 720,
+              "height": 940
+            },
+            {
+              "src": "/assets/projects/portfolio/lakeview-residence/02-1098.webp",
+              "width": 1098,
+              "height": 1433
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/residential-fit-out/lakeview-residence/3.png",
+          "sourceWidth": 1206,
+          "sourceHeight": 1304,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/lakeview-residence/03-720.webp",
+              "width": 720,
+              "height": 779
+            },
+            {
+              "src": "/assets/projects/portfolio/lakeview-residence/03-1206.webp",
+              "width": 1206,
+              "height": 1304
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/residential-fit-out/lakeview-residence/4.png",
+          "sourceWidth": 1566,
+          "sourceHeight": 1005,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/lakeview-residence/04-720.webp",
+              "width": 720,
+              "height": 462
+            },
+            {
+              "src": "/assets/projects/portfolio/lakeview-residence/04-1566.webp",
+              "width": 1566,
+              "height": 1005
+            }
+          ]
+        }
+      ]
+    },
+    "marvel": {
+      "category": "residential-fit-out",
+      "cover": "1.png",
+      "count": 3,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/residential-fit-out/marvel/1.png",
+          "sourceWidth": 1205,
+          "sourceHeight": 1306,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/marvel/01-720.webp",
+              "width": 720,
+              "height": 780
+            },
+            {
+              "src": "/assets/projects/portfolio/marvel/01-1205.webp",
+              "width": 1205,
+              "height": 1306
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/residential-fit-out/marvel/2.png",
+          "sourceWidth": 1098,
+          "sourceHeight": 1433,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/marvel/02-720.webp",
+              "width": 720,
+              "height": 940
+            },
+            {
+              "src": "/assets/projects/portfolio/marvel/02-1098.webp",
+              "width": 1098,
+              "height": 1433
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/residential-fit-out/marvel/3.png",
+          "sourceWidth": 1094,
+          "sourceHeight": 1438,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/marvel/03-720.webp",
+              "width": 720,
+              "height": 946
+            },
+            {
+              "src": "/assets/projects/portfolio/marvel/03-1094.webp",
+              "width": 1094,
+              "height": 1438
+            }
+          ]
+        }
+      ]
+    },
+    "bcbg": {
+      "category": "retail-fit-out",
+      "cover": "1.png",
+      "count": 4,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/retail-fit-out/bcbg/1.png",
+          "sourceWidth": 1231,
+          "sourceHeight": 1277,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/bcbg/01-720.webp",
+              "width": 720,
+              "height": 747
+            },
+            {
+              "src": "/assets/projects/portfolio/bcbg/01-1231.webp",
+              "width": 1231,
+              "height": 1277
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/retail-fit-out/bcbg/2.png",
+          "sourceWidth": 1789,
+          "sourceHeight": 879,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/bcbg/02-720.webp",
+              "width": 720,
+              "height": 354
+            },
+            {
+              "src": "/assets/projects/portfolio/bcbg/02-1600.webp",
+              "width": 1600,
+              "height": 786
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/retail-fit-out/bcbg/3.png",
+          "sourceWidth": 2016,
+          "sourceHeight": 780,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/bcbg/03-720.webp",
+              "width": 720,
+              "height": 279
+            },
+            {
+              "src": "/assets/projects/portfolio/bcbg/03-1600.webp",
+              "width": 1600,
+              "height": 619
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/retail-fit-out/bcbg/4.png",
+          "sourceWidth": 1495,
+          "sourceHeight": 1052,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/bcbg/04-720.webp",
+              "width": 720,
+              "height": 507
+            },
+            {
+              "src": "/assets/projects/portfolio/bcbg/04-1495.webp",
+              "width": 1495,
+              "height": 1052
+            }
+          ]
+        }
+      ]
+    },
+    "bsb": {
+      "category": "retail-fit-out",
+      "cover": "1.png",
+      "count": 4,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/retail-fit-out/bsb/1.png",
+          "sourceWidth": 2070,
+          "sourceHeight": 760,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/bsb/01-720.webp",
+              "width": 720,
+              "height": 264
+            },
+            {
+              "src": "/assets/projects/portfolio/bsb/01-1600.webp",
+              "width": 1600,
+              "height": 587
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/retail-fit-out/bsb/2.png",
+          "sourceWidth": 1710,
+          "sourceHeight": 920,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/bsb/02-720.webp",
+              "width": 720,
+              "height": 387
+            },
+            {
+              "src": "/assets/projects/portfolio/bsb/02-1600.webp",
+              "width": 1600,
+              "height": 861
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/retail-fit-out/bsb/3.png",
+          "sourceWidth": 1714,
+          "sourceHeight": 918,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/bsb/03-720.webp",
+              "width": 720,
+              "height": 386
+            },
+            {
+              "src": "/assets/projects/portfolio/bsb/03-1600.webp",
+              "width": 1600,
+              "height": 857
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/retail-fit-out/bsb/4.png",
+          "sourceWidth": 1188,
+          "sourceHeight": 1324,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/bsb/04-720.webp",
+              "width": 720,
+              "height": 802
+            },
+            {
+              "src": "/assets/projects/portfolio/bsb/04-1188.webp",
+              "width": 1188,
+              "height": 1324
+            }
+          ]
+        }
+      ]
+    },
+    "desigual": {
+      "category": "retail-fit-out",
+      "cover": "1.png",
+      "count": 5,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/retail-fit-out/desigual/1.png",
+          "sourceWidth": 2079,
+          "sourceHeight": 756,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/desigual/01-720.webp",
+              "width": 720,
+              "height": 262
+            },
+            {
+              "src": "/assets/projects/portfolio/desigual/01-1600.webp",
+              "width": 1600,
+              "height": 582
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/retail-fit-out/desigual/2.png",
+          "sourceWidth": 1188,
+          "sourceHeight": 1324,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/desigual/02-720.webp",
+              "width": 720,
+              "height": 802
+            },
+            {
+              "src": "/assets/projects/portfolio/desigual/02-1188.webp",
+              "width": 1188,
+              "height": 1324
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/retail-fit-out/desigual/3.png",
+          "sourceWidth": 1196,
+          "sourceHeight": 1315,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/desigual/03-720.webp",
+              "width": 720,
+              "height": 792
+            },
+            {
+              "src": "/assets/projects/portfolio/desigual/03-1196.webp",
+              "width": 1196,
+              "height": 1315
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/retail-fit-out/desigual/4.png",
+          "sourceWidth": 1711,
+          "sourceHeight": 919,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/desigual/04-720.webp",
+              "width": 720,
+              "height": 387
+            },
+            {
+              "src": "/assets/projects/portfolio/desigual/04-1600.webp",
+              "width": 1600,
+              "height": 859
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "filename": "5.png",
+          "source": "project-inbox/retail-fit-out/desigual/5.png",
+          "sourceWidth": 1193,
+          "sourceHeight": 1318,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/desigual/05-720.webp",
+              "width": 720,
+              "height": 795
+            },
+            {
+              "src": "/assets/projects/portfolio/desigual/05-1193.webp",
+              "width": 1193,
+              "height": 1318
+            }
+          ]
+        }
+      ]
+    },
+    "marina-rinaldi": {
+      "category": "retail-fit-out",
+      "cover": "1.png",
+      "count": 4,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/retail-fit-out/marina-rinaldi/1.png",
+          "sourceWidth": 1350,
+          "sourceHeight": 1165,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/marina-rinaldi/01-720.webp",
+              "width": 720,
+              "height": 621
+            },
+            {
+              "src": "/assets/projects/portfolio/marina-rinaldi/01-1350.webp",
+              "width": 1350,
+              "height": 1165
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/retail-fit-out/marina-rinaldi/2.png",
+          "sourceWidth": 1184,
+          "sourceHeight": 1328,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/marina-rinaldi/02-720.webp",
+              "width": 720,
+              "height": 808
+            },
+            {
+              "src": "/assets/projects/portfolio/marina-rinaldi/02-1184.webp",
+              "width": 1184,
+              "height": 1328
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/retail-fit-out/marina-rinaldi/3.png",
+          "sourceWidth": 1198,
+          "sourceHeight": 1313,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/marina-rinaldi/03-720.webp",
+              "width": 720,
+              "height": 789
+            },
+            {
+              "src": "/assets/projects/portfolio/marina-rinaldi/03-1198.webp",
+              "width": 1198,
+              "height": 1313
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "4.png",
+          "source": "project-inbox/retail-fit-out/marina-rinaldi/4.png",
+          "sourceWidth": 1018,
+          "sourceHeight": 1545,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/marina-rinaldi/04-720.webp",
+              "width": 720,
+              "height": 1093
+            },
+            {
+              "src": "/assets/projects/portfolio/marina-rinaldi/04-1018.webp",
+              "width": 1018,
+              "height": 1545
+            }
+          ]
+        }
+      ]
+    },
+    "sky-offices": {
+      "category": "retail-fit-out",
+      "cover": "1.png",
+      "count": 3,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/retail-fit-out/sky-offices/1.png",
+          "sourceWidth": 918,
+          "sourceHeight": 1714,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/sky-offices/01-720.webp",
+              "width": 720,
+              "height": 1344
+            },
+            {
+              "src": "/assets/projects/portfolio/sky-offices/01-918.webp",
+              "width": 918,
+              "height": 1714
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/retail-fit-out/sky-offices/2.png",
+          "sourceWidth": 1424,
+          "sourceHeight": 1104,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/sky-offices/02-720.webp",
+              "width": 720,
+              "height": 558
+            },
+            {
+              "src": "/assets/projects/portfolio/sky-offices/02-1424.webp",
+              "width": 1424,
+              "height": 1104
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/retail-fit-out/sky-offices/3.png",
+          "sourceWidth": 920,
+          "sourceHeight": 1709,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/sky-offices/03-720.webp",
+              "width": 720,
+              "height": 1337
+            },
+            {
+              "src": "/assets/projects/portfolio/sky-offices/03-920.webp",
+              "width": 920,
+              "height": 1709
+            }
+          ]
+        }
+      ]
+    },
+    "voda": {
+      "category": "retail-fit-out",
+      "cover": "1.png",
+      "count": 3,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "1.png",
+          "source": "project-inbox/retail-fit-out/voda/1.png",
+          "sourceWidth": 1113,
+          "sourceHeight": 1414,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/voda/01-720.webp",
+              "width": 720,
+              "height": 915
+            },
+            {
+              "src": "/assets/projects/portfolio/voda/01-1113.webp",
+              "width": 1113,
+              "height": 1414
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "2.png",
+          "source": "project-inbox/retail-fit-out/voda/2.png",
+          "sourceWidth": 1127,
+          "sourceHeight": 1396,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/voda/02-720.webp",
+              "width": 720,
+              "height": 892
+            },
+            {
+              "src": "/assets/projects/portfolio/voda/02-1127.webp",
+              "width": 1127,
+              "height": 1396
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "3.png",
+          "source": "project-inbox/retail-fit-out/voda/3.png",
+          "sourceWidth": 1105,
+          "sourceHeight": 1423,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/voda/03-720.webp",
+              "width": 720,
+              "height": 927
+            },
+            {
+              "src": "/assets/projects/portfolio/voda/03-1105.webp",
+              "width": 1105,
+              "height": 1423
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "issues": []
+}

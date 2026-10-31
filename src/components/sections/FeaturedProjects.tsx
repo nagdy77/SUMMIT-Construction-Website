@@ -1,17 +1,27 @@
 import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { projects } from '../../data/projects'
+import { projects as allProjects } from '../../data/projects'
 import { createImageCrossfade } from '../../lib/crossfade'
 import { assetUrl } from '../../lib/assets'
 import { Container } from '../ui/Container'
 import { Icon } from '../ui/Icon'
 import { SectionHeading } from '../ui/SectionHeading'
 import { useHomeCopy, useLocale } from '../../content/site'
-import { publishedProjects } from '../../data/portfolio'
+import { publishedProjects as allPortfolioProjects } from '../../data/portfolio'
 import { routePath } from '../../lib/routes'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const featuredProjectIds = ['mohamed-ali-palace', 'oriana-cairo-festival-city', 'marvel', 'desigual']
+const projects = featuredProjectIds.map((id) => allProjects.find((project) => project.id === id)).filter((project): project is (typeof allProjects)[number] => Boolean(project))
+const publishedProjects = projects.map((project) => allPortfolioProjects.find((item) => item.id === project.id)).filter((project): project is (typeof allPortfolioProjects)[number] => Boolean(project))
+const featuredCategoryLabels = {
+  'Heritage Restoration': 'ترميم التراث',
+  Construction: 'الإنشاءات',
+  'Residential Fit-Out': 'التشطيبات السكنية',
+  'Retail Fit-Out': 'التشطيبات التجارية',
+} as const
 
 type Selection = {
   projectIndex: number
@@ -374,6 +384,8 @@ export function FeaturedProjects() {
         {!unavailable ? <img
           data-project-image
           src={assetUrl(image.src)}
+          srcSet={image.srcSet?.split(', ').map((item) => `${assetUrl(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')}
+          sizes="(max-width: 1023px) 100vw, 66vw"
           alt={galleryAlt}
           loading={isIncoming ? 'eager' : 'lazy'}
           decoding="async"
@@ -440,7 +452,7 @@ export function FeaturedProjects() {
                     </span>
                     <span>
                       <span className="block font-body text-[0.5625rem] font-bold uppercase tracking-[0.16em] text-[var(--color-muted)]">
-                        {locale === 'ar' ? ['ترميم التراث', 'الإنشاءات', 'التشطيبات السكنية'][projectIndex] : project.category}
+                        {locale === 'ar' ? featuredCategoryLabels[project.category] : project.category}
                       </span>
                       <span className="mt-2 block font-display text-[clamp(1.35rem,2.2vw,2.25rem)] font-medium leading-[1.05] tracking-[-0.045em]">
                         {publishedProjects[projectIndex].title[locale]}

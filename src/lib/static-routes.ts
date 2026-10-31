@@ -17,6 +17,8 @@ export const indexableRoutePaths = [
   ...(['en', 'ar'] as const).flatMap((locale) => [
     ...indexableBasePages.map((page) => `/${locale}/${page}`),
     ...indexableServiceSlugs.map((slug) => `/${locale}/services/${slug}/`),
-    ...indexableProjects.map(({ slug }) => `/${locale}/projects/${slug}/`),
+    ...indexableProjects
+      .filter((project) => locale === 'en' || project.hasApprovedArabic)
+      .map(({ slug }) => `/${locale}/projects/${slug}/`),
   ]),
 ]

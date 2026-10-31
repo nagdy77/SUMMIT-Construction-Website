@@ -16,7 +16,13 @@ export function webAssetsOnly() {
           // Keep legacy generated masters in the workspace for provenance, but
           // never include generated architectural imagery in production output.
           if (relativeName === 'assets/generated' || relativeName.startsWith('assets/generated/')) continue
-          if (relativeName.startsWith('assets/projects/') && relativeName !== 'assets/projects/featured' && !relativeName.startsWith('assets/projects/featured/')) continue
+          const isGeneratedProjectAsset = [
+            'assets/projects/featured',
+            'assets/projects/portfolio',
+            'assets/projects/categories/optimized',
+          ].some((directory) => relativeName === directory || relativeName.startsWith(`${directory}/`))
+          const isCategoryDirectory = relativeName === 'assets/projects/categories'
+          if (relativeName.startsWith('assets/projects/') && !isGeneratedProjectAsset && !isCategoryDirectory) continue
           if (entry.isDirectory()) await collect(relativeName)
           else {
             // PNG masters remain in public for source preservation; the UI uses WebP.
