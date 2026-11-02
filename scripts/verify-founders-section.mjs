@@ -12,7 +12,7 @@ const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, mil
 
 const expected = {
   en: {
-    heading: 'Meet the Founders',
+    heading: 'Meet The Founders',
     alt: 'Black-and-white portrait of SUMMIT founders Ahmed Elesawy on the left and Mohamed Haron on the right',
     translationStatus: '',
     founders: [
@@ -144,6 +144,8 @@ try {
           const section = document.querySelector('.founders-story')
           const image = section.querySelector('.founders-image img')
           const imageRect = image.getBoundingClientRect()
+          const heading = section.querySelector('.founders-editorial-heading h2')
+          const headingRect = heading.getBoundingClientRect()
           const quotes = [...section.querySelectorAll('.founder-quote')].map((article) => ({
             name: article.querySelector('h3').textContent.trim(),
             quote: article.querySelector('blockquote p').textContent,
@@ -157,7 +159,11 @@ try {
             lang: document.documentElement.lang,
             dir: document.documentElement.dir,
             theme: document.documentElement.dataset.theme,
-            heading: section.querySelector('h2').textContent.trim(),
+            heading: heading.getAttribute('aria-label'),
+            headingParts: section.querySelectorAll('[data-founders-heading-part]').length,
+            headingTextAlign: getComputedStyle(heading).textAlign,
+            headingAbovePortrait: headingRect.bottom < imageRect.top,
+            hasImageOverlayTitle: Boolean(section.querySelector('.founders-image-title')),
             labelledBy: section.getAttribute('aria-labelledby'),
             alt: image.alt,
             imagePath: new URL(image.currentSrc || image.src).pathname,
@@ -183,7 +189,11 @@ try {
         assert.equal(metrics.heading, expected[locale].heading)
         assert.equal(metrics.labelledBy, 'founders-heading')
         assert.equal(metrics.alt, expected[locale].alt)
-        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-monochrome-(960|1536)\.webp$/)
+        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-wide-(960|1536)\.webp$/)
+        assert.equal(metrics.headingParts, 2)
+        assert.equal(metrics.headingTextAlign, 'center')
+        assert.equal(metrics.headingAbovePortrait, true)
+        assert.equal(metrics.hasImageOverlayTitle, false)
         assert.equal(metrics.objectFit, 'contain')
         assert.ok(Math.abs((metrics.imageWidth / metrics.imageHeight) - 1.5) < 0.01, 'Portrait must preserve its 3:2 aspect ratio')
         assert.ok(Math.abs((metrics.naturalWidth / metrics.naturalHeight) - 1.5) < 0.01, `Selected WebP must preserve its source ratio (${metrics.naturalWidth}x${metrics.naturalHeight})`)
@@ -203,10 +213,14 @@ try {
   await navigate('en', 'dark', true)
   const reducedMotion = await evaluate(`(() => ({
     imageTransform: getComputedStyle(document.querySelector('.founders-image img')).transform,
+    titleTransforms: [...document.querySelectorAll('[data-founders-heading-part]')].map((node) => getComputedStyle(node).transform),
+    titleOpacity: [...document.querySelectorAll('[data-founders-heading-part]')].map((node) => getComputedStyle(node).opacity),
     quoteTransforms: [...document.querySelectorAll('.founder-quote')].map((node) => getComputedStyle(node).transform),
     quoteOpacity: [...document.querySelectorAll('.founder-quote')].map((node) => getComputedStyle(node).opacity),
   }))()`)
   assert.equal(reducedMotion.imageTransform, 'none')
+  assert.ok(reducedMotion.titleTransforms.every((value) => value === 'none'))
+  assert.ok(reducedMotion.titleOpacity.every((value) => value === '1'))
   assert.ok(reducedMotion.quoteTransforms.every((value) => value === 'none'))
   assert.ok(reducedMotion.quoteOpacity.every((value) => value === '1'))
   assertions += 3

@@ -116,19 +116,16 @@ export function EntranceIntro({ onRevealHero, onComplete }: EntranceIntroProps) 
     const context = gsap.context(() => {
       const logoMask = root.querySelector<HTMLElement>('[data-intro-logo-mask]')
       const logo = root.querySelector<HTMLElement>('[data-intro-logo]')
-      const mountainLines = root.querySelectorAll<SVGPathElement>('[data-intro-mountain-line]')
       const horizon = root.querySelector<HTMLElement>('[data-intro-horizon]')
       const label = root.querySelector<HTMLElement>('[data-intro-label]')
 
       gsap.set(logoMask, { clipPath: 'polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%)' })
       gsap.set(logo, { autoAlpha: 0, scale: 1.025 })
-      gsap.set(mountainLines, { strokeDasharray: 420, strokeDashoffset: 420, autoAlpha: 0.75 })
       gsap.set(horizon, { scaleX: 0, transformOrigin: 'center center' })
       gsap.set(label, { autoAlpha: 0, y: 8 })
 
       gsap
         .timeline()
-        .to(mountainLines, { strokeDashoffset: 0, duration: 0.72, stagger: 0.07, ease: 'power2.inOut' }, 0)
         .to(logoMask, { clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', duration: 0.78, ease: 'power3.inOut' }, 0.12)
         .to(logo, { autoAlpha: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, 0.16)
         .to(horizon, { scaleX: 1, duration: 0.68, ease: 'power3.inOut' }, 0.28)
@@ -186,12 +183,6 @@ export function EntranceIntro({ onRevealHero, onComplete }: EntranceIntroProps) 
       </div>
 
       <div className="relative flex w-full max-w-[32rem] flex-col items-center px-8 sm:px-12">
-        <svg className="absolute left-1/2 top-1/2 h-[13rem] w-[22rem] -translate-x-1/2 -translate-y-[60%] opacity-25 sm:h-[17rem] sm:w-[30rem]" viewBox="0 0 480 280" fill="none" aria-hidden="true">
-          <path data-intro-mountain-line d="M42 226 180 45l92 181" stroke="currentColor" strokeWidth="1" />
-          <path data-intro-mountain-line d="m174 226 98-132 104 132" stroke="currentColor" strokeWidth="1" />
-          <path data-intro-mountain-line d="m282 226 60-78 96 78" stroke="currentColor" strokeWidth="1" />
-        </svg>
-
         <div data-intro-logo-mask className="relative w-full max-w-[15rem] overflow-hidden sm:max-w-[18rem]">
           <img
             ref={logoRef}

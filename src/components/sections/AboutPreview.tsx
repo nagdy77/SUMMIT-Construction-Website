@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container } from '../ui/Container'
+import { FoundersHeading } from '../ui/FoundersHeading'
 import { assetSrcSet, assetUrl } from '../../lib/assets'
 import { useHomeCopy, useLocale } from '../../content/site'
 
@@ -30,6 +31,9 @@ export function AboutPreview() {
       const imageMotion = section.querySelector<HTMLElement>('[data-about-image-motion]')
       const geometry = section.querySelector<HTMLElement>('[data-about-geometry]')
       const facts = gsap.utils.toArray<HTMLElement>('[data-about-fact]', section)
+      const foundersHeading = section.querySelector<HTMLElement>('[data-founders-heading]')
+      const foundersHeadingLine = foundersHeading?.querySelector<HTMLElement>('[data-founders-heading-line]')
+      const foundersHeadingParts = foundersHeading ? [...foundersHeading.querySelectorAll<HTMLElement>('[data-founders-heading-part]')] : []
 
       gsap.from(copy, {
         autoAlpha: 0,
@@ -45,17 +49,18 @@ export function AboutPreview() {
       })
 
       if (imageReveal && imageMotion) {
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: imageReveal,
-              start: 'top 78%',
-              once: true,
-            },
-          })
-          .from(imageReveal, { xPercent: -101, duration: 1.35, ease: 'power4.inOut' })
-          .from(imageMotion, { xPercent: 101, scale: 1.1, duration: 1.35, ease: 'power4.inOut' }, 0)
-          .from(geometry, { autoAlpha: 0, scale: 0.92, x: 20, duration: 0.9, ease: 'power3.out' }, 0.65)
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: foundersHeading ?? imageReveal,
+            start: 'top 84%',
+            once: true,
+          },
+        })
+        if (foundersHeadingLine) timeline.from(foundersHeadingLine, { scaleX: 0, duration: .68, ease: 'power3.inOut', clearProps: 'transform' })
+        if (foundersHeadingParts.length) timeline.from(foundersHeadingParts, { yPercent: 78, autoAlpha: 0, duration: .82, stagger: .11, ease: 'power4.out', clearProps: 'opacity,visibility,transform' }, '-=.32')
+        timeline.from(imageReveal, { y: 28, autoAlpha: 0, clipPath: 'inset(7% 0 7% 0)', duration: 1.08, ease: 'power3.out', clearProps: 'clip-path,opacity,visibility,transform' }, '-=.16')
+        timeline.from(imageMotion, { scale: 1.045, duration: 1.42, ease: 'power3.out', clearProps: 'transform' }, '<')
+        if (geometry) timeline.from(geometry, { autoAlpha: 0, scale: 0.94, y: 10, duration: .82, ease: 'power3.out', clearProps: 'opacity,visibility,transform' }, '<.35')
       }
 
       gsap.from(facts, {
@@ -105,15 +110,16 @@ export function AboutPreview() {
 
         <div className="about-executive-grid mt-16 grid gap-14 sm:mt-20 lg:mt-28 lg:grid-cols-12 lg:gap-x-10 xl:gap-x-14">
           <div className="about-executive-visual relative lg:col-span-7">
-            <div className="absolute -left-4 top-10 hidden h-[72%] w-px bg-summit-gold lg:block" aria-hidden="true" />
-            <div className="absolute -left-4 top-10 hidden h-px w-20 bg-summit-gold lg:block" aria-hidden="true" />
+            <FoundersHeading locale={locale} className="founders-editorial-heading--home" />
+            <div className="absolute -left-4 top-32 hidden h-[64%] w-px bg-summit-gold lg:block" aria-hidden="true" />
+            <div className="absolute -left-4 top-32 hidden h-px w-20 bg-summit-gold lg:block" aria-hidden="true" />
 
             <div className="about-executive-frame overflow-hidden">
               <div data-about-reveal className="h-full w-full">
                 <div data-about-image-motion className="h-full w-full">
                   <img
-                    src={assetUrl('/assets/about/founders/founders-monochrome-1536.webp')}
-                    srcSet={assetSrcSet('/assets/about/founders/founders-monochrome-960.webp 960w, /assets/about/founders/founders-monochrome-1536.webp 1536w')}
+                    src={assetUrl('/assets/about/founders/founders-wide-1536.webp')}
+                    srcSet={assetSrcSet('/assets/about/founders/founders-wide-960.webp 960w, /assets/about/founders/founders-wide-1536.webp 1536w')}
                     sizes="(max-width: 767px) calc(100vw - 2.5rem), (max-width: 1279px) 58vw, 720px"
                     width="1536"
                     height="1024"

@@ -9,7 +9,7 @@ if (!inputArgument) throw new Error('Provide the absolute path to the supplied f
 const input = path.resolve(inputArgument)
 const referenceDirectory = path.resolve('references', 'founders')
 const publicDirectory = path.resolve('public', 'assets', 'about', 'founders')
-const preservedOriginal = path.join(referenceDirectory, 'founders-monochrome-original.png')
+const preservedOriginal = path.join(referenceDirectory, 'founders-wide-original.png')
 
 const sha256 = async (file) => createHash('sha256').update(await readFile(file)).digest('hex').toUpperCase()
 const inputMetadata = await sharp(input).metadata()
@@ -33,7 +33,7 @@ try {
 
 const derivatives = []
 for (const width of [960, 1536]) {
-  const output = path.join(publicDirectory, `founders-monochrome-${width}.webp`)
+  const output = path.join(publicDirectory, `founders-wide-${width}.webp`)
   await sharp(input)
     .resize({ width, fit: 'inside', withoutEnlargement: true })
     .webp({ quality: 90, effort: 6, smartSubsample: true })

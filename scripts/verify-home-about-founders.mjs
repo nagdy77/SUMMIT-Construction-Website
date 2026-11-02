@@ -12,8 +12,8 @@ const outputDirectory = path.resolve('references', 'qa', 'home-about-founders')
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds))
 let assetAssertions = 0
 for (const [file, expectedWidth, expectedHeight] of [
-  ['public/assets/about/founders/founders-monochrome-960.webp', 960, 640],
-  ['public/assets/about/founders/founders-monochrome-1536.webp', 1536, 1024],
+  ['public/assets/about/founders/founders-wide-960.webp', 960, 640],
+  ['public/assets/about/founders/founders-wide-1536.webp', 1536, 1024],
 ]) {
   const metadata = await sharp(file).metadata()
   assert.equal(metadata.width, expectedWidth)
@@ -134,6 +134,8 @@ try {
           const section = document.querySelector('#about')
           const frame = section.querySelector('.about-executive-frame')
           const image = section.querySelector('.about-executive-photo')
+          const foundersHeading = section.querySelector('.founders-editorial-heading')
+          const foundersHeadingTitle = foundersHeading.querySelector('h2')
           const mark = section.querySelector('.about-executive-mark')
           const markImage = mark.querySelector('img')
           const badge = section.querySelector('.about-established-badge')
@@ -147,6 +149,11 @@ try {
             imageAlt: image.alt,
             objectFit: getComputedStyle(image).objectFit,
             frameRatio: frame.getBoundingClientRect().width / frame.getBoundingClientRect().height,
+            foundersHeading: foundersHeadingTitle.getAttribute('aria-label'),
+            foundersHeadingParts: foundersHeading.querySelectorAll('[data-founders-heading-part]').length,
+            foundersHeadingTextAlign: getComputedStyle(foundersHeadingTitle).textAlign,
+            foundersHeadingAboveImage: foundersHeading.getBoundingClientRect().bottom < frame.getBoundingClientRect().top,
+            hasFoundersImageOverlay: Boolean(frame.querySelector('.founders-image-title')),
             markPath: new URL(markImage.currentSrc || markImage.src).pathname,
             markAlt: markImage.alt,
             markOpacity: Number(getComputedStyle(mark).opacity),
@@ -167,10 +174,15 @@ try {
         assert.equal(metrics.lang, locale)
         assert.equal(metrics.dir, locale === 'ar' ? 'rtl' : 'ltr')
         assert.equal(metrics.theme, theme)
-        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-monochrome-(960|1536)\.webp$/)
+        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-wide-(960|1536)\.webp$/)
         assert.ok(metrics.imageAlt.includes(locale === 'en' ? 'Ahmed Elesawy' : 'أحمد العيسوي'))
         assert.equal(metrics.objectFit, 'contain')
         assert.ok(Math.abs(metrics.frameRatio - 1.5) < 0.015, 'Executive frame must preserve the portrait ratio')
+        assert.equal(metrics.foundersHeading, locale === 'en' ? 'Meet The Founders' : 'تعرّف إلى المؤسسين')
+        assert.equal(metrics.foundersHeadingParts, 2)
+        assert.equal(metrics.foundersHeadingTextAlign, 'center')
+        assert.equal(metrics.foundersHeadingAboveImage, true)
+        assert.equal(metrics.hasFoundersImageOverlay, false)
         assert.match(metrics.markPath, /\/assets\/brand\/summit-mountain-symbol\.webp$/)
         assert.equal(metrics.markAlt, '')
         assert.deepEqual(metrics.markNaturalSize, [480, 388])
@@ -195,10 +207,14 @@ try {
     revealTransform: getComputedStyle(document.querySelector('[data-about-reveal]')).transform,
     imageTransform: getComputedStyle(document.querySelector('[data-about-image-motion]')).transform,
     markTransform: getComputedStyle(document.querySelector('[data-about-geometry]')).transform,
+    headingTransforms: [...document.querySelectorAll('#about [data-founders-heading-part]')].map((node) => getComputedStyle(node).transform),
+    headingOpacity: [...document.querySelectorAll('#about [data-founders-heading-part]')].map((node) => getComputedStyle(node).opacity),
   }))()`)
   assert.equal(reducedMotion.revealTransform, 'none')
   assert.equal(reducedMotion.imageTransform, 'none')
   assert.equal(reducedMotion.markTransform, 'none')
+  assert.ok(reducedMotion.headingTransforms.every((value) => value === 'none'))
+  assert.ok(reducedMotion.headingOpacity.every((value) => value === '1'))
   assertions += 3
 
   const captures = [

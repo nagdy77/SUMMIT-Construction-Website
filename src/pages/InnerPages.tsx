@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'rea
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container } from '../components/ui/Container'
+import { FoundersHeading } from '../components/ui/FoundersHeading'
 import { Footer } from '../components/layout/Footer'
 import { Header } from '../components/layout/Header'
 import { useCopy, useHomeCopy, useLocale } from '../content/site'
@@ -21,6 +22,11 @@ type EditorialImage = {
   position?: string
 }
 
+function projectEditorialImage(project: string, image: string, fullWidth: number, alt: Localized): EditorialImage {
+  const base = `/assets/projects/portfolio/${project}/${image}`
+  return { src: `${base}-${fullWidth}.webp`, srcSet: `${base}-720.webp 720w, ${base}-${fullWidth}.webp ${fullWidth}w`, alt, position: 'center' }
+}
+
 const images = {
   aboutWide: {
     src: '/assets/projects/featured/real-media/story-wide-wide-1916.webp',
@@ -32,45 +38,38 @@ const images = {
     srcSet: '/assets/projects/featured/real-media/story-portrait-portrait-640.webp 640w, /assets/projects/featured/real-media/story-portrait-portrait-960.webp 960w, /assets/projects/featured/real-media/story-portrait-portrait-1122.webp 1122w',
     alt: { en: 'Architectural detail documented at a SUMMIT project', ar: 'تفصيل معماري موثق في أحد مشروعات سوميت' },
   },
-  construction: {
-    src: '/assets/projects/featured/real-media/service-construction-portrait-1122.webp',
-    srcSet: '/assets/projects/featured/real-media/service-construction-portrait-640.webp 640w, /assets/projects/featured/real-media/service-construction-portrait-960.webp 960w, /assets/projects/featured/real-media/service-construction-portrait-1122.webp 1122w',
-    alt: { en: 'Construction work at a SUMMIT project', ar: 'أعمال إنشاء في أحد مشروعات سوميت' },
-  },
-  constructionWide: {
-    src: '/assets/projects/featured/real-media/hero-construction-wide-1916.webp',
-    srcSet: '/assets/projects/featured/real-media/hero-construction-wide-960.webp 960w, /assets/projects/featured/real-media/hero-construction-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-construction-wide-1916.webp 1916w',
-    alt: { en: 'SUMMIT construction project in progress', ar: 'مشروع إنشاء لسوميت قيد التنفيذ' },
-  },
-  restoration: {
-    src: '/assets/projects/featured/real-media/service-restoration-portrait-1122.webp',
-    srcSet: '/assets/projects/featured/real-media/service-restoration-portrait-640.webp 640w, /assets/projects/featured/real-media/service-restoration-portrait-960.webp 960w, /assets/projects/featured/real-media/service-restoration-portrait-1122.webp 1122w',
-    alt: { en: 'Heritage restoration detail from a SUMMIT project', ar: 'تفصيل من أعمال ترميم تراثي لسوميت' },
-  },
-  restorationWide: {
-    src: '/assets/projects/featured/real-media/hero-heritage-wide-1916.webp',
-    srcSet: '/assets/projects/featured/real-media/hero-heritage-wide-960.webp 960w, /assets/projects/featured/real-media/hero-heritage-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-heritage-wide-1916.webp 1916w',
-    alt: { en: 'Restored heritage setting documented by SUMMIT', ar: 'موقع تراثي مرمم ضمن أعمال سوميت' },
-  },
-  renovation: {
-    src: '/assets/projects/featured/real-media/service-renovation-portrait-847.webp',
-    srcSet: '/assets/projects/featured/real-media/service-renovation-portrait-480.webp 480w, /assets/projects/featured/real-media/service-renovation-portrait-640.webp 640w, /assets/projects/featured/real-media/service-renovation-portrait-847.webp 847w',
-    alt: { en: 'Renovation workmanship at a SUMMIT project', ar: 'أعمال تجديد في أحد مشروعات سوميت' },
-  },
-  renovationWide: {
-    src: '/assets/projects/featured/real-media/material-study-wide-1916.webp',
-    srcSet: '/assets/projects/featured/real-media/material-study-wide-960.webp 960w, /assets/projects/featured/real-media/material-study-wide-1440.webp 1440w, /assets/projects/featured/real-media/material-study-wide-1916.webp 1916w',
-    alt: { en: 'Material and finishing detail from a SUMMIT project', ar: 'تفصيل للخامات والتشطيبات في أحد مشروعات سوميت' },
-  },
-  fitout: {
-    src: '/assets/projects/featured/real-media/hero-fitout-wide-1916.webp',
-    srcSet: '/assets/projects/featured/real-media/hero-fitout-wide-960.webp 960w, /assets/projects/featured/real-media/hero-fitout-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-fitout-wide-1916.webp 1916w',
-    alt: { en: 'Completed interior fit-out by SUMMIT', ar: 'تشطيب داخلي منفذ بواسطة سوميت' },
-  },
-  fitoutDetail: {
-    src: '/assets/projects/featured/real-media/service-fitout-detail.webp',
-    alt: { en: 'Interior joinery in the Lakeview Residence project', ar: 'أعمال نجارة داخلية في مشروع ليك فيو ريزيدنس' },
-  },
+  construction: projectEditorialImage('new-capital-administrations-district', '01', 1312, {
+    en: 'Administrative building under construction in the New Capital Administrations District',
+    ar: 'مبنى إداري قيد الإنشاء في حي الوزارات بالعاصمة الإدارية الجديدة',
+  }),
+  constructionWide: projectEditorialImage('oriana-cairo-festival-city', '02', 1568, {
+    en: 'Completed villa exterior at Oriana Cairo Festival City',
+    ar: 'واجهة فيلا مكتملة في أوريانا كايرو فستيفال سيتي',
+  }),
+  restoration: projectEditorialImage('mohamed-ali-palace', '01', 1202, {
+    en: 'Restored interior at Mohamed Ali Palace',
+    ar: 'قاعة داخلية مرممة في قصر محمد علي',
+  }),
+  restorationWide: projectEditorialImage('beit-al-razzaz', '01', 1203, {
+    en: 'Restored courtyard and historic façades at Beit Al Razzaz',
+    ar: 'الفناء والواجهات التاريخية المرممة في بيت الرزاز',
+  }),
+  renovation: projectEditorialImage('lakeview-residence', '03', 1206, {
+    en: 'Finished residential interior at Lakeview Residence',
+    ar: 'تشطيبات داخلية سكنية مكتملة في ليك فيو ريزيدنس',
+  }),
+  renovationWide: projectEditorialImage('lakeview-residence', '01', 1570, {
+    en: 'Finished marble kitchen at Lakeview Residence',
+    ar: 'مطبخ رخامي مكتمل في ليك فيو ريزيدنس',
+  }),
+  fitout: projectEditorialImage('bcbg', '01', 1231, {
+    en: 'Completed BCBG retail storefront and interior',
+    ar: 'واجهة ومتجر بي سي بي جي بعد اكتمال التشطيبات',
+  }),
+  fitoutDetail: projectEditorialImage('sky-offices', '02', 1424, {
+    en: 'Completed glass-partitioned office interior at Sky Offices',
+    ar: 'مكاتب داخلية مكتملة بقواطع زجاجية في سكاي أوفيسز',
+  }),
   workmanship: {
     src: '/assets/projects/featured/real-media/about-workmanship-portrait-1122.webp',
     srcSet: '/assets/projects/featured/real-media/about-workmanship-portrait-640.webp 640w, /assets/projects/featured/real-media/about-workmanship-portrait-960.webp 960w, /assets/projects/featured/real-media/about-workmanship-portrait-1122.webp 1122w',
@@ -113,7 +112,7 @@ function ClientLogoTrackSet({ duplicate = false }: { duplicate?: boolean }) {
 
 const serviceVisuals: Record<string, { primary: EditorialImage; secondary: EditorialImage; number: string }> = {
   construction: { primary: images.construction, secondary: images.constructionWide, number: '01' },
-  restoration: { primary: images.restorationWide, secondary: images.restoration, number: '02' },
+  restoration: { primary: images.restoration, secondary: images.restorationWide, number: '02' },
   renovation: { primary: images.renovation, secondary: images.renovationWide, number: '03' },
   'fit-out': { primary: images.fitout, secondary: images.fitoutDetail, number: '04' },
 }
@@ -121,7 +120,6 @@ const serviceVisuals: Record<string, { primary: EditorialImage; secondary: Edito
 const foundersPresentation = {
   en: {
     eyebrow: 'Leadership',
-    heading: 'Meet the Founders',
     portraitAlt: 'Black-and-white portrait of SUMMIT founders Ahmed Elesawy on the left and Mohamed Haron on the right',
     translationStatus: null,
     founders: [
@@ -139,7 +137,6 @@ const foundersPresentation = {
   },
   ar: {
     eyebrow: 'القيادة',
-    heading: 'تعرّف إلى المؤسسين',
     portraitAlt: 'صورة بالأبيض والأسود لمؤسسي سوميت، أحمد العيسوي على اليسار ومحمد هارون على اليمين',
     translationStatus: 'الترجمة العربية للمقولتين قيد اعتماد العميل قبل النشر.',
     founders: [
@@ -157,7 +154,6 @@ const foundersPresentation = {
   },
 } satisfies Record<Locale, {
   eyebrow: string
-  heading: string
   portraitAlt: string
   translationStatus: string | null
   founders: Array<{ id: 'ahmed' | 'mohamed'; name: string; quote: string }>
@@ -196,16 +192,24 @@ function useEditorialMotion<T extends HTMLElement>() {
           timeline.from(node, { autoAlpha: 0, y: 42, duration: 1, ease: 'power3.out', clearProps: 'opacity,visibility,transform' })
           if (image) timeline.from(image, { yPercent: -5, scale: 1.075, duration: 1.15, ease: 'power3.out', clearProps: 'transform' }, 0)
         })
-        gsap.utils.toArray<HTMLElement>('[data-founder-quote]').forEach((node) => {
-          if (node.getBoundingClientRect().top < window.innerHeight * .92) return
-          const line = node.querySelector<HTMLElement>('[data-founder-line]')
-          const name = node.querySelector<HTMLElement>('[data-founder-name]')
-          const quote = node.querySelector<HTMLElement>('[data-founder-copy]')
-          const timeline = gsap.timeline({ scrollTrigger: { trigger: node, start: 'top 90%', once: true } })
-          if (line) timeline.from(line, { scaleX: 0, duration: .6, ease: 'power3.out', clearProps: 'transform' })
-          if (name) timeline.from(name, { y: 12, opacity: 0, duration: .55, ease: 'power3.out', clearProps: 'opacity,transform' }, '<.05')
-          if (quote) timeline.from(quote, { y: 20, opacity: 0, duration: .75, ease: 'power3.out', clearProps: 'opacity,transform' }, '-=.3')
-        })
+        const foundersStory = ref.current?.querySelector<HTMLElement>('[data-founders-story]')
+        if (foundersStory) {
+          const eyebrow = foundersStory.querySelector<HTMLElement>('[data-founders-eyebrow]')
+          const headingLine = foundersStory.querySelector<HTMLElement>('[data-founders-heading-line]')
+          const headingParts = [...foundersStory.querySelectorAll<HTMLElement>('[data-founders-heading-part]')]
+          const translationStatus = foundersStory.querySelector<HTMLElement>('.founders-translation-status')
+          const imageFrame = foundersStory.querySelector<HTMLElement>('[data-founders-image]')
+          const image = imageFrame?.querySelector<HTMLElement>('img')
+          const quotes = [...foundersStory.querySelectorAll<HTMLElement>('[data-founder-quote]')]
+          const timeline = gsap.timeline({ scrollTrigger: { trigger: foundersStory, start: 'top 78%', once: true } })
+          if (eyebrow) timeline.from(eyebrow, { y: 12, autoAlpha: 0, duration: .55, ease: 'power3.out', clearProps: 'opacity,visibility,transform' })
+          if (headingLine) timeline.from(headingLine, { scaleX: 0, duration: .7, ease: 'power3.inOut', clearProps: 'transform' }, '-=.25')
+          if (headingParts.length) timeline.from(headingParts, { yPercent: 82, autoAlpha: 0, duration: .86, stagger: .11, ease: 'power4.out', clearProps: 'opacity,visibility,transform' }, '-=.36')
+          if (translationStatus) timeline.from(translationStatus, { y: 12, autoAlpha: 0, duration: .55, ease: 'power3.out', clearProps: 'opacity,visibility,transform' }, '-=.38')
+          if (imageFrame) timeline.from(imageFrame, { y: 30, autoAlpha: 0, clipPath: 'inset(8% 0 8% 0 round var(--radius-media))', duration: 1.12, ease: 'power3.out', clearProps: 'clip-path,opacity,visibility,transform' }, '-=.18')
+          if (image) timeline.from(image, { scale: 1.045, duration: 1.45, ease: 'power3.out', clearProps: 'transform' }, '<')
+          if (quotes.length) timeline.from(quotes, { y: 24, autoAlpha: 0, duration: .82, stagger: .16, ease: 'power3.out', clearProps: 'opacity,visibility,transform' }, '-=.42')
+        }
         gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((node) => gsap.fromTo(node, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: node.parentElement, start: 'top bottom', end: 'bottom top', scrub: .65 } }))
       })
       return () => media.revert()
@@ -240,17 +244,17 @@ export function AboutPage() {
       <div className="inner-hero-copy brand-pattern-field brand-pattern-field--panel"><p className="eyebrow">{copy.pages.about.eyebrow}</p><h1>{copy.pages.about.title}</h1><p>{copy.pages.about.body}</p></div>
       <figure className="inner-hero-media"><EditorialImageView image={images.aboutWide} priority /></figure>
     </header>
-    <section className="founders-story" aria-labelledby="founders-heading">
-      <header className="founders-heading" data-reveal>
-        <p className="eyebrow">{founders.eyebrow}</p>
-        <h2 id="founders-heading">{founders.heading}</h2>
+    <section className="founders-story" aria-labelledby="founders-heading" data-founders-story>
+      <header className="founders-heading">
+        <p className="eyebrow" data-founders-eyebrow>{founders.eyebrow}</p>
+        <FoundersHeading locale={locale} id="founders-heading" />
         {founders.translationStatus ? <p className="founders-translation-status" role="note">{founders.translationStatus}</p> : null}
       </header>
       <div className="founders-stage">
-        <figure className="founders-image" data-image-reveal>
+        <figure className="founders-image" data-founders-image>
           <img
-            src={sitePath('/assets/about/founders/founders-monochrome-1536.webp')}
-            srcSet={`${sitePath('/assets/about/founders/founders-monochrome-960.webp')} 960w, ${sitePath('/assets/about/founders/founders-monochrome-1536.webp')} 1536w`}
+            src={sitePath('/assets/about/founders/founders-wide-1536.webp')}
+            srcSet={`${sitePath('/assets/about/founders/founders-wide-960.webp')} 960w, ${sitePath('/assets/about/founders/founders-wide-1536.webp')} 1536w`}
             sizes="(max-width: 1100px) calc(100vw - (2 * var(--page-gutter))), 48vw"
             alt={founders.portraitAlt}
             width="1536"

@@ -127,17 +127,26 @@ try {
 
   await navigate(`${base}/en/services/`)
   assert.equal(await evaluate("document.querySelectorAll('.service-index-row').length"), 4)
+  const expectedServiceImages = {
+    construction: ['/assets/projects/portfolio/new-capital-administrations-district/01-', '/assets/projects/portfolio/oriana-cairo-festival-city/02-'],
+    restoration: ['/assets/projects/portfolio/mohamed-ali-palace/01-', '/assets/projects/portfolio/beit-al-razzaz/01-'],
+    renovation: ['/assets/projects/portfolio/lakeview-residence/03-', '/assets/projects/portfolio/lakeview-residence/01-'],
+    'fit-out': ['/assets/projects/portfolio/bcbg/01-', '/assets/projects/portfolio/sky-offices/02-'],
+  }
   const compositions = {}
   for (const slug of ['construction', 'restoration', 'renovation', 'fit-out']) {
     await navigate(`${base}/en/services/${slug}/`)
     compositions[slug] = await evaluate("document.querySelector('.service-detail').className")
     assert.ok(await evaluate("document.querySelectorAll('.service-detail-body li').length > 0"), `${slug} needs verified scope items`)
     assert.ok(await evaluate("Boolean(document.querySelector('.service-next a'))"), `${slug} needs service navigation`)
+    const serviceImages = await evaluate(`(() => [...document.querySelectorAll('.service-detail-hero figure img, .service-detail-body figure img')].map((image) => ({ path: new URL(image.currentSrc || image.src).pathname.replace('${base.replace('http://127.0.0.1:4173', '')}', ''), alt: image.alt, loaded: image.complete && image.naturalWidth > 0 })))()`)
+    assert.ok(serviceImages.every((image, imageIndex) => image.path.startsWith(expectedServiceImages[slug][imageIndex]) && image.path.endsWith('.webp')), `${slug} must use responsive derivatives of its assigned portfolio-category photographs`)
+    assert.ok(serviceImages.every((image) => image.alt && image.loaded), `${slug} service photographs must load with useful alt text`)
   }
   assert.equal(new Set(Object.values(compositions)).size, 4, 'four service pages must use four distinct compositions')
 
   await navigate(`${base}/en/clients/`)
-  assert.equal(await evaluate("document.querySelectorAll('.client-logo-grid figure').length"), 8)
+  assert.equal(await evaluate("document.querySelectorAll('.client-logo-set:not([aria-hidden=\"true\"]) .client-logo-card').length"), 8)
   await navigate(`${base}/en/contact/`)
   await delay(1600)
   await evaluate("document.querySelector('.enquiry-form').requestSubmit(); true")

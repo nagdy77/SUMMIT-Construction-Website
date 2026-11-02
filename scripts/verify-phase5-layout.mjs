@@ -383,7 +383,7 @@ try {
   await reload(true)
   await waitForPage()
   const failed = await evaluate(`(() => {const image=document.querySelector('#summit-first-hero-image');const heading=document.querySelector('#top h1');const copy=heading.querySelector('[data-hero-line]');return {intro:Boolean(document.querySelector('[data-skip-intro]')),imageReady:image.dataset.ready==='true',naturalWidth:image.naturalWidth,heading:heading.textContent.trim(),copyVisible:getComputedStyle(copy).visibility==='visible' && Number(getComputedStyle(copy).opacity)>.9,bodyOverflow:document.body.style.overflow,htmlOverflow:document.documentElement.style.overflow,cta:document.querySelector('#top article[aria-hidden="false"] a')?.getAttribute('href')};})()`)
-  check(!failed.intro && !failed.imageReady && failed.naturalWidth === 0 && failed.copyVisible && failed.cta === '#about' && failed.bodyOverflow !== 'hidden' && failed.htmlOverflow !== 'hidden', 'Failed first image: complete readable CSS Hero and unlocked page', failed)
+  check(!failed.intro && !failed.imageReady && failed.naturalWidth === 0 && failed.copyVisible && failed.cta?.endsWith('/en/about/') && failed.bodyOverflow !== 'hidden' && failed.htmlOverflow !== 'hidden', 'Failed first image: complete readable CSS Hero and unlocked page', failed)
   await screenshot('390-dark-first-image-failed')
   results.scenarios.push({ name: scenario, elapsedIncludingHeroRevealMs: Date.now() - failedStarted, ...failed })
   await client.send('Network.setBlockedURLs', { urls: [] })

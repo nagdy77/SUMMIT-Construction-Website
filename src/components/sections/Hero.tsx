@@ -5,6 +5,7 @@ import { Container } from '../ui/Container'
 import { Icon } from '../ui/Icon'
 import { createImageCrossfade } from '../../lib/crossfade'
 import { assetSrcSet, assetUrl } from '../../lib/assets'
+import { routePath } from '../../lib/routes'
 import { useHomeCopy, useLocale } from '../../content/site'
 
 type HeroSlide = {
@@ -13,7 +14,7 @@ type HeroSlide = {
   lines: string[]
   accentLine: number
   cta: string
-  href: string
+  page: 'about' | 'services' | 'projects' | 'contact'
   image: {
     src: string
     srcSet: string
@@ -34,7 +35,7 @@ const slides: HeroSlide[] = [
     lines: ['We Build the Future', 'with the Spirit', 'of Heritage.'],
     accentLine: 2,
     cta: 'Discover our story',
-    href: '#about',
+    page: 'about',
     image: {
       src: '/assets/projects/featured/real-media/hero-heritage-wide-1916.webp',
       srcSet:
@@ -50,7 +51,7 @@ const slides: HeroSlide[] = [
     lines: ['Monumental Ideas.', 'Precisely Built.'],
     accentLine: 1,
     cta: 'Explore our services',
-    href: '#services',
+    page: 'services',
     image: {
       src: '/assets/projects/featured/real-media/hero-construction-wide-1916.webp',
       srcSet:
@@ -66,7 +67,7 @@ const slides: HeroSlide[] = [
     lines: ['Spaces Designed', 'Around the Way', 'You Live.'],
     accentLine: 2,
     cta: 'View selected work',
-    href: '#projects',
+    page: 'projects',
     image: {
       src: '/assets/projects/featured/real-media/hero-residential-wide-1916.webp',
       srcSet:
@@ -82,7 +83,7 @@ const slides: HeroSlide[] = [
     lines: ['Interiors Where', 'Material Becomes', 'Atmosphere.'],
     accentLine: 2,
     cta: 'Start a conversation',
-    href: '#contact',
+    page: 'contact',
     image: {
       src: '/assets/projects/featured/real-media/hero-fitout-wide-1916.webp',
       srcSet:
@@ -105,7 +106,7 @@ type HeroProps = {
 export function Hero({ entranceReady = true }: HeroProps) {
   const locale = useLocale()
   const copy = useHomeCopy()
-  const localizedSlides = slides.map((slide, index) => ({ ...slide, ...copy.hero[index], image: { ...slide.image, alt: copy.hero[index].alt } }))
+  const localizedSlides = slides.map((slide, index) => ({ ...slide, ...copy.hero[index], href: routePath(locale, slide.page), image: { ...slide.image, alt: copy.hero[index].alt } }))
   const rootRef = useRef<HTMLElement>(null)
   const navigateRef = useRef<(direction: 1 | -1) => void>(() => undefined)
   const toggleAutoplayRef = useRef<() => void>(() => undefined)
