@@ -19,18 +19,18 @@ try {
   const indexable = new Set(indexableRoutePaths)
 
   const serviceImages = {
-    construction: '/assets/projects/featured/real-media/hero-construction-wide-1440.webp',
-    restoration: '/assets/projects/featured/real-media/hero-heritage-wide-1440.webp',
-    renovation: '/assets/projects/featured/real-media/hero-residential-wide-1440.webp',
-    'fit-out': '/assets/projects/featured/real-media/hero-fitout-wide-1440.webp',
+    construction: '/assets/projects/portfolio/new-capital-administrations-district/02-1564.webp',
+    restoration: '/assets/projects/portfolio/mohamed-ali-palace/03-1565.webp',
+    renovation: '/assets/projects/portfolio/lakeview-residence/01-1570.webp',
+    'fit-out': '/assets/projects/portfolio/desigual/01-1600.webp',
   }
   const pageImages = {
-    about: '/assets/projects/featured/real-media/story-wide-wide-1440.webp',
+    about: '/assets/projects/portfolio/beit-al-razzaz/03-1570.webp',
     services: serviceImages.construction,
     projects: serviceImages.restoration,
-    contact: '/assets/projects/featured/real-media/contact-work-wide-1440.webp',
+    contact: '/assets/projects/portfolio/oriana-cairo-festival-city/04-1573.webp',
   }
-  const defaultImage = '/assets/projects/featured/real-media/hero-heritage-wide-1440.webp'
+  const defaultImage = '/assets/projects/portfolio/mohamed-ali-palace/03-1565.webp'
 
   const absolute = (route) => `${siteUrl}${route.startsWith('/') ? route : `/${route}`}`
   const assetUrl = (asset) => `${siteUrl}${asset}`
@@ -46,7 +46,7 @@ try {
     const locale = segments[0] === 'ar' ? 'ar' : 'en'
     const tail = segments.slice(1)
     const copy = siteCopy[locale]
-    const fallbackDescription = locale === 'en' ? 'SUMMIT Construction delivers construction, restoration, renovation, and fit-out work in Egypt.' : 'تقدم سوميت للإنشاءات أعمال الإنشاء والترميم والتجديد والتشطيبات في مصر.'
+    const fallbackDescription = locale === 'en' ? 'SUMMIT Construction delivers restoration, residential fit-out, retail fit-out, and construction work in Egypt.' : 'تقدم سوميت للإنشاءات أعمال الترميم والتشطيبات السكنية والتجارية والإنشاءات في مصر.'
     let title = locale === 'en' ? 'SUMMIT Construction | Construction, Restoration & Fit-Out' : 'سوميت للإنشاءات | الإنشاء والترميم والتشطيبات'
     let description = fallbackDescription
     let image = defaultImage

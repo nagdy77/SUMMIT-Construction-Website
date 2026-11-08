@@ -55,15 +55,15 @@ export function ContactCTA() {
   return (
     <section ref={sectionRef} id="contact" aria-label={locale === 'en' ? 'Contact SUMMIT Construction' : 'تواصل مع سوميت للإنشاءات'} className="relative isolate min-h-[clamp(38rem,80svh,60rem)] overflow-hidden bg-summit-black text-summit-ivory">
       <picture className="absolute inset-0" aria-hidden="true">
-        <source media="(max-width: 767px)" srcSet={assetUrl('/assets/projects/featured/real-media/contact-work-mobile-720.webp')} type="image/webp" />
+        <source media="(max-width: 767px)" srcSet={assetUrl('/assets/projects/portfolio/oriana-cairo-festival-city/04-720.webp')} type="image/webp" />
         <img
           data-contact-image
-          src={assetUrl('/assets/projects/featured/real-media/contact-work-wide-1914.webp')}
-          srcSet={assetSrcSet('/assets/projects/featured/real-media/contact-work-wide-960.webp 960w, /assets/projects/featured/real-media/contact-work-wide-1440.webp 1440w, /assets/projects/featured/real-media/contact-work-wide-1914.webp 1914w')}
+          src={assetUrl('/assets/projects/portfolio/oriana-cairo-festival-city/04-1573.webp')}
+          srcSet={assetSrcSet('/assets/projects/portfolio/oriana-cairo-festival-city/04-720.webp 720w, /assets/projects/portfolio/oriana-cairo-festival-city/04-1573.webp 1573w')}
           sizes="100vw"
           alt=""
-          width="1914"
-          height="822"
+          width="1573"
+          height="1000"
           loading="lazy"
           decoding="async"
           className="size-full object-cover object-[58%_center] opacity-65"

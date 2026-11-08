@@ -378,7 +378,7 @@ try {
   scenario = 'first-image-failed'
   await setMedia()
   await client.send('Network.setCacheDisabled', { cacheDisabled: true })
-  await client.send('Network.setBlockedURLs', { urls: ['*hero-heritage*.webp'] })
+  await client.send('Network.setBlockedURLs', { urls: ['*hero-restoration-mobile-640.webp*', '*mohamed-ali-palace/03-*.webp*'] })
   const failedStarted = Date.now()
   await reload(true)
   await waitForPage()

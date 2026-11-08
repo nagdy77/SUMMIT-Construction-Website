@@ -11,7 +11,7 @@ import { NotFoundPage as SharedNotFoundPage } from './NotFoundPage'
 
 const categoryLabels: Record<'en' | 'ar', Record<ProjectCategory, string>> = {
   en: { 'Heritage Restoration': 'Heritage Restoration', Construction: 'Construction', 'Residential Fit-Out': 'Residential Fit-Out', 'Retail Fit-Out': 'Retail Fit-Out' },
-  ar: { 'Heritage Restoration': 'ترميم التراث', Construction: 'الإنشاءات', 'Residential Fit-Out': 'التشطيبات السكنية', 'Retail Fit-Out': 'تشطيبات تجارية' },
+  ar: { 'Heritage Restoration': 'ترميم التراث', Construction: 'الإنشاءات', 'Residential Fit-Out': 'التشطيبات السكنية', 'Retail Fit-Out': 'التشطيبات التجارية' },
 }
 gsap.registerPlugin(ScrollTrigger)
 
@@ -69,7 +69,7 @@ function ProjectCard({ project, index }: { project: PortfolioProject; index: num
   const description = projectWorkingDescription(project, locale)
   return <article className="portfolio-card" style={{ ['--card-index' as string]: index }}>
     <a className="portfolio-card-link" href={routePath(locale, 'project-detail', project.slug)} aria-label={`${copy.actions.explore}: ${project.title[locale]}`}>
-      {project.cover ? <div className="portfolio-card-image"><img src={sitePath(project.cover.src)} srcSet={project.cover.srcSet?.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1200} height={project.cover.height ?? 800} loading="lazy" decoding="async" /><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div> : <div className="portfolio-card-image portfolio-card-placeholder"><div className="portfolio-card-placeholder-copy"><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div>}
+      {project.cover ? <div className="portfolio-card-image"><img src={sitePath(project.cover.src)} srcSet={project.cover.srcSet?.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 800px) 50vw, (max-width: 1100px) 50vw, 33vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1200} height={project.cover.height ?? 800} loading="lazy" decoding="async" /><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div> : <div className="portfolio-card-image portfolio-card-placeholder"><div className="portfolio-card-placeholder-copy"><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div>}
       <div className="portfolio-card-meta"><span>{projectStatusLabel(project, locale)}</span><span aria-hidden="true">↗</span></div>
       <h2>{project.title[locale]}</h2>
       <p>{description}</p>
@@ -104,7 +104,7 @@ export function ProjectsPage() {
     <section className="portfolio-category-showcase" aria-labelledby="portfolio-category-heading">
       <div className="portfolio-category-intro"><p className="eyebrow">{locale === 'en' ? 'Explore by discipline' : 'استكشف حسب التخصص'}</p><h2 id="portfolio-category-heading">{locale === 'en' ? 'Four disciplines. One standard of execution.' : 'أربعة تخصصات. معيار واحد للتنفيذ.'}</h2></div>
       <div className="portfolio-category-grid">{categoryCards.map((card, index) => <button key={card.category} type="button" className="portfolio-category-card" aria-pressed={filter === card.category} aria-controls="project-grid" onClick={() => chooseFilter(card.category)}>
-        <img src={sitePath(card.image)} srcSet={card.srcSet.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 700px) 100vw, 50vw" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+        <img src={sitePath(card.image)} srcSet={card.srcSet.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="50vw" alt="" loading="lazy" decoding="async" aria-hidden="true" />
         <span className="portfolio-category-shade" aria-hidden="true" />
         <span className="portfolio-category-number">{String(index + 1).padStart(2, '0')}</span>
         <span className="portfolio-category-copy"><strong>{categoryLabels[locale][card.category]}</strong><span>{String(categoryCount(card.category)).padStart(2, '0')} {copy.labels.projects}</span></span>

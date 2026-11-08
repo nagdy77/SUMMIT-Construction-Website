@@ -20,6 +20,8 @@ type HeroSlide = {
     srcSet: string
     mobileSrc: string
     alt: string
+    width: number
+    height: number
   }
   imagePosition: string
 }
@@ -30,18 +32,20 @@ const IMAGE_WAIT_MS = 5000
 
 const slides: HeroSlide[] = [
   {
-    category: 'Heritage Restoration',
+    category: 'Restoration',
     headline: 'We Build the Future with the Spirit of Heritage.',
     lines: ['We Build the Future', 'with the Spirit', 'of Heritage.'],
     accentLine: 2,
     cta: 'Discover our story',
     page: 'about',
     image: {
-      src: '/assets/projects/featured/real-media/hero-heritage-wide-1916.webp',
+      src: '/assets/projects/portfolio/mohamed-ali-palace/03-1565.webp',
       srcSet:
-        '/assets/projects/featured/real-media/hero-heritage-wide-960.webp 960w, /assets/projects/featured/real-media/hero-heritage-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-heritage-wide-1916.webp 1916w',
-      mobileSrc: '/assets/projects/featured/real-media/hero-heritage-mobile-720.webp',
-      alt: 'Restored marble hall at Mohamed Ali Palace',
+        '/assets/projects/portfolio/mohamed-ali-palace/03-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/03-1565.webp 1565w',
+      mobileSrc: '/assets/projects/featured/real-media/hero-restoration-mobile-640.webp',
+      alt: 'Restored pool courtyard at Mohamed Ali Palace',
+      width: 1565,
+      height: 1005,
     },
     imagePosition: 'object-[58%_center] sm:object-center',
   },
@@ -53,11 +57,13 @@ const slides: HeroSlide[] = [
     cta: 'Explore our services',
     page: 'services',
     image: {
-      src: '/assets/projects/featured/real-media/hero-construction-wide-1916.webp',
+      src: '/assets/projects/portfolio/new-capital-administrations-district/02-1564.webp',
       srcSet:
-        '/assets/projects/featured/real-media/hero-construction-wide-960.webp 960w, /assets/projects/featured/real-media/hero-construction-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-construction-wide-1916.webp 1916w',
-      mobileSrc: '/assets/projects/featured/real-media/hero-construction-mobile-720.webp',
-      alt: 'SUMMIT workers installing overhead services at the New Capital Downtown Mall site',
+        '/assets/projects/portfolio/new-capital-administrations-district/02-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/02-1564.webp 1564w',
+      mobileSrc: '/assets/projects/featured/real-media/hero-construction-mobile-640.webp',
+      alt: 'Administrative building under construction in the New Capital Administrations District',
+      width: 1564,
+      height: 1006,
     },
     imagePosition: 'object-[62%_center] sm:object-center',
   },
@@ -69,11 +75,13 @@ const slides: HeroSlide[] = [
     cta: 'View selected work',
     page: 'projects',
     image: {
-      src: '/assets/projects/featured/real-media/hero-residential-wide-1916.webp',
+      src: '/assets/projects/portfolio/lakeview-residence/01-1570.webp',
       srcSet:
-        '/assets/projects/featured/real-media/hero-residential-wide-960.webp 960w, /assets/projects/featured/real-media/hero-residential-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-residential-wide-1916.webp 1916w',
-      mobileSrc: '/assets/projects/featured/real-media/hero-residential-mobile-720.webp',
-      alt: 'Residential villas photographed at Oriana CFC',
+        '/assets/projects/portfolio/lakeview-residence/01-720.webp 720w, /assets/projects/portfolio/lakeview-residence/01-1570.webp 1570w',
+      mobileSrc: '/assets/projects/featured/real-media/hero-residential-mobile-640.webp',
+      alt: 'Completed marble kitchen at Lakeview Residence',
+      width: 1570,
+      height: 1001,
     },
     imagePosition: 'object-[67%_center] sm:object-center',
   },
@@ -85,11 +93,13 @@ const slides: HeroSlide[] = [
     cta: 'Start a conversation',
     page: 'contact',
     image: {
-      src: '/assets/projects/featured/real-media/hero-fitout-wide-1916.webp',
+      src: '/assets/projects/portfolio/desigual/01-1600.webp',
       srcSet:
-        '/assets/projects/featured/real-media/hero-fitout-wide-960.webp 960w, /assets/projects/featured/real-media/hero-fitout-wide-1440.webp 1440w, /assets/projects/featured/real-media/hero-fitout-wide-1916.webp 1916w',
-      mobileSrc: '/assets/projects/featured/real-media/hero-fitout-mobile-720.webp',
-      alt: 'Interior ceiling installation in progress at Marvel',
+        '/assets/projects/portfolio/desigual/01-720.webp 720w, /assets/projects/portfolio/desigual/01-1600.webp 1600w',
+      mobileSrc: '/assets/projects/featured/real-media/hero-retail-mobile-640.webp',
+      alt: 'Completed Desigual retail fit-out',
+      width: 1600,
+      height: 756,
     },
     imagePosition: 'object-[58%_center] sm:object-center',
   },
@@ -589,8 +599,8 @@ export function Hero({ entranceReady = true }: HeroProps) {
                   srcSet={index === 0 ? assetSrcSet(slide.image.srcSet) : undefined}
                   sizes="100vw"
                   alt={slide.image.alt}
-                  width={1916}
-                  height={821}
+                  width={slide.image.width}
+                  height={slide.image.height}
                   loading={index === 0 ? 'eager' : 'lazy'}
                   fetchPriority={index === 0 ? 'high' : 'low'}
                   decoding="async"

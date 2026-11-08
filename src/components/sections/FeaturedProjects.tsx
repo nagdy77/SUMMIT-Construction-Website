@@ -79,7 +79,7 @@ function decodePhotograph(image: HTMLImageElement, signal: AbortSignal): Promise
     image.addEventListener('load', decode, { once: true })
     image.addEventListener('error', fail, { once: true })
     signal.addEventListener('abort', abort, { once: true })
-    timeout = window.setTimeout(() => finish(false), 6500)
+    timeout = window.setTimeout(() => finish(false), 3000)
     if (signal.aborted) {
       finish(false)
       return
@@ -117,7 +117,6 @@ export function FeaturedProjects() {
   const activeImageIndex = copySelection.imageIndex
   const activeProject = projects[activeProjectIndex]
   const activePortfolioProject = publishedProjects[activeProjectIndex]
-  const activeImage = activeProject.images[activeImageIndex]
 
   useLayoutEffect(() => {
     const section = sectionRef.current
@@ -154,7 +153,7 @@ export function FeaturedProjects() {
 
       gsap.from(navigation, {
         autoAlpha: 0,
-        x: -28,
+        x: locale === 'ar' ? 28 : -28,
         duration: 0.9,
         ease: 'power3.out',
         scrollTrigger: { trigger: navigation, start: 'top 82%', once: true },
@@ -177,7 +176,7 @@ export function FeaturedProjects() {
       copyTransitionRef.current?.kill()
       context.revert()
     }
-  }, [])
+  }, [locale])
 
   // One handoff runs at a time. Navigation records the latest intent and this
   // effect stages it only after the previous handoff has fully committed.
@@ -269,6 +268,7 @@ export function FeaturedProjects() {
         incoming: incomingLayer,
         image: photograph,
         scale: targetImage.fit === 'contain' ? 1 : 1.025,
+        duration: 0.62,
         paused: true,
         onComplete: complete,
       })
@@ -309,6 +309,22 @@ export function FeaturedProjects() {
     })
     copyTransitionRef.current = tween
     return () => { tween.kill(); if (copyTransitionRef.current === tween) copyTransitionRef.current = null }
+  }, [copySelection])
+
+  useEffect(() => {
+    const currentProject = projects[copySelection.projectIndex]
+    const nextImage = currentProject.images[(copySelection.imageIndex + 1) % currentProject.images.length]
+    const nextProject = projects[(copySelection.projectIndex + 1) % projects.length]
+    const candidates = [nextImage, nextProject.images[0]]
+    const preloads = candidates.map((image) => {
+      const preload = new Image()
+      const smallestSource = image.srcSet?.split(', ')[0]?.split(' ')[0] ?? image.src
+      preload.decoding = 'async'
+      preload.src = assetUrl(smallestSource)
+      return preload
+    })
+
+    return () => preloads.forEach((preload) => preload.removeAttribute('src'))
   }, [copySelection])
 
   const navigateTo = (projectIndex: number, imageIndex: number) => {
@@ -379,13 +395,13 @@ export function FeaturedProjects() {
         style={{ opacity: isActive ? 1 : 0, visibility: isActive || isIncoming ? 'visible' : 'hidden', zIndex: isIncoming ? 2 : isActive ? 1 : 0 }}
       >
         <div className="project-image-fallback absolute inset-0 grid place-items-center bg-gradient-to-br from-summit-charcoal via-summit-black to-summit-charcoal p-8 text-center text-summit-ivory" aria-hidden="true">
-          {!readyImages.has(image.src) || unavailable ? <span className="max-w-xs font-display text-2xl">{publishedProjects[selection.projectIndex].title[locale]}<span className="mt-3 block font-body text-xs uppercase tracking-[0.16em] text-summit-gold">{image.label}</span></span> : null}
+          {!readyImages.has(image.src) || unavailable ? <span className="max-w-xs font-display text-2xl">{publishedProjects[selection.projectIndex].title[locale]}</span> : null}
         </div>
         {!unavailable ? <img
           data-project-image
           src={assetUrl(image.src)}
           srcSet={image.srcSet?.split(', ').map((item) => `${assetUrl(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')}
-          sizes="(max-width: 1023px) 100vw, 66vw"
+          sizes="(max-width: 1023px) 100vw, 65vw"
           alt={galleryAlt}
           loading={isIncoming ? 'eager' : 'lazy'}
           decoding="async"
@@ -414,7 +430,7 @@ export function FeaturedProjects() {
       ref={sectionRef}
       id="projects"
       aria-label={locale === 'en' ? 'Featured projects' : 'مشروعات مختارة'}
-      className="featured-projects relative overflow-hidden bg-[var(--color-panel)] py-section-lg text-[var(--color-ink)]"
+      className="featured-projects relative overflow-hidden bg-[var(--color-panel)] py-[clamp(3.75rem,6vw,6rem)] text-[var(--color-ink)]"
     >
       <div className="pointer-events-none absolute inset-0 hidden grid-cols-12 px-[var(--page-gutter)] opacity-60 lg:grid" aria-hidden="true">
         {Array.from({ length: 12 }, (_, index) => (
@@ -431,9 +447,9 @@ export function FeaturedProjects() {
           />
         </div>
 
-        <div className="mt-16 grid gap-10 sm:mt-20 lg:mt-28 lg:grid-cols-12 lg:gap-8 xl:gap-12">
-          <div className="lg:col-span-4 lg:flex lg:flex-col lg:justify-between">
-            <nav data-projects-navigation aria-label={locale === 'en' ? 'Choose a featured project' : 'اختر مشروعًا'} className="border-t border-[var(--color-border)]">
+        <div className="featured-projects__showcase mt-10 grid gap-6 sm:mt-12 sm:gap-8 lg:mt-14 lg:grid-cols-[minmax(16rem,0.35fr)_minmax(0,0.65fr)] lg:items-start lg:gap-8 xl:gap-10">
+          <div className="featured-projects__navigation-column lg:flex lg:flex-col lg:justify-between">
+            <nav data-projects-navigation aria-label={locale === 'en' ? 'Choose a featured project' : 'اختر مشروعًا'} className="featured-project-navigation">
               {projects.map((project, projectIndex) => {
                 const isActive = activeProjectIndex === projectIndex
 
@@ -443,7 +459,7 @@ export function FeaturedProjects() {
                     type="button"
                     aria-pressed={isActive}
                     onClick={() => selectProject(projectIndex)}
-                    className={`group relative grid w-full grid-cols-[2.25rem_1fr] gap-3 border-b border-[var(--color-border)] py-5 text-left transition-colors sm:grid-cols-[3rem_1fr] sm:gap-4 sm:py-6 ${
+                    className={`featured-project-navigation__item group relative grid w-full grid-cols-[2.5rem_minmax(0,1fr)] gap-4 border-b border-[var(--color-border)] py-4 text-start transition-colors sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-5 ${
                       isActive ? 'text-[var(--color-ink)]' : 'text-[var(--color-muted)] hover:text-[var(--color-ink)]'
                     }`}
                   >
@@ -451,23 +467,23 @@ export function FeaturedProjects() {
                       {formatNumber(projectIndex)}
                     </span>
                     <span>
-                      <span className="block font-body text-[0.5625rem] font-bold uppercase tracking-[0.16em] text-[var(--color-muted)]">
+                      <span className="featured-project-navigation__category block font-body text-[0.5625rem] font-bold uppercase tracking-[0.16em] text-[var(--color-muted)]">
                         {locale === 'ar' ? featuredCategoryLabels[project.category] : project.category}
                       </span>
-                      <span className="mt-2 block font-display text-[clamp(1.35rem,2.2vw,2.25rem)] font-medium leading-[1.05] tracking-[-0.045em]">
+                      <span className="featured-project-navigation__title mt-2 block font-display text-[clamp(1.35rem,2.2vw,2.25rem)] font-medium leading-[1.05] tracking-[-0.045em]">
                         {publishedProjects[projectIndex].title[locale]}
                       </span>
                     </span>
                     <span
                       aria-hidden="true"
-                      className={`absolute inset-y-0 left-0 w-0.5 origin-top bg-summit-gold transition-transform duration-500 ease-summit ${isActive ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'}`}
+                      className={`absolute inset-y-0 start-0 w-0.5 origin-top bg-summit-gold transition-transform duration-500 ease-summit ${isActive ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'}`}
                     />
                   </button>
                 )
               })}
             </nav>
 
-            <div className="mt-8 hidden max-w-xs border-l border-summit-gold pl-5 lg:block">
+            <div className="featured-projects__note mt-7 hidden max-w-xs border-s border-summit-gold ps-5 lg:block">
               <p className="font-body text-[0.625rem] font-bold uppercase tracking-[0.18em] text-[var(--color-accent)]">{copy.explore}</p>
               <p className="mt-3 font-body text-xs leading-6 text-[var(--color-muted)]">
                 {copy.note}
@@ -475,7 +491,7 @@ export function FeaturedProjects() {
             </div>
           </div>
 
-          <div className="min-w-0 lg:col-span-8">
+          <div className="featured-projects__preview min-w-0">
             <div
               data-projects-gallery
               role="group"
@@ -487,24 +503,35 @@ export function FeaturedProjects() {
               data-gallery-state={isLoading ? 'loading' : gallery.pending ? 'transitioning' : 'idle'}
               data-active-project={projects[displayedSelection.projectIndex].id}
               data-active-image={displayedSelection.imageIndex}
-              className="group/gallery relative aspect-[4/5] overflow-hidden bg-summit-black sm:aspect-[16/11] lg:aspect-[16/10] [clip-path:polygon(0_0,100%_0,100%_92%,94%_100%,0_100%)]"
+              className="featured-project-gallery group/gallery relative aspect-[16/10] overflow-hidden bg-summit-black [clip-path:polygon(0_0,100%_0,100%_92%,94%_100%,0_100%)]"
             >
               {renderImage(gallery.layers[0], 0)}
               {renderImage(gallery.layers[1], 1)}
 
               <div className="pointer-events-none absolute inset-0 z-10 border border-white/15 transition-colors duration-500 group-hover/gallery:border-summit-gold/60" aria-hidden="true" />
               <div className="pointer-events-none absolute left-0 top-0 z-10 h-px w-1/3 bg-summit-gold" aria-hidden="true" />
-              <div className="pointer-events-none absolute right-5 top-5 z-10 size-20 text-summit-gold/80 sm:right-8 sm:top-8 sm:size-28" aria-hidden="true">
-                <svg viewBox="0 0 100 90" fill="none" className="size-full">
-                  <path d="M5 84 40 8l35 76H5Z" stroke="currentColor" />
-                  <path d="m40 84 24-51 25 51H40Z" stroke="currentColor" />
-                </svg>
+              <div className="pointer-events-none absolute right-5 top-5 z-10 w-16 opacity-55 sm:right-8 sm:top-8 sm:w-24" aria-hidden="true">
+                <img src={assetUrl('/assets/brand/summit-mountain-symbol.webp')} width="480" height="388" alt="" loading="lazy" decoding="async" />
               </div>
-              <div className="absolute inset-x-0 bottom-0 z-20 flex items-end justify-between gap-4 p-5 text-summit-ivory sm:p-7 lg:p-8">
-                <div data-project-active-copy>
-                  <p className="font-body text-[0.5625rem] font-bold uppercase tracking-[0.18em] text-summit-gold">View</p>
-                  <p className="mt-2 font-display text-lg font-medium tracking-[-0.03em] sm:text-2xl">{activeImage.label}</p>
-                </div>
+              <div className="featured-project-gallery__controls absolute inset-x-0 bottom-0 z-20 flex items-center justify-end gap-2 p-4 text-summit-ivory sm:p-5">
+                <button
+                  data-magnetic
+                  type="button"
+                  onClick={showPreviousImage}
+                  aria-label={locale === 'en' ? `Show previous photograph of ${activePortfolioProject.title.en}` : `عرض الصورة السابقة لمشروع ${activePortfolioProject.title.ar}`}
+                  className="featured-project-gallery__button icon-control grid size-9 place-items-center border border-white/35 bg-black/20 text-white backdrop-blur-sm transition-colors hover:border-summit-gold hover:bg-summit-gold hover:text-summit-black"
+                >
+                  <Icon name="arrow-left" size={15} />
+                </button>
+                <button
+                  data-magnetic
+                  type="button"
+                  onClick={showNextImage}
+                  aria-label={locale === 'en' ? `Show next photograph of ${activePortfolioProject.title.en}` : `عرض الصورة التالية لمشروع ${activePortfolioProject.title.ar}`}
+                  className="featured-project-gallery__button icon-control grid size-9 place-items-center border border-white/35 bg-black/20 text-white backdrop-blur-sm transition-colors hover:border-summit-gold hover:bg-summit-gold hover:text-summit-black"
+                >
+                  <Icon name="arrow-right" size={15} />
+                </button>
                 <p className="font-display text-sm tabular-nums sm:text-base" aria-hidden="true">
                   <span className="text-summit-gold">{formatNumber(activeImageIndex)}</span>
                   <span className="mx-2 text-white/50">/</span>
@@ -513,43 +540,26 @@ export function FeaturedProjects() {
               </div>
             </div>
 
-            <div className="grid gap-8 border-b border-[var(--color-border)] pb-8 pt-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:pb-10 sm:pt-9">
-              <div>
+            <div className="featured-project-summary grid gap-4 border-b border-[var(--color-border)] py-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:gap-6">
+              <div className="min-w-0">
                 <p data-project-active-copy className="flex items-center gap-2 font-body text-[0.625rem] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
                   <Icon name={activeProjectIndex === 0 ? 'restoration' : activeProjectIndex === 1 ? 'construction' : 'renovation'} size={16} />
-                  {locale === 'ar' ? ['ترميم التراث', 'الإنشاءات', 'التشطيبات السكنية'][activeProjectIndex] : activeProject.category}
+                  {locale === 'ar' ? featuredCategoryLabels[activeProject.category] : activeProject.category}
                 </p>
-                <h3 data-project-active-copy className="project-title mt-3 max-w-3xl font-display text-[clamp(2.5rem,5.7vw,6rem)] font-medium leading-[0.95] tracking-[-0.05em] text-[var(--color-ink)]">
+                <h3 data-project-active-copy className="featured-project-summary__title project-title mt-2 max-w-3xl font-display text-[clamp(1.65rem,3vw,2.8rem)] font-medium leading-[1.02] tracking-[-0.045em] text-[var(--color-ink)]">
                   {activePortfolioProject.title[locale]}
                 </h3>
-                <p data-project-active-copy className="mt-5 max-w-xl font-body text-sm leading-7 text-[var(--color-muted)] sm:text-base">
+                <p data-project-active-copy className="featured-project-summary__description mt-3 max-w-2xl font-body text-sm leading-6 text-[var(--color-muted)]">
                   {activePortfolioProject.description?.[locale]}
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 sm:pb-1">
-                <button
-                  data-magnetic
-                  type="button"
-                  onClick={showPreviousImage}
-                  aria-label={`Show previous photograph of ${activeProject.title.en}`}
-                  className="icon-control grid size-11 place-items-center border border-[var(--color-border)] text-[var(--color-ink)] transition-colors hover:border-summit-gold hover:bg-summit-gold hover:text-summit-black sm:size-12"
-                >
-                  <Icon name="arrow-left" size={18} />
-                </button>
-                <button
-                  data-magnetic
-                  type="button"
-                  onClick={showNextImage}
-                  aria-label={`Show next photograph of ${activeProject.title.en}`}
-                  className="icon-control grid size-11 place-items-center border border-[var(--color-border)] text-[var(--color-ink)] transition-colors hover:border-summit-gold hover:bg-summit-gold hover:text-summit-black sm:size-12"
-                >
-                  <Icon name="arrow-right" size={18} />
-                </button>
-              </div>
+              <a data-project-active-copy data-magnetic className="text-link featured-project-summary__link" href={routePath(locale, 'project-detail', activePortfolioProject.slug)}>
+                {copy.explore}<span aria-hidden="true">↗</span>
+              </a>
             </div>
 
-            <div className="mt-5 grid grid-cols-3 gap-2 sm:mt-6 sm:gap-3" aria-label={`Choose a photograph of ${activeProject.title.en}`}>
+            <div className="featured-project-thumbnails mt-3 grid gap-2" style={{ gridTemplateColumns: `repeat(${activeProject.images.length}, minmax(0, 1fr))` }} aria-label={locale === 'en' ? `Choose a photograph of ${activePortfolioProject.title.en}` : `اختر صورة لمشروع ${activePortfolioProject.title.ar}`}>
               {activeProject.images.map((image, imageIndex) => {
                 const isActive = activeImageIndex === imageIndex
                 return (
@@ -557,15 +567,15 @@ export function FeaturedProjects() {
                     key={image.src}
                     type="button"
                     onClick={() => selectImage(imageIndex)}
-                    aria-label={`Show ${image.label.toLowerCase()}`}
+                    aria-label={locale === 'en' ? `Show photograph ${imageIndex + 1}` : `عرض الصورة ${imageIndex + 1}`}
                     aria-pressed={isActive}
-                    className={`group relative min-h-14 border-t pt-3 text-left transition-colors ${isActive ? 'border-[var(--color-accent)]' : 'border-[var(--color-border)] hover:border-[var(--color-ink)]'}`}
+                    className={`group relative min-h-9 border-t pt-2 text-start transition-colors ${isActive ? 'border-[var(--color-accent)]' : 'border-[var(--color-border)] hover:border-[var(--color-ink)]'}`}
                   >
                     <span className={`font-body text-[0.5625rem] font-bold tracking-[0.16em] ${isActive ? 'text-[var(--color-accent)]' : 'text-[var(--color-muted)]'}`}>
                       {formatNumber(imageIndex)}
                     </span>
-                    <span className={`mt-1 block truncate font-body text-[0.625rem] font-bold uppercase tracking-[0.1em] transition-colors sm:text-xs ${isActive ? 'text-[var(--color-ink)]' : 'text-[var(--color-muted)] group-hover:text-[var(--color-ink)]'}`}>
-                      {image.label}
+                    <span className="sr-only">
+                      {locale === 'en' ? `Photograph ${formatNumber(imageIndex)}` : `صورة ${formatNumber(imageIndex)}`}
                     </span>
                   </button>
                 )
@@ -580,7 +590,7 @@ export function FeaturedProjects() {
       </Container>
 
       <p className="sr-only" aria-live="polite" aria-atomic="true">
-        {activeProject.title.en}, photograph {activeImageIndex + 1} of {activeProject.images.length}: {activeImage.label}.
+        {activeProject.title.en}, photograph {activeImageIndex + 1} of {activeProject.images.length}.
       </p>
       <p role="status" aria-live="polite" className={loadMessage ? 'mx-auto mt-5 max-w-xl px-5 text-center font-body text-sm text-[var(--color-muted)]' : 'sr-only'}>
         {loadMessage || (isLoading ? 'Preparing photograph. Your current view remains visible.' : '')}

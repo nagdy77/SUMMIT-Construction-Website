@@ -7,7 +7,7 @@ import path from 'node:path'
 const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
 const base = (process.argv[2] ?? 'http://127.0.0.1:4173/SUMMIT-Construction-Website').replace(/\/$/, '')
 const outputDirectory = path.resolve('references', 'qa', 'phase-6')
-const widths = [320, 390, 430, 768, 1440]
+const widths = [320, 375, 390, 430, 768, 1440]
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 const results = {
   startedAt: new Date().toISOString(),
@@ -120,7 +120,7 @@ const routeFiles = [
 const routes = routeFiles
   .map((file) => `/${path.relative(path.resolve('dist'), path.dirname(file)).split(path.sep).join('/')}/`)
   .sort()
-check(routes.length === 44, 'The production build contains all 44 localized route files', routes.length)
+check(routes.length === 54, 'The production build contains all 54 localized route files', routes.length)
 
 for (const route of routes) {
   const response = await fetch(`${base}${route}`)

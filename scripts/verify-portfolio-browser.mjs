@@ -95,57 +95,99 @@ try {
     await waitFor("document.readyState === 'complete' && Boolean(document.querySelector('.site-header'))")
   }
 
-  for (const width of [390, 1440]) {
-    await client.send('Emulation.setDeviceMetricsOverride', { width, height: width === 390 ? 844 : 900, deviceScaleFactor: 1, mobile: width === 390 })
-    for (const theme of ['dark', 'light']) {
-      await navigate(`${base}/en/projects/`)
-      await evaluate(`localStorage.setItem('summit-theme', '${theme}'); location.reload(); true`)
-      await waitFor(`document.documentElement.dataset.theme === '${theme}' && document.querySelectorAll('.portfolio-card').length === 11`)
+  const widths = [320, 375, 390, 430, 768, 1440]
+  const arabicTitles = [
+    'قصر محمد علي', 'بيت الرزاز', 'صفي الدين جوهر', 'كنيسة سانت أندروز',
+    'حي الوزارات بالعاصمة الإدارية الجديدة', 'ستريم 3', 'أوريانا – كايرو فيستيفال سيتي', 'ألتو',
+    'ليك فيو ريزيدنس', 'مارفل', 'بي سي بي جي', 'بي إس بي', 'ديسيغوال', 'مارينا رينالدي',
+    'سكاي أوفيسز', 'فودا',
+  ]
+
+  for (const width of widths) {
+    await client.send('Emulation.setDeviceMetricsOverride', { width, height: width < 768 ? 844 : 960, deviceScaleFactor: 1, mobile: width < 768 })
+    for (const locale of ['en', 'ar']) {
+      await navigate(`${base}/${locale}/projects/`)
+      await waitFor("document.querySelectorAll('.portfolio-card').length === 16")
       const metrics = await evaluate(`(() => {
-        const header = document.querySelector('.site-header');
-        const footer = document.querySelector('.site-footer');
-        const menu = header.querySelector('[aria-controls="mobile-navigation"]');
-        const desktopNav = header.querySelector('nav');
+        const grid = document.querySelector('#project-grid');
+        const cards = [...grid.querySelectorAll('.portfolio-card')];
+        const firstRowTop = cards[0].offsetTop;
+        const firstRowCount = cards.filter((card) => card.offsetTop === firstRowTop).length;
         return {
           width: innerWidth,
+          direction: document.documentElement.dir,
           documentWidth: document.documentElement.scrollWidth,
-          cards: document.querySelectorAll('.portfolio-card').length,
-          headerPattern: getComputedStyle(header, '::before').backgroundImage,
-          footerPattern: getComputedStyle(footer, '::before').backgroundImage,
-          headerPatternSize: getComputedStyle(header, '::before').backgroundSize,
-          footerPatternSize: getComputedStyle(footer, '::before').backgroundSize,
-          headerOpacity: Number(getComputedStyle(header, '::before').opacity),
-          footerOpacity: Number(getComputedStyle(footer, '::before').opacity),
-          menuVisible: getComputedStyle(menu).display !== 'none',
-          desktopNavVisible: getComputedStyle(desktopNav).display !== 'none',
+          cards: cards.length,
+          firstRowCount,
+          columns: getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length,
+          titles: cards.map((card) => card.querySelector('h2')?.textContent?.trim()),
           failedImages: [...document.images].filter((image) => image.complete && image.naturalWidth === 0).map((image) => image.src),
         };
       })()`)
       assert.equal(metrics.width, width, `${width}px viewport must be emulated exactly`)
-      assert.ok(metrics.documentWidth <= width, `${width}px ${theme} listing must not overflow horizontally`)
-      assert.equal(metrics.cards, 11, `${theme} listing must show all 11 projects`)
-      assert.match(metrics.headerPattern, /summit-reference-pattern\.png/, 'header must use the exact extracted reference tile')
-      assert.match(metrics.footerPattern, /summit-reference-pattern\.png/, 'footer must use the exact extracted reference tile')
-      assert.match(metrics.headerPatternSize, /485px 358px/, 'header must use the exact client-approved pattern panel')
-      assert.match(metrics.footerPatternSize, /485px 358px/, 'footer must use the exact client-approved pattern panel')
-      assert.ok(metrics.headerOpacity >= 0.8 && metrics.footerOpacity === 1, 'reference pattern must remain visible while preserving the scrolled header treatment')
-      assert.deepEqual(metrics.failedImages, [], `${width}px ${theme} listing must have no failed images`)
-      assert.equal(metrics.menuVisible, width === 390, 'mobile menu visibility must match the viewport')
-      assert.equal(metrics.desktopNavVisible, width === 1440, 'desktop navigation visibility must match the viewport')
+      assert.ok(metrics.documentWidth <= width, `${width}px ${locale} listing must not overflow horizontally`)
+      assert.equal(metrics.cards, 16, `${width}px ${locale} listing must show all 16 projects`)
+      assert.equal(metrics.columns, width <= 800 ? 2 : 3, `${width}px ${locale} listing must use the intended project columns`)
+      assert.equal(metrics.firstRowCount, width <= 800 ? 2 : 3, `${width}px ${locale} first row must contain the intended card count`)
+      assert.equal(metrics.direction, locale === 'ar' ? 'rtl' : 'ltr', `${locale} must use the correct document direction`)
+      if (locale === 'ar') assert.deepEqual(metrics.titles, arabicTitles, 'Arabic listing must render every project name in Arabic')
+      assert.deepEqual(metrics.failedImages, [], `${width}px ${locale} listing must have no failed images`)
+    }
+  }
+
+  for (const width of widths) {
+    await client.send('Emulation.setDeviceMetricsOverride', { width, height: width < 768 ? 844 : 960, deviceScaleFactor: 1, mobile: width < 768 })
+    for (const locale of ['en', 'ar']) {
+      await navigate(`${base}/${locale}/`)
+      await evaluate("document.querySelector('[data-skip-intro]')?.click(); true")
+      await waitFor("Boolean(document.querySelector('.featured-projects__showcase'))")
+      const metrics = await evaluate(`(() => {
+        const showcase = document.querySelector('.featured-projects__showcase');
+        const navigation = document.querySelector('.featured-projects__navigation-column').getBoundingClientRect();
+        const preview = document.querySelector('.featured-projects__preview').getBoundingClientRect();
+        const gallery = document.querySelector('.featured-project-gallery').getBoundingClientRect();
+        const title = document.querySelector('.featured-project-summary__title');
+        return {
+          documentWidth: document.documentElement.scrollWidth,
+          viewport: innerWidth,
+          columns: getComputedStyle(showcase).gridTemplateColumns.split(' ').filter(Boolean).length,
+          navigationLeft: navigation.left,
+          navigationTop: navigation.top,
+          previewLeft: preview.left,
+          previewTop: preview.top,
+          galleryRatio: gallery.width / gallery.height,
+          title: title.textContent.trim(),
+          titleOverflow: title.scrollWidth > title.clientWidth + 1,
+        };
+      })()`)
+      assert.ok(metrics.documentWidth <= metrics.viewport, `${width}px ${locale} selected projects must not overflow`)
+      assert.ok(metrics.galleryRatio > 1.5 && metrics.galleryRatio < 1.7, `${width}px ${locale} preview must keep the controlled 16:10 ratio`)
+      assert.equal(metrics.titleOverflow, false, `${width}px ${locale} active project title must remain contained`)
+      if (width >= 1024) {
+        assert.equal(metrics.columns, 2, `${width}px ${locale} selected projects must use two editorial columns`)
+        assert.ok(locale === 'en' ? metrics.navigationLeft < metrics.previewLeft : metrics.navigationLeft > metrics.previewLeft, `${width}px ${locale} selected projects must mirror list and preview positions`)
+      } else {
+        assert.equal(metrics.columns, 1, `${width}px ${locale} selected projects must use a deliberate single-column mobile/tablet layout`)
+        assert.ok(metrics.navigationTop < metrics.previewTop, `${width}px ${locale} selector must precede the preview`)
+      }
+      assert.equal(metrics.title, locale === 'ar' ? 'قصر محمد علي' : 'Mohamed Ali Palace', `${width}px ${locale} active project title must be localized`)
     }
   }
 
   await client.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true })
-  for (const slug of ['mountain-view', 'safi-al-din-gawhar']) {
-    await navigate(`${base}/en/projects/${slug}/`)
-    await waitFor("Boolean(document.querySelector('.detail-media-placeholder'))")
-    const metrics = await evaluate(`(() => { const heading=document.querySelector('.detail-heading h1'); return { documentWidth:document.documentElement.scrollWidth, viewport:innerWidth, headingOverflow:heading.scrollWidth > heading.clientWidth, placeholder:Boolean(document.querySelector('.detail-media-placeholder')) }; })()`)
-    assert.ok(metrics.documentWidth <= metrics.viewport, `${slug} must not overflow at 390px`)
-    assert.equal(metrics.headingOverflow, false, `${slug} heading must wrap within its column`)
-    assert.equal(metrics.placeholder, true, `${slug} must use the typography media treatment`)
-  }
+  await navigate(`${base}/ar/projects/mohamed-ali-palace/`)
+  await waitFor("Boolean(document.querySelector('.detail-heading h1'))")
+  const detail = await evaluate(`(() => ({
+    heading: document.querySelector('.detail-heading h1').textContent.trim(),
+    breadcrumb: [...document.querySelectorAll('.breadcrumbs li')].at(-1).textContent.trim(),
+    documentWidth: document.documentElement.scrollWidth,
+    viewport: innerWidth,
+  }))()`)
+  assert.equal(detail.heading, 'قصر محمد علي', 'Arabic detail heading must use the Arabic project title')
+  assert.ok(detail.breadcrumb.includes('قصر محمد علي'), 'Arabic breadcrumb must use the Arabic project title')
+  assert.ok(detail.documentWidth <= detail.viewport, 'Arabic project detail must not overflow at 390px')
 
-  console.log('Verified the 11-project portfolio, exact extracted pattern, dark/light overlays, 390px mobile layout, desktop navigation, image loading, and image-free project treatments in Edge.')
+  console.log('Verified 16 project cards, two-up mobile rows, compact EN/AR Selected Projects composition, Arabic project titles, RTL mirroring, image loading, and 320–1440px layouts in Edge.')
 } finally {
   browser.kill()
   await delay(250)

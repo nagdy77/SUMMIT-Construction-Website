@@ -114,15 +114,15 @@ export function ParallaxStory() {
     <section ref={sectionRef} aria-label={copy.eyebrow} className="story-section relative isolate overflow-hidden py-section-lg text-summit-ivory">
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         <picture>
-          <source media="(max-width: 767px)" srcSet={assetUrl('/assets/projects/featured/real-media/story-wide-mobile-720.webp')} type="image/webp" />
+          <source media="(max-width: 767px)" srcSet={assetUrl('/assets/projects/portfolio/beit-al-razzaz/03-720.webp')} type="image/webp" />
           <img
             data-story-field
-            src={assetUrl('/assets/projects/featured/real-media/story-wide-wide-1916.webp')}
-            srcSet={assetSrcSet('/assets/projects/featured/real-media/story-wide-wide-960.webp 960w, /assets/projects/featured/real-media/story-wide-wide-1440.webp 1440w, /assets/projects/featured/real-media/story-wide-wide-1916.webp 1916w')}
+            src={assetUrl('/assets/projects/portfolio/beit-al-razzaz/03-1570.webp')}
+            srcSet={assetSrcSet('/assets/projects/portfolio/beit-al-razzaz/03-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/03-1570.webp 1570w')}
             sizes="100vw"
             alt=""
-            width="1916"
-            height="821"
+            width="1570"
+            height="1001"
             loading="lazy"
             decoding="async"
             className="absolute -top-[6%] h-[112%] w-full object-cover opacity-45"
@@ -154,15 +154,15 @@ export function ParallaxStory() {
 
         <figure data-story-frame className="relative z-10 order-1 ml-auto h-[22rem] w-[78%] overflow-hidden border border-summit-gold/45 bg-summit-black sm:h-[30rem] sm:w-[62%] lg:order-2 lg:col-span-5 lg:h-[36rem] lg:w-full">
           <picture>
-            <source media="(max-width: 767px)" srcSet={assetUrl('/assets/projects/featured/real-media/story-portrait-portrait-640.webp')} type="image/webp" />
+            <source media="(max-width: 767px)" srcSet={assetUrl('/assets/projects/portfolio/alto/01-720.webp')} type="image/webp" />
             <img
               data-story-foreground-image
-              src={assetUrl('/assets/projects/featured/real-media/story-portrait-portrait-1122.webp')}
-              srcSet={assetSrcSet('/assets/projects/featured/real-media/story-portrait-portrait-640.webp 640w, /assets/projects/featured/real-media/story-portrait-portrait-960.webp 960w, /assets/projects/featured/real-media/story-portrait-portrait-1122.webp 1122w')}
+              src={assetUrl('/assets/projects/portfolio/alto/01-1205.webp')}
+              srcSet={assetSrcSet('/assets/projects/portfolio/alto/01-720.webp 720w, /assets/projects/portfolio/alto/01-1205.webp 1205w')}
               sizes="(max-width: 767px) 68vw, 30vw"
-              alt={locale === 'en' ? 'Restored wooden stair and window inside Beit Al-Razzaz' : 'سلم خشبي ونافذة مرممان داخل بيت الرزاز'}
-              width="1122"
-              height="1403"
+              alt={locale === 'en' ? 'Completed residential buildings at Alto' : 'مبانٍ سكنية مكتملة في مشروع ألتو'}
+              width="1205"
+              height="1306"
               loading="lazy"
               decoding="async"
               className="size-full object-cover"

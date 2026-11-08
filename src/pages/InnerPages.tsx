@@ -111,10 +111,10 @@ function ClientLogoTrackSet({ duplicate = false }: { duplicate?: boolean }) {
 }
 
 const serviceVisuals: Record<string, { primary: EditorialImage; secondary: EditorialImage; number: string }> = {
-  construction: { primary: images.construction, secondary: images.constructionWide, number: '01' },
-  restoration: { primary: images.restoration, secondary: images.restorationWide, number: '02' },
-  renovation: { primary: images.renovation, secondary: images.renovationWide, number: '03' },
-  'fit-out': { primary: images.fitout, secondary: images.fitoutDetail, number: '04' },
+  restoration: { primary: images.restoration, secondary: images.restorationWide, number: '01' },
+  renovation: { primary: images.renovation, secondary: images.renovationWide, number: '02' },
+  'fit-out': { primary: images.fitout, secondary: images.fitoutDetail, number: '03' },
+  construction: { primary: images.construction, secondary: images.constructionWide, number: '04' },
 }
 
 const foundersPresentation = {
@@ -236,7 +236,7 @@ export function AboutPage() {
     ]
     : [
       { label: 'الرؤية', title: 'نبني المستقبل بروح التراث.', body: 'جذور مصرية. ورؤية للمستقبل.' },
-      { label: 'المهمة', title: 'الإنشاء والترميم والتجديد.', body: 'تشمل خدمات سوميت للإنشاءات الإنشاء والترميم والتجديد.' },
+      { label: 'المهمة', title: 'الإنشاء والترميم بقيمة تدوم.', body: 'تقديم خدمات إنشائية وترميم متميزة للقطاعات السكنية والتجارية والصناعية.' },
       { label: 'القيم', title: 'الخامات. التنفيذ. الاستدامة.', body: 'الاهتمام بالخامات والتنفيذ والاستدامة.' },
     ]
   return <PageFrame><article ref={root} className="inner-page about-editorial"><Container>
@@ -293,7 +293,7 @@ export function ServicesPage() {
   return <PageFrame><section ref={root} className="inner-page services-editorial"><Container>
     <header className="services-index-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{copy.pages.services.eyebrow}</p><h1>{copy.pages.services.title}</h1><p>{copy.pages.services.body}</p></header>
     <section className="formal-disciplines" aria-labelledby="formal-disciplines-title">
-      <div className="formal-disciplines-heading" data-reveal><p className="eyebrow">{locale === 'en' ? 'Corporate terminology' : 'المصطلحات المؤسسية'}</p><h2 id="formal-disciplines-title">{locale === 'en' ? 'Formal disciplines' : 'التخصصات الرسمية'}</h2></div>
+      <div className="formal-disciplines-heading" data-reveal><p className="eyebrow">{locale === 'en' ? 'Main services' : 'الخدمات الرئيسية'}</p><h2 id="formal-disciplines-title">{locale === 'en' ? 'Four connected disciplines' : 'أربعة تخصصات مترابطة'}</h2></div>
       <div className="formal-disciplines-grid">{home.services.cards.map((discipline, index) => <article key={discipline.name} data-reveal><span>0{index + 1}</span><h3>{discipline.name}</h3><p>{discipline.description}</p></article>)}</div>
     </section>
     <figure className="editorial-panorama" data-image-reveal><div data-parallax><EditorialImageView image={images.constructionWide} sizes="100vw" /></div><figcaption><span>01 / 04</span>{locale === 'en' ? 'Construction in progress / authentic SUMMIT photography' : 'أعمال إنشاء قيد التنفيذ / تصوير أصلي لسوميت'}</figcaption></figure>

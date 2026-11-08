@@ -114,7 +114,7 @@ async function runScenario({
 
     if (imageDelayMs > 0) {
       await client.send('Fetch.enable', {
-        patterns: [{ urlPattern: '*hero-heritage*.webp', requestStage: 'Request' }],
+        patterns: [{ urlPattern: '*hero-restoration-mobile-640.webp*', requestStage: 'Request' }],
       })
       client.on('Fetch.requestPaused', ({ requestId }) => {
         setTimeout(() => {
@@ -124,7 +124,7 @@ async function runScenario({
     }
 
     if (blockFirstImage) {
-      await client.send('Network.setBlockedURLs', { urls: ['*hero-heritage*.webp'] })
+      await client.send('Network.setBlockedURLs', { urls: ['*hero-restoration-mobile-640.webp*'] })
     }
 
     await client.send('Page.navigate', { url: siteUrl })

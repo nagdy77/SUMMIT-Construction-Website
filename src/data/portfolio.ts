@@ -70,14 +70,16 @@ function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
     gallery,
     pendingMedia: project.pendingMedia,
     contentStatus: project.contentStatus,
-    hasApprovedArabic: project.title.ar !== null,
+    // A localized display title does not approve the still-English project
+    // description, specifications, or SEO copy for Arabic indexing.
+    hasApprovedArabic: false,
     seo: {
       title: { en: `${project.title.en} | SUMMIT Construction`, ar: `${titleAr} | SUMMIT Construction` },
       description: { en: descriptionEn, ar: descriptionEn },
     },
     approvalNeeds: [
       ...(project.pendingMedia ? ['replacement project photography'] : []),
-      'approved Arabic title and translation',
+      'approved Arabic content translation',
       ...project.reviewNotes,
     ],
   }

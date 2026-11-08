@@ -4,52 +4,63 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container } from '../ui/Container'
 import { assetSrcSet, assetUrl } from '../../lib/assets'
 import { SectionHeading } from '../ui/SectionHeading'
-import { Icon } from '../ui/Icon'
+import { Icon, type IconName } from '../ui/Icon'
 import { useHomeCopy, useLocale } from '../../content/site'
+import { routePath } from '../../lib/routes'
 
 gsap.registerPlugin(ScrollTrigger)
 
 type Service = {
-  name: string
+  slug: 'restoration' | 'renovation' | 'fit-out' | 'construction'
+  icon: IconName
   image: string
   srcSet: string
   alt: string
   imagePosition: string
-  description: string
-  portfolioScope: string
-  offset: string
+  width: number
+  height: number
 }
 
 const services: Service[] = [
   {
-    name: 'Construction',
-    image: '/assets/projects/featured/real-media/service-construction-portrait-960.webp',
-    srcSet: '/assets/projects/featured/real-media/service-construction-portrait-640.webp 640w, /assets/projects/featured/real-media/service-construction-portrait-960.webp 960w, /assets/projects/featured/real-media/service-construction-portrait-1122.webp 1122w',
-    alt: 'Ceiling and interior construction work in progress at New Capital Downtown Mall',
+    slug: 'restoration',
+    icon: 'restoration',
+    image: '/assets/projects/portfolio/mohamed-ali-palace/01-1202.webp',
+    srcSet: '/assets/projects/portfolio/mohamed-ali-palace/01-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/01-1202.webp 1202w',
+    alt: 'Restored interior at Mohamed Ali Palace',
     imagePosition: 'object-center',
-    description: 'Construction delivery across administrative and residential settings, including marble installation, full finishing, and external finishing works.',
-    portfolioScope: 'Marble installation · Full finishing · External finishes',
-    offset: 'lg:mt-0',
+    width: 1202,
+    height: 1309,
   },
   {
-    name: 'Restoration',
-    image: '/assets/projects/featured/real-media/service-restoration-portrait-960.webp',
-    srcSet: '/assets/projects/featured/real-media/service-restoration-portrait-640.webp 640w, /assets/projects/featured/real-media/service-restoration-portrait-960.webp 960w, /assets/projects/featured/real-media/service-restoration-portrait-1122.webp 1122w',
-    alt: 'SUMMIT worker polishing the marble entrance at Mohamed Ali Palace',
-    imagePosition: 'object-[66%_center]',
-    description: 'Heritage work spanning marble restoration, structural repair, adaptive reuse, rehabilitation, and specialist dewatering systems.',
-    portfolioScope: 'Heritage restoration · Structural repair · Rehabilitation',
-    offset: 'lg:mt-16',
+    slug: 'renovation',
+    icon: 'renovation',
+    image: '/assets/projects/portfolio/lakeview-residence/03-1206.webp',
+    srcSet: '/assets/projects/portfolio/lakeview-residence/03-720.webp 720w, /assets/projects/portfolio/lakeview-residence/03-1206.webp 1206w',
+    alt: 'Completed residential interior at Lakeview Residence',
+    imagePosition: 'object-center',
+    width: 1206,
+    height: 1304,
   },
   {
-    name: 'Renovation',
-    image: '/assets/projects/featured/real-media/service-renovation-portrait-640.webp',
-    srcSet: '/assets/projects/featured/real-media/service-renovation-portrait-480.webp 480w, /assets/projects/featured/real-media/service-renovation-portrait-640.webp 640w, /assets/projects/featured/real-media/service-renovation-portrait-847.webp 847w',
-    alt: 'Finished bathroom interior at Lakeview Residence',
+    slug: 'fit-out',
+    icon: 'renovation',
+    image: '/assets/projects/portfolio/bcbg/01-1231.webp',
+    srcSet: '/assets/projects/portfolio/bcbg/01-720.webp 720w, /assets/projects/portfolio/bcbg/01-1231.webp 1231w',
+    alt: 'Completed BCBG retail storefront and interior',
     imagePosition: 'object-center',
-    description: 'Renovation and finishing work shaped for heritage, residential, and commercial environments, with coordinated architectural and MEP scopes.',
-    portfolioScope: 'Residential fit-out · Retail fit-out · Finishing works',
-    offset: 'lg:mt-6',
+    width: 1231,
+    height: 1277,
+  },
+  {
+    slug: 'construction',
+    icon: 'construction',
+    image: '/assets/projects/portfolio/new-capital-administrations-district/01-1312.webp',
+    srcSet: '/assets/projects/portfolio/new-capital-administrations-district/01-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/01-1312.webp 1312w',
+    alt: 'Administrative building under construction in the New Capital Administrations District',
+    imagePosition: 'object-center',
+    width: 1312,
+    height: 1199,
   },
 ]
 
@@ -67,7 +78,6 @@ export function Services() {
     media.add('(prefers-reduced-motion: no-preference)', () => {
       const intro = section.querySelector<HTMLElement>('[data-services-intro]')
       const panels = gsap.utils.toArray<HTMLElement>('[data-service-panel]', section)
-      const note = section.querySelector<HTMLElement>('[data-services-note]')
 
       if (intro) {
         const introItems = intro.querySelectorAll<HTMLElement>('header > p, header > div > *')
@@ -106,19 +116,6 @@ export function Services() {
           .from(copy, { autoAlpha: 0, y: 24, duration: 0.7, stagger: 0.08, ease: 'power3.out' }, 0.5)
       })
 
-      if (note) {
-        gsap.from(note, {
-          autoAlpha: 0,
-          y: 20,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: note,
-            start: 'top 92%',
-            once: true,
-          },
-        })
-      }
     })
 
     return () => media.revert()
@@ -143,22 +140,23 @@ export function Services() {
           />
         </div>
 
-        <div className="mt-16 grid gap-6 pb-8 sm:mt-20 lg:mt-24 lg:grid-cols-3 lg:items-start lg:gap-5 lg:pb-16 xl:gap-8">
+        <div className="home-services-grid mt-12 pb-8 sm:mt-16 lg:mt-20 lg:pb-12">
           {services.map((service, index) => (
             <article
-              key={service.name}
+              key={service.slug}
               data-service-panel
-              className={`group relative min-h-[38rem] overflow-hidden [clip-path:polygon(0_0,100%_0,100%_94%,94%_100%,0_100%)] sm:min-h-[44rem] lg:min-h-[42rem] ${service.offset}`}
+              className="home-service-card group"
             >
-              <div className="absolute inset-0 overflow-hidden bg-summit-black">
+              <a href={routePath(locale, 'service-detail', service.slug)} className="home-service-card__link" aria-label={copy.cards[index].name}>
+              <div className="absolute inset-0 overflow-hidden bg-summit-black" aria-hidden="true">
                 <div data-service-reveal className="size-full">
                   <div data-service-image-motion className="size-full">
                     <img
                       src={assetUrl(service.image)}
                       srcSet={assetSrcSet(service.srcSet)}
-                      sizes="(max-width: 767px) 100vw, 33vw"
-                      width={1122}
-                      height={1753}
+                      sizes="(max-width: 767px) 50vw, (max-width: 1199px) 50vw, 25vw"
+                      width={service.width}
+                      height={service.height}
                       alt={service.alt}
                       loading="lazy"
                       decoding="async"
@@ -172,7 +170,7 @@ export function Services() {
               <div className="absolute inset-0 border border-white/15 transition-colors duration-500 group-hover:border-summit-gold/70" />
               <div className="absolute inset-y-0 left-0 w-px origin-bottom scale-y-0 bg-summit-gold transition-transform duration-700 ease-summit group-hover:scale-y-100" aria-hidden="true" />
 
-              <div className="service-brand-mark absolute right-5 top-5 size-20 transition-all duration-700 ease-summit group-hover:translate-x-1 group-hover:-translate-y-1 sm:right-7 sm:top-7 sm:size-24" aria-hidden="true">
+              <div className="service-brand-mark home-service-card__brand" aria-hidden="true">
                 <img
                   src={assetUrl('/assets/brand/summit-mountain-symbol.webp')}
                   width="480"
@@ -183,36 +181,25 @@ export function Services() {
                 />
               </div>
 
-              <div className="relative z-10 flex min-h-[38rem] flex-col justify-between p-6 sm:min-h-[44rem] sm:p-8 lg:min-h-[42rem]">
-                <span data-service-copy className="flex items-center gap-3 font-body text-[0.625rem] font-bold tracking-[0.2em] text-summit-gold"><Icon name={index === 0 ? 'construction' : index === 1 ? 'restoration' : 'renovation'} size={23} />0{index + 1}</span>
+              <div className="home-service-card__content">
+                <span data-service-copy className="home-service-card__index"><Icon name={service.icon} size={20} />0{index + 1}</span>
 
                 <div>
-                  <p data-service-copy className="mb-4 font-body text-[0.5625rem] font-bold uppercase tracking-[0.2em] text-summit-stone">{copy.formal}</p>
-                  <h3 data-service-copy className="font-display text-[clamp(2rem,3.2vw,3.5rem)] font-medium leading-none tracking-[-0.05em] text-summit-ivory">
+                  <p data-service-copy className="home-service-card__label">{copy.formal}</p>
+                  <h3 data-service-copy className="home-service-card__title">
                     {copy.cards[index].name}
                   </h3>
-                  <p data-service-copy className="mt-5 max-w-sm font-body text-xs leading-6 text-summit-stone sm:text-sm">
+                  <p data-service-copy className="home-service-card__description">
                     {copy.cards[index].description}
                   </p>
-                  <p data-service-copy className="mt-6 border-t border-white/20 pt-4 font-body text-[0.5625rem] font-bold uppercase leading-5 tracking-[0.13em] text-summit-gold">
+                  <p data-service-copy className="home-service-card__scope">
                     {copy.cards[index].scope}
                   </p>
                 </div>
               </div>
+              </a>
             </article>
           ))}
-        </div>
-
-        <div
-          data-services-note
-          className="mt-10 grid gap-3 border-t border-[var(--color-border)] pt-6 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-8 lg:mt-16"
-        >
-          <span className="font-body text-[0.625rem] font-bold uppercase tracking-[0.18em] text-summit-gold">{copy.specialization}</span>
-          <p className="font-display text-xl font-medium tracking-[-0.03em] text-[var(--color-ink)] sm:text-right sm:text-2xl">
-            {locale === 'en' ? 'Residential Fit-Out' : 'التشطيب السكني'}
-            <span className="mx-2 text-summit-gold">/</span>
-            {locale === 'en' ? 'Retail Fit-Out' : 'التشطيب التجاري'}
-          </p>
         </div>
       </Container>
     </section>
