@@ -1419,6 +1419,334 @@
           ]
         }
       ]
+    },
+    "qaitbays-seat-main-hall": {
+      "category": "heritage-restoration",
+      "cover": "1.png",
+      "count": 6,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "Restoring an Ornate Historic Ceiling.png",
+          "source": "public/assets/projects/portfolio/Qaitbay’s Seat Main Hall/Restoring an Ornate Historic Ceiling.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/01-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/01-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "Meticulous Mural Restoration in Warm Light.png",
+          "source": "public/assets/projects/portfolio/Qaitbay’s Seat Main Hall/Meticulous Mural Restoration in Warm Light.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/02-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/02-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "Ornate Wall Restoration Test Grid.png",
+          "source": "public/assets/projects/portfolio/Qaitbay’s Seat Main Hall/Ornate Wall Restoration Test Grid.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/03-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/03-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "Ceiling Restoration Conservators at Work.png",
+          "source": "public/assets/projects/portfolio/Qaitbay’s Seat Main Hall/Ceiling Restoration Conservators at Work.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/04-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/04-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "filename": "Golden-Hour Rooftop Glass Pavilion.png",
+          "source": "public/assets/projects/portfolio/Qaitbay’s Seat Main Hall/Golden-Hour Rooftop Glass Pavilion.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/05-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/05-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "filename": "Symmetrical Warm Wood Atrium Skylight.png",
+          "source": "public/assets/projects/portfolio/Qaitbay’s Seat Main Hall/Symmetrical Warm Wood Atrium Skylight.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/06-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/06-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        }
+      ]
+    },
+    "carpentry-workshop": {
+      "category": "heritage-restoration",
+      "cover": "1.png",
+      "count": 6,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "Warm Stone Restoration Interior.png",
+          "source": "public/assets/projects/portfolio/Carpentry Workshop/Warm Stone Restoration Interior.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/01-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/01-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "Gothic Stone Room in Warm Light.png",
+          "source": "public/assets/projects/portfolio/Carpentry Workshop/Gothic Stone Room in Warm Light.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/02-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/02-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "Rustic Timber and Stone Ceiling.png",
+          "source": "public/assets/projects/portfolio/Carpentry Workshop/Rustic Timber and Stone Ceiling.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/03-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/03-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "Cinematic Stone Hall with Arched Windows.png",
+          "source": "public/assets/projects/portfolio/Carpentry Workshop/Cinematic Stone Hall with Arched Windows.png",
+          "sourceWidth": 1024,
+          "sourceHeight": 1536,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/04-720.webp",
+              "width": 720,
+              "height": 1080
+            },
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/04-1024.webp",
+              "width": 1024,
+              "height": 1536
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "filename": "Historic Stone Corridor with Timber Door.png",
+          "source": "public/assets/projects/portfolio/Carpentry Workshop/Historic Stone Corridor with Timber Door.png",
+          "sourceWidth": 1024,
+          "sourceHeight": 1536,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/05-720.webp",
+              "width": 720,
+              "height": 1080
+            },
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/05-1024.webp",
+              "width": 1024,
+              "height": 1536
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "filename": "Rustic Walnut Beam Ceiling.png",
+          "source": "public/assets/projects/portfolio/Carpentry Workshop/Rustic Walnut Beam Ceiling.png",
+          "sourceWidth": 1536,
+          "sourceHeight": 1024,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/06-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/carpentry-workshop/06-1536.webp",
+              "width": 1536,
+              "height": 1024
+            }
+          ]
+        }
+      ]
+    },
+    "down-town-1": {
+      "category": "construction",
+      "cover": "1.png",
+      "count": 4,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "filename": "Sunlit Concrete Atrium Under Construction.png",
+          "source": "public/assets/projects/portfolio/DownTown 1/Sunlit Concrete Atrium Under Construction.png",
+          "sourceWidth": 1086,
+          "sourceHeight": 1448,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/down-town-1/01-720.webp",
+              "width": 720,
+              "height": 960
+            },
+            {
+              "src": "/assets/projects/portfolio/down-town-1/01-1086.webp",
+              "width": 1086,
+              "height": 1448
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "filename": "Precision Above_ Summit Construction Crew.png",
+          "source": "public/assets/projects/portfolio/DownTown 1/Precision Above_ Summit Construction Crew.png",
+          "sourceWidth": 1086,
+          "sourceHeight": 1448,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/down-town-1/02-720.webp",
+              "width": 720,
+              "height": 960
+            },
+            {
+              "src": "/assets/projects/portfolio/down-town-1/02-1086.webp",
+              "width": 1086,
+              "height": 1448
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "filename": "Warm Construction Corridor with Scaffolding.png",
+          "source": "public/assets/projects/portfolio/DownTown 1/Warm Construction Corridor with Scaffolding.png",
+          "sourceWidth": 1086,
+          "sourceHeight": 1448,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/down-town-1/03-720.webp",
+              "width": 720,
+              "height": 960
+            },
+            {
+              "src": "/assets/projects/portfolio/down-town-1/03-1086.webp",
+              "width": 1086,
+              "height": 1448
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "filename": "Sunlit Scaffold Interior in Renovation.png",
+          "source": "public/assets/projects/portfolio/DownTown 1/Sunlit Scaffold Interior in Renovation.png",
+          "sourceWidth": 941,
+          "sourceHeight": 1672,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/down-town-1/04-720.webp",
+              "width": 720,
+              "height": 1279
+            },
+            {
+              "src": "/assets/projects/portfolio/down-town-1/04-941.webp",
+              "width": 941,
+              "height": 1672
+            }
+          ]
+        }
+      ]
     }
   },
   "issues": []

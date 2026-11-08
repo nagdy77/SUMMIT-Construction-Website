@@ -36,11 +36,14 @@ function filterLabel(filter: ProjectFilter, locale: 'en' | 'ar', allLabel: strin
 }
 
 function projectStatusLabel(project: PortfolioProject, locale: 'en' | 'ar') {
-  return categoryLabels[locale][project.category]
+  const category = categoryLabels[locale][project.category]
+  if (project.categoryStatus !== 'tentative') return category
+  return locale === 'en' ? `${category} · Tentative classification` : `${category} · تصنيف مبدئي`
 }
 
 function projectWorkingDescription(project: PortfolioProject, locale: 'en' | 'ar') {
   if (project.description) return project.description[locale]
+  if (project.detailsNote) return project.detailsNote[locale]
   if (project.state === 'awaiting-client-correction') {
     return locale === 'en'
       ? 'The supplied project overview is awaiting client correction before publication.'
@@ -69,7 +72,7 @@ function ProjectCard({ project, index }: { project: PortfolioProject; index: num
   const description = projectWorkingDescription(project, locale)
   return <article className="portfolio-card" style={{ ['--card-index' as string]: index }}>
     <a className="portfolio-card-link" href={routePath(locale, 'project-detail', project.slug)} aria-label={`${copy.actions.explore}: ${project.title[locale]}`}>
-      {project.cover ? <div className="portfolio-card-image"><img src={sitePath(project.cover.src)} srcSet={project.cover.srcSet?.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 800px) 50vw, (max-width: 1100px) 50vw, 33vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1200} height={project.cover.height ?? 800} loading="lazy" decoding="async" /><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div> : <div className="portfolio-card-image portfolio-card-placeholder"><div className="portfolio-card-placeholder-copy"><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div>}
+      {project.cover ? <div className="portfolio-card-image"><img src={sitePath(project.cover.src)} srcSet={project.cover.srcSet?.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 800px) 50vw, (max-width: 1100px) 50vw, 33vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1200} height={project.cover.height ?? 800} loading="lazy" decoding="async" style={{ objectFit: project.cover.fit ?? 'cover', objectPosition: project.cover.position ?? 'center' }} /><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div> : <div className="portfolio-card-image portfolio-card-placeholder"><div className="portfolio-card-placeholder-copy"><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div>}
       <div className="portfolio-card-meta"><span>{projectStatusLabel(project, locale)}</span><span aria-hidden="true">↗</span></div>
       <h2>{project.title[locale]}</h2>
       <p>{description}</p>
@@ -141,9 +144,10 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
   ].filter((fact): fact is { label: string; value: string } => Boolean(fact))
   return <PageFrame><article className="detail-page"><Container>
     <Breadcrumbs items={[{ label: copy.nav.home, href: routePath(locale) }, { label: copy.nav.projects, href: routePath(locale, 'projects') }, { label: project.title[locale] }]} />
-    <header className="detail-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{projectStatusLabel(project, locale)}</p><h1>{project.title[locale]}</h1>{project.location ? <p className="detail-location">{project.location[locale]}</p> : null}<p>{description}</p></header>
+    <header className="detail-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{projectStatusLabel(project, locale)}</p><h1>{project.title[locale]}</h1>{project.location ? <p className="detail-location">{project.location[locale]}</p> : null}{project.detailsNote ? null : <p>{description}</p>}</header>
     <ProjectGallery project={project} locale={locale} />
-    {project.state === 'awaiting-client-correction' ? <aside className="project-review-status" role="note"><strong>{locale === 'en' ? 'Source record under review' : 'سجل المصدر قيد المراجعة'}</strong><p>{locale === 'en' ? 'Some supplied project information is awaiting client confirmation. Unverified statements are withheld and this page remains excluded from search indexing.' : 'بعض معلومات المشروع المقدمة بانتظار تأكيد العميل. تم حجب البيانات غير المؤكدة وتظل هذه الصفحة مستبعدة من فهرسة البحث.'}</p></aside> : null}
+    {project.detailsNote ? <section className="detail-project-note brand-pattern-field brand-pattern-field--metadata" aria-labelledby={`project-details-${project.id}`}><p id={`project-details-${project.id}`} className="eyebrow">{locale === 'en' ? 'Project details' : 'تفاصيل المشروع'}</p><p>{project.detailsNote[locale]}</p></section> : null}
+    {project.state === 'awaiting-client-correction' && project.contentStatus !== 'awaiting-project-details' ? <aside className="project-review-status" role="note"><strong>{locale === 'en' ? 'Source record under review' : 'سجل المصدر قيد المراجعة'}</strong><p>{locale === 'en' ? 'Some supplied project information is awaiting client confirmation. Unverified statements are withheld and this page remains excluded from search indexing.' : 'بعض معلومات المشروع المقدمة بانتظار تأكيد العميل. تم حجب البيانات غير المؤكدة وتظل هذه الصفحة مستبعدة من فهرسة البحث.'}</p></aside> : null}
     {project.historicalBackground ? <section className="detail-story"><p className="eyebrow">{locale === 'en' ? 'Historical background' : 'الخلفية التاريخية'}</p><div>{project.historicalBackground[locale].split('\n\n').map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section> : null}
     {facts.length ? <dl className="project-facts">{facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl> : null}
     {project.scope?.[locale]?.length ? <section className="detail-scope brand-pattern-field brand-pattern-field--metadata"><p className="eyebrow">{copy.labels.scope}</p><ul>{project.scope[locale].map((item) => <li key={item}>{item}</li>)}</ul></section> : null}
@@ -187,11 +191,11 @@ function ProjectGallery({ project, locale }: { project: PortfolioProject; locale
   if (!project.cover) return <section className="detail-media-placeholder" aria-label={pendingMediaLabel(project, locale)}><div><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div></section>
   return <>
     <button type="button" className="detail-cover gallery-trigger" onClick={() => setActive(0)} aria-label={`${copy.actions.explore}: ${project.title[locale]}`}>
-      <img src={sitePath(project.cover.src)} srcSet={responsiveSrcSet(project.cover)} sizes="100vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1536} height={project.cover.height ?? 1024} fetchPriority="high" decoding="async" />
+      <img src={sitePath(project.cover.src)} srcSet={responsiveSrcSet(project.cover)} sizes="100vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1536} height={project.cover.height ?? 1024} fetchPriority="high" decoding="async" style={{ objectFit: project.cover.fit ?? 'cover', objectPosition: project.cover.position ?? 'center' }} />
       {images.length > 1 ? <span className="gallery-count">{locale === 'en' ? 'View gallery' : 'عرض المعرض'} <b>{String(images.length).padStart(2, '0')}</b></span> : null}
     </button>
     {images.length > 1 ? <section ref={galleryRef} aria-label={copy.labels.projects} className="detail-gallery">{images.slice(1).map((image, index) => <button type="button" key={image.src} onClick={() => setActive(index + 1)} aria-label={`${copy.actions.explore}: ${project.title[locale]}, ${index + 2}`}>
-      <img src={sitePath(image.src)} srcSet={responsiveSrcSet(image)} sizes="(max-width: 700px) 100vw, 50vw" alt={image.alt[locale]} loading="lazy" decoding="async" width={image.width ?? 1200} height={image.height ?? 800} />
+      <img src={sitePath(image.src)} srcSet={responsiveSrcSet(image)} sizes="(max-width: 700px) 100vw, 50vw" alt={image.alt[locale]} loading="lazy" decoding="async" width={image.width ?? 1200} height={image.height ?? 800} style={{ objectFit: image.fit ?? 'cover', objectPosition: image.position ?? 'center' }} />
     </button>)}</section> : null}
     <dialog ref={dialog} className="portfolio-lightbox" aria-label={copy.labels.projects} onClose={close} onClick={(event) => { if (event.target === dialog.current) close() }} onKeyDown={(event) => { if (event.key === 'ArrowRight') { event.preventDefault(); step(1) } if (event.key === 'ArrowLeft') { event.preventDefault(); step(-1) } }}>
       <div className="lightbox-toolbar"><span>{active === null ? '' : `${String(active + 1).padStart(2, '0')} / ${String(images.length).padStart(2, '0')}`}</span><span className="lightbox-progress" aria-hidden="true"><i style={{ transform: `scaleX(${active === null ? 0 : (active + 1) / images.length})` }} /></span><button data-magnetic type="button" onClick={close} aria-label={locale === 'en' ? 'Close gallery' : 'إغلاق المعرض'}>×</button></div>

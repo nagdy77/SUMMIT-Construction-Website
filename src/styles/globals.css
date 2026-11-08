@@ -468,6 +468,8 @@ button:disabled { cursor: default; }
 .project-review-status { display: grid; grid-template-columns: minmax(11rem, .6fr) minmax(0, 1.4fr); gap: 2rem; margin-top: 2rem; border: 1px solid color-mix(in srgb, var(--color-accent) 36%, var(--color-border)); border-inline-start: 3px solid var(--color-accent); padding: clamp(1.25rem, 3vw, 2rem); background: color-mix(in srgb, var(--color-accent) 5%, var(--color-elevated)); }
 .project-review-status strong { color: var(--color-accent); font: 700 .62rem/1.5 var(--font-body); letter-spacing: .13em; text-transform: uppercase; }
 .project-review-status p { max-width: 48rem; margin: 0; color: var(--color-muted); font: .8rem/1.75 var(--font-body); }
+.detail-project-note { display: grid; grid-template-columns: minmax(11rem, .6fr) minmax(0, 1.4fr); gap: clamp(2rem, 6vw, 7rem); margin-top: clamp(2rem, 4vw, 3.5rem); border-block: 1px solid var(--color-border); padding-block: clamp(2rem, 4vw, 3.5rem); }
+.detail-project-note > p:last-child { max-width: 52rem; margin: 0; color: var(--color-muted); font: clamp(.94rem, 1.2vw, 1.08rem)/1.9 var(--font-body); }
 .detail-story { display: grid; grid-template-columns: minmax(11rem, .6fr) minmax(0, 1.4fr); gap: clamp(2rem, 6vw, 7rem); border-bottom: 1px solid var(--color-border); padding-block: clamp(3rem, 7vw, 6rem); }
 .detail-story > div { max-width: 52rem; }
 .detail-story > div p { margin: 0; color: var(--color-muted); font: clamp(.94rem, 1.2vw, 1.08rem)/1.9 var(--font-body); }
@@ -789,7 +791,7 @@ button:disabled { cursor: default; }
   .portfolio-lightbox { width: 100vw; max-width: 100vw; max-height: 100dvh; height: 100dvh; border: 0; padding: .7rem; }
   .portfolio-lightbox figure img { height: calc(100dvh - 9rem); }
   .detail-scope { grid-template-columns: 1fr; gap: 1rem; }
-  .project-review-status, .detail-story { grid-template-columns: 1fr; gap: 1rem; }
+  .project-review-status, .detail-project-note, .detail-story { grid-template-columns: 1fr; gap: 1rem; }
   .project-facts { grid-template-columns: 1fr; }
   .project-facts > div { border-inline-end: 0; border-bottom: 1px solid var(--color-border); }
   .project-facts > div:last-child { border-bottom: 0; }

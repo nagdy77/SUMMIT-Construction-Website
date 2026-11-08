@@ -714,5 +714,187 @@ export const projectMedia = {
       "width": 1105,
       "height": 1423
     }
+  ],
+  "qaitbays-seat-main-hall": [
+    {
+      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/01-1536.webp",
+      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/01-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/01-1536.webp 1536w",
+      "alt": "Conservator examining a decorated historic ceiling in Qaitbay’s Seat main hall",
+      "altAr": "مرمم يفحص سقفًا تاريخيًا مزخرفًا في القاعة الرئيسية بمقعد قايتباي",
+      "label": "Restoring an Ornate Historic Ceiling.png",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/02-1536.webp",
+      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/02-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/02-1536.webp 1536w",
+      "alt": "Conservator working on painted wall decoration in Qaitbay’s Seat main hall",
+      "altAr": "مرممة تعمل على زخارف جدارية ملونة في القاعة الرئيسية بمقعد قايتباي",
+      "label": "Meticulous Mural Restoration in Warm Light.png",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/03-1536.webp",
+      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/03-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/03-1536.webp 1536w",
+      "alt": "Detailed conservation test grid on painted wall decoration at Qaitbay’s Seat",
+      "altAr": "شبكة اختبار ترميم تفصيلية على زخارف جدارية ملونة في مقعد قايتباي",
+      "label": "Ornate Wall Restoration Test Grid.png",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/04-1536.webp",
+      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/04-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/04-1536.webp 1536w",
+      "alt": "Conservators working on a decorated ceiling inside Qaitbay’s Seat main hall",
+      "altAr": "مرممون يعملون على سقف مزخرف داخل القاعة الرئيسية بمقعد قايتباي",
+      "label": "Ceiling Restoration Conservators at Work.png",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/05-1536.webp",
+      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/05-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/05-1536.webp 1536w",
+      "alt": "Timber and glass rooftop pavilion at the Qaitbay’s Seat project site",
+      "altAr": "جناح خشبي وزجاجي أعلى سطح موقع مشروع مقعد قايتباي",
+      "label": "Golden-Hour Rooftop Glass Pavilion.png",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/06-1536.webp",
+      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/06-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/06-1536.webp 1536w",
+      "alt": "Upward view of a timber skylight at the Qaitbay’s Seat project",
+      "altAr": "منظر علوي لفتحة سقف خشبية في مشروع مقعد قايتباي",
+      "label": "Symmetrical Warm Wood Atrium Skylight.png",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    }
+  ],
+  "carpentry-workshop": [
+    {
+      "src": "/assets/projects/portfolio/carpentry-workshop/01-1536.webp",
+      "srcSet": "/assets/projects/portfolio/carpentry-workshop/01-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/01-1536.webp 1536w",
+      "alt": "Wide stone interior with a timber ceiling and arched windows at the Carpentry Workshop project",
+      "altAr": "مساحة داخلية حجرية واسعة بسقف خشبي ونوافذ مقوسة في مشروع ورشة النجارة",
+      "label": "Warm Stone Restoration Interior.png",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/carpentry-workshop/02-1536.webp",
+      "srcSet": "/assets/projects/portfolio/carpentry-workshop/02-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/02-1536.webp 1536w",
+      "alt": "Stone interior with a pointed arch and timber ceiling at the Carpentry Workshop project",
+      "altAr": "مساحة داخلية حجرية بعقد مدبب وسقف خشبي في مشروع ورشة النجارة",
+      "label": "Gothic Stone Room in Warm Light.png",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/carpentry-workshop/03-1536.webp",
+      "srcSet": "/assets/projects/portfolio/carpentry-workshop/03-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/03-1536.webp 1536w",
+      "alt": "Timber ceiling structure supported by stone walls at the Carpentry Workshop project",
+      "altAr": "تكوين سقف خشبي تستنده جدران حجرية في مشروع ورشة النجارة",
+      "label": "Rustic Timber and Stone Ceiling.png",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/carpentry-workshop/04-1024.webp",
+      "srcSet": "/assets/projects/portfolio/carpentry-workshop/04-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/04-1024.webp 1024w",
+      "alt": "Stone hall with arched windows and a timber ceiling at the Carpentry Workshop project",
+      "altAr": "قاعة حجرية بنوافذ مقوسة وسقف خشبي في مشروع ورشة النجارة",
+      "label": "Cinematic Stone Hall with Arched Windows.png",
+      "fit": "contain",
+      "position": "center",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "src": "/assets/projects/portfolio/carpentry-workshop/05-1024.webp",
+      "srcSet": "/assets/projects/portfolio/carpentry-workshop/05-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/05-1024.webp 1024w",
+      "alt": "Stone corridor with arched windows and a timber door at the Carpentry Workshop project",
+      "altAr": "ممر حجري بنوافذ مقوسة وباب خشبي في مشروع ورشة النجارة",
+      "label": "Historic Stone Corridor with Timber Door.png",
+      "fit": "contain",
+      "position": "center",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "src": "/assets/projects/portfolio/carpentry-workshop/06-1536.webp",
+      "srcSet": "/assets/projects/portfolio/carpentry-workshop/06-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/06-1536.webp 1536w",
+      "alt": "Close view of timber ceiling beams at the Carpentry Workshop project",
+      "altAr": "منظر قريب لعوارض سقف خشبية في مشروع ورشة النجارة",
+      "label": "Rustic Walnut Beam Ceiling.png",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    }
+  ],
+  "down-town-1": [
+    {
+      "src": "/assets/projects/portfolio/down-town-1/01-1086.webp",
+      "srcSet": "/assets/projects/portfolio/down-town-1/01-720.webp 720w, /assets/projects/portfolio/down-town-1/01-1086.webp 1086w",
+      "alt": "Sunlit concrete atrium under construction at Down Town 1",
+      "altAr": "فناء خرساني مضاء طبيعيًا قيد الإنشاء في داون تاون 1",
+      "label": "Sunlit Concrete Atrium Under Construction.png",
+      "fit": "contain",
+      "position": "center",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "src": "/assets/projects/portfolio/down-town-1/02-1086.webp",
+      "srcSet": "/assets/projects/portfolio/down-town-1/02-720.webp 720w, /assets/projects/portfolio/down-town-1/02-1086.webp 1086w",
+      "alt": "SUMMIT crew members working beneath building services at Down Town 1",
+      "altAr": "فريق سوميت يعمل أسفل تمديدات المبنى في داون تاون 1",
+      "label": "Precision Above_ Summit Construction Crew.png",
+      "fit": "contain",
+      "position": "center",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "src": "/assets/projects/portfolio/down-town-1/03-1086.webp",
+      "srcSet": "/assets/projects/portfolio/down-town-1/03-720.webp 720w, /assets/projects/portfolio/down-town-1/03-1086.webp 1086w",
+      "alt": "Interior construction corridor with scaffolding at Down Town 1",
+      "altAr": "ممر إنشاءات داخلي به سقالات في داون تاون 1",
+      "label": "Warm Construction Corridor with Scaffolding.png",
+      "fit": "contain",
+      "position": "center",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "src": "/assets/projects/portfolio/down-town-1/04-941.webp",
+      "srcSet": "/assets/projects/portfolio/down-town-1/04-720.webp 720w, /assets/projects/portfolio/down-town-1/04-941.webp 941w",
+      "alt": "Sunlit interior scaffolding at the Down Town 1 project",
+      "altAr": "سقالات داخلية مضاءة طبيعيًا في مشروع داون تاون 1",
+      "label": "Sunlit Scaffold Interior in Renovation.png",
+      "fit": "contain",
+      "position": "center",
+      "width": 941,
+      "height": 1672
+    }
   ]
 } as const satisfies Record<string, readonly ProjectImage[]>

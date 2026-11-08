@@ -28,7 +28,39 @@ const projectDefinitions = [
   ['retail-fit-out', 'marina-rinaldi', 'Marina Rinaldi'],
   ['retail-fit-out', 'sky-offices', 'Sky Offices'],
   ['retail-fit-out', 'voda', 'Voda'],
-].map(([category, slug, title]) => ({ category, slug, title }))
+].map(([category, slug, title]) => ({ category, slug, title })).concat([
+  {
+    category: 'heritage-restoration', slug: 'qaitbays-seat-main-hall', title: 'Qaitbay’s Seat – Main Hall', sourceFolder: 'Qaitbay’s Seat Main Hall',
+    files: [
+      { filename: 'Restoring an Ornate Historic Ceiling.png', alt: 'Conservator examining a decorated historic ceiling in Qaitbay’s Seat main hall', altAr: 'مرمم يفحص سقفًا تاريخيًا مزخرفًا في القاعة الرئيسية بمقعد قايتباي' },
+      { filename: 'Meticulous Mural Restoration in Warm Light.png', alt: 'Conservator working on painted wall decoration in Qaitbay’s Seat main hall', altAr: 'مرممة تعمل على زخارف جدارية ملونة في القاعة الرئيسية بمقعد قايتباي' },
+      { filename: 'Ornate Wall Restoration Test Grid.png', alt: 'Detailed conservation test grid on painted wall decoration at Qaitbay’s Seat', altAr: 'شبكة اختبار ترميم تفصيلية على زخارف جدارية ملونة في مقعد قايتباي' },
+      { filename: 'Ceiling Restoration Conservators at Work.png', alt: 'Conservators working on a decorated ceiling inside Qaitbay’s Seat main hall', altAr: 'مرممون يعملون على سقف مزخرف داخل القاعة الرئيسية بمقعد قايتباي' },
+      { filename: 'Golden-Hour Rooftop Glass Pavilion.png', alt: 'Timber and glass rooftop pavilion at the Qaitbay’s Seat project site', altAr: 'جناح خشبي وزجاجي أعلى سطح موقع مشروع مقعد قايتباي' },
+      { filename: 'Symmetrical Warm Wood Atrium Skylight.png', alt: 'Upward view of a timber skylight at the Qaitbay’s Seat project', altAr: 'منظر علوي لفتحة سقف خشبية في مشروع مقعد قايتباي' },
+    ],
+  },
+  {
+    category: 'heritage-restoration', slug: 'carpentry-workshop', title: 'Carpentry Workshop', sourceFolder: 'Carpentry Workshop',
+    files: [
+      { filename: 'Warm Stone Restoration Interior.png', alt: 'Wide stone interior with a timber ceiling and arched windows at the Carpentry Workshop project', altAr: 'مساحة داخلية حجرية واسعة بسقف خشبي ونوافذ مقوسة في مشروع ورشة النجارة' },
+      { filename: 'Gothic Stone Room in Warm Light.png', alt: 'Stone interior with a pointed arch and timber ceiling at the Carpentry Workshop project', altAr: 'مساحة داخلية حجرية بعقد مدبب وسقف خشبي في مشروع ورشة النجارة' },
+      { filename: 'Rustic Timber and Stone Ceiling.png', alt: 'Timber ceiling structure supported by stone walls at the Carpentry Workshop project', altAr: 'تكوين سقف خشبي تستنده جدران حجرية في مشروع ورشة النجارة' },
+      { filename: 'Cinematic Stone Hall with Arched Windows.png', alt: 'Stone hall with arched windows and a timber ceiling at the Carpentry Workshop project', altAr: 'قاعة حجرية بنوافذ مقوسة وسقف خشبي في مشروع ورشة النجارة' },
+      { filename: 'Historic Stone Corridor with Timber Door.png', alt: 'Stone corridor with arched windows and a timber door at the Carpentry Workshop project', altAr: 'ممر حجري بنوافذ مقوسة وباب خشبي في مشروع ورشة النجارة' },
+      { filename: 'Rustic Walnut Beam Ceiling.png', alt: 'Close view of timber ceiling beams at the Carpentry Workshop project', altAr: 'منظر قريب لعوارض سقف خشبية في مشروع ورشة النجارة' },
+    ],
+  },
+  {
+    category: 'construction', slug: 'down-town-1', title: 'Down Town 1', sourceFolder: 'DownTown 1',
+    files: [
+      { filename: 'Sunlit Concrete Atrium Under Construction.png', alt: 'Sunlit concrete atrium under construction at Down Town 1', altAr: 'فناء خرساني مضاء طبيعيًا قيد الإنشاء في داون تاون 1' },
+      { filename: 'Precision Above_ Summit Construction Crew.png', alt: 'SUMMIT crew members working beneath building services at Down Town 1', altAr: 'فريق سوميت يعمل أسفل تمديدات المبنى في داون تاون 1' },
+      { filename: 'Warm Construction Corridor with Scaffolding.png', alt: 'Interior construction corridor with scaffolding at Down Town 1', altAr: 'ممر إنشاءات داخلي به سقالات في داون تاون 1' },
+      { filename: 'Sunlit Scaffold Interior in Renovation.png', alt: 'Sunlit interior scaffolding at the Down Town 1 project', altAr: 'سقالات داخلية مضاءة طبيعيًا في مشروع داون تاون 1' },
+    ],
+  },
+])
 
 const categoryDefinitions = [
   ['heritage-restoration', 'Heritage Restoration.png'],
@@ -69,35 +101,47 @@ async function prepareProjects() {
   const manifest = { projects: {}, issues: [] }
 
   for (const project of projectDefinitions) {
-    const sourceDirectory = path.join(inboxRoot, project.category, project.slug)
+    const sourceDirectory = project.sourceFolder
+      ? path.join(outputRoot, project.sourceFolder)
+      : path.join(inboxRoot, project.category, project.slug)
     const targetDirectory = path.join(outputRoot, project.slug)
     const entries = await readdir(sourceDirectory, { withFileTypes: true })
     const imageFilenames = entries
       .filter((entry) => entry.isFile() && validExtensions.has(path.extname(entry.name).toLowerCase()))
       .map((entry) => entry.name)
-    const numberedCandidates = imageFilenames
-      .map((filename) => {
-        const match = /^([1-9]\d*)\.[^.]+$/i.exec(filename)
-        return match ? { filename, number: Number.parseInt(match[1], 10) } : null
-      })
-      .filter(Boolean)
-    const numberedFiles = numberedCandidates
-      .filter(({ filename, number }) => filename === `${number}.png`)
-      .sort((a, b) => a.number - b.number)
-    const unnumberedFiles = imageFilenames
-      .filter((filename) => !numberedFiles.some((image) => image.filename === filename))
-      .sort((a, b) => a.localeCompare(b, 'en'))
-    const numberCounts = new Map()
-    for (const image of numberedCandidates) numberCounts.set(image.number, (numberCounts.get(image.number) ?? 0) + 1)
-    const duplicateNumbers = [...numberCounts].filter(([, count]) => count > 1).map(([number]) => number)
-    const highestNumber = numberedFiles.at(-1)?.number ?? 0
-    const canonicalNumbers = new Set(numberedFiles.map((image) => image.number))
-    const missingNumbers = Array.from({ length: highestNumber }, (_, index) => index + 1).filter((number) => !canonicalNumbers.has(number))
+    let numberedFiles
+    let unnumberedFiles
+    if (project.files) {
+      const supplied = new Set(imageFilenames)
+      const missingFiles = project.files.filter(({ filename }) => !supplied.has(filename)).map(({ filename }) => filename)
+      if (missingFiles.length) throw new Error(`Missing configured photographs for ${project.slug}: ${missingFiles.join(', ')}`)
+      numberedFiles = project.files.map((image, index) => ({ ...image, number: index + 1 }))
+      unnumberedFiles = imageFilenames.filter((filename) => !project.files.some((image) => image.filename === filename)).sort((a, b) => a.localeCompare(b, 'en'))
+    } else {
+      const numberedCandidates = imageFilenames
+        .map((filename) => {
+          const match = /^([1-9]\d*)\.[^.]+$/i.exec(filename)
+          return match ? { filename, number: Number.parseInt(match[1], 10) } : null
+        })
+        .filter(Boolean)
+      numberedFiles = numberedCandidates
+        .filter(({ filename, number }) => filename === `${number}.png`)
+        .sort((a, b) => a.number - b.number)
+      unnumberedFiles = imageFilenames
+        .filter((filename) => !numberedFiles.some((image) => image.filename === filename))
+        .sort((a, b) => a.localeCompare(b, 'en'))
+      const numberCounts = new Map()
+      for (const image of numberedCandidates) numberCounts.set(image.number, (numberCounts.get(image.number) ?? 0) + 1)
+      const duplicateNumbers = [...numberCounts].filter(([, count]) => count > 1).map(([number]) => number)
+      const highestNumber = numberedFiles.at(-1)?.number ?? 0
+      const canonicalNumbers = new Set(numberedFiles.map((image) => image.number))
+      const missingNumbers = Array.from({ length: highestNumber }, (_, index) => index + 1).filter((number) => !canonicalNumbers.has(number))
 
-    if (!numberedFiles.length) throw new Error(`No numbered PNG photographs found for ${project.slug}; expected 1.png, 2.png, ...`)
-    if (!canonicalNumbers.has(1)) throw new Error(`Missing cover photograph for ${project.slug}: 1.png`)
-    if (duplicateNumbers.length) throw new Error(`Duplicate photograph numbers for ${project.slug}: ${duplicateNumbers.join(', ')}`)
-    if (missingNumbers.length) throw new Error(`Missing photograph numbers for ${project.slug}: ${missingNumbers.join(', ')}`)
+      if (!numberedFiles.length) throw new Error(`No numbered PNG photographs found for ${project.slug}; expected 1.png, 2.png, ...`)
+      if (!canonicalNumbers.has(1)) throw new Error(`Missing cover photograph for ${project.slug}: 1.png`)
+      if (duplicateNumbers.length) throw new Error(`Duplicate photograph numbers for ${project.slug}: ${duplicateNumbers.join(', ')}`)
+      if (missingNumbers.length) throw new Error(`Missing photograph numbers for ${project.slug}: ${missingNumbers.join(', ')}`)
+    }
 
     const projectIssues = unnumberedFiles.map((filename) => `Unnumbered image excluded from the ordered gallery: ${filename}`)
     for (const issue of projectIssues) {
@@ -109,7 +153,7 @@ async function prepareProjects() {
     const projectImages = []
     const manifestImages = []
 
-    for (const { filename, number } of numberedFiles) {
+    for (const { filename, number, alt, altAr } of numberedFiles) {
       const sourcePath = path.join(sourceDirectory, filename)
       const stem = String(number).padStart(2, '0')
       const variants = await responsiveWebp(sourcePath, targetDirectory, stem, [720, 1600])
@@ -122,7 +166,8 @@ async function prepareProjects() {
       projectImages.push({
         src: largest.src,
         srcSet: publicVariants.map((variant) => `${variant.src} ${variant.width}w`).join(', '),
-        alt: `${project.title} — project photograph ${number}`,
+        alt: alt ?? `${project.title} — project photograph ${number}`,
+        ...(altAr ? { altAr } : {}),
         label: filename,
         fit: sourceMetadata.width / sourceMetadata.height < 0.82 ? 'contain' : 'cover',
         position: 'center',

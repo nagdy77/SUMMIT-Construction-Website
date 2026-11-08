@@ -120,7 +120,7 @@ const routeFiles = [
 const routes = routeFiles
   .map((file) => `/${path.relative(path.resolve('dist'), path.dirname(file)).split(path.sep).join('/')}/`)
   .sort()
-check(routes.length === 54, 'The production build contains all 54 localized route files', routes.length)
+check(routes.length === 60, 'The production build contains all 60 localized route files', routes.length)
 
 for (const route of routes) {
   const response = await fetch(`${base}${route}`)

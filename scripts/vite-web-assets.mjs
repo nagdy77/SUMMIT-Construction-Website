@@ -25,6 +25,9 @@ export function webAssetsOnly() {
           if (relativeName.startsWith('assets/projects/') && !isGeneratedProjectAsset && !isCategoryDirectory) continue
           if (entry.isDirectory()) await collect(relativeName)
           else {
+            // Client source folders can sit beside generated portfolio folders
+            // locally, but only optimized WebPs and the generated manifest ship.
+            if (relativeName.startsWith('assets/projects/portfolio/') && !/\.(webp|json)$/i.test(relativeName)) continue
             // PNG masters remain in public for source preservation; the UI uses WebP.
             if (/^assets\/(generated|brand)\/.+\.png$/i.test(relativeName)) continue
             this.emitFile({ type: 'asset', fileName: relativeName, source: await readFile(path.join(publicRoot, relativeName)) })

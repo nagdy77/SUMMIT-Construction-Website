@@ -9,6 +9,10 @@ public/assets/projects/*
 !public/assets/projects/featured/**
 !public/assets/projects/portfolio/
 !public/assets/projects/portfolio/**
+# Client-supplied source PNG folders stay local; only generated slugged WebPs ship.
+/public/assets/projects/portfolio/Carpentry Workshop/
+/public/assets/projects/portfolio/DownTown 1/
+/public/assets/projects/portfolio/Qaitbay’s Seat Main Hall/
 !public/assets/projects/categories/
 public/assets/projects/categories/*
 !public/assets/projects/categories/optimized/

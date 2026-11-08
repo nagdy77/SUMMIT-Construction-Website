@@ -13,7 +13,7 @@ const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url))
 const mediaManifest = JSON.parse(await readFile(path.join(repositoryRoot, 'public', 'assets', 'projects', 'portfolio', 'media-manifest.json'), 'utf8'))
 const projects = Object.fromEntries(Object.entries(mediaManifest.projects).map(([slug, project]) => [slug, project.count]))
 const expectedPhotoCount = Object.values(projects).reduce((total, count) => total + count, 0)
-const categoryCounts = [4, 4, 2, 6]
+const categoryCounts = [6, 5, 2, 6]
 
 class CdpClient {
   constructor(socket) {
@@ -113,11 +113,11 @@ try {
     console.log(`Checking listing at ${width}px`)
     await client.send('Emulation.setDeviceMetricsOverride', { width, height: width < 600 ? 844 : 960, deviceScaleFactor: 1, mobile: width < 600 })
     await navigate(`${base}/en/projects/`)
-    await waitFor("document.querySelectorAll('.portfolio-card').length === 16 && document.querySelectorAll('.portfolio-category-card').length === 4")
+    await waitFor("document.querySelectorAll('.portfolio-card').length === 19 && document.querySelectorAll('.portfolio-category-card').length === 4")
     const metrics = await evaluate(`({ viewport: innerWidth, documentWidth: document.documentElement.scrollWidth, cards: document.querySelectorAll('.portfolio-card').length, categories: document.querySelectorAll('.portfolio-category-card').length })`)
     assert.equal(metrics.viewport, width, `${width}px viewport must be emulated exactly`)
     assert.ok(metrics.documentWidth <= width, `${width}px project listing must not overflow horizontally`)
-    assert.equal(metrics.cards, 16, `${width}px listing must show all projects before filtering`)
+    assert.equal(metrics.cards, 19, `${width}px listing must show all projects before filtering`)
     assert.equal(metrics.categories, 4, `${width}px listing must show four illustrated category cards`)
   }
 
@@ -126,7 +126,7 @@ try {
     console.log(`Checking ${theme} theme`)
     await navigate(`${base}/en/projects/`)
     await evaluate(`localStorage.setItem('summit-theme', '${theme}'); location.reload(); true`)
-    await waitFor(`document.documentElement.dataset.theme === '${theme}' && document.querySelectorAll('.portfolio-card').length === 16`)
+    await waitFor(`document.documentElement.dataset.theme === '${theme}' && document.querySelectorAll('.portfolio-card').length === 19`)
     assert.ok((await waitForImages('.portfolio-category-card img, .portfolio-card img')).every(Boolean), `${theme} project listing images must decode`)
   }
 
@@ -142,7 +142,7 @@ try {
 
   await navigate(`${base}/en/projects/`)
   await evaluate("document.querySelectorAll('.portfolio-filters button')[0].click(); true")
-  await waitFor("document.querySelectorAll('.portfolio-card').length === 16")
+  await waitFor("document.querySelectorAll('.portfolio-card').length === 19")
 
   await client.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true })
   for (const [slug, expectedImages] of Object.entries(projects)) {
@@ -159,6 +159,34 @@ try {
     assert.equal(metrics.placeholder, false, `${slug} must not render a media placeholder`)
   }
 
+  const pendingProjects = [
+    ['qaitbays-seat-main-hall', 'Qaitbay’s Seat – Main Hall', 'مقعد قايتباي – القاعة الرئيسية'],
+    ['carpentry-workshop', 'Carpentry Workshop', 'ورشة نجارة'],
+    ['down-town-1', 'Down Town 1', 'داون تاون 1'],
+  ]
+  const pendingCopy = {
+    en: 'Detailed project information, including scope of work, project phases, location, and duration, will be added once confirmed.',
+    ar: 'سيتم إضافة تفاصيل المشروع، بما في ذلك نطاق الأعمال ومراحل التنفيذ والموقع ومدة المشروع، فور تأكيد المعلومات.',
+  }
+  for (const [slug, titleEn, titleAr] of pendingProjects) {
+    for (const locale of ['en', 'ar']) {
+      await navigate(`${base}/${locale}/projects/${slug}/`)
+      await waitFor("Boolean(document.querySelector('.detail-project-note'))")
+      const details = await evaluate(`({
+        title: document.querySelector('.detail-heading h1').textContent.trim(),
+        note: document.querySelector('.detail-project-note > p:last-child').textContent.trim(),
+        facts: document.querySelectorAll('.project-facts > div').length,
+        scope: Boolean(document.querySelector('.detail-scope')),
+        reviewWarning: Boolean(document.querySelector('.project-review-status')),
+      })`)
+      assert.equal(details.title, locale === 'en' ? titleEn : titleAr, `${slug} must use its ${locale} title`)
+      assert.equal(details.note, pendingCopy[locale], `${slug} must use the approved ${locale} pending-details copy`)
+      assert.equal(details.facts, 0, `${slug} must hide unknown facts`)
+      assert.equal(details.scope, false, `${slug} must hide unknown scope`)
+      assert.equal(details.reviewWarning, false, `${slug} pending details must use the editorial section rather than a warning banner`)
+    }
+  }
+
   await navigate(`${base}/en/projects/mohamed-ali-palace/`)
   await evaluate("document.querySelector('.detail-cover').click(); true")
   await waitFor("document.querySelector('.portfolio-lightbox').open")
@@ -171,7 +199,7 @@ try {
   await client.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] })
   await navigate(`${base}/en/projects/`)
   const reducedMotion = await evaluate(`({ categoryTransition: getComputedStyle(document.querySelector('.portfolio-category-card')).transitionDuration, cardCount: document.querySelectorAll('.portfolio-card').length })`)
-  assert.equal(reducedMotion.cardCount, 16, 'reduced-motion mode must retain all projects')
+  assert.equal(reducedMotion.cardCount, 19, 'reduced-motion mode must retain all projects')
   const transitionSeconds = reducedMotion.categoryTransition.split(',').map((duration) => duration.trim().endsWith('ms') ? Number.parseFloat(duration) / 1000 : Number.parseFloat(duration))
   assert.ok(transitionSeconds.every((duration) => duration <= 0.0001), `reduced-motion mode must suppress category-card motion (${reducedMotion.categoryTransition})`)
   await client.send('Emulation.setEmulatedMedia', { features: [] })
@@ -184,7 +212,7 @@ try {
   await waitFor(`document.querySelector('[data-projects-gallery]').dataset.activeProject !== ${JSON.stringify(initialFeatured)}`)
   assert.ok((await waitForImages('.featured-projects img')).every(Boolean), 'featured project photography must decode')
 
-  console.log(`Verified four category filters, all ${Object.keys(projects).length} galleries and ${expectedPhotoCount} numbered photographs, light/dark themes, 320/390/768/1440 layouts, keyboard lightbox controls, reduced motion, and the restored four-project homepage feature in Edge.`)
+  console.log(`Verified four category filters, all ${Object.keys(projects).length} galleries and ${expectedPhotoCount} photographs, bilingual pending-detail sections, light/dark themes, 320/390/768/1440 layouts, keyboard lightbox controls, reduced motion, and the unchanged four-project homepage feature in Edge.`)
 } finally {
   browser.kill()
   await delay(250)

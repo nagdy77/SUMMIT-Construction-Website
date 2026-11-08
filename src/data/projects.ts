@@ -4,6 +4,7 @@ export type ProjectImage = {
   src: string
   srcSet?: string
   alt: string
+  altAr?: string
   label: string
   fit?: 'cover' | 'contain'
   position?: string
@@ -12,13 +13,14 @@ export type ProjectImage = {
 }
 
 export type ProjectCategory = 'Heritage Restoration' | 'Construction' | 'Residential Fit-Out' | 'Retail Fit-Out'
-export type ProjectContentStatus = 'source-supplied' | 'source-contains-speculative-language' | 'awaiting-client-correction' | 'awaiting-conflict-resolution'
+export type ProjectContentStatus = 'source-supplied' | 'source-contains-speculative-language' | 'awaiting-client-correction' | 'awaiting-conflict-resolution' | 'awaiting-project-details'
+export type ProjectCategoryStatus = 'confirmed' | 'tentative'
 
 export type ProjectSpecifications = {
   client: string | null
-  scope: string
-  location: string
-  projectDuration: string
+  scope: string | null
+  location: string | null
+  projectDuration: string | null
   bua?: string | null
   year?: string | null
 }
@@ -28,10 +30,12 @@ export type ProjectRecord = {
   slug: string
   title: { en: string; ar: string | null }
   category: ProjectCategory
+  categoryStatus?: ProjectCategoryStatus
   inboxFolder: string
   historicalBackground: string | null
   sourceOverview: string
   publicOverview: string | null
+  detailsNote?: { en: string; ar: string } | null
   specifications: ProjectSpecifications
   contentStatus: ProjectContentStatus
   reviewNotes: readonly string[]
@@ -40,6 +44,11 @@ export type ProjectRecord = {
   pendingMedia: boolean
   images: readonly ProjectImage[]
 }
+
+const pendingProjectDetails = {
+  en: 'Detailed project information, including scope of work, project phases, location, and duration, will be added once confirmed.',
+  ar: 'سيتم إضافة تفاصيل المشروع، بما في ذلك نطاق الأعمال ومراحل التنفيذ والموقع ومدة المشروع، فور تأكيد المعلومات.',
+} as const
 
 export const projects: readonly ProjectRecord[] = [
   {
@@ -78,6 +87,20 @@ export const projects: readonly ProjectRecord[] = [
     contentStatus: 'source-supplied', reviewNotes: [], pendingMedia: false, images: projectMedia['st-andrews-church'],
   },
   {
+    id: 'qaitbays-seat-main-hall', slug: 'qaitbays-seat-main-hall', title: { en: 'Qaitbay’s Seat – Main Hall', ar: 'مقعد قايتباي – القاعة الرئيسية' }, category: 'Heritage Restoration',
+    inboxFolder: 'public/assets/projects/portfolio/Qaitbay’s Seat Main Hall/', historicalBackground: null,
+    sourceOverview: '', publicOverview: null, detailsNote: pendingProjectDetails,
+    specifications: { client: null, scope: null, location: null, projectDuration: null, bua: null, year: null },
+    contentStatus: 'awaiting-project-details', reviewNotes: ['Description, scope, project phases, location, dates and duration require client confirmation.'], pendingMedia: false, images: projectMedia['qaitbays-seat-main-hall'],
+  },
+  {
+    id: 'carpentry-workshop', slug: 'carpentry-workshop', title: { en: 'Carpentry Workshop', ar: 'ورشة نجارة' }, category: 'Heritage Restoration', categoryStatus: 'tentative',
+    inboxFolder: 'public/assets/projects/portfolio/Carpentry Workshop/', historicalBackground: null,
+    sourceOverview: '', publicOverview: null, detailsNote: pendingProjectDetails,
+    specifications: { client: null, scope: null, location: null, projectDuration: null, bua: null, year: null },
+    contentStatus: 'awaiting-project-details', reviewNotes: ['Heritage classification is tentative. Description, scope, project phases, location, dates and duration require client confirmation.'], pendingMedia: false, images: projectMedia['carpentry-workshop'],
+  },
+  {
     id: 'new-capital-administrations-district', slug: 'new-capital-administrations-district', title: { en: 'New Capital Administrations District', ar: 'حي الوزارات بالعاصمة الإدارية الجديدة' }, category: 'Construction',
     inboxFolder: 'project-inbox/construction/new-capital-administrations-district/', historicalBackground: null,
     sourceOverview: "Summit Construction has been assigned to execute the mechanical marble works for the Transportation Ministry in collaboration with Gama Construction at the New Administrative District. This prestigious project not only highlights Summit Construction's expertise in high-quality marble installation and precision craftsmanship but also adds significant value to the company's portfolio. The partnership with Gama Construction underscores Summit's capability to deliver exceptional results in large-scale, high-profile developments, further solidifying its reputation as a leader in the construction industry.",
@@ -105,6 +128,13 @@ export const projects: readonly ProjectRecord[] = [
     publicOverview: 'Summit construction was committed to deliver two buildings in up town Cairo. With a commitment to excellence, we deliver this project with top-tier quality and efficiency.',
     specifications: { client: 'ACC', scope: 'External Finishing (Painting – Marble)', location: 'uptown Cairo', projectDuration: '15 months' },
     contentStatus: 'source-supplied', reviewNotes: [], pendingMedia: false, images: projectMedia['alto'],
+  },
+  {
+    id: 'down-town-1', slug: 'down-town-1', title: { en: 'Down Town 1', ar: 'داون تاون 1' }, category: 'Construction',
+    inboxFolder: 'public/assets/projects/portfolio/DownTown 1/', historicalBackground: null,
+    sourceOverview: '', publicOverview: null, detailsNote: pendingProjectDetails,
+    specifications: { client: null, scope: null, location: null, projectDuration: null, bua: null, year: null },
+    contentStatus: 'awaiting-project-details', reviewNotes: ['Description, scope, project phases, location, dates and duration require client confirmation.'], pendingMedia: false, images: projectMedia['down-town-1'],
   },
   {
     id: 'lakeview-residence', slug: 'lakeview-residence', title: { en: 'Lakeview Residence', ar: 'ليك فيو ريزيدنس' }, category: 'Residential Fit-Out', inboxFolder: 'project-inbox/residential-fit-out/lakeview-residence/', historicalBackground: null,

@@ -8,6 +8,8 @@ export type PortfolioImage = {
   src: string
   srcSet?: string
   alt: Record<Locale, string>
+  fit?: 'cover' | 'contain'
+  position?: string
   width?: number
   height?: number
 }
@@ -19,9 +21,11 @@ export type PortfolioProject = {
   sourceFolder: string
   state: ProjectState
   category: ProjectCategory
-  location: Record<Locale, string>
+  categoryStatus: 'confirmed' | 'tentative'
+  location: Record<Locale, string> | null
   client: string | null
   description: Record<Locale, string> | null
+  detailsNote: Record<Locale, string> | null
   historicalBackground: Record<Locale, string> | null
   scope: Record<Locale, string[]>
   duration: string | null
@@ -41,11 +45,13 @@ function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
   const publicDescription = project.publicOverview
   const correctionPending = project.contentStatus !== 'source-supplied'
   const pendingDescription = 'Project information is awaiting client correction before publication.'
-  const descriptionEn = publicDescription ?? pendingDescription
+  const descriptionEn = publicDescription ?? project.detailsNote?.en ?? pendingDescription
   const gallery = project.images.map((image) => ({
     src: image.src,
     srcSet: image.srcSet,
-    alt: { en: image.alt, ar: image.alt },
+    alt: { en: image.alt, ar: image.altAr ?? image.alt },
+    fit: image.fit,
+    position: image.position,
     width: image.width,
     height: image.height,
   }))
@@ -58,11 +64,13 @@ function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
     sourceFolder: project.inboxFolder,
     state: project.pendingMedia ? 'pending-media' : correctionPending ? 'awaiting-client-correction' : 'published',
     category: project.category,
-    location: { en: project.specifications.location, ar: project.specifications.location },
+    categoryStatus: project.categoryStatus ?? 'confirmed',
+    location: project.specifications.location ? { en: project.specifications.location, ar: project.specifications.location } : null,
     client: project.specifications.client,
     description: publicDescription ? { en: publicDescription, ar: publicDescription } : null,
+    detailsNote: project.detailsNote ?? null,
     historicalBackground: project.historicalBackground ? { en: project.historicalBackground, ar: project.historicalBackground } : null,
-    scope: { en: [project.specifications.scope], ar: [project.specifications.scope] },
+    scope: project.specifications.scope ? { en: [project.specifications.scope], ar: [project.specifications.scope] } : { en: [], ar: [] },
     duration: disputedSpecifications ? null : project.specifications.projectDuration,
     bua: disputedSpecifications ? null : project.specifications.bua ?? null,
     year: disputedSpecifications ? null : project.specifications.year ?? null,
@@ -75,7 +83,7 @@ function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
     hasApprovedArabic: false,
     seo: {
       title: { en: `${project.title.en} | SUMMIT Construction`, ar: `${titleAr} | SUMMIT Construction` },
-      description: { en: descriptionEn, ar: descriptionEn },
+      description: { en: descriptionEn, ar: project.detailsNote?.ar ?? descriptionEn },
     },
     approvalNeeds: [
       ...(project.pendingMedia ? ['replacement project photography'] : []),
@@ -88,6 +96,6 @@ function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
 export const portfolioProjects: PortfolioProject[] = projects.map(recordToPortfolioProject)
 export const publishedProjects = portfolioProjects
 
-export const portfolioCapacity = 16
+export const portfolioCapacity = 19
 export const registeredProjectFolderCount = projects.length
 export const remainingProjectIdentities = portfolioCapacity - registeredProjectFolderCount
