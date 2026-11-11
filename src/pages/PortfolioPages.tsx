@@ -8,6 +8,7 @@ import { useCopy, useLocale } from '../content/site'
 import { publishedProjects, type ProjectCategory, type PortfolioProject } from '../data/portfolio'
 import { routePath, sitePath } from '../lib/routes'
 import { NotFoundPage as SharedNotFoundPage } from './NotFoundPage'
+import { BeitAlRazzazCaseStudy } from '../components/sections/BeitAlRazzazCaseStudy'
 
 const categoryLabels: Record<'en' | 'ar', Record<ProjectCategory, string>> = {
   en: { 'Heritage Restoration': 'Heritage Restoration', Construction: 'Construction', 'Residential Fit-Out': 'Residential Fit-Out', 'Retail Fit-Out': 'Retail Fit-Out' },
@@ -132,23 +133,29 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
   const sameCategory = publishedProjects.filter((item) => item.id !== project.id && item.category === project.category)
   const related = [...sameCategory, ...publishedProjects.filter((item) => item.id !== project.id && item.category !== project.category)].slice(0, 2)
   const description = projectWorkingDescription(project, locale)
+  const isBeit = project.slug === 'beit-al-razzaz'
+  const beitTitle = locale === 'en' ? 'Restoration and Structural Risk Mitigation — Eastern Side of Beit Al-Razzaz' : 'ترميم ودرء الخطورة عن الجانب الشرقي من بيت الرزاز'
+  const beitDescription = locale === 'en'
+    ? 'A heritage restoration and structural risk mitigation project addressing deterioration and threats to the eastern side of Beit Al-Razzaz, within the broader context of protecting architectural heritage against the effects of climate change.'
+    : 'مشروع ترميم ودرء الخطورة عن الجانب الشرقي من بيت الرزاز، في إطار مواجهة آثار التغيرات المناخية على التراث.'
   const factLabels = locale === 'en'
-    ? { client: 'Client', location: 'Location', duration: 'Project duration', bua: 'Built-up area', year: 'Year' }
-    : { client: 'العميل', location: 'الموقع', duration: 'مدة المشروع', bua: 'المساحة المبنية', year: 'السنة' }
+    ? { client: 'Client', location: 'Location', funding: 'Funding Entity', duration: 'Project duration', bua: 'Built-up area', year: 'Year' }
+    : { client: 'العميل', location: 'الموقع', funding: 'جهة التمويل', duration: 'مدة المشروع', bua: 'المساحة المبنية', year: 'السنة' }
   const facts = [
     project.client ? { label: factLabels.client, value: project.client } : null,
     project.location?.[locale] ? { label: factLabels.location, value: project.location[locale] } : null,
+    isBeit ? { label: factLabels.funding, value: locale === 'en' ? 'British Embassy' : 'السفارة البريطانية' } : null,
     project.duration ? { label: factLabels.duration, value: project.duration } : null,
     project.bua ? { label: factLabels.bua, value: project.bua } : null,
     project.year ? { label: factLabels.year, value: project.year } : null,
   ].filter((fact): fact is { label: string; value: string } => Boolean(fact))
   return <PageFrame><article className="detail-page"><Container>
     <Breadcrumbs items={[{ label: copy.nav.home, href: routePath(locale) }, { label: copy.nav.projects, href: routePath(locale, 'projects') }, { label: project.title[locale] }]} />
-    <header className="detail-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{projectStatusLabel(project, locale)}</p><h1>{project.title[locale]}</h1>{project.location ? <p className="detail-location">{project.location[locale]}</p> : null}{project.detailsNote ? null : <p>{description}</p>}</header>
-    <ProjectGallery project={project} locale={locale} />
+    <header className="detail-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{projectStatusLabel(project, locale)}</p><h1>{project.title[locale]}</h1>{project.location ? <p className="detail-location">{project.location[locale]}</p> : null}{isBeit ? <><h2 className="beit-detail-title">{beitTitle}</h2><p>{beitDescription}</p></> : project.detailsNote ? null : <p>{description}</p>}</header>
+    {isBeit ? <BeitAlRazzazCaseStudy locale={locale} /> : <ProjectGallery project={project} locale={locale} />}
     {project.detailsNote ? <section className="detail-project-note brand-pattern-field brand-pattern-field--metadata" aria-labelledby={`project-details-${project.id}`}><p id={`project-details-${project.id}`} className="eyebrow">{locale === 'en' ? 'Project details' : 'تفاصيل المشروع'}</p><p>{project.detailsNote[locale]}</p></section> : null}
     {project.state === 'awaiting-client-correction' && project.contentStatus !== 'awaiting-project-details' ? <aside className="project-review-status" role="note"><strong>{locale === 'en' ? 'Source record under review' : 'سجل المصدر قيد المراجعة'}</strong><p>{locale === 'en' ? 'Some supplied project information is awaiting client confirmation. Unverified statements are withheld and this page remains excluded from search indexing.' : 'بعض معلومات المشروع المقدمة بانتظار تأكيد العميل. تم حجب البيانات غير المؤكدة وتظل هذه الصفحة مستبعدة من فهرسة البحث.'}</p></aside> : null}
-    {project.historicalBackground ? <section className="detail-story"><p className="eyebrow">{locale === 'en' ? 'Historical background' : 'الخلفية التاريخية'}</p><div>{project.historicalBackground[locale].split('\n\n').map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section> : null}
+    {project.historicalBackground && !isBeit ? <section className="detail-story"><p className="eyebrow">{locale === 'en' ? 'Historical background' : 'الخلفية التاريخية'}</p><div>{project.historicalBackground[locale].split('\n\n').map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section> : null}
     {facts.length ? <dl className="project-facts">{facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl> : null}
     {project.scope?.[locale]?.length ? <section className="detail-scope brand-pattern-field brand-pattern-field--metadata"><p className="eyebrow">{copy.labels.scope}</p><ul>{project.scope[locale].map((item) => <li key={item}>{item}</li>)}</ul></section> : null}
     <div className="detail-cta"><a data-magnetic className="text-link" href={routePath(locale, 'contact')}>{copy.actions.enquire}<span aria-hidden="true">↗</span></a></div>

@@ -57,8 +57,8 @@ export const projectMedia = {
   ],
   "beit-al-razzaz": [
     {
-      "src": "/assets/projects/portfolio/beit-al-razzaz/01-1203.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/01-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/01-1203.webp 1203w",
+      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp 1203w",
       "alt": "Beit Al Razzaz — project photograph 1",
       "label": "1.png",
       "fit": "cover",
@@ -67,8 +67,8 @@ export const projectMedia = {
       "height": 1308
     },
     {
-      "src": "/assets/projects/portfolio/beit-al-razzaz/02-1562.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/02-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/02-1562.webp 1562w",
+      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/02-1562.webp",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/02-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/02-1562.webp 1562w",
       "alt": "Beit Al Razzaz — project photograph 2",
       "label": "2.png",
       "fit": "cover",
@@ -77,8 +77,8 @@ export const projectMedia = {
       "height": 1007
     },
     {
-      "src": "/assets/projects/portfolio/beit-al-razzaz/03-1570.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/03-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/03-1570.webp 1570w",
+      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/03-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp 1570w",
       "alt": "Beit Al Razzaz — project photograph 3",
       "label": "3.png",
       "fit": "cover",
@@ -87,8 +87,8 @@ export const projectMedia = {
       "height": 1001
     },
     {
-      "src": "/assets/projects/portfolio/beit-al-razzaz/04-1563.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/04-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/04-1563.webp 1563w",
+      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/04-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp 1563w",
       "alt": "Beit Al Razzaz — project photograph 4",
       "label": "4.png",
       "fit": "cover",
@@ -97,8 +97,8 @@ export const projectMedia = {
       "height": 1006
     },
     {
-      "src": "/assets/projects/portfolio/beit-al-razzaz/05-1586.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/05-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/05-1586.webp 1586w",
+      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/05-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp 1586w",
       "alt": "Beit Al Razzaz — project photograph 5",
       "label": "5.png",
       "fit": "cover",

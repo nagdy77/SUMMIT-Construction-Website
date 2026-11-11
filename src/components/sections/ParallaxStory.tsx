@@ -114,11 +114,11 @@ export function ParallaxStory() {
     <section ref={sectionRef} aria-label={copy.eyebrow} className="story-section relative isolate overflow-hidden py-section-lg text-summit-ivory">
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         <picture>
-          <source media="(max-width: 767px)" srcSet={assetUrl('/assets/projects/portfolio/beit-al-razzaz/03-720.webp')} type="image/webp" />
+          <source media="(max-width: 767px)" srcSet={assetUrl('/assets/projects/portfolio/beit-al-razzaz/northern-side/03-720.webp')} type="image/webp" />
           <img
             data-story-field
-            src={assetUrl('/assets/projects/portfolio/beit-al-razzaz/03-1570.webp')}
-            srcSet={assetSrcSet('/assets/projects/portfolio/beit-al-razzaz/03-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/03-1570.webp 1570w')}
+            src={assetUrl('/assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp')}
+            srcSet={assetSrcSet('/assets/projects/portfolio/beit-al-razzaz/northern-side/03-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp 1570w')}
             sizes="100vw"
             alt=""
             width="1570"
