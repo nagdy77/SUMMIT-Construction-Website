@@ -12,8 +12,9 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const mediaManifest = JSON.parse(await readFile(path.join(repositoryRoot, 'public', 'assets', 'projects', 'portfolio', 'media-manifest.json'), 'utf8'))
 const projects = Object.fromEntries(Object.entries(mediaManifest.projects).map(([slug, project]) => [slug, project.count]))
+const genericProjects = Object.fromEntries(Object.entries(projects).filter(([slug]) => slug !== 'beit-al-razzaz'))
 const expectedPhotoCount = Object.values(projects).reduce((total, count) => total + count, 0)
-const categoryCounts = [6, 5, 2, 6]
+const categoryCounts = [5, 5, 2, 6]
 
 class CdpClient {
   constructor(socket) {
@@ -113,11 +114,11 @@ try {
     console.log(`Checking listing at ${width}px`)
     await client.send('Emulation.setDeviceMetricsOverride', { width, height: width < 600 ? 844 : 960, deviceScaleFactor: 1, mobile: width < 600 })
     await navigate(`${base}/en/projects/`)
-    await waitFor("document.querySelectorAll('.portfolio-card').length === 19 && document.querySelectorAll('.portfolio-category-card').length === 4")
+    await waitFor("document.querySelectorAll('.portfolio-card').length === 18 && document.querySelectorAll('.portfolio-category-card').length === 4")
     const metrics = await evaluate(`({ viewport: innerWidth, documentWidth: document.documentElement.scrollWidth, cards: document.querySelectorAll('.portfolio-card').length, categories: document.querySelectorAll('.portfolio-category-card').length })`)
     assert.equal(metrics.viewport, width, `${width}px viewport must be emulated exactly`)
     assert.ok(metrics.documentWidth <= width, `${width}px project listing must not overflow horizontally`)
-    assert.equal(metrics.cards, 19, `${width}px listing must show all projects before filtering`)
+    assert.equal(metrics.cards, 18, `${width}px listing must show all projects before filtering`)
     assert.equal(metrics.categories, 4, `${width}px listing must show four illustrated category cards`)
   }
 
@@ -126,7 +127,7 @@ try {
     console.log(`Checking ${theme} theme`)
     await navigate(`${base}/en/projects/`)
     await evaluate(`localStorage.setItem('summit-theme', '${theme}'); location.reload(); true`)
-    await waitFor(`document.documentElement.dataset.theme === '${theme}' && document.querySelectorAll('.portfolio-card').length === 19`)
+    await waitFor(`document.documentElement.dataset.theme === '${theme}' && document.querySelectorAll('.portfolio-card').length === 18`)
     assert.ok((await waitForImages('.portfolio-category-card img, .portfolio-card img')).every(Boolean), `${theme} project listing images must decode`)
   }
 
@@ -142,10 +143,10 @@ try {
 
   await navigate(`${base}/en/projects/`)
   await evaluate("document.querySelectorAll('.portfolio-filters button')[0].click(); true")
-  await waitFor("document.querySelectorAll('.portfolio-card').length === 19")
+  await waitFor("document.querySelectorAll('.portfolio-card').length === 18")
 
   await client.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true })
-  for (const [slug, expectedImages] of Object.entries(projects)) {
+  for (const [slug, expectedImages] of Object.entries(genericProjects)) {
     console.log(`Checking gallery ${slug}`)
     await navigate(`${base}/en/projects/${slug}/`)
     await waitFor("Boolean(document.querySelector('.detail-cover'))")
@@ -159,9 +160,79 @@ try {
     assert.equal(metrics.placeholder, false, `${slug} must not render a media placeholder`)
   }
 
+  for (const locale of ['en', 'ar']) {
+    console.log(`Checking unified Beit Al-Razzaz case study (${locale})`)
+    await navigate(`${base}/${locale}/projects/beit-al-razzaz/`)
+    await waitFor("document.querySelectorAll('.beit-comparison').length === 7")
+    assert.ok((await waitForImages('.beit-case-study img')).every(Boolean), `Beit Al-Razzaz ${locale} images must decode`)
+    const beit = await evaluate(`({
+      viewport: innerWidth,
+      documentWidth: document.documentElement.scrollWidth,
+      comparisons: document.querySelectorAll('.beit-comparison').length,
+      phase1: document.querySelectorAll('#beit-phase-1 .beit-editorial-grid img').length + 1,
+      phase2: document.querySelectorAll('#beit-phase-2 .beit-editorial-grid img').length,
+      carpentry: document.querySelectorAll('[aria-labelledby="beit-carpentry-heading"] .beit-editorial-grid img').length,
+      archive: document.querySelectorAll('[aria-labelledby="beit-archive-heading"] .beit-editorial-grid img').length,
+      phaseNavigation: [...document.querySelectorAll('.beit-phase-navigation a')].map((link) => link.textContent.trim()),
+      hasQaitbaySection: Boolean(document.querySelector('[aria-labelledby="beit-qaitbay-heading"]')),
+      facts: [...document.querySelectorAll('.project-facts > div')].map((item) => [item.querySelector('dt')?.textContent?.trim(), item.querySelector('dd')?.textContent?.trim()]),
+      visibleText: document.body.innerText,
+    })`)
+    assert.ok(beit.documentWidth <= beit.viewport, `Beit Al-Razzaz ${locale} must not overflow on mobile`)
+    assert.equal(beit.comparisons, 7, 'Beit Al-Razzaz must expose all seven verified comparisons')
+    assert.deepEqual([beit.phase1, beit.phase2, beit.carpentry, beit.archive], [12, 16, 9, 3], 'Beit Al-Razzaz must expose every correctly grouped gallery image')
+    assert.equal(beit.hasQaitbaySection, false, 'Qaitbay Main Hall must not remain in Beit Al-Razzaz')
+    assert.deepEqual(beit.phaseNavigation, locale === 'en' ? ['01Phase 1 – Northern Side', '02Phase 2 – Western Wing'] : ['01المرحلة الأولى – المنطقة الشمالية', '02المرحلة الثانية – الجناح الغربي'], `Beit Al-Razzaz ${locale} phase navigation must use the confirmed labels`)
+    assert.doesNotMatch(beit.visibleText, /E3-|DSC_|\.jpe?g|\.png|Group\s*\d/i, 'technical media identifiers must stay out of visible content')
+    assert.ok(beit.facts.some(([label, value]) => label === (locale === 'en' ? 'Funding Entity' : 'جهة التمويل') && value === (locale === 'en' ? 'British Embassy' : 'السفارة البريطانية')), `Beit Al-Razzaz ${locale} must retain the confirmed funding fact`)
+    assert.ok(beit.visibleText.includes(locale === 'en' ? 'Romanian Embassy' : 'السفارة الرومانية'), `Carpentry Workshop ${locale} must show the Romanian Embassy funding attribution`)
+  }
+
+  for (const locale of ['en', 'ar']) {
+    await navigate(`${base}/${locale}/projects/madinet-masr-qaitbay-main-hall/`)
+    await waitFor("Boolean(document.querySelector('.detail-cover'))")
+    const qaitbay = await evaluate(`({
+      title: document.querySelector('.detail-heading h1').textContent.trim(),
+      client: [...document.querySelectorAll('.project-facts > div')].find((item) => item.querySelector('dt')?.textContent?.trim() === ${JSON.stringify(locale === 'en' ? 'Client' : 'العميل')})?.querySelector('dd')?.textContent?.trim(),
+      images: document.querySelectorAll('.detail-cover img, .detail-gallery img').length,
+      hasUnknownFacts: document.querySelectorAll('.project-facts > div').length !== 1,
+    })`)
+    assert.equal(qaitbay.title, locale === 'en' ? 'Qaitbay’s Seat Main Hall' : 'مقعد قايتباي – القاعة الرئيسية', `Qaitbay ${locale} title must be localized`)
+    assert.equal(qaitbay.client, locale === 'en' ? 'Madinet Masr' : 'شركة مدينة مصر', `Qaitbay ${locale} must show the confirmed Madinet Masr client`)
+    assert.equal(qaitbay.images, 17, 'Qaitbay project must preserve all 17 photographs')
+    assert.equal(qaitbay.hasUnknownFacts, false, 'Qaitbay project must not invent unconfirmed metadata')
+  }
+
+  await navigate(`${base}/en/projects/beit-al-razzaz/`)
+  const initialSlider = await evaluate("document.querySelector('.beit-comparison input').value")
+  await evaluate("document.querySelector('.beit-comparison input').focus(); true")
+  await client.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'ArrowRight', code: 'ArrowRight', windowsVirtualKeyCode: 39 })
+  await client.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'ArrowRight', code: 'ArrowRight', windowsVirtualKeyCode: 39 })
+  await waitFor(`document.querySelector('.beit-comparison input').value !== ${JSON.stringify(initialSlider)}`)
+  await evaluate("document.querySelector('.beit-comparison-image').scrollIntoView({ block: 'center' }); true")
+  await waitFor("document.querySelector('.beit-comparison-image').getBoundingClientRect().top >= 0 && document.querySelector('.beit-comparison-image').getBoundingClientRect().bottom <= innerHeight")
+  const dispatchPointerDrag = async (pointerType, from, to) => evaluate(`(async () => {
+    const element = document.querySelector('.beit-comparison-image');
+    element.setPointerCapture = () => {};
+    element.hasPointerCapture = () => true;
+    element.releasePointerCapture = () => {};
+    const bounds = element.getBoundingClientRect();
+    const send = (type, fraction) => element.dispatchEvent(new PointerEvent(type, { bubbles: true, pointerId: 7, pointerType: ${JSON.stringify(pointerType)}, clientX: bounds.left + bounds.width * fraction, clientY: bounds.top + bounds.height / 2 }));
+    send('pointerdown', ${from});
+    send('pointermove', ${to});
+    send('pointerup', ${to});
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    return Number(document.querySelector('.beit-comparison input').value);
+  })()`)
+  assert.ok(await dispatchPointerDrag('mouse', .2, .8) >= 75, 'comparison must respond to mouse pointer dragging')
+  assert.ok(await dispatchPointerDrag('touch', .8, .3) <= 35, 'comparison must respond to touch pointer dragging')
+
+  for (const slug of ['qaitbays-seat-main-hall', 'carpentry-workshop']) {
+    await navigate(`${base}/en/projects/${slug}/`)
+    await waitFor("document.body.innerText.includes('Page not found')")
+  }
+
   const pendingProjects = [
-    ['qaitbays-seat-main-hall', 'Qaitbay’s Seat – Main Hall', 'مقعد قايتباي – القاعة الرئيسية'],
-    ['carpentry-workshop', 'Carpentry Workshop', 'ورشة نجارة'],
     ['down-town-1', 'Down Town 1', 'داون تاون 1'],
   ]
   const pendingCopy = {
@@ -199,7 +270,7 @@ try {
   await client.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] })
   await navigate(`${base}/en/projects/`)
   const reducedMotion = await evaluate(`({ categoryTransition: getComputedStyle(document.querySelector('.portfolio-category-card')).transitionDuration, cardCount: document.querySelectorAll('.portfolio-card').length })`)
-  assert.equal(reducedMotion.cardCount, 19, 'reduced-motion mode must retain all projects')
+  assert.equal(reducedMotion.cardCount, 18, 'reduced-motion mode must retain all projects')
   const transitionSeconds = reducedMotion.categoryTransition.split(',').map((duration) => duration.trim().endsWith('ms') ? Number.parseFloat(duration) / 1000 : Number.parseFloat(duration))
   assert.ok(transitionSeconds.every((duration) => duration <= 0.0001), `reduced-motion mode must suppress category-card motion (${reducedMotion.categoryTransition})`)
   await client.send('Emulation.setEmulatedMedia', { features: [] })

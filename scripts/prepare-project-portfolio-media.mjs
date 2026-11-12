@@ -13,7 +13,6 @@ const validExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tif
 
 const projectDefinitions = [
   ['heritage-restoration', 'mohamed-ali-palace', 'Mohamed Ali Palace'],
-  ['heritage-restoration', 'beit-al-razzaz', 'Beit Al Razzaz'],
   ['heritage-restoration', 'safi-al-din-gowhar', 'Safi Al Din Gowhar'],
   ['heritage-restoration', 'st-andrews-church', 'St Andrews Church'],
   ['construction', 'new-capital-administrations-district', 'New Capital Administrations District'],
@@ -30,26 +29,17 @@ const projectDefinitions = [
   ['retail-fit-out', 'voda', 'Voda'],
 ].map(([category, slug, title]) => ({ category, slug, title })).concat([
   {
-    category: 'heritage-restoration', slug: 'qaitbays-seat-main-hall', title: 'Qaitbay’s Seat – Main Hall', sourceFolder: 'Qaitbay’s Seat Main Hall',
-    files: [
-      { filename: 'Restoring an Ornate Historic Ceiling.png', alt: 'Conservator examining a decorated historic ceiling in Qaitbay’s Seat main hall', altAr: 'مرمم يفحص سقفًا تاريخيًا مزخرفًا في القاعة الرئيسية بمقعد قايتباي' },
-      { filename: 'Meticulous Mural Restoration in Warm Light.png', alt: 'Conservator working on painted wall decoration in Qaitbay’s Seat main hall', altAr: 'مرممة تعمل على زخارف جدارية ملونة في القاعة الرئيسية بمقعد قايتباي' },
-      { filename: 'Ornate Wall Restoration Test Grid.png', alt: 'Detailed conservation test grid on painted wall decoration at Qaitbay’s Seat', altAr: 'شبكة اختبار ترميم تفصيلية على زخارف جدارية ملونة في مقعد قايتباي' },
-      { filename: 'Ceiling Restoration Conservators at Work.png', alt: 'Conservators working on a decorated ceiling inside Qaitbay’s Seat main hall', altAr: 'مرممون يعملون على سقف مزخرف داخل القاعة الرئيسية بمقعد قايتباي' },
-      { filename: 'Golden-Hour Rooftop Glass Pavilion.png', alt: 'Timber and glass rooftop pavilion at the Qaitbay’s Seat project site', altAr: 'جناح خشبي وزجاجي أعلى سطح موقع مشروع مقعد قايتباي' },
-      { filename: 'Symmetrical Warm Wood Atrium Skylight.png', alt: 'Upward view of a timber skylight at the Qaitbay’s Seat project', altAr: 'منظر علوي لفتحة سقف خشبية في مشروع مقعد قايتباي' },
-    ],
-  },
-  {
-    category: 'heritage-restoration', slug: 'carpentry-workshop', title: 'Carpentry Workshop', sourceFolder: 'Carpentry Workshop',
-    files: [
-      { filename: 'Warm Stone Restoration Interior.png', alt: 'Wide stone interior with a timber ceiling and arched windows at the Carpentry Workshop project', altAr: 'مساحة داخلية حجرية واسعة بسقف خشبي ونوافذ مقوسة في مشروع ورشة النجارة' },
-      { filename: 'Gothic Stone Room in Warm Light.png', alt: 'Stone interior with a pointed arch and timber ceiling at the Carpentry Workshop project', altAr: 'مساحة داخلية حجرية بعقد مدبب وسقف خشبي في مشروع ورشة النجارة' },
-      { filename: 'Rustic Timber and Stone Ceiling.png', alt: 'Timber ceiling structure supported by stone walls at the Carpentry Workshop project', altAr: 'تكوين سقف خشبي تستنده جدران حجرية في مشروع ورشة النجارة' },
-      { filename: 'Cinematic Stone Hall with Arched Windows.png', alt: 'Stone hall with arched windows and a timber ceiling at the Carpentry Workshop project', altAr: 'قاعة حجرية بنوافذ مقوسة وسقف خشبي في مشروع ورشة النجارة' },
-      { filename: 'Historic Stone Corridor with Timber Door.png', alt: 'Stone corridor with arched windows and a timber door at the Carpentry Workshop project', altAr: 'ممر حجري بنوافذ مقوسة وباب خشبي في مشروع ورشة النجارة' },
-      { filename: 'Rustic Walnut Beam Ceiling.png', alt: 'Close view of timber ceiling beams at the Carpentry Workshop project', altAr: 'منظر قريب لعوارض سقف خشبية في مشروع ورشة النجارة' },
-    ],
+    category: 'heritage-restoration',
+    slug: 'beit-al-razzaz',
+    title: 'Beit Al Razzaz',
+    sourceFolder: 'beit-al-razzaz/northern-side',
+    publicAssetFolder: 'beit-al-razzaz/northern-side',
+    prebuiltVariants: true,
+    ignoreUnconfiguredFiles: true,
+    files: [1203, 1562, 1570, 1563, 1586].map((width, index) => {
+      const stem = String(index + 1).padStart(2, '0')
+      return { filename: `${stem}-${width}.webp`, variants: [`${stem}-720.webp`, `${stem}-${width}.webp`] }
+    }),
   },
   {
     category: 'construction', slug: 'down-town-1', title: 'Down Town 1', sourceFolder: 'DownTown 1',
@@ -59,6 +49,24 @@ const projectDefinitions = [
       { filename: 'Warm Construction Corridor with Scaffolding.png', alt: 'Interior construction corridor with scaffolding at Down Town 1', altAr: 'ممر إنشاءات داخلي به سقالات في داون تاون 1' },
       { filename: 'Sunlit Scaffold Interior in Renovation.png', alt: 'Sunlit interior scaffolding at the Down Town 1 project', altAr: 'سقالات داخلية مضاءة طبيعيًا في مشروع داون تاون 1' },
     ],
+  },
+  {
+    category: 'heritage-restoration',
+    slug: 'madinet-masr-qaitbay-main-hall',
+    title: 'Qaitbay’s Seat Main Hall',
+    sourceFolder: 'madinet-masr-qaitbay-main-hall',
+    publicAssetFolder: 'madinet-masr-qaitbay-main-hall',
+    prebuiltVariants: true,
+    ignoreUnconfiguredFiles: true,
+    files: Array.from({ length: 17 }, (_, index) => {
+      const number = index + 1
+      return {
+        filename: `${String(number).padStart(2, '0')}-large.webp`,
+        variants: [`${String(number).padStart(2, '0')}-small.webp`, `${String(number).padStart(2, '0')}-large.webp`],
+        alt: `Qaitbay’s Seat Main Hall restoration photograph ${number}`,
+        altAr: `صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي ${number}`,
+      }
+    }),
   },
 ])
 
@@ -96,6 +104,15 @@ async function responsiveWebp(sourcePath, targetDirectory, stem, requestedWidths
   return variants
 }
 
+async function existingResponsiveWebp(sourceDirectory, filenames) {
+  return Promise.all(filenames.map(async (filename) => {
+    const targetPath = path.join(sourceDirectory, filename)
+    const metadata = await sharp(targetPath).metadata()
+    if (!metadata.width || !metadata.height) throw new Error(`Missing dimensions: ${targetPath}`)
+    return { width: metadata.width, height: metadata.height, targetPath }
+  }))
+}
+
 async function prepareProjects() {
   const generated = {}
   const manifest = { projects: {}, issues: [] }
@@ -116,7 +133,9 @@ async function prepareProjects() {
       const missingFiles = project.files.filter(({ filename }) => !supplied.has(filename)).map(({ filename }) => filename)
       if (missingFiles.length) throw new Error(`Missing configured photographs for ${project.slug}: ${missingFiles.join(', ')}`)
       numberedFiles = project.files.map((image, index) => ({ ...image, number: index + 1 }))
-      unnumberedFiles = imageFilenames.filter((filename) => !project.files.some((image) => image.filename === filename)).sort((a, b) => a.localeCompare(b, 'en'))
+      unnumberedFiles = project.ignoreUnconfiguredFiles
+        ? []
+        : imageFilenames.filter((filename) => !project.files.some((image) => image.filename === filename)).sort((a, b) => a.localeCompare(b, 'en'))
     } else {
       const numberedCandidates = imageFilenames
         .map((filename) => {
@@ -149,17 +168,23 @@ async function prepareProjects() {
       manifest.issues.push(message)
       console.warn(`WARNING: ${message}`)
     }
-    await resetGeneratedDirectory(targetDirectory, outputRoot)
+    // Beit Al-Razzaz owns additional curated sub-galleries. Preserve those
+    // generated derivatives while refreshing its numbered base gallery.
+    if (project.prebuiltVariants) await mkdir(targetDirectory, { recursive: true })
+    else await resetGeneratedDirectory(targetDirectory, outputRoot)
     const projectImages = []
     const manifestImages = []
 
-    for (const { filename, number, alt, altAr } of numberedFiles) {
+    for (const { filename, number, alt, altAr, variants: configuredVariants } of numberedFiles) {
       const sourcePath = path.join(sourceDirectory, filename)
       const stem = String(number).padStart(2, '0')
-      const variants = await responsiveWebp(sourcePath, targetDirectory, stem, [720, 1600])
+      const variants = project.prebuiltVariants
+        ? await existingResponsiveWebp(sourceDirectory, configuredVariants)
+        : await responsiveWebp(sourcePath, targetDirectory, stem, [720, 1600])
+      const publicAssetFolder = project.publicAssetFolder ?? project.slug
       const publicVariants = variants.map((variant) => ({
         ...variant,
-        src: `/assets/projects/portfolio/${project.slug}/${path.basename(variant.targetPath)}`,
+        src: `/assets/projects/portfolio/${publicAssetFolder}/${path.basename(variant.targetPath)}`,
       }))
       const largest = publicVariants.at(-1)
       const sourceMetadata = await sharp(sourcePath).metadata()
@@ -185,7 +210,7 @@ async function prepareProjects() {
     }
 
     generated[project.slug] = projectImages
-    manifest.projects[project.slug] = { category: project.category, cover: '1.png', count: projectImages.length, issues: projectIssues, images: manifestImages }
+    manifest.projects[project.slug] = { category: project.category, cover: project.files?.[0]?.filename ?? '1.png', count: projectImages.length, issues: projectIssues, images: manifestImages }
   }
 
   await mkdir(outputRoot, { recursive: true })

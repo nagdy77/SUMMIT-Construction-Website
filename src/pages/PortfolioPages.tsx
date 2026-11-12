@@ -134,6 +134,7 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
   const related = [...sameCategory, ...publishedProjects.filter((item) => item.id !== project.id && item.category !== project.category)].slice(0, 2)
   const description = projectWorkingDescription(project, locale)
   const isBeit = project.slug === 'beit-al-razzaz'
+  const isMadinetMasrQaitbay = project.slug === 'madinet-masr-qaitbay-main-hall'
   const beitTitle = locale === 'en' ? 'Restoration and Structural Risk Mitigation — Eastern Side of Beit Al-Razzaz' : 'ترميم ودرء الخطورة عن الجانب الشرقي من بيت الرزاز'
   const beitDescription = locale === 'en'
     ? 'A heritage restoration and structural risk mitigation project addressing deterioration and threats to the eastern side of Beit Al-Razzaz, within the broader context of protecting architectural heritage against the effects of climate change.'
@@ -142,7 +143,7 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
     ? { client: 'Client', location: 'Location', funding: 'Funding Entity', duration: 'Project duration', bua: 'Built-up area', year: 'Year' }
     : { client: 'العميل', location: 'الموقع', funding: 'جهة التمويل', duration: 'مدة المشروع', bua: 'المساحة المبنية', year: 'السنة' }
   const facts = [
-    project.client ? { label: factLabels.client, value: project.client } : null,
+    project.client ? { label: factLabels.client, value: isMadinetMasrQaitbay && locale === 'ar' ? 'شركة مدينة مصر' : project.client } : null,
     project.location?.[locale] ? { label: factLabels.location, value: project.location[locale] } : null,
     isBeit ? { label: factLabels.funding, value: locale === 'en' ? 'British Embassy' : 'السفارة البريطانية' } : null,
     project.duration ? { label: factLabels.duration, value: project.duration } : null,

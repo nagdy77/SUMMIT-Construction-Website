@@ -1,5 +1,8 @@
 node_modules/
 dist/
+.vite/
+coverage/
+*.tsbuildinfo
 *.local
 
 # Local source media stays out of the deployed web asset set.
@@ -9,6 +12,23 @@ public/assets/projects/*
 !public/assets/projects/featured/**
 !public/assets/projects/portfolio/
 !public/assets/projects/portfolio/**
+# Original client media may live beside generated derivatives locally, but
+# only optimized WebP/JSON website assets belong in Git.
+/public/assets/projects/portfolio/**/*.[jJ][pP][gG]
+/public/assets/projects/portfolio/**/*.[jJ][pP][eE][gG]
+/public/assets/projects/portfolio/**/*.[nN][eE][fF]
+/public/assets/projects/portfolio/**/*.[cC][rR]2
+/public/assets/projects/portfolio/**/*.[cC][rR]3
+/public/assets/projects/portfolio/**/*.[aA][rR][wW]
+/public/assets/projects/portfolio/**/*.[dD][nN][gG]
+/public/assets/projects/portfolio/**/*.[tT][iI][fF]
+/public/assets/projects/portfolio/**/*.[tT][iI][fF][fF]
+/public/assets/projects/portfolio/**/*.[hH][eE][iI][cC]
+/public/assets/projects/portfolio/**/*.[mM][pP]4
+/public/assets/projects/portfolio/**/*.[mM][oO][vV]
+/public/assets/projects/portfolio/**/*.[zZ][iI][pP]
+/public/assets/projects/portfolio/**/*.[rR][aA][rR]
+/public/assets/projects/portfolio/**/*.[7][zZ]
 # Client-supplied source PNG folders stay local; only generated slugged WebPs ship.
 /public/assets/projects/portfolio/Carpentry Workshop/
 /public/assets/projects/portfolio/DownTown 1/
@@ -40,6 +60,10 @@ backup/
 /references/downloads/
 /references/downloaded/
 /references/qa/
+
+# Superseded generated imagery and accidental local preview output.
+/public/assets/generated/
+/truction - Luxury Website Preview*
 
 /references/*
 !/references/SUMMIT-PROJECT-MASTER-DATA.md

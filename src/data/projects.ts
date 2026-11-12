@@ -70,6 +70,13 @@ export const projects: readonly ProjectRecord[] = [
     contentStatus: 'source-supplied', reviewNotes: [], pendingMedia: false, images: projectMedia['beit-al-razzaz'],
   },
   {
+    id: 'madinet-masr-qaitbay-main-hall', slug: 'madinet-masr-qaitbay-main-hall', title: { en: 'Qaitbay’s Seat Main Hall', ar: 'مقعد قايتباي – القاعة الرئيسية' }, category: 'Heritage Restoration',
+    inboxFolder: 'public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/', historicalBackground: null,
+    sourceOverview: 'Qaitbay’s Seat Main Hall is associated with a project for Madinet Masr.', publicOverview: null, detailsNote: pendingProjectDetails,
+    specifications: { client: 'Madinet Masr', scope: null, location: null, projectDuration: null, bua: null, year: null },
+    contentStatus: 'awaiting-project-details', reviewNotes: ['Location, dates, duration and project scope require client confirmation.'], pendingMedia: false, images: projectMedia['madinet-masr-qaitbay-main-hall'],
+  },
+  {
     id: 'safi-al-din-gowhar', slug: 'safi-al-din-gowhar', title: { en: 'Safi Al Din Gowhar', ar: 'صفي الدين جوهر' }, category: 'Heritage Restoration',
     inboxFolder: 'project-inbox/heritage-restoration/safi-al-din-gowhar/',
     historicalBackground: 'It was established by Safi al-Din Jawhar al-Nasiri al-Maliki, also known sometimes as Sidi Muqaddam of the Sultanate Mamluks during the days of the Bahri Mamluk Sultan Baybars al-Jashankir, in the year 714 AH/1314 AD. It is located on Rukibiya Street, branching from Sulaibiyah Street in the Khalifa neighborhood in the city of Cairo. It consists of an irregular rectangular space divided into a dirka (entrance hall) followed by the main entrance. This dirka leads to an open courtyard and the burial dome, which is preceded by a prayer area on its southeastern side.',
@@ -85,20 +92,6 @@ export const projects: readonly ProjectRecord[] = [
     publicOverview: 'summit Construction company was selected as a specialized company in restoration works to carry out structural restoration works for the floor of the main prayer hall.',
     specifications: { client: 'Megawra Office (Dr. Mai El Abrashi)', scope: 'Restoration and Structural Reinforcement works for the Floor of the main hall', location: 'Emad al din street, Cairo', projectDuration: '3 Months' },
     contentStatus: 'source-supplied', reviewNotes: [], pendingMedia: false, images: projectMedia['st-andrews-church'],
-  },
-  {
-    id: 'qaitbays-seat-main-hall', slug: 'qaitbays-seat-main-hall', title: { en: 'Qaitbay’s Seat – Main Hall', ar: 'مقعد قايتباي – القاعة الرئيسية' }, category: 'Heritage Restoration',
-    inboxFolder: 'public/assets/projects/portfolio/Qaitbay’s Seat Main Hall/', historicalBackground: null,
-    sourceOverview: '', publicOverview: null, detailsNote: pendingProjectDetails,
-    specifications: { client: null, scope: null, location: null, projectDuration: null, bua: null, year: null },
-    contentStatus: 'awaiting-project-details', reviewNotes: ['Description, scope, project phases, location, dates and duration require client confirmation.'], pendingMedia: false, images: projectMedia['qaitbays-seat-main-hall'],
-  },
-  {
-    id: 'carpentry-workshop', slug: 'carpentry-workshop', title: { en: 'Carpentry Workshop', ar: 'ورشة نجارة' }, category: 'Heritage Restoration', categoryStatus: 'tentative',
-    inboxFolder: 'public/assets/projects/portfolio/Carpentry Workshop/', historicalBackground: null,
-    sourceOverview: '', publicOverview: null, detailsNote: pendingProjectDetails,
-    specifications: { client: null, scope: null, location: null, projectDuration: null, bua: null, year: null },
-    contentStatus: 'awaiting-project-details', reviewNotes: ['Heritage classification is tentative. Description, scope, project phases, location, dates and duration require client confirmation.'], pendingMedia: false, images: projectMedia['carpentry-workshop'],
   },
   {
     id: 'new-capital-administrations-district', slug: 'new-capital-administrations-district', title: { en: 'New Capital Administrations District', ar: 'حي الوزارات بالعاصمة الإدارية الجديدة' }, category: 'Construction',

@@ -55,58 +55,6 @@ export const projectMedia = {
       "height": 1006
     }
   ],
-  "beit-al-razzaz": [
-    {
-      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp 1203w",
-      "alt": "Beit Al Razzaz — project photograph 1",
-      "label": "1.png",
-      "fit": "cover",
-      "position": "center",
-      "width": 1203,
-      "height": 1308
-    },
-    {
-      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/02-1562.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/02-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/02-1562.webp 1562w",
-      "alt": "Beit Al Razzaz — project photograph 2",
-      "label": "2.png",
-      "fit": "cover",
-      "position": "center",
-      "width": 1562,
-      "height": 1007
-    },
-    {
-      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/03-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp 1570w",
-      "alt": "Beit Al Razzaz — project photograph 3",
-      "label": "3.png",
-      "fit": "cover",
-      "position": "center",
-      "width": 1570,
-      "height": 1001
-    },
-    {
-      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/04-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp 1563w",
-      "alt": "Beit Al Razzaz — project photograph 4",
-      "label": "4.png",
-      "fit": "cover",
-      "position": "center",
-      "width": 1563,
-      "height": 1006
-    },
-    {
-      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/05-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp 1586w",
-      "alt": "Beit Al Razzaz — project photograph 5",
-      "label": "5.png",
-      "fit": "cover",
-      "position": "center",
-      "width": 1586,
-      "height": 992
-    }
-  ],
   "safi-al-din-gowhar": [
     {
       "src": "/assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp",
@@ -715,140 +663,56 @@ export const projectMedia = {
       "height": 1423
     }
   ],
-  "qaitbays-seat-main-hall": [
+  "beit-al-razzaz": [
     {
-      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/01-1536.webp",
-      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/01-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/01-1536.webp 1536w",
-      "alt": "Conservator examining a decorated historic ceiling in Qaitbay’s Seat main hall",
-      "altAr": "مرمم يفحص سقفًا تاريخيًا مزخرفًا في القاعة الرئيسية بمقعد قايتباي",
-      "label": "Restoring an Ornate Historic Ceiling.png",
+      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp 1203w",
+      "alt": "Beit Al Razzaz — project photograph 1",
+      "label": "01-1203.webp",
       "fit": "cover",
       "position": "center",
-      "width": 1536,
-      "height": 1024
+      "width": 1203,
+      "height": 1308
     },
     {
-      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/02-1536.webp",
-      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/02-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/02-1536.webp 1536w",
-      "alt": "Conservator working on painted wall decoration in Qaitbay’s Seat main hall",
-      "altAr": "مرممة تعمل على زخارف جدارية ملونة في القاعة الرئيسية بمقعد قايتباي",
-      "label": "Meticulous Mural Restoration in Warm Light.png",
+      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/02-1562.webp",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/02-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/02-1562.webp 1562w",
+      "alt": "Beit Al Razzaz — project photograph 2",
+      "label": "02-1562.webp",
       "fit": "cover",
       "position": "center",
-      "width": 1536,
-      "height": 1024
+      "width": 1562,
+      "height": 1007
     },
     {
-      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/03-1536.webp",
-      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/03-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/03-1536.webp 1536w",
-      "alt": "Detailed conservation test grid on painted wall decoration at Qaitbay’s Seat",
-      "altAr": "شبكة اختبار ترميم تفصيلية على زخارف جدارية ملونة في مقعد قايتباي",
-      "label": "Ornate Wall Restoration Test Grid.png",
+      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/03-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp 1570w",
+      "alt": "Beit Al Razzaz — project photograph 3",
+      "label": "03-1570.webp",
       "fit": "cover",
       "position": "center",
-      "width": 1536,
-      "height": 1024
+      "width": 1570,
+      "height": 1001
     },
     {
-      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/04-1536.webp",
-      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/04-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/04-1536.webp 1536w",
-      "alt": "Conservators working on a decorated ceiling inside Qaitbay’s Seat main hall",
-      "altAr": "مرممون يعملون على سقف مزخرف داخل القاعة الرئيسية بمقعد قايتباي",
-      "label": "Ceiling Restoration Conservators at Work.png",
+      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/04-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp 1563w",
+      "alt": "Beit Al Razzaz — project photograph 4",
+      "label": "04-1563.webp",
       "fit": "cover",
       "position": "center",
-      "width": 1536,
-      "height": 1024
+      "width": 1563,
+      "height": 1006
     },
     {
-      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/05-1536.webp",
-      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/05-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/05-1536.webp 1536w",
-      "alt": "Timber and glass rooftop pavilion at the Qaitbay’s Seat project site",
-      "altAr": "جناح خشبي وزجاجي أعلى سطح موقع مشروع مقعد قايتباي",
-      "label": "Golden-Hour Rooftop Glass Pavilion.png",
+      "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/05-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp 1586w",
+      "alt": "Beit Al Razzaz — project photograph 5",
+      "label": "05-1586.webp",
       "fit": "cover",
       "position": "center",
-      "width": 1536,
-      "height": 1024
-    },
-    {
-      "src": "/assets/projects/portfolio/qaitbays-seat-main-hall/06-1536.webp",
-      "srcSet": "/assets/projects/portfolio/qaitbays-seat-main-hall/06-720.webp 720w, /assets/projects/portfolio/qaitbays-seat-main-hall/06-1536.webp 1536w",
-      "alt": "Upward view of a timber skylight at the Qaitbay’s Seat project",
-      "altAr": "منظر علوي لفتحة سقف خشبية في مشروع مقعد قايتباي",
-      "label": "Symmetrical Warm Wood Atrium Skylight.png",
-      "fit": "cover",
-      "position": "center",
-      "width": 1536,
-      "height": 1024
-    }
-  ],
-  "carpentry-workshop": [
-    {
-      "src": "/assets/projects/portfolio/carpentry-workshop/01-1536.webp",
-      "srcSet": "/assets/projects/portfolio/carpentry-workshop/01-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/01-1536.webp 1536w",
-      "alt": "Wide stone interior with a timber ceiling and arched windows at the Carpentry Workshop project",
-      "altAr": "مساحة داخلية حجرية واسعة بسقف خشبي ونوافذ مقوسة في مشروع ورشة النجارة",
-      "label": "Warm Stone Restoration Interior.png",
-      "fit": "cover",
-      "position": "center",
-      "width": 1536,
-      "height": 1024
-    },
-    {
-      "src": "/assets/projects/portfolio/carpentry-workshop/02-1536.webp",
-      "srcSet": "/assets/projects/portfolio/carpentry-workshop/02-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/02-1536.webp 1536w",
-      "alt": "Stone interior with a pointed arch and timber ceiling at the Carpentry Workshop project",
-      "altAr": "مساحة داخلية حجرية بعقد مدبب وسقف خشبي في مشروع ورشة النجارة",
-      "label": "Gothic Stone Room in Warm Light.png",
-      "fit": "cover",
-      "position": "center",
-      "width": 1536,
-      "height": 1024
-    },
-    {
-      "src": "/assets/projects/portfolio/carpentry-workshop/03-1536.webp",
-      "srcSet": "/assets/projects/portfolio/carpentry-workshop/03-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/03-1536.webp 1536w",
-      "alt": "Timber ceiling structure supported by stone walls at the Carpentry Workshop project",
-      "altAr": "تكوين سقف خشبي تستنده جدران حجرية في مشروع ورشة النجارة",
-      "label": "Rustic Timber and Stone Ceiling.png",
-      "fit": "cover",
-      "position": "center",
-      "width": 1536,
-      "height": 1024
-    },
-    {
-      "src": "/assets/projects/portfolio/carpentry-workshop/04-1024.webp",
-      "srcSet": "/assets/projects/portfolio/carpentry-workshop/04-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/04-1024.webp 1024w",
-      "alt": "Stone hall with arched windows and a timber ceiling at the Carpentry Workshop project",
-      "altAr": "قاعة حجرية بنوافذ مقوسة وسقف خشبي في مشروع ورشة النجارة",
-      "label": "Cinematic Stone Hall with Arched Windows.png",
-      "fit": "contain",
-      "position": "center",
-      "width": 1024,
-      "height": 1536
-    },
-    {
-      "src": "/assets/projects/portfolio/carpentry-workshop/05-1024.webp",
-      "srcSet": "/assets/projects/portfolio/carpentry-workshop/05-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/05-1024.webp 1024w",
-      "alt": "Stone corridor with arched windows and a timber door at the Carpentry Workshop project",
-      "altAr": "ممر حجري بنوافذ مقوسة وباب خشبي في مشروع ورشة النجارة",
-      "label": "Historic Stone Corridor with Timber Door.png",
-      "fit": "contain",
-      "position": "center",
-      "width": 1024,
-      "height": 1536
-    },
-    {
-      "src": "/assets/projects/portfolio/carpentry-workshop/06-1536.webp",
-      "srcSet": "/assets/projects/portfolio/carpentry-workshop/06-720.webp 720w, /assets/projects/portfolio/carpentry-workshop/06-1536.webp 1536w",
-      "alt": "Close view of timber ceiling beams at the Carpentry Workshop project",
-      "altAr": "منظر قريب لعوارض سقف خشبية في مشروع ورشة النجارة",
-      "label": "Rustic Walnut Beam Ceiling.png",
-      "fit": "cover",
-      "position": "center",
-      "width": 1536,
-      "height": 1024
+      "width": 1586,
+      "height": 992
     }
   ],
   "down-town-1": [
@@ -895,6 +759,195 @@ export const projectMedia = {
       "position": "center",
       "width": 941,
       "height": 1672
+    }
+  ],
+  "madinet-masr-qaitbay-main-hall": [
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/01-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/01-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/01-large.webp 1536w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 1",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 1",
+      "label": "01-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/02-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/02-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/02-large.webp 1536w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 2",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 2",
+      "label": "02-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/03-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/03-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/03-large.webp 1536w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 3",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 3",
+      "label": "03-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/04-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/04-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/04-large.webp 1536w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 4",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 4",
+      "label": "04-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/05-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/05-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/05-large.webp 1536w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 5",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 5",
+      "label": "05-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/06-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/06-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/06-large.webp 1536w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 6",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 6",
+      "label": "06-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/07-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/07-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/07-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 7",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 7",
+      "label": "07-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/08-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/08-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/08-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 8",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 8",
+      "label": "08-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1068
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/09-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/09-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/09-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 9",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 9",
+      "label": "09-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/10-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/10-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/10-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 10",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 10",
+      "label": "10-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/11-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/11-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/11-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 11",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 11",
+      "label": "11-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/12-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/12-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/12-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 12",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 12",
+      "label": "12-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/13-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/13-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/13-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 13",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 13",
+      "label": "13-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/14-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/14-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/14-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 14",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 14",
+      "label": "14-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/15-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/15-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/15-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 15",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 15",
+      "label": "15-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/16-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/16-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/16-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 16",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 16",
+      "label": "16-large.webp",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/17-large.webp",
+      "srcSet": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/17-small.webp 720w, /assets/projects/portfolio/madinet-masr-qaitbay-main-hall/17-large.webp 1600w",
+      "alt": "Qaitbay’s Seat Main Hall restoration photograph 17",
+      "altAr": "صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي 17",
+      "label": "17-large.webp",
+      "fit": "contain",
+      "position": "center",
+      "width": 1600,
+      "height": 2400
     }
   ]
 } as const satisfies Record<string, readonly ProjectImage[]>

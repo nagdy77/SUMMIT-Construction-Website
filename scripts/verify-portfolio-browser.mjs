@@ -97,7 +97,7 @@ try {
 
   const widths = [320, 375, 390, 430, 768, 1440]
   const arabicTitles = [
-    'قصر محمد علي', 'بيت الرزاز', 'صفي الدين جوهر', 'كنيسة سانت أندروز', 'مقعد قايتباي – القاعة الرئيسية', 'ورشة نجارة',
+    'قصر محمد علي', 'بيت الرزاز', 'مقعد قايتباي – القاعة الرئيسية', 'صفي الدين جوهر', 'كنيسة سانت أندروز',
     'حي الوزارات بالعاصمة الإدارية الجديدة', 'ستريم 3', 'أوريانا – كايرو فيستيفال سيتي', 'ألتو', 'داون تاون 1',
     'ليك فيو ريزيدنس', 'مارفل', 'بي سي بي جي', 'بي إس بي', 'ديسيغوال', 'مارينا رينالدي',
     'سكاي أوفيسز', 'فودا',
@@ -107,7 +107,7 @@ try {
     await client.send('Emulation.setDeviceMetricsOverride', { width, height: width < 768 ? 844 : 960, deviceScaleFactor: 1, mobile: width < 768 })
     for (const locale of ['en', 'ar']) {
       await navigate(`${base}/${locale}/projects/`)
-      await waitFor("document.querySelectorAll('.portfolio-card').length === 19")
+      await waitFor("document.querySelectorAll('.portfolio-card').length === 18")
       const metrics = await evaluate(`(() => {
         const grid = document.querySelector('#project-grid');
         const cards = [...grid.querySelectorAll('.portfolio-card')];
@@ -126,7 +126,7 @@ try {
       })()`)
       assert.equal(metrics.width, width, `${width}px viewport must be emulated exactly`)
       assert.ok(metrics.documentWidth <= width, `${width}px ${locale} listing must not overflow horizontally`)
-      assert.equal(metrics.cards, 19, `${width}px ${locale} listing must show all 19 projects`)
+      assert.equal(metrics.cards, 18, `${width}px ${locale} listing must show all 18 projects`)
       assert.equal(metrics.columns, width <= 800 ? 2 : 3, `${width}px ${locale} listing must use the intended project columns`)
       assert.equal(metrics.firstRowCount, width <= 800 ? 2 : 3, `${width}px ${locale} first row must contain the intended card count`)
       assert.equal(metrics.direction, locale === 'ar' ? 'rtl' : 'ltr', `${locale} must use the correct document direction`)
@@ -187,7 +187,7 @@ try {
   assert.ok(detail.breadcrumb.includes('قصر محمد علي'), 'Arabic breadcrumb must use the Arabic project title')
   assert.ok(detail.documentWidth <= detail.viewport, 'Arabic project detail must not overflow at 390px')
 
-  console.log('Verified 19 project cards, two-up mobile rows, compact EN/AR Selected Projects composition, Arabic project titles, RTL mirroring, image loading, and 320–1440px layouts in Edge.')
+  console.log('Verified 18 project cards, two-up mobile rows, compact EN/AR Selected Projects composition, Arabic project titles, RTL mirroring, image loading, and 320–1440px layouts in Edge.')
 } finally {
   browser.kill()
   await delay(250)

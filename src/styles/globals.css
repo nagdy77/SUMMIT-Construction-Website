@@ -496,7 +496,19 @@ button:disabled { cursor: default; }
 .beit-story h2, .beit-section-heading h2 { max-width: 48rem; margin: .7rem 0 0; font: 500 clamp(2rem, 4.5vw, 4rem)/1.05 var(--font-display); letter-spacing: -.035em; }
 .beit-story > p, .beit-section-heading > p:last-child { max-width: 48rem; margin: .15rem 0 0; color: var(--color-muted); font: clamp(.94rem, 1.2vw, 1.08rem)/1.9 var(--font-body); }
 .beit-section-heading { max-width: 58rem; margin-bottom: 2rem; }
-.beit-phases, .beit-documentation, .beit-northern { padding-block: var(--beit-space); border-bottom: 1px solid var(--color-border); }
+.beit-phases, .beit-documentation, .beit-gallery-section { padding-block: var(--beit-space); border-bottom: 1px solid var(--color-border); }
+.beit-phase-navigation { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-block: 1px solid var(--color-border); }
+.beit-phase-navigation a { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 1rem; align-items: center; min-height: 7rem; padding: 1.5rem; color: var(--color-ink); text-decoration: none; transition: color .2s ease, background-color .2s ease; }
+.beit-phase-navigation a + a { border-inline-start: 1px solid var(--color-border); }
+.beit-phase-navigation a:hover, .beit-phase-navigation a:focus-visible { color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 5%, transparent); }
+.beit-phase-navigation span { color: var(--color-accent); font: 500 1.1rem var(--font-display); }
+.beit-phase-navigation strong { font: 500 clamp(1.15rem, 2vw, 1.65rem)/1.2 var(--font-display); }
+.beit-phase-section { scroll-margin-top: 7rem; }
+.beit-subsection-heading { margin: clamp(2.5rem, 5vw, 4.5rem) 0 1.25rem; color: var(--color-ink); font: 500 clamp(1.4rem, 2.5vw, 2.2rem)/1.15 var(--font-display); }
+.beit-section-funding { max-width: 28rem; margin: 0 0 clamp(2rem, 4vw, 3.5rem); border-block: 1px solid var(--color-border); padding-block: 1.2rem; }
+.beit-section-funding div { display: grid; grid-template-columns: minmax(7rem, .7fr) minmax(0, 1.3fr); gap: 1rem; align-items: baseline; }
+.beit-section-funding dt { color: var(--color-accent); font: 700 .57rem/1.45 var(--font-body); letter-spacing: .13em; text-transform: uppercase; }
+.beit-section-funding dd { margin: 0; color: var(--color-ink); font: 500 clamp(1.05rem, 1.7vw, 1.4rem)/1.2 var(--font-display); }
 .beit-phase { display: grid; grid-template-columns: minmax(15rem, .8fr) minmax(0, 1.2fr); gap: clamp(1.5rem, 5vw, 5rem); padding-block: clamp(1.7rem, 3vw, 2.8rem); border-top: 1px solid var(--color-border); }
 .beit-phase-title { display: grid; grid-template-columns: 2.7rem minmax(0, 1fr); gap: 1rem; align-content: start; }
 .beit-phase-title > span { color: var(--color-accent); font: 500 1.2rem/1.2 var(--font-display); }
@@ -506,8 +518,10 @@ button:disabled { cursor: default; }
 .beit-phase-copy p { margin: 0; color: var(--color-muted); font: .84rem/1.8 var(--font-body); }
 .beit-pair-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem) 1.25rem; }
 .beit-photo-pair { min-width: 0; }
-.beit-northern-grid figure { min-width: 0; margin: 0; }
-.beit-northern-grid img { width: 100%; aspect-ratio: 1.35; border-radius: var(--radius-media); object-fit: cover; background: var(--color-elevated); }
+.beit-editorial-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.beit-editorial-grid figure { min-width: 0; margin: 0; }
+.beit-editorial-grid img { width: 100%; aspect-ratio: 1.35; border-radius: var(--radius-media); object-fit: cover; background: var(--color-elevated); }
+.beit-featured-comparison { max-width: 48rem; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
 .beit-comparison { margin: 0; }
 .beit-comparison-image { position: relative; overflow: hidden; aspect-ratio: 1.35; border-radius: var(--radius-media); background: var(--color-elevated); isolation: isolate; cursor: ew-resize; touch-action: pan-y; }
 .beit-comparison-image > img, .beit-comparison-after, .beit-comparison-after img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -520,10 +534,6 @@ button:disabled { cursor: default; }
 .beit-comparison input[type="range"] { display: block; width: 100%; height: 1px; margin: .75rem 0 0; accent-color: var(--color-accent); cursor: ew-resize; }
 .beit-comparison input[type="range"]:focus-visible { opacity: 1; outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .beit-comparison:focus-within .beit-comparison-divider { box-shadow: 0 0 0 2px var(--color-accent); }
-.beit-northern-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1rem; }
-.beit-northern-grid figure { grid-column: span 2; }
-.beit-northern-grid figure:nth-child(4) { grid-column: 2 / span 2; }
-.beit-northern-grid figure:nth-child(5) { grid-column: 4 / span 2; }
 .beit-case-study.is-arabic .beit-story h2, .beit-case-study.is-arabic .beit-section-heading h2, .beit-case-study.is-arabic .beit-phase-title h3 { letter-spacing: 0; }
 .portfolio-lightbox { width: min(96vw, 90rem); max-width: none; max-height: 94dvh; overflow: hidden; border: 1px solid rgb(213 180 82 / 38%); padding: clamp(.75rem, 2vw, 1.5rem); color: #f5f2e9; background: #111211; }
 .portfolio-lightbox::backdrop { background: rgb(6 7 7 / 88%); backdrop-filter: blur(12px); }
@@ -965,10 +975,11 @@ a {
 @media (max-width: 760px) {
   .beit-story, .beit-phase { grid-template-columns: 1fr; }
   .beit-phase-copy { grid-template-columns: 1fr; gap: 1.2rem; }
+  .beit-phase-navigation { grid-template-columns: 1fr; }
+  .beit-phase-navigation a { min-height: 5.5rem; }
+  .beit-phase-navigation a + a { border-inline-start: 0; border-top: 1px solid var(--color-border); }
   .beit-pair-grid { grid-template-columns: 1fr; }
-  .beit-northern-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .beit-northern-grid figure, .beit-northern-grid figure:nth-child(4), .beit-northern-grid figure:nth-child(5) { grid-column: auto; }
-  .beit-northern-grid figure:first-child { grid-column: span 2; }
+  .beit-editorial-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .beit-comparison-divider::after { transition: none; }
