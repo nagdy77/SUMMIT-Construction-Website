@@ -25,7 +25,7 @@ try {
     'fit-out': '/assets/projects/portfolio/desigual/01-1600.webp',
   }
   const pageImages = {
-    about: '/assets/projects/portfolio/beit-al-razzaz/03-1570.webp',
+    about: '/assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp',
     services: serviceImages.construction,
     projects: serviceImages.restoration,
     contact: '/assets/projects/portfolio/oriana-cairo-festival-city/04-1573.webp',

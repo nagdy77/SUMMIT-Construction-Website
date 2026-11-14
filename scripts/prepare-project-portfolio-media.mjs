@@ -51,22 +51,25 @@ const projectDefinitions = [
     ],
   },
   {
-    category: 'heritage-restoration',
-    slug: 'madinet-masr-qaitbay-main-hall',
-    title: 'Qaitbay’s Seat Main Hall',
-    sourceFolder: 'madinet-masr-qaitbay-main-hall',
-    publicAssetFolder: 'madinet-masr-qaitbay-main-hall',
-    prebuiltVariants: true,
+    category: 'construction',
+    slug: 'soma-bay',
+    title: 'Soma Bay',
+    sourceFolder: 'Somabay/Somabay',
     ignoreUnconfiguredFiles: true,
-    files: Array.from({ length: 17 }, (_, index) => {
-      const number = index + 1
-      return {
-        filename: `${String(number).padStart(2, '0')}-large.webp`,
-        variants: [`${String(number).padStart(2, '0')}-small.webp`, `${String(number).padStart(2, '0')}-large.webp`],
-        alt: `Qaitbay’s Seat Main Hall restoration photograph ${number}`,
-        altAr: `صورة من أعمال ترميم القاعة الرئيسية بمقعد قايتباي ${number}`,
-      }
-    }),
+    files: [
+      { filename: '1000390018.jpg.jpeg', alt: 'Soma Bay construction site with reinforced concrete work in progress', altAr: 'موقع إنشاءات سوما باي وأعمال الخرسانة المسلحة قيد التنفيذ' },
+      { filename: '1000389458.jpg.jpeg', alt: 'Wide view of reinforced concrete works at Soma Bay', altAr: 'منظر واسع لأعمال الخرسانة المسلحة في سوما باي' },
+      { filename: '1000389460.jpg.jpeg', alt: 'Reinforcement and formwork across the Soma Bay construction site', altAr: 'أعمال التسليح والشدات في موقع إنشاءات سوما باي' },
+      { filename: '1000390017.jpg.jpeg', alt: 'Construction team working among reinforced concrete elements at Soma Bay', altAr: 'فريق الإنشاءات يعمل بين عناصر الخرسانة المسلحة في سوما باي' },
+      { filename: '1000390019.jpg.jpeg', alt: 'Construction activity and reinforcement work at Soma Bay', altAr: 'أنشطة الإنشاء وأعمال التسليح في سوما باي' },
+      { filename: '1000390029.jpg.jpeg', alt: 'Reinforcement installation in progress at Soma Bay', altAr: 'تركيب حديد التسليح قيد التنفيذ في سوما باي' },
+      { filename: '1000125144.jpg.jpeg', alt: 'Building services installation in a Soma Bay interior corridor', altAr: 'تركيب خدمات المبنى في ممر داخلي بمشروع سوما باي' },
+      { filename: '1000125157.jpg.jpeg', alt: 'Site team inspecting overhead building services at Soma Bay', altAr: 'فريق الموقع يعاين خدمات المبنى العلوية في سوما باي' },
+      { filename: '1000125166.jpg.jpeg', alt: 'Installation work along a Soma Bay interior passage', altAr: 'أعمال تركيب داخل ممر في مشروع سوما باي' },
+      { filename: '1000139570.jpg.jpeg', alt: 'Overhead service routes during construction at Soma Bay', altAr: 'مسارات الخدمات العلوية أثناء الإنشاء في سوما باي' },
+      { filename: '1000139606.jpg.jpeg', alt: 'Interior construction corridor and external scaffolding at Soma Bay', altAr: 'ممر إنشاءات داخلي وسقالات خارجية في سوما باي' },
+      { filename: 'WhatsApp Image 2026-11-11 at 4.05.52 PM (2).jpeg', alt: 'Interior wall installation work at Soma Bay', altAr: 'أعمال تركيب الجدران الداخلية في سوما باي' },
+    ],
   },
 ])
 
@@ -93,10 +96,11 @@ async function responsiveWebp(sourcePath, targetDirectory, stem, requestedWidths
 
   for (const width of widths) {
     const targetPath = path.join(targetDirectory, `${stem}-${width}.webp`)
+    const quality = width <= 900 ? 76 : 80
     const info = await sharp(sourcePath)
       .rotate()
       .resize({ width, fit: 'inside', withoutEnlargement: true })
-      .webp({ quality: 82, effort: 5, smartSubsample: true })
+      .webp({ quality, effort: 6, smartSubsample: true })
       .toFile(targetPath)
     variants.push({ width: info.width, height: info.height, targetPath })
   }
@@ -193,7 +197,7 @@ async function prepareProjects() {
         srcSet: publicVariants.map((variant) => `${variant.src} ${variant.width}w`).join(', '),
         alt: alt ?? `${project.title} — project photograph ${number}`,
         ...(altAr ? { altAr } : {}),
-        label: filename,
+        label: `${project.title} — photograph ${number}`,
         fit: sourceMetadata.width / sourceMetadata.height < 0.82 ? 'contain' : 'cover',
         position: 'center',
         width: largest.width,
@@ -201,8 +205,6 @@ async function prepareProjects() {
       })
       manifestImages.push({
         number,
-        filename,
-        source: path.relative(root, sourcePath).replaceAll('\\', '/'),
         sourceWidth: sourceMetadata.width,
         sourceHeight: sourceMetadata.height,
         variants: publicVariants.map(({ src, width, height }) => ({ src, width, height })),
@@ -210,7 +212,7 @@ async function prepareProjects() {
     }
 
     generated[project.slug] = projectImages
-    manifest.projects[project.slug] = { category: project.category, cover: project.files?.[0]?.filename ?? '1.png', count: projectImages.length, issues: projectIssues, images: manifestImages }
+    manifest.projects[project.slug] = { category: project.category, cover: manifestImages[0]?.variants.at(-1)?.src ?? null, count: projectImages.length, issues: projectIssues, images: manifestImages }
   }
 
   await mkdir(outputRoot, { recursive: true })

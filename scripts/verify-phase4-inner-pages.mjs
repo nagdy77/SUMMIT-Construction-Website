@@ -129,7 +129,7 @@ try {
   assert.equal(await evaluate("document.querySelectorAll('.service-index-row').length"), 4)
   const expectedServiceImages = {
     construction: ['/assets/projects/portfolio/new-capital-administrations-district/01-', '/assets/projects/portfolio/oriana-cairo-festival-city/02-'],
-    restoration: ['/assets/projects/portfolio/mohamed-ali-palace/01-', '/assets/projects/portfolio/beit-al-razzaz/01-'],
+    restoration: ['/assets/projects/portfolio/mohamed-ali-palace/01-', '/assets/projects/portfolio/beit-al-razzaz/northern-side/01-'],
     renovation: ['/assets/projects/portfolio/lakeview-residence/03-', '/assets/projects/portfolio/lakeview-residence/01-'],
     'fit-out': ['/assets/projects/portfolio/bcbg/01-', '/assets/projects/portfolio/sky-offices/02-'],
   }

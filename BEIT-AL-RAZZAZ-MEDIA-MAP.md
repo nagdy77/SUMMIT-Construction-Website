@@ -33,8 +33,15 @@ The previously supplied British Embassy funding fact remains attached to the ove
 
 ## Qaitbay’s Seat Main Hall
 
-Qaitbay’s Seat Main Hall is no longer part of the Beit Al-Razzaz case study. Its 17 photographs are preserved and assigned to the separate `Qaitbay’s Seat Main Hall` project for Madinet Masr (`شركة مدينة مصر`). No location, dates, duration, or project scope are published because those details have not been confirmed.
+Qaitbay’s Seat Main Hall is a dedicated subsection within the unified Beit Al-Razzaz case study. Its 17 photographs are preserved under the public `beit-al-razzaz/qaitbay-main-hall` derivative path. The subsection is not assigned to Phase 1 or Phase 2 because no supplied documentation confirms a phase association.
+
+Public labels:
+
+- English: `Qaitbay’s Seat Main Hall`
+- Arabic: `مقعد قايتباي – القاعة الرئيسية`
+
+The former standalone Qaitbay/Madinet Masr project card and route are retired. No client, location, date, duration, or scope is published for this subsection because those details are not confirmed in the current project classification.
 
 ## Delivery
 
-Technical folder names, raw filenames, and camera filenames are not rendered in the UI. New media uses responsive WebP derivatives; gallery images below the fold use native lazy loading. Legacy mixed-group derivatives remain available locally for provenance but are excluded from the production bundle.
+Technical folder names, raw filenames, and camera filenames are not rendered in the UI or exposed in the public media manifest. New media uses responsive WebP derivatives; gallery images below the fold use native lazy loading and low fetch priority. Legacy mixed-group derivatives remain available locally for provenance but are excluded from the production bundle.

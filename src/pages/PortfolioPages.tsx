@@ -9,6 +9,7 @@ import { publishedProjects, type ProjectCategory, type PortfolioProject } from '
 import { routePath, sitePath } from '../lib/routes'
 import { NotFoundPage as SharedNotFoundPage } from './NotFoundPage'
 import { BeitAlRazzazCaseStudy } from '../components/sections/BeitAlRazzazCaseStudy'
+import { MediaCarousel, type CarouselMedia } from '../components/ui/MediaCarousel'
 
 const categoryLabels: Record<'en' | 'ar', Record<ProjectCategory, string>> = {
   en: { 'Heritage Restoration': 'Heritage Restoration', Construction: 'Construction', 'Residential Fit-Out': 'Residential Fit-Out', 'Retail Fit-Out': 'Retail Fit-Out' },
@@ -73,7 +74,7 @@ function ProjectCard({ project, index }: { project: PortfolioProject; index: num
   const description = projectWorkingDescription(project, locale)
   return <article className="portfolio-card" style={{ ['--card-index' as string]: index }}>
     <a className="portfolio-card-link" href={routePath(locale, 'project-detail', project.slug)} aria-label={`${copy.actions.explore}: ${project.title[locale]}`}>
-      {project.cover ? <div className="portfolio-card-image"><img src={sitePath(project.cover.src)} srcSet={project.cover.srcSet?.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 800px) 50vw, (max-width: 1100px) 50vw, 33vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1200} height={project.cover.height ?? 800} loading="lazy" decoding="async" style={{ objectFit: project.cover.fit ?? 'cover', objectPosition: project.cover.position ?? 'center' }} /><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div> : <div className="portfolio-card-image portfolio-card-placeholder"><div className="portfolio-card-placeholder-copy"><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div>}
+      {project.cover ? <div className="portfolio-card-image"><img src={sitePath(project.cover.src)} srcSet={project.cover.srcSet?.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 800px) 50vw, (max-width: 1100px) 50vw, 33vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1200} height={project.cover.height ?? 800} loading="lazy" fetchPriority="low" decoding="async" style={{ objectFit: project.cover.fit ?? 'cover', objectPosition: project.cover.position ?? 'center' }} /><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div> : <div className="portfolio-card-image portfolio-card-placeholder"><div className="portfolio-card-placeholder-copy"><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div>}
       <div className="portfolio-card-meta"><span>{projectStatusLabel(project, locale)}</span><span aria-hidden="true">↗</span></div>
       <h2>{project.title[locale]}</h2>
       <p>{description}</p>
@@ -108,7 +109,7 @@ export function ProjectsPage() {
     <section className="portfolio-category-showcase" aria-labelledby="portfolio-category-heading">
       <div className="portfolio-category-intro"><p className="eyebrow">{locale === 'en' ? 'Explore by discipline' : 'استكشف حسب التخصص'}</p><h2 id="portfolio-category-heading">{locale === 'en' ? 'Four disciplines. One standard of execution.' : 'أربعة تخصصات. معيار واحد للتنفيذ.'}</h2></div>
       <div className="portfolio-category-grid">{categoryCards.map((card, index) => <button key={card.category} type="button" className="portfolio-category-card" aria-pressed={filter === card.category} aria-controls="project-grid" onClick={() => chooseFilter(card.category)}>
-        <img src={sitePath(card.image)} srcSet={card.srcSet.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="50vw" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+        <img src={sitePath(card.image)} srcSet={card.srcSet.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="50vw" alt="" loading="lazy" fetchPriority="low" decoding="async" aria-hidden="true" />
         <span className="portfolio-category-shade" aria-hidden="true" />
         <span className="portfolio-category-number">{String(index + 1).padStart(2, '0')}</span>
         <span className="portfolio-category-copy"><strong>{categoryLabels[locale][card.category]}</strong><span>{String(categoryCount(card.category)).padStart(2, '0')} {copy.labels.projects}</span></span>
@@ -134,7 +135,6 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
   const related = [...sameCategory, ...publishedProjects.filter((item) => item.id !== project.id && item.category !== project.category)].slice(0, 2)
   const description = projectWorkingDescription(project, locale)
   const isBeit = project.slug === 'beit-al-razzaz'
-  const isMadinetMasrQaitbay = project.slug === 'madinet-masr-qaitbay-main-hall'
   const beitTitle = locale === 'en' ? 'Restoration and Structural Risk Mitigation — Eastern Side of Beit Al-Razzaz' : 'ترميم ودرء الخطورة عن الجانب الشرقي من بيت الرزاز'
   const beitDescription = locale === 'en'
     ? 'A heritage restoration and structural risk mitigation project addressing deterioration and threats to the eastern side of Beit Al-Razzaz, within the broader context of protecting architectural heritage against the effects of climate change.'
@@ -143,7 +143,7 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
     ? { client: 'Client', location: 'Location', funding: 'Funding Entity', duration: 'Project duration', bua: 'Built-up area', year: 'Year' }
     : { client: 'العميل', location: 'الموقع', funding: 'جهة التمويل', duration: 'مدة المشروع', bua: 'المساحة المبنية', year: 'السنة' }
   const facts = [
-    project.client ? { label: factLabels.client, value: isMadinetMasrQaitbay && locale === 'ar' ? 'شركة مدينة مصر' : project.client } : null,
+    project.client ? { label: factLabels.client, value: project.client } : null,
     project.location?.[locale] ? { label: factLabels.location, value: project.location[locale] } : null,
     isBeit ? { label: factLabels.funding, value: locale === 'en' ? 'British Embassy' : 'السفارة البريطانية' } : null,
     project.duration ? { label: factLabels.duration, value: project.duration } : null,
@@ -167,7 +167,6 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
 function ProjectGallery({ project, locale }: { project: PortfolioProject; locale: 'en' | 'ar' }) {
   const copy = useCopy()
   const dialog = useRef<HTMLDialogElement>(null)
-  const galleryRef = useRef<HTMLElement>(null)
   const [active, setActive] = useState<number | null>(null)
   const images = project.gallery
   useEffect(() => {
@@ -176,16 +175,6 @@ function ProjectGallery({ project, locale }: { project: PortfolioProject; locale
     if (active !== null && !node.open) node.showModal()
     if (active === null && node.open) node.close()
   }, [active])
-  useEffect(() => {
-    const root = galleryRef.current
-    if (!root) return
-    const motion = gsap.matchMedia()
-    motion.add('(prefers-reduced-motion: no-preference)', () => {
-      const tiles = root.querySelectorAll('button')
-      gsap.from(tiles, { autoAlpha: 0, y: 24, scale: .985, duration: .8, stagger: .08, ease: 'power3.out', scrollTrigger: { trigger: root, start: 'top 88%', once: true }, clearProps: 'opacity,visibility,transform' })
-    })
-    return () => motion.revert()
-  }, [project.id])
   useEffect(() => {
     const image = dialog.current?.querySelector('figure img')
     if (active === null || !image) return
@@ -196,18 +185,26 @@ function ProjectGallery({ project, locale }: { project: PortfolioProject; locale
   const close = () => setActive(null)
   const step = (direction: number) => setActive((current) => current === null ? null : (current + direction + images.length) % images.length)
   const responsiveSrcSet = (image: PortfolioProject['gallery'][number]) => image.srcSet?.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')
+  const carouselImages: CarouselMedia[] = images.slice(1).map((image, index) => ({
+    id: `${project.id}-${index + 1}`,
+    src: image.src,
+    srcSet: image.srcSet,
+    alt: image.alt[locale],
+    width: image.width,
+    height: image.height,
+    fit: image.fit,
+    position: image.position,
+  }))
   if (!project.cover) return <section className="detail-media-placeholder" aria-label={pendingMediaLabel(project, locale)}><div><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div></section>
   return <>
     <button type="button" className="detail-cover gallery-trigger" onClick={() => setActive(0)} aria-label={`${copy.actions.explore}: ${project.title[locale]}`}>
       <img src={sitePath(project.cover.src)} srcSet={responsiveSrcSet(project.cover)} sizes="100vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1536} height={project.cover.height ?? 1024} fetchPriority="high" decoding="async" style={{ objectFit: project.cover.fit ?? 'cover', objectPosition: project.cover.position ?? 'center' }} />
       {images.length > 1 ? <span className="gallery-count">{locale === 'en' ? 'View gallery' : 'عرض المعرض'} <b>{String(images.length).padStart(2, '0')}</b></span> : null}
     </button>
-    {images.length > 1 ? <section ref={galleryRef} aria-label={copy.labels.projects} className="detail-gallery">{images.slice(1).map((image, index) => <button type="button" key={image.src} onClick={() => setActive(index + 1)} aria-label={`${copy.actions.explore}: ${project.title[locale]}, ${index + 2}`}>
-      <img src={sitePath(image.src)} srcSet={responsiveSrcSet(image)} sizes="(max-width: 700px) 100vw, 50vw" alt={image.alt[locale]} loading="lazy" decoding="async" width={image.width ?? 1200} height={image.height ?? 800} style={{ objectFit: image.fit ?? 'cover', objectPosition: image.position ?? 'center' }} />
-    </button>)}</section> : null}
+    {images.length > 1 ? <MediaCarousel images={carouselImages} locale={locale} label={locale === 'en' ? `${project.title.en} project gallery` : `معرض صور مشروع ${project.title.ar}`} className="detail-gallery-carousel" onSelect={(index) => setActive(index + 1)} /> : null}
     <dialog ref={dialog} className="portfolio-lightbox" aria-label={copy.labels.projects} onClose={close} onClick={(event) => { if (event.target === dialog.current) close() }} onKeyDown={(event) => { if (event.key === 'ArrowRight') { event.preventDefault(); step(1) } if (event.key === 'ArrowLeft') { event.preventDefault(); step(-1) } }}>
       <div className="lightbox-toolbar"><span>{active === null ? '' : `${String(active + 1).padStart(2, '0')} / ${String(images.length).padStart(2, '0')}`}</span><span className="lightbox-progress" aria-hidden="true"><i style={{ transform: `scaleX(${active === null ? 0 : (active + 1) / images.length})` }} /></span><button data-magnetic type="button" onClick={close} aria-label={locale === 'en' ? 'Close gallery' : 'إغلاق المعرض'}>×</button></div>
-      {active !== null && images[active] ? <figure><img src={sitePath(images[active].src)} srcSet={responsiveSrcSet(images[active])} sizes="100vw" alt={images[active].alt[locale]} /><figcaption>{images[active].alt[locale]}</figcaption></figure> : null}
+      {active !== null && images[active] ? <figure><img src={sitePath(images[active].src)} srcSet={responsiveSrcSet(images[active])} sizes="100vw" alt={images[active].alt[locale]} decoding="async" /><figcaption>{images[active].alt[locale]}</figcaption></figure> : null}
       {images.length > 1 ? <div className="lightbox-controls"><button data-magnetic type="button" onClick={() => step(-1)} aria-label={locale === 'en' ? 'Previous image' : 'الصورة السابقة'}>←</button><button data-magnetic type="button" onClick={() => step(1)} aria-label={locale === 'en' ? 'Next image' : 'الصورة التالية'}>→</button></div> : null}
     </dialog>
   </>

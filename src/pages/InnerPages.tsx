@@ -50,7 +50,7 @@ const images = {
     en: 'Restored interior at Mohamed Ali Palace',
     ar: 'قاعة داخلية مرممة في قصر محمد علي',
   }),
-  restorationWide: projectEditorialImage('beit-al-razzaz', '01', 1203, {
+  restorationWide: projectEditorialImage('beit-al-razzaz/northern-side', '01', 1203, {
     en: 'Restored courtyard and historic façades at Beit Al Razzaz',
     ar: 'الفناء والواجهات التاريخية المرممة في بيت الرزاز',
   }),

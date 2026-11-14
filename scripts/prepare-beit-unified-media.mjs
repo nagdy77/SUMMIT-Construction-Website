@@ -28,16 +28,24 @@ const carpentryExistingRoot = path.join(portfolioRoot, portfolioEntries.find((en
 async function optimizedCopies(source, outputDirectory, stem) {
   await mkdir(outputDirectory, { recursive: true })
   await Promise.all([
-    sharp(source).rotate().resize({ width: 720, withoutEnlargement: true }).webp({ quality: 78, effort: 5 }).toFile(path.join(outputDirectory, `${stem}-small.webp`)),
-    sharp(source).rotate().resize({ width: 1600, withoutEnlargement: true }).webp({ quality: 83, effort: 5 }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
+    sharp(source).rotate().resize({ width: 720, withoutEnlargement: true }).webp({ quality: 75, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-small.webp`)),
+    sharp(source).rotate().resize({ width: 1400, withoutEnlargement: true }).webp({ quality: 80, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
   ])
 }
 
 async function optimizedDocumentationCopies(source, outputDirectory, stem) {
   await mkdir(outputDirectory, { recursive: true })
   await Promise.all([
-    sharp(source).rotate().resize({ width: 720, withoutEnlargement: true }).webp({ quality: 76, effort: 5 }).toFile(path.join(outputDirectory, `${stem}-small.webp`)),
-    sharp(source).rotate().resize({ width: 1400, withoutEnlargement: true }).webp({ quality: 80, effort: 5 }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
+    sharp(source).rotate().resize({ width: 720, withoutEnlargement: true }).webp({ quality: 74, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-small.webp`)),
+    sharp(source).rotate().resize({ width: 1400, withoutEnlargement: true }).webp({ quality: 79, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
+  ])
+}
+
+async function optimizedArchiveCopies(source, outputDirectory, stem) {
+  await mkdir(outputDirectory, { recursive: true })
+  await Promise.all([
+    sharp(source).rotate().resize({ width: 720, withoutEnlargement: true }).webp({ quality: 70, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-small.webp`)),
+    sharp(source).rotate().resize({ width: 1400, withoutEnlargement: true }).webp({ quality: 72, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
   ])
 }
 
@@ -108,10 +116,10 @@ for (let index = 0; index < northernAdditions.length; index += 1) {
 
 const archiveOutput = path.join(beitRoot, 'archive-views')
 for (const [index, filename] of ['1.jpg', '1970-1972.jpg', '5.jpg'].entries()) {
-  await optimizedCopies(path.join(suppliedRoot, filename), archiveOutput, String(index + 1).padStart(2, '0'))
+  await optimizedArchiveCopies(path.join(suppliedRoot, filename), archiveOutput, String(index + 1).padStart(2, '0'))
 }
 
-const qaitbayOutput = path.join(portfolioRoot, 'madinet-masr-qaitbay-main-hall')
+const qaitbayOutput = path.join(beitRoot, 'qaitbay-main-hall')
 const qaitbayExisting = [
   'Restoring an Ornate Historic Ceiling.png',
   'Meticulous Mural Restoration in Warm Light.png',

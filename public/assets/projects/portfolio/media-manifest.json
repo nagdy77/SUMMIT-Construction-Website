@@ -2,14 +2,12 @@
   "projects": {
     "mohamed-ali-palace": {
       "category": "heritage-restoration",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/mohamed-ali-palace/01-1202.webp",
       "count": 5,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/heritage-restoration/mohamed-ali-palace/1.png",
           "sourceWidth": 1202,
           "sourceHeight": 1309,
           "variants": [
@@ -27,8 +25,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/heritage-restoration/mohamed-ali-palace/2.png",
           "sourceWidth": 1566,
           "sourceHeight": 1004,
           "variants": [
@@ -46,8 +42,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/heritage-restoration/mohamed-ali-palace/3.png",
           "sourceWidth": 1565,
           "sourceHeight": 1005,
           "variants": [
@@ -65,8 +59,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/heritage-restoration/mohamed-ali-palace/4.png",
           "sourceWidth": 1565,
           "sourceHeight": 1005,
           "variants": [
@@ -84,8 +76,6 @@
         },
         {
           "number": 5,
-          "filename": "5.png",
-          "source": "project-inbox/heritage-restoration/mohamed-ali-palace/5.png",
           "sourceWidth": 1564,
           "sourceHeight": 1006,
           "variants": [
@@ -105,14 +95,12 @@
     },
     "safi-al-din-gowhar": {
       "category": "heritage-restoration",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp",
       "count": 5,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/heritage-restoration/safi-al-din-gowhar/1.png",
           "sourceWidth": 1203,
           "sourceHeight": 1307,
           "variants": [
@@ -130,8 +118,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/heritage-restoration/safi-al-din-gowhar/2.png",
           "sourceWidth": 1572,
           "sourceHeight": 1001,
           "variants": [
@@ -149,8 +135,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/heritage-restoration/safi-al-din-gowhar/3.png",
           "sourceWidth": 1567,
           "sourceHeight": 1004,
           "variants": [
@@ -168,8 +152,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/heritage-restoration/safi-al-din-gowhar/4.png",
           "sourceWidth": 1568,
           "sourceHeight": 1003,
           "variants": [
@@ -187,8 +169,6 @@
         },
         {
           "number": 5,
-          "filename": "5.png",
-          "source": "project-inbox/heritage-restoration/safi-al-din-gowhar/5.png",
           "sourceWidth": 1564,
           "sourceHeight": 1006,
           "variants": [
@@ -208,14 +188,12 @@
     },
     "st-andrews-church": {
       "category": "heritage-restoration",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/st-andrews-church/01-1201.webp",
       "count": 4,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/heritage-restoration/st-andrews-church/1.png",
           "sourceWidth": 1201,
           "sourceHeight": 1310,
           "variants": [
@@ -233,8 +211,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/heritage-restoration/st-andrews-church/2.png",
           "sourceWidth": 1774,
           "sourceHeight": 887,
           "variants": [
@@ -252,8 +228,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/heritage-restoration/st-andrews-church/3.png",
           "sourceWidth": 1201,
           "sourceHeight": 1309,
           "variants": [
@@ -271,8 +245,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/heritage-restoration/st-andrews-church/4.png",
           "sourceWidth": 1194,
           "sourceHeight": 1317,
           "variants": [
@@ -292,14 +264,12 @@
     },
     "new-capital-administrations-district": {
       "category": "construction",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/new-capital-administrations-district/01-1312.webp",
       "count": 5,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/construction/new-capital-administrations-district/1.png",
           "sourceWidth": 1312,
           "sourceHeight": 1199,
           "variants": [
@@ -317,8 +287,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/construction/new-capital-administrations-district/2.png",
           "sourceWidth": 1564,
           "sourceHeight": 1006,
           "variants": [
@@ -336,8 +304,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/construction/new-capital-administrations-district/3.png",
           "sourceWidth": 1557,
           "sourceHeight": 1010,
           "variants": [
@@ -355,8 +321,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/construction/new-capital-administrations-district/4.png",
           "sourceWidth": 1556,
           "sourceHeight": 1011,
           "variants": [
@@ -374,8 +338,6 @@
         },
         {
           "number": 5,
-          "filename": "5.png",
-          "source": "project-inbox/construction/new-capital-administrations-district/5.png",
           "sourceWidth": 1565,
           "sourceHeight": 1005,
           "variants": [
@@ -395,14 +357,12 @@
     },
     "stream-3": {
       "category": "construction",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/stream-3/01-1205.webp",
       "count": 4,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/construction/stream-3/1.png",
           "sourceWidth": 1205,
           "sourceHeight": 1306,
           "variants": [
@@ -420,8 +380,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/construction/stream-3/2.png",
           "sourceWidth": 1572,
           "sourceHeight": 1001,
           "variants": [
@@ -439,8 +397,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/construction/stream-3/3.png",
           "sourceWidth": 1570,
           "sourceHeight": 1001,
           "variants": [
@@ -458,8 +414,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/construction/stream-3/4.png",
           "sourceWidth": 1099,
           "sourceHeight": 1431,
           "variants": [
@@ -479,14 +433,12 @@
     },
     "oriana-cairo-festival-city": {
       "category": "construction",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/oriana-cairo-festival-city/01-1205.webp",
       "count": 5,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/construction/oriana-cairo-festival-city/1.png",
           "sourceWidth": 1205,
           "sourceHeight": 1306,
           "variants": [
@@ -504,8 +456,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/construction/oriana-cairo-festival-city/2.png",
           "sourceWidth": 1568,
           "sourceHeight": 1003,
           "variants": [
@@ -523,8 +473,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/construction/oriana-cairo-festival-city/3.png",
           "sourceWidth": 1570,
           "sourceHeight": 1001,
           "variants": [
@@ -542,8 +490,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/construction/oriana-cairo-festival-city/4.png",
           "sourceWidth": 1573,
           "sourceHeight": 1000,
           "variants": [
@@ -561,8 +507,6 @@
         },
         {
           "number": 5,
-          "filename": "5.png",
-          "source": "project-inbox/construction/oriana-cairo-festival-city/5.png",
           "sourceWidth": 1571,
           "sourceHeight": 1001,
           "variants": [
@@ -582,14 +526,12 @@
     },
     "alto": {
       "category": "construction",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/alto/01-1205.webp",
       "count": 5,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/construction/alto/1.png",
           "sourceWidth": 1205,
           "sourceHeight": 1306,
           "variants": [
@@ -607,8 +549,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/construction/alto/2.png",
           "sourceWidth": 1536,
           "sourceHeight": 1024,
           "variants": [
@@ -626,8 +566,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/construction/alto/3.png",
           "sourceWidth": 1572,
           "sourceHeight": 1001,
           "variants": [
@@ -645,8 +583,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/construction/alto/4.png",
           "sourceWidth": 1570,
           "sourceHeight": 1001,
           "variants": [
@@ -664,8 +600,6 @@
         },
         {
           "number": 5,
-          "filename": "5.png",
-          "source": "project-inbox/construction/alto/5.png",
           "sourceWidth": 1498,
           "sourceHeight": 1050,
           "variants": [
@@ -685,14 +619,12 @@
     },
     "lakeview-residence": {
       "category": "residential-fit-out",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/lakeview-residence/01-1570.webp",
       "count": 4,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/residential-fit-out/lakeview-residence/1.png",
           "sourceWidth": 1570,
           "sourceHeight": 1001,
           "variants": [
@@ -710,8 +642,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/residential-fit-out/lakeview-residence/2.png",
           "sourceWidth": 1098,
           "sourceHeight": 1433,
           "variants": [
@@ -729,8 +659,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/residential-fit-out/lakeview-residence/3.png",
           "sourceWidth": 1206,
           "sourceHeight": 1304,
           "variants": [
@@ -748,8 +676,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/residential-fit-out/lakeview-residence/4.png",
           "sourceWidth": 1566,
           "sourceHeight": 1005,
           "variants": [
@@ -769,14 +695,12 @@
     },
     "marvel": {
       "category": "residential-fit-out",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/marvel/01-1205.webp",
       "count": 3,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/residential-fit-out/marvel/1.png",
           "sourceWidth": 1205,
           "sourceHeight": 1306,
           "variants": [
@@ -794,8 +718,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/residential-fit-out/marvel/2.png",
           "sourceWidth": 1098,
           "sourceHeight": 1433,
           "variants": [
@@ -813,8 +735,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/residential-fit-out/marvel/3.png",
           "sourceWidth": 1094,
           "sourceHeight": 1438,
           "variants": [
@@ -834,14 +754,12 @@
     },
     "bcbg": {
       "category": "retail-fit-out",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/bcbg/01-1231.webp",
       "count": 4,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/retail-fit-out/bcbg/1.png",
           "sourceWidth": 1231,
           "sourceHeight": 1277,
           "variants": [
@@ -859,8 +777,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/retail-fit-out/bcbg/2.png",
           "sourceWidth": 1789,
           "sourceHeight": 879,
           "variants": [
@@ -878,8 +794,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/retail-fit-out/bcbg/3.png",
           "sourceWidth": 2016,
           "sourceHeight": 780,
           "variants": [
@@ -897,8 +811,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/retail-fit-out/bcbg/4.png",
           "sourceWidth": 1495,
           "sourceHeight": 1052,
           "variants": [
@@ -918,14 +830,12 @@
     },
     "bsb": {
       "category": "retail-fit-out",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/bsb/01-1600.webp",
       "count": 4,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/retail-fit-out/bsb/1.png",
           "sourceWidth": 2070,
           "sourceHeight": 760,
           "variants": [
@@ -943,8 +853,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/retail-fit-out/bsb/2.png",
           "sourceWidth": 1710,
           "sourceHeight": 920,
           "variants": [
@@ -962,8 +870,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/retail-fit-out/bsb/3.png",
           "sourceWidth": 1714,
           "sourceHeight": 918,
           "variants": [
@@ -981,8 +887,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/retail-fit-out/bsb/4.png",
           "sourceWidth": 1188,
           "sourceHeight": 1324,
           "variants": [
@@ -1002,14 +906,12 @@
     },
     "desigual": {
       "category": "retail-fit-out",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/desigual/01-1600.webp",
       "count": 5,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/retail-fit-out/desigual/1.png",
           "sourceWidth": 2079,
           "sourceHeight": 756,
           "variants": [
@@ -1027,8 +929,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/retail-fit-out/desigual/2.png",
           "sourceWidth": 1188,
           "sourceHeight": 1324,
           "variants": [
@@ -1046,8 +946,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/retail-fit-out/desigual/3.png",
           "sourceWidth": 1196,
           "sourceHeight": 1315,
           "variants": [
@@ -1065,8 +963,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/retail-fit-out/desigual/4.png",
           "sourceWidth": 1711,
           "sourceHeight": 919,
           "variants": [
@@ -1084,8 +980,6 @@
         },
         {
           "number": 5,
-          "filename": "5.png",
-          "source": "project-inbox/retail-fit-out/desigual/5.png",
           "sourceWidth": 1193,
           "sourceHeight": 1318,
           "variants": [
@@ -1105,14 +999,12 @@
     },
     "marina-rinaldi": {
       "category": "retail-fit-out",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/marina-rinaldi/01-1350.webp",
       "count": 4,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/retail-fit-out/marina-rinaldi/1.png",
           "sourceWidth": 1350,
           "sourceHeight": 1165,
           "variants": [
@@ -1130,8 +1022,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/retail-fit-out/marina-rinaldi/2.png",
           "sourceWidth": 1184,
           "sourceHeight": 1328,
           "variants": [
@@ -1149,8 +1039,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/retail-fit-out/marina-rinaldi/3.png",
           "sourceWidth": 1198,
           "sourceHeight": 1313,
           "variants": [
@@ -1168,8 +1056,6 @@
         },
         {
           "number": 4,
-          "filename": "4.png",
-          "source": "project-inbox/retail-fit-out/marina-rinaldi/4.png",
           "sourceWidth": 1018,
           "sourceHeight": 1545,
           "variants": [
@@ -1189,14 +1075,12 @@
     },
     "sky-offices": {
       "category": "retail-fit-out",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/sky-offices/01-918.webp",
       "count": 3,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/retail-fit-out/sky-offices/1.png",
           "sourceWidth": 918,
           "sourceHeight": 1714,
           "variants": [
@@ -1214,8 +1098,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/retail-fit-out/sky-offices/2.png",
           "sourceWidth": 1424,
           "sourceHeight": 1104,
           "variants": [
@@ -1233,8 +1115,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/retail-fit-out/sky-offices/3.png",
           "sourceWidth": 920,
           "sourceHeight": 1709,
           "variants": [
@@ -1254,14 +1134,12 @@
     },
     "voda": {
       "category": "retail-fit-out",
-      "cover": "1.png",
+      "cover": "/assets/projects/portfolio/voda/01-1113.webp",
       "count": 3,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "1.png",
-          "source": "project-inbox/retail-fit-out/voda/1.png",
           "sourceWidth": 1113,
           "sourceHeight": 1414,
           "variants": [
@@ -1279,8 +1157,6 @@
         },
         {
           "number": 2,
-          "filename": "2.png",
-          "source": "project-inbox/retail-fit-out/voda/2.png",
           "sourceWidth": 1127,
           "sourceHeight": 1396,
           "variants": [
@@ -1298,8 +1174,6 @@
         },
         {
           "number": 3,
-          "filename": "3.png",
-          "source": "project-inbox/retail-fit-out/voda/3.png",
           "sourceWidth": 1105,
           "sourceHeight": 1423,
           "variants": [
@@ -1319,14 +1193,12 @@
     },
     "beit-al-razzaz": {
       "category": "heritage-restoration",
-      "cover": "01-1203.webp",
+      "cover": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp",
       "count": 5,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "01-1203.webp",
-          "source": "public/assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp",
           "sourceWidth": 1203,
           "sourceHeight": 1308,
           "variants": [
@@ -1344,8 +1216,6 @@
         },
         {
           "number": 2,
-          "filename": "02-1562.webp",
-          "source": "public/assets/projects/portfolio/beit-al-razzaz/northern-side/02-1562.webp",
           "sourceWidth": 1562,
           "sourceHeight": 1007,
           "variants": [
@@ -1363,8 +1233,6 @@
         },
         {
           "number": 3,
-          "filename": "03-1570.webp",
-          "source": "public/assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp",
           "sourceWidth": 1570,
           "sourceHeight": 1001,
           "variants": [
@@ -1382,8 +1250,6 @@
         },
         {
           "number": 4,
-          "filename": "04-1563.webp",
-          "source": "public/assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp",
           "sourceWidth": 1563,
           "sourceHeight": 1006,
           "variants": [
@@ -1401,8 +1267,6 @@
         },
         {
           "number": 5,
-          "filename": "05-1586.webp",
-          "source": "public/assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp",
           "sourceWidth": 1586,
           "sourceHeight": 992,
           "variants": [
@@ -1422,14 +1286,12 @@
     },
     "down-town-1": {
       "category": "construction",
-      "cover": "Sunlit Concrete Atrium Under Construction.png",
+      "cover": "/assets/projects/portfolio/down-town-1/01-1086.webp",
       "count": 4,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "Sunlit Concrete Atrium Under Construction.png",
-          "source": "public/assets/projects/portfolio/DownTown 1/Sunlit Concrete Atrium Under Construction.png",
           "sourceWidth": 1086,
           "sourceHeight": 1448,
           "variants": [
@@ -1447,8 +1309,6 @@
         },
         {
           "number": 2,
-          "filename": "Precision Above_ Summit Construction Crew.png",
-          "source": "public/assets/projects/portfolio/DownTown 1/Precision Above_ Summit Construction Crew.png",
           "sourceWidth": 1086,
           "sourceHeight": 1448,
           "variants": [
@@ -1466,8 +1326,6 @@
         },
         {
           "number": 3,
-          "filename": "Warm Construction Corridor with Scaffolding.png",
-          "source": "public/assets/projects/portfolio/DownTown 1/Warm Construction Corridor with Scaffolding.png",
           "sourceWidth": 1086,
           "sourceHeight": 1448,
           "variants": [
@@ -1485,8 +1343,6 @@
         },
         {
           "number": 4,
-          "filename": "Sunlit Scaffold Interior in Renovation.png",
-          "source": "public/assets/projects/portfolio/DownTown 1/Sunlit Scaffold Interior in Renovation.png",
           "sourceWidth": 941,
           "sourceHeight": 1672,
           "variants": [
@@ -1504,332 +1360,213 @@
         }
       ]
     },
-    "madinet-masr-qaitbay-main-hall": {
-      "category": "heritage-restoration",
-      "cover": "01-large.webp",
-      "count": 17,
+    "soma-bay": {
+      "category": "construction",
+      "cover": "/assets/projects/portfolio/soma-bay/01-1600.webp",
+      "count": 12,
       "issues": [],
       "images": [
         {
           "number": 1,
-          "filename": "01-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/01-large.webp",
-          "sourceWidth": 1536,
-          "sourceHeight": 1024,
+          "sourceWidth": 4000,
+          "sourceHeight": 3000,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/01-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/01-720.webp",
               "width": 720,
-              "height": 480
+              "height": 540
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/01-large.webp",
-              "width": 1536,
-              "height": 1024
+              "src": "/assets/projects/portfolio/soma-bay/01-1600.webp",
+              "width": 1600,
+              "height": 1200
             }
           ]
         },
         {
           "number": 2,
-          "filename": "02-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/02-large.webp",
-          "sourceWidth": 1536,
-          "sourceHeight": 1024,
+          "sourceWidth": 4000,
+          "sourceHeight": 3000,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/02-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/02-720.webp",
               "width": 720,
-              "height": 480
+              "height": 540
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/02-large.webp",
-              "width": 1536,
-              "height": 1024
+              "src": "/assets/projects/portfolio/soma-bay/02-1600.webp",
+              "width": 1600,
+              "height": 1200
             }
           ]
         },
         {
           "number": 3,
-          "filename": "03-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/03-large.webp",
-          "sourceWidth": 1536,
-          "sourceHeight": 1024,
+          "sourceWidth": 4000,
+          "sourceHeight": 3000,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/03-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/03-720.webp",
               "width": 720,
-              "height": 480
+              "height": 540
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/03-large.webp",
-              "width": 1536,
-              "height": 1024
+              "src": "/assets/projects/portfolio/soma-bay/03-1600.webp",
+              "width": 1600,
+              "height": 1200
             }
           ]
         },
         {
           "number": 4,
-          "filename": "04-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/04-large.webp",
-          "sourceWidth": 1536,
-          "sourceHeight": 1024,
+          "sourceWidth": 4064,
+          "sourceHeight": 3048,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/04-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/04-720.webp",
               "width": 720,
-              "height": 480
+              "height": 540
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/04-large.webp",
-              "width": 1536,
-              "height": 1024
+              "src": "/assets/projects/portfolio/soma-bay/04-1600.webp",
+              "width": 1600,
+              "height": 1200
             }
           ]
         },
         {
           "number": 5,
-          "filename": "05-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/05-large.webp",
-          "sourceWidth": 1536,
-          "sourceHeight": 1024,
+          "sourceWidth": 4000,
+          "sourceHeight": 3000,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/05-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/05-720.webp",
               "width": 720,
-              "height": 480
+              "height": 540
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/05-large.webp",
-              "width": 1536,
-              "height": 1024
+              "src": "/assets/projects/portfolio/soma-bay/05-1600.webp",
+              "width": 1600,
+              "height": 1200
             }
           ]
         },
         {
           "number": 6,
-          "filename": "06-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/06-large.webp",
-          "sourceWidth": 1536,
-          "sourceHeight": 1024,
+          "sourceWidth": 4064,
+          "sourceHeight": 3048,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/06-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/06-720.webp",
               "width": 720,
-              "height": 480
+              "height": 540
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/06-large.webp",
-              "width": 1536,
-              "height": 1024
+              "src": "/assets/projects/portfolio/soma-bay/06-1600.webp",
+              "width": 1600,
+              "height": 1200
             }
           ]
         },
         {
           "number": 7,
-          "filename": "07-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/07-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 1067,
+          "sourceWidth": 3048,
+          "sourceHeight": 4064,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/07-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/07-720.webp",
               "width": 720,
-              "height": 480
+              "height": 960
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/07-large.webp",
+              "src": "/assets/projects/portfolio/soma-bay/07-1600.webp",
               "width": 1600,
-              "height": 1067
+              "height": 2133
             }
           ]
         },
         {
           "number": 8,
-          "filename": "08-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/08-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 1068,
+          "sourceWidth": 3048,
+          "sourceHeight": 4064,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/08-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/08-720.webp",
               "width": 720,
-              "height": 481
+              "height": 960
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/08-large.webp",
+              "src": "/assets/projects/portfolio/soma-bay/08-1600.webp",
               "width": 1600,
-              "height": 1068
+              "height": 2133
             }
           ]
         },
         {
           "number": 9,
-          "filename": "09-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/09-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 1067,
+          "sourceWidth": 3048,
+          "sourceHeight": 4064,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/09-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/09-720.webp",
               "width": 720,
-              "height": 480
+              "height": 960
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/09-large.webp",
+              "src": "/assets/projects/portfolio/soma-bay/09-1600.webp",
               "width": 1600,
-              "height": 1067
+              "height": 2133
             }
           ]
         },
         {
           "number": 10,
-          "filename": "10-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/10-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 1067,
+          "sourceWidth": 3000,
+          "sourceHeight": 4000,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/10-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/10-720.webp",
               "width": 720,
-              "height": 480
+              "height": 960
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/10-large.webp",
+              "src": "/assets/projects/portfolio/soma-bay/10-1600.webp",
               "width": 1600,
-              "height": 1067
+              "height": 2133
             }
           ]
         },
         {
           "number": 11,
-          "filename": "11-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/11-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 1067,
+          "sourceWidth": 3048,
+          "sourceHeight": 4064,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/11-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/11-720.webp",
               "width": 720,
-              "height": 480
+              "height": 960
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/11-large.webp",
+              "src": "/assets/projects/portfolio/soma-bay/11-1600.webp",
               "width": 1600,
-              "height": 1067
+              "height": 2133
             }
           ]
         },
         {
           "number": 12,
-          "filename": "12-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/12-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 1067,
+          "sourceWidth": 896,
+          "sourceHeight": 1195,
           "variants": [
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/12-small.webp",
+              "src": "/assets/projects/portfolio/soma-bay/12-720.webp",
               "width": 720,
-              "height": 480
+              "height": 960
             },
             {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/12-large.webp",
-              "width": 1600,
-              "height": 1067
-            }
-          ]
-        },
-        {
-          "number": 13,
-          "filename": "13-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/13-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 1067,
-          "variants": [
-            {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/13-small.webp",
-              "width": 720,
-              "height": 480
-            },
-            {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/13-large.webp",
-              "width": 1600,
-              "height": 1067
-            }
-          ]
-        },
-        {
-          "number": 14,
-          "filename": "14-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/14-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 1067,
-          "variants": [
-            {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/14-small.webp",
-              "width": 720,
-              "height": 480
-            },
-            {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/14-large.webp",
-              "width": 1600,
-              "height": 1067
-            }
-          ]
-        },
-        {
-          "number": 15,
-          "filename": "15-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/15-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 1067,
-          "variants": [
-            {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/15-small.webp",
-              "width": 720,
-              "height": 480
-            },
-            {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/15-large.webp",
-              "width": 1600,
-              "height": 1067
-            }
-          ]
-        },
-        {
-          "number": 16,
-          "filename": "16-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/16-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 1067,
-          "variants": [
-            {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/16-small.webp",
-              "width": 720,
-              "height": 480
-            },
-            {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/16-large.webp",
-              "width": 1600,
-              "height": 1067
-            }
-          ]
-        },
-        {
-          "number": 17,
-          "filename": "17-large.webp",
-          "source": "public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/17-large.webp",
-          "sourceWidth": 1600,
-          "sourceHeight": 2400,
-          "variants": [
-            {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/17-small.webp",
-              "width": 720,
-              "height": 1080
-            },
-            {
-              "src": "/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/17-large.webp",
-              "width": 1600,
-              "height": 2400
+              "src": "/assets/projects/portfolio/soma-bay/12-896.webp",
+              "width": 896,
+              "height": 1195
             }
           ]
         }

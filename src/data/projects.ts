@@ -70,13 +70,6 @@ export const projects: readonly ProjectRecord[] = [
     contentStatus: 'source-supplied', reviewNotes: [], pendingMedia: false, images: projectMedia['beit-al-razzaz'],
   },
   {
-    id: 'madinet-masr-qaitbay-main-hall', slug: 'madinet-masr-qaitbay-main-hall', title: { en: 'Qaitbay’s Seat Main Hall', ar: 'مقعد قايتباي – القاعة الرئيسية' }, category: 'Heritage Restoration',
-    inboxFolder: 'public/assets/projects/portfolio/madinet-masr-qaitbay-main-hall/', historicalBackground: null,
-    sourceOverview: 'Qaitbay’s Seat Main Hall is associated with a project for Madinet Masr.', publicOverview: null, detailsNote: pendingProjectDetails,
-    specifications: { client: 'Madinet Masr', scope: null, location: null, projectDuration: null, bua: null, year: null },
-    contentStatus: 'awaiting-project-details', reviewNotes: ['Location, dates, duration and project scope require client confirmation.'], pendingMedia: false, images: projectMedia['madinet-masr-qaitbay-main-hall'],
-  },
-  {
     id: 'safi-al-din-gowhar', slug: 'safi-al-din-gowhar', title: { en: 'Safi Al Din Gowhar', ar: 'صفي الدين جوهر' }, category: 'Heritage Restoration',
     inboxFolder: 'project-inbox/heritage-restoration/safi-al-din-gowhar/',
     historicalBackground: 'It was established by Safi al-Din Jawhar al-Nasiri al-Maliki, also known sometimes as Sidi Muqaddam of the Sultanate Mamluks during the days of the Bahri Mamluk Sultan Baybars al-Jashankir, in the year 714 AH/1314 AD. It is located on Rukibiya Street, branching from Sulaibiyah Street in the Khalifa neighborhood in the city of Cairo. It consists of an irregular rectangular space divided into a dirka (entrance hall) followed by the main entrance. This dirka leads to an open courtyard and the burial dome, which is preceded by a prayer area on its southeastern side.',
@@ -128,6 +121,13 @@ export const projects: readonly ProjectRecord[] = [
     sourceOverview: '', publicOverview: null, detailsNote: pendingProjectDetails,
     specifications: { client: null, scope: null, location: null, projectDuration: null, bua: null, year: null },
     contentStatus: 'awaiting-project-details', reviewNotes: ['Description, scope, project phases, location, dates and duration require client confirmation.'], pendingMedia: false, images: projectMedia['down-town-1'],
+  },
+  {
+    id: 'soma-bay', slug: 'soma-bay', title: { en: 'Soma Bay', ar: 'سوما باي' }, category: 'Construction',
+    inboxFolder: 'project-inbox/construction/soma-bay/', historicalBackground: null,
+    sourceOverview: '', publicOverview: null, detailsNote: pendingProjectDetails,
+    specifications: { client: null, scope: null, location: null, projectDuration: null, bua: null, year: null },
+    contentStatus: 'awaiting-project-details', reviewNotes: ['Client, scope, project phases, location, dates and duration require client confirmation.'], pendingMedia: false, images: projectMedia['soma-bay'],
   },
   {
     id: 'lakeview-residence', slug: 'lakeview-residence', title: { en: 'Lakeview Residence', ar: 'ليك فيو ريزيدنس' }, category: 'Residential Fit-Out', inboxFolder: 'project-inbox/residential-fit-out/lakeview-residence/', historicalBackground: null,

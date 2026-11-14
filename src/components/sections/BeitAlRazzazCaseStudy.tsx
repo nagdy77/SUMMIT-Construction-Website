@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { assetUrl } from '../../lib/assets'
+import { MediaCarousel, type CarouselMedia } from '../ui/MediaCarousel'
 
 type Locale = 'en' | 'ar'
 type Photo = { src: string; srcSet: string; alt: string; altAr?: string }
@@ -7,7 +8,7 @@ type Pair = { id: string; before: Photo; after: Photo }
 
 const editorialPhoto = (folder: string, stem: string, alt: string, altAr: string): Photo => ({
   src: `/assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-large.webp`,
-  srcSet: `/assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-small.webp 720w, /assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-large.webp 1600w`,
+  srcSet: `/assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-small.webp 720w, /assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-large.webp 1400w`,
   alt,
   altAr,
 })
@@ -31,6 +32,7 @@ const westernComparisons: Pair[] = [
 ]
 
 const westernWing = numberedGallery('phase-2-western-wing/gallery', 16, 'Western Wing restoration photograph', 'صورة من أعمال ترميم الجناح الغربي')
+const qaitbayGallery = numberedGallery('qaitbay-main-hall', 17, 'Qaitbay’s Seat Main Hall restoration photograph', 'صورة من أعمال ترميم مقعد قايتباي – القاعة الرئيسية')
 const archiveViews = numberedGallery('archive-views', 3, 'Historic view of Beit Al-Razzaz', 'صورة تاريخية لبيت الرزاز')
 const carpentryAll = numberedGallery('carpentry-workshop', 11, 'Carpentry Workshop restoration photograph', 'صورة من ترميم ورشة النجارة')
 const carpentryComparison: Pair = {
@@ -50,11 +52,19 @@ const northern: Photo[] = [
 ]
 
 function ResponsiveImage({ image, eager = false, locale = 'en', sizes = '(max-width: 760px) 100vw, 50vw' }: { image: Photo; eager?: boolean; locale?: Locale; sizes?: string }) {
-  return <img src={assetUrl(image.src)} srcSet={image.srcSet.split(', ').map((item) => `${assetUrl(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes={sizes} alt={locale === 'ar' ? image.altAr ?? 'صورة توثيقية من بيت الرزاز' : image.alt} width="1600" height="1067" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+  return <img src={assetUrl(image.src)} srcSet={image.srcSet.split(', ').map((item) => `${assetUrl(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes={sizes} alt={locale === 'ar' ? image.altAr ?? 'صورة توثيقية من بيت الرزاز' : image.alt} width="1400" height="933" loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : 'low'} decoding="async" draggable="false" />
 }
 
-function PhotoGallery({ images, locale }: { images: Photo[]; locale: Locale }) {
-  return <div className="beit-editorial-grid">{images.map((image) => <figure key={image.src}><ResponsiveImage image={image} locale={locale} sizes="(max-width: 760px) 50vw, 33vw" /></figure>)}</div>
+function PhotoGallery({ images, locale, label }: { images: Photo[]; locale: Locale; label: string }) {
+  const carouselImages: CarouselMedia[] = images.map((image) => ({
+    id: image.src,
+    src: image.src,
+    srcSet: image.srcSet,
+    alt: locale === 'ar' ? image.altAr ?? 'صورة توثيقية من بيت الرزاز' : image.alt,
+    width: 1400,
+    height: 933,
+  }))
+  return <MediaCarousel images={carouselImages} locale={locale} label={label} className="beit-photo-carousel" />
 }
 
 function Comparison({ item, locale }: { item: Pair; locale: Locale }) {
@@ -66,49 +76,55 @@ function Comparison({ item, locale }: { item: Pair; locale: Locale }) {
     setPosition(Math.round(Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100))))
   }
   return <figure className="beit-comparison" dir="ltr">
-    <div className="beit-comparison-image" onPointerDown={(event) => { event.currentTarget.setPointerCapture(event.pointerId); setFromPointer(event) }} onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) setFromPointer(event) }} onPointerUp={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }}><ResponsiveImage image={before} locale={locale} /><div className="beit-comparison-after" style={{ clipPath: `inset(0 0 0 ${position}%)` }}><ResponsiveImage image={after} locale={locale} /></div><span className="beit-photo-label beit-photo-label--before">{labels.before}</span><span className="beit-photo-label beit-photo-label--after">{labels.after}</span><span className="beit-comparison-divider" style={{ left: `${position}%` }} aria-hidden="true" /></div>
-    <input aria-label={labels.compare} aria-valuetext={`${position}%`} type="range" min="0" max="100" value={position} onChange={(event) => setPosition(Number(event.target.value))} />
+    <div className="beit-comparison-image" onPointerDown={(event) => { event.currentTarget.setPointerCapture(event.pointerId); setFromPointer(event) }} onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) setFromPointer(event) }} onPointerUp={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }} onPointerCancel={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }}><ResponsiveImage image={before} locale={locale} /><div className="beit-comparison-after" style={{ clipPath: `inset(0 0 0 ${position}%)` }}><ResponsiveImage image={after} locale={locale} /></div><span className="beit-photo-label beit-photo-label--before">{labels.before}</span><span className="beit-photo-label beit-photo-label--after">{labels.after}</span><span className="beit-comparison-divider" style={{ left: `${position}%` }} aria-hidden="true" /></div>
+    <input aria-label={labels.compare} aria-valuetext={`${position}%`} type="range" min="0" max="100" step="1" value={position} onChange={(event) => setPosition(Number(event.target.value))} />
   </figure>
 }
 
 export function BeitAlRazzazCaseStudy({ locale }: { locale: Locale }) {
   const isArabic = locale === 'ar'
   return <div className={`beit-case-study${isArabic ? ' is-arabic' : ''}`} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
-    <figure className="beit-hero-photo"><ResponsiveImage image={northern[0]} eager locale={locale} /><figcaption>{isArabic ? 'المرحلة الأولى – المنطقة الشمالية · الفناء التاريخي لبيت الرزاز' : 'Phase 1 – Northern Side · The historic courtyard at Beit Al-Razzaz'}</figcaption></figure>
+    <figure className="beit-hero-photo"><ResponsiveImage image={northern[0]} eager locale={locale} sizes="100vw" /><figcaption>{isArabic ? 'المرحلة الأولى – المنطقة الشمالية · الفناء التاريخي لبيت الرزاز' : 'Phase 1 – Northern Side · The historic courtyard at Beit Al-Razzaz'}</figcaption></figure>
     <section className="beit-story" aria-labelledby="beit-story-heading">
       <div><p className="eyebrow">{isArabic ? 'قصة الترميم' : 'The restoration story'}</p><h2 id="beit-story-heading">{isArabic ? 'تثبيت المبنى وصون طابعه التاريخي' : 'Stabilising the structure. Preserving its character.'}</h2></div>
       <p>{isArabic ? 'عالج المشروع المخاطر الإنشائية في الجانب الشرقي من بيت الرزاز، مع الحفاظ على طابعه المعماري التاريخي. شملت الأعمال إعادة بناء الجزء الشمالي الشرقي المتضرر، ومعالجة الأسقف غير الآمنة، وتدعيم العناصر الإنشائية للحفاظ على استقرار المبنى.' : 'The work addressed structural risks on the eastern side of Beit Al-Razzaz while safeguarding its historic architectural character. It included faithful reconstruction of a severely deteriorated northeast section, attention to unsafe roofs and ceilings, and structural reinforcement to support the building’s stability.'}</p>
     </section>
 
-    <nav className="beit-phase-navigation" aria-label={isArabic ? 'مراحل مشروع بيت الرزاز' : 'Beit Al-Razzaz project phases'}>
+    <nav className="beit-phase-navigation" aria-label={isArabic ? 'أقسام مشروع بيت الرزاز' : 'Beit Al-Razzaz project sections'}>
       <a href="#beit-phase-1"><span>01</span><strong>{isArabic ? 'المرحلة الأولى – المنطقة الشمالية' : 'Phase 1 – Northern Side'}</strong></a>
       <a href="#beit-phase-2"><span>02</span><strong>{isArabic ? 'المرحلة الثانية – الجناح الغربي' : 'Phase 2 – Western Wing'}</strong></a>
+      <a href="#beit-qaitbay"><span aria-hidden="true">•</span><strong>{isArabic ? 'مقعد قايتباي – القاعة الرئيسية' : 'Qaitbay’s Seat Main Hall'}</strong></a>
     </nav>
 
     <section id="beit-phase-1" className="beit-gallery-section beit-phase-section" aria-labelledby="beit-phase-1-heading">
       <header className="beit-section-heading"><p className="eyebrow">{isArabic ? 'المرحلة الأولى' : 'Phase 1'}</p><h2 id="beit-phase-1-heading">{isArabic ? 'المرحلة الأولى – المنطقة الشمالية' : 'Phase 1 – Northern Side'}</h2><p>{isArabic ? 'مقارنات موثقة وصور المنطقة الشمالية.' : 'Verified comparisons and photographs from the Northern Side.'}</p></header>
       <div className="beit-pair-grid">{northernComparisons.map((item) => <article className="beit-photo-pair" key={item.id}><Comparison item={item} locale={locale} /></article>)}</div>
       <h3 className="beit-subsection-heading">{isArabic ? 'صور المنطقة الشمالية' : 'Northern Side gallery'}</h3>
-      <PhotoGallery images={northern.slice(1)} locale={locale} />
+      <PhotoGallery images={northern.slice(1)} locale={locale} label={isArabic ? 'معرض صور المنطقة الشمالية' : 'Northern Side gallery'} />
     </section>
 
     <section id="beit-phase-2" className="beit-gallery-section beit-phase-section" aria-labelledby="beit-phase-2-heading">
       <header className="beit-section-heading"><p className="eyebrow">{isArabic ? 'المرحلة الثانية' : 'Phase 2'}</p><h2 id="beit-phase-2-heading">{isArabic ? 'المرحلة الثانية – الجناح الغربي' : 'Phase 2 – Western Wing'}</h2><p>{isArabic ? 'مقارنات موثقة وصور الجناح الغربي.' : 'Verified comparisons and photographs from the Western Wing.'}</p></header>
       <div className="beit-pair-grid">{westernComparisons.map((item) => <article className="beit-photo-pair" key={item.id}><Comparison item={item} locale={locale} /></article>)}</div>
       <h3 className="beit-subsection-heading">{isArabic ? 'صور الجناح الغربي' : 'Western Wing gallery'}</h3>
-      <PhotoGallery images={westernWing} locale={locale} />
+      <PhotoGallery images={westernWing} locale={locale} label={isArabic ? 'معرض صور الجناح الغربي' : 'Western Wing gallery'} />
+    </section>
+
+    <section id="beit-qaitbay" className="beit-gallery-section" aria-labelledby="beit-qaitbay-heading">
+      <header className="beit-section-heading"><p className="eyebrow">{isArabic ? 'بيت الرزاز' : 'Beit Al-Razzaz'}</p><h2 id="beit-qaitbay-heading">{isArabic ? 'مقعد قايتباي – القاعة الرئيسية' : 'Qaitbay’s Seat Main Hall'}</h2><p>{isArabic ? 'صور ترميم القاعة الرئيسية ضمن دراسة حالة بيت الرزاز.' : 'Main Hall restoration photographs within the Beit Al-Razzaz case study.'}</p></header>
+      <PhotoGallery images={qaitbayGallery} locale={locale} label={isArabic ? 'معرض صور مقعد قايتباي – القاعة الرئيسية' : 'Qaitbay’s Seat Main Hall gallery'} />
     </section>
 
     <section className="beit-gallery-section" aria-labelledby="beit-carpentry-heading">
       <header className="beit-section-heading"><p className="eyebrow">{isArabic ? 'بيت الرزاز' : 'Beit Al-Razzaz'}</p><h2 id="beit-carpentry-heading">{isArabic ? 'ورشة النجارة' : 'Carpentry Workshop'}</h2></header>
       <dl className="beit-section-funding"><div><dt>{isArabic ? 'جهة التمويل' : 'Funding Entity'}</dt><dd>{isArabic ? 'السفارة الرومانية' : 'Romanian Embassy'}</dd></div></dl>
       <div className="beit-featured-comparison"><Comparison item={carpentryComparison} locale={locale} /></div>
-      <PhotoGallery images={carpentryGallery} locale={locale} />
+      <PhotoGallery images={carpentryGallery} locale={locale} label={isArabic ? 'معرض صور ورشة النجارة' : 'Carpentry Workshop gallery'} />
     </section>
 
     <section className="beit-gallery-section" aria-labelledby="beit-archive-heading">
       <header className="beit-section-heading"><p className="eyebrow">{isArabic ? 'صور أرشيفية' : 'Archive views'}</p><h2 id="beit-archive-heading">{isArabic ? 'مشاهد تاريخية لبيت الرزاز' : 'Historic views of Beit Al-Razzaz'}</h2></header>
-      <PhotoGallery images={archiveViews} locale={locale} />
+      <PhotoGallery images={archiveViews} locale={locale} label={isArabic ? 'معرض الصور التاريخية لبيت الرزاز' : 'Historic views of Beit Al-Razzaz gallery'} />
     </section>
   </div>
 }
