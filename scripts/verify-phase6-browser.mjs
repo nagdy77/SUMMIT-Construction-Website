@@ -120,7 +120,7 @@ const routeFiles = [
 const routes = routeFiles
   .map((file) => `/${path.relative(path.resolve('dist'), path.dirname(file)).split(path.sep).join('/')}/`)
   .sort()
-check(routes.length === 60, 'The production build contains all 60 localized route files', routes.length)
+check(routes.length === 58, 'The production build contains all 58 localized route files', routes.length)
 
 for (const route of routes) {
   const response = await fetch(`${base}${route}`)
@@ -343,11 +343,10 @@ try {
 
   await navigate('/en/contact/')
   await delay(1600)
-  await evaluate("document.querySelector('.enquiry-form').requestSubmit();true")
-  check((await evaluate("document.querySelector('.form-status').dataset.state")) === 'error', 'Invalid form submission exposes an error state')
-  check((await evaluate("document.querySelector('.form-status').getAttribute('role')")) === 'alert', 'Invalid form submission uses an alert role')
-  check((await evaluate("document.querySelector('.enquiry-form').dataset.deliveryConfigured")) === 'false', 'Final build reports the unconfigured delivery endpoint truthfully')
-  check((await evaluate("document.querySelector('.contact-direct').getAttribute('href')")) === 'mailto:Projects@Summit-constructions.com', 'Direct email fallback uses the verified destination')
+  check((await evaluate("document.querySelectorAll('form').length")) === 0, 'Contact page contains no inquiry form')
+  check((await evaluate("document.querySelector('.whatsapp-primary-action').dataset.whatsappConfigured")) === 'false', 'Final build reports the unconfigured WhatsApp state truthfully')
+  check((await evaluate("document.querySelector('.whatsapp-primary-action').tagName")) === 'BUTTON', 'Unconfigured WhatsApp action cannot navigate to a placeholder number')
+  check((await evaluate("document.querySelector('.contact-direct').getAttribute('href')")) === 'mailto:Projects@Summit-constructions.com', 'Secondary email uses the verified destination')
 
   await setReducedMotion(true)
   await navigate('/ar/about/')

@@ -10,6 +10,7 @@ import { routePath, sitePath } from '../lib/routes'
 import { NotFoundPage as SharedNotFoundPage } from './NotFoundPage'
 import { BeitAlRazzazCaseStudy } from '../components/sections/BeitAlRazzazCaseStudy'
 import { MediaCarousel, type CarouselMedia } from '../components/ui/MediaCarousel'
+import { WhatsAppAction } from '../components/contact/WhatsAppAction'
 
 const categoryLabels: Record<'en' | 'ar', Record<ProjectCategory, string>> = {
   en: { 'Heritage Restoration': 'Heritage Restoration', Construction: 'Construction', 'Residential Fit-Out': 'Residential Fit-Out', 'Retail Fit-Out': 'Retail Fit-Out' },
@@ -43,7 +44,8 @@ function projectStatusLabel(project: PortfolioProject, locale: 'en' | 'ar') {
   return locale === 'en' ? `${category} · Tentative classification` : `${category} · تصنيف مبدئي`
 }
 
-function projectWorkingDescription(project: PortfolioProject, locale: 'en' | 'ar') {
+function projectWorkingDescription(project: PortfolioProject, locale: 'en' | 'ar', brief = false) {
+  if (brief && project.summary) return project.summary[locale]
   if (project.description) return project.description[locale]
   if (project.detailsNote) return project.detailsNote[locale]
   if (project.state === 'awaiting-client-correction') {
@@ -71,7 +73,7 @@ function EditorialHeader({ eyebrow, title, intro }: { eyebrow: string; title: st
 function ProjectCard({ project, index }: { project: PortfolioProject; index: number }) {
   const locale = useLocale()
   const copy = useCopy()
-  const description = projectWorkingDescription(project, locale)
+  const description = projectWorkingDescription(project, locale, true)
   return <article className="portfolio-card" style={{ ['--card-index' as string]: index }}>
     <a className="portfolio-card-link" href={routePath(locale, 'project-detail', project.slug)} aria-label={`${copy.actions.explore}: ${project.title[locale]}`}>
       {project.cover ? <div className="portfolio-card-image"><img src={sitePath(project.cover.src)} srcSet={project.cover.srcSet?.split(', ').map((item) => `${sitePath(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes="(max-width: 800px) 50vw, (max-width: 1100px) 50vw, 33vw" alt={project.cover.alt[locale]} width={project.cover.width ?? 1200} height={project.cover.height ?? 800} loading="lazy" fetchPriority="low" decoding="async" style={{ objectFit: project.cover.fit ?? 'cover', objectPosition: project.cover.position ?? 'center' }} /><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div> : <div className="portfolio-card-image portfolio-card-placeholder"><div className="portfolio-card-placeholder-copy"><strong>{project.title[locale]}</strong><span>{pendingMediaLabel(project, locale)}</span></div><span className="portfolio-card-index">{String(index + 1).padStart(2, '0')}</span></div>}
@@ -118,7 +120,7 @@ export function ProjectsPage() {
     </section>
     <div className="portfolio-toolbar"><p>{String(filtered.length).padStart(2, '0')} <span>{copy.labels.projects}</span></p><div role="group" aria-label={copy.actions.filter} className="portfolio-filters">{projectFilters.map((category) => <button data-magnetic key={category} type="button" aria-pressed={filter === category} aria-controls="project-grid" onClick={() => chooseFilter(category)}><span>{filterLabel(category, locale, copy.actions.all)}</span><b aria-hidden="true">{String(categoryCount(category)).padStart(2, '0')}</b></button>)}</div></div>
     <div id="project-grid" ref={gridRef} className="portfolio-grid" aria-live="polite">{filtered.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</div>
-    <aside className="portfolio-contact"><p className="eyebrow">{copy.labels.contact}</p><h2>{locale === 'en' ? 'Every project begins with a conversation.' : 'تبدأ كل حكاية مشروع بحوار.'}</h2><a data-magnetic className="text-link" href={routePath(locale, 'contact')}>{copy.actions.enquire}<span aria-hidden="true">↗</span></a></aside>
+    <aside className="portfolio-contact"><p className="eyebrow">{copy.labels.contact}</p><h2>{locale === 'en' ? 'Every project begins with a clear brief.' : 'يبدأ كل مشروع بمتطلبات واضحة.'}</h2><WhatsAppAction intent="quote" className="text-link whatsapp-inline-action">{copy.actions.enquire}</WhatsAppAction></aside>
   </Container></section></PageFrame>
 }
 
@@ -159,7 +161,7 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
     {project.historicalBackground && !isBeit ? <section className="detail-story"><p className="eyebrow">{locale === 'en' ? 'Historical background' : 'الخلفية التاريخية'}</p><div>{project.historicalBackground[locale].split('\n\n').map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section> : null}
     {facts.length ? <dl className="project-facts">{facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl> : null}
     {project.scope?.[locale]?.length ? <section className="detail-scope brand-pattern-field brand-pattern-field--metadata"><p className="eyebrow">{copy.labels.scope}</p><ul>{project.scope[locale].map((item) => <li key={item}>{item}</li>)}</ul></section> : null}
-    <div className="detail-cta"><a data-magnetic className="text-link" href={routePath(locale, 'contact')}>{copy.actions.enquire}<span aria-hidden="true">↗</span></a></div>
+    <div className="detail-cta"><WhatsAppAction intent="project" projectTitle={project.title[locale]} className="text-link whatsapp-inline-action">{copy.actions.enquire}</WhatsAppAction></div>
     <section className="related-projects"><p className="eyebrow">{copy.labels.related}</p><div className="portfolio-grid">{related.map((item, index) => <ProjectCard project={item} index={index} key={item.id} />)}</div></section>
   </Container></article></PageFrame>
 }

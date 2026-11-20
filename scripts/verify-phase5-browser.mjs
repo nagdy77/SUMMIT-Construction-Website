@@ -8,7 +8,6 @@ import path from 'node:path'
 const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
 const urlArgument = process.argv.slice(2).find((argument) => !argument.startsWith('--'))
 const base = (urlArgument ?? 'http://127.0.0.1:4173/SUMMIT-Construction-Website').replace(/\/$/, '')
-const configuredEndpointTest = process.argv.includes('--configured')
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 async function walk(directory) {
@@ -193,41 +192,11 @@ try {
 
   await navigate('/en/contact/')
   await delay(1600)
-  await evaluate("document.querySelector('.enquiry-form').requestSubmit(); true")
-  assert.match(await evaluate("document.querySelector('.form-status').textContent"), /required fields/i)
-  assert.equal(await evaluate("document.querySelector('.form-status').getAttribute('role')"), 'alert')
-
-  const fillValidForm = () => evaluate(`(() => {
-    const set = (selector, value) => { const node = document.querySelector(selector); node.value = value; node.dispatchEvent(new Event('input', { bubbles: true })); node.dispatchEvent(new Event('change', { bubbles: true })); };
-    set('#contact-name', 'QA Review'); set('#contact-email', 'qa@example.com'); set('#contact-phone', '+20 100 000 0000'); set('#contact-interest', 'construction'); set('#contact-message', 'This is a controlled local integration test message.'); return true;
-  })()`)
-
-  if (configuredEndpointTest) {
-    await navigate('/en/contact/')
-    await delay(1600)
-    await fillValidForm()
-    await evaluate(`window.fetch = () => new Promise((resolve) => setTimeout(() => resolve(new Response('', { status: 200 })), 250)); document.querySelector('.enquiry-form').requestSubmit(); true`)
-    await waitFor("document.querySelector('.enquiry-form').getAttribute('aria-busy') === 'true'")
-    assert.equal(await evaluate("document.querySelector('.enquiry-form button[type=submit]').disabled"), true)
-    await waitFor("document.querySelector('.form-status').dataset.state === 'success'")
-    assert.match(await evaluate("document.querySelector('.form-status').textContent"), /accepted your enquiry/i)
-
-    await navigate('/en/contact/')
-    await delay(1600)
-    await fillValidForm()
-    await evaluate(`window.fetch = () => Promise.resolve(new Response('', { status: 500 })); document.querySelector('.enquiry-form').requestSubmit(); true`)
-    await waitFor("document.querySelector('.form-status').dataset.state === 'error'")
-    assert.match(await evaluate("document.querySelector('.form-status').textContent"), /could not be submitted/i)
-  } else {
-    await navigate('/en/contact/')
-    assert.equal(await evaluate("document.querySelector('.enquiry-form').dataset.deliveryConfigured"), 'false')
-    await delay(1600)
-    await fillValidForm()
-    await evaluate("document.querySelector('.enquiry-form').requestSubmit(); true")
-    await waitFor("document.querySelector('.form-status').dataset.state === 'error'")
-    assert.match(await evaluate("document.querySelector('.form-status').textContent"), /awaiting provider configuration/i)
-    assert.equal(await evaluate("document.querySelector('.form-status').dataset.state"), 'error')
-  }
+  assert.equal(await evaluate("document.querySelectorAll('form').length"), 0)
+  assert.equal(await evaluate("document.querySelector('.whatsapp-primary-action').dataset.whatsappConfigured"), 'false')
+  assert.equal(await evaluate("document.querySelector('.whatsapp-primary-action').tagName"), 'BUTTON')
+  assert.match(await evaluate("document.querySelector('.whatsapp-action__status').textContent"), /number pending/i)
+  assert.equal(await evaluate("document.querySelector('.contact-direct').getAttribute('href')"), 'mailto:Projects@Summit-constructions.com')
 
   await client.send('Emulation.setEmulatedMedia', { media: '', features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] })
   await navigate('/en/services/')
@@ -242,7 +211,7 @@ try {
   await waitFor("document.querySelector('#mobile-navigation')?.getAttribute('aria-hidden') === 'true' && getComputedStyle(document.querySelector('#mobile-navigation')).visibility === 'hidden'")
   assert.equal(await evaluate(`${menuButton} === document.activeElement`), true)
 
-  console.log(`Verified 44 direct localized routes, refreshes, navigation, language switching, both themes, mobile/desktop layouts, service alignment, filters, gallery controls, ${configuredEndpointTest ? 'configured form loading/success/error states' : 'unconfigured form error behavior'}, accessibility basics, reduced motion and image loading in Edge.`)
+  console.log('Verified 44 direct localized routes, refreshes, navigation, language switching, both themes, mobile/desktop layouts, service alignment, filters, gallery controls, form removal, safe WhatsApp state, accessibility basics, reduced motion and image loading in Edge.')
 } finally {
   browser.kill()
   await delay(250)

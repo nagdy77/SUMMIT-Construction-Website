@@ -1,7 +1,6 @@
 import { useLayoutEffect, useState } from 'react'
-import { Icon } from '../ui/Icon'
-
-const COMPANY_EMAIL = 'Projects@Summit-constructions.com'
+import { useLocale } from '../../content/site'
+import { WhatsAppAction } from '../contact/WhatsAppAction'
 const focusStyle = 'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]'
 
 function useDockPlacement() {
@@ -53,6 +52,7 @@ function useDockPlacement() {
 /** Persistent, touch-safe contact action that withdraws around interactive overlays. */
 export function FloatingControls() {
   const { atHero, withdrawn } = useDockPlacement()
+  const locale = useLocale()
 
   return (
     <div
@@ -63,17 +63,13 @@ export function FloatingControls() {
       inert={withdrawn}
       className={`pointer-events-none fixed inset-x-3 z-40 flex items-end justify-end sm:inset-x-6 ${atHero ? 'top-[calc(5.25rem+env(safe-area-inset-top,0px)+0.5rem)]' : 'bottom-[calc(env(safe-area-inset-bottom,0px)+0.75rem)] sm:bottom-[calc(env(safe-area-inset-bottom,0px)+1.5rem)]'} ${withdrawn ? 'invisible opacity-0' : 'visible opacity-100'}`}
     >
-      <a
-        data-magnetic
-        href={`mailto:${COMPANY_EMAIL}`}
-        aria-label={`Contact SUMMIT Construction by email at ${COMPANY_EMAIL}`}
-        className={`pointer-events-auto group inline-flex min-h-12 shrink-0 items-center justify-center gap-2 border border-[var(--color-accent)]/65 bg-[var(--color-elevated)] px-3 text-[var(--color-ink)] shadow-[0_4px_22px_#00000018] transition-[background-color,color,border-color,transform] duration-200 hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-ink)] motion-reduce:transform-none motion-reduce:transition-none md:gap-0 md:px-0 md:hover:-translate-y-0.5 ${focusStyle}`}
+      <WhatsAppAction
+        intent="general"
+        compact
+        className={`floating-whatsapp-action pointer-events-auto group ${focusStyle}`}
       >
-        <span className="inline-flex items-center justify-center md:h-13 md:w-13"><Icon name="mail" size={20} /></span>
-        <span className="text-[0.62rem] font-semibold uppercase tracking-[0.12em] md:max-w-0 md:overflow-hidden md:whitespace-nowrap md:opacity-0 md:transition-[max-width,opacity,padding] md:duration-300 md:group-hover:max-w-32 md:group-hover:pr-5 md:group-hover:opacity-100 md:group-focus-visible:max-w-32 md:group-focus-visible:pr-5 md:group-focus-visible:opacity-100 motion-reduce:transition-none">
-          Contact Us
-        </span>
-      </a>
+        {locale === 'en' ? 'WhatsApp' : 'واتساب'}
+      </WhatsAppAction>
     </div>
   )
 }

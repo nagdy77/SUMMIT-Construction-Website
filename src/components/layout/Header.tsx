@@ -5,6 +5,7 @@ import { ThemeToggle } from './ThemeProvider'
 import { assetUrl } from '../../lib/assets'
 import { useCopy, useCurrentPath, useLocale } from '../../content/site'
 import { resolveRoute, routePath } from '../../lib/routes'
+import { WhatsAppAction } from '../contact/WhatsAppAction'
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -144,21 +145,22 @@ export function Header() {
       <Container className="relative z-10 flex h-[5.25rem] items-center justify-between gap-4">
         <a href={routePath(locale)} aria-label="SUMMIT Construction" className="flex shrink-0 items-center gap-4" onClick={() => setMenuOpen(false)}>
           <img src={assetUrl('/assets/brand/summit-logo-gold-intro.webp')} alt="SUMMIT Construction" width="269" height="240" decoding="async" className="h-[3.35rem] w-[3.75rem] object-contain" />
-          <span className="hidden border-l border-[var(--color-border)] pl-4 text-[0.54rem] font-semibold uppercase leading-5 tracking-[0.22em] text-[var(--color-muted)] sm:block">Construction<br />Restoration & renovation</span>
+          <span className="header-tagline hidden border-l border-[var(--color-border)] pl-4 text-[0.54rem] font-semibold uppercase leading-5 tracking-[0.22em] text-[var(--color-muted)] sm:block">Construction<br />Restoration & renovation</span>
         </a>
         <div className="flex items-center gap-2 lg:gap-4">
-          <nav aria-label={locale === 'en' ? 'Main navigation' : 'التنقل الرئيسي'} className="hidden items-center gap-2 lg:flex xl:gap-3 2xl:gap-5">
+          <nav aria-label={locale === 'en' ? 'Main navigation' : 'التنقل الرئيسي'} className="hidden items-center gap-2 xl:flex xl:gap-3 2xl:gap-5">
             {navigation.map((item) => <a key={item.href} href={item.href} aria-current={currentRoute.page === item.page || (currentRoute.page === 'project-detail' && item.page === 'projects') || (currentRoute.page === 'service-detail' && item.page === 'services') ? 'page' : undefined} className="nav-link">{item.label}</a>)}
           </nav>
-          <a data-magnetic className="language-switch" lang={locale === 'en' ? 'ar' : 'en'} href={languageHref}>{copy.home.language}</a>
-          <ThemeToggle />
-          <button ref={menuButtonRef} data-magnetic type="button" aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={menuOpen ? copy.actions.close : copy.actions.menu} className="menu-toggle theme-toggle lg:hidden" onClick={() => setMenuOpen((value) => !value)}>
+          <WhatsAppAction intent="quote" compact className="header-quote-cta">{locale === 'en' ? 'Request a Quote' : 'اطلب عرض سعر'}</WhatsAppAction>
+          <a data-magnetic className="language-switch header-language-switch" lang={locale === 'en' ? 'ar' : 'en'} href={languageHref}>{copy.home.language}</a>
+          <span className="header-theme-toggle"><ThemeToggle /></span>
+          <button ref={menuButtonRef} data-magnetic type="button" aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={menuOpen ? copy.actions.close : copy.actions.menu} className="menu-toggle theme-toggle xl:hidden" onClick={() => setMenuOpen((value) => !value)}>
             <span className="menu-toggle-lines" aria-hidden="true"><i className="menu-toggle-line" /><i className="menu-toggle-line" /><i className="menu-toggle-line" /></span>
           </button>
         </div>
       </Container>
-      <button ref={menuBackdropRef} type="button" tabIndex={-1} aria-label={copy.actions.close} aria-hidden={!menuOpen} inert={!menuOpen} className="mobile-menu-backdrop fixed inset-0 top-[5.25rem] bg-black/60 lg:hidden" onClick={() => setMenuOpen(false)} />
-      <nav ref={menuPanelRef} id="mobile-navigation" aria-label={locale === 'en' ? 'Mobile navigation' : 'قائمة التنقل'} aria-hidden={!menuOpen} inert={!menuOpen} className="mobile-navigation absolute inset-x-0 top-full border-b border-[var(--color-border)] lg:hidden">
+      <button ref={menuBackdropRef} type="button" tabIndex={-1} aria-label={copy.actions.close} aria-hidden={!menuOpen} inert={!menuOpen} className="mobile-menu-backdrop fixed inset-0 top-[5.25rem] bg-black/60 xl:hidden" onClick={() => setMenuOpen(false)} />
+      <nav ref={menuPanelRef} id="mobile-navigation" aria-label={locale === 'en' ? 'Mobile navigation' : 'قائمة التنقل'} aria-hidden={!menuOpen} inert={!menuOpen} className="mobile-navigation absolute inset-x-0 top-full border-b border-[var(--color-border)] xl:hidden">
         <span className="mobile-navigation-accent" aria-hidden="true" />
         <Container className="relative z-10 max-h-[calc(100svh-5.25rem)] overflow-auto pb-7 pt-3">
           {navigation.map((item, index) => <a key={item.href} href={item.href} aria-current={currentRoute.page === item.page || (currentRoute.page === 'project-detail' && item.page === 'projects') || (currentRoute.page === 'service-detail' && item.page === 'services') ? 'page' : undefined} className="mobile-navigation-link flex min-h-14 items-center justify-between border-b border-[var(--color-border)] py-2 text-xl tracking-tight" onClick={() => setMenuOpen(false)}><span>{item.label}</span><span className="text-[0.6rem] tracking-widest text-[var(--color-accent)]">0{index + 1}</span></a>)}

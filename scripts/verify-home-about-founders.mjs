@@ -12,8 +12,8 @@ const outputDirectory = path.resolve('references', 'qa', 'home-about-founders')
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds))
 let assetAssertions = 0
 for (const [file, expectedWidth, expectedHeight] of [
-  ['public/assets/about/founders/founders-wide-960.webp', 960, 640],
-  ['public/assets/about/founders/founders-wide-1536.webp', 1536, 1024],
+  ['public/assets/about/founders/founders-960.webp', 960, 640],
+  ['public/assets/about/founders/founders-1536.webp', 1536, 1024],
 ]) {
   const metadata = await sharp(file).metadata()
   assert.equal(metadata.width, expectedWidth)
@@ -174,7 +174,7 @@ try {
         assert.equal(metrics.lang, locale)
         assert.equal(metrics.dir, locale === 'ar' ? 'rtl' : 'ltr')
         assert.equal(metrics.theme, theme)
-        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-wide-(960|1536)\.webp$/)
+        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-(960|1536)\.webp$/)
         assert.ok(metrics.imageAlt.includes(locale === 'en' ? 'Ahmed Elesawy' : 'أحمد العيسوي'))
         assert.equal(metrics.objectFit, 'contain')
         assert.ok(Math.abs(metrics.frameRatio - 1.5) < 0.015, 'Executive frame must preserve the portrait ratio')
@@ -191,7 +191,7 @@ try {
         assert.equal(metrics.hasHandmadeSvg, false)
         assert.match(metrics.badgeText, /2018/)
         assert.equal(metrics.oldWorkerImage, false)
-        assert.equal(metrics.serviceMarkPaths.length, 3)
+        assert.equal(metrics.serviceMarkPaths.length, 4)
         assert.ok(metrics.serviceMarkPaths.every((item) => /\/assets\/brand\/summit-mountain-symbol\.webp$/.test(item)))
         assert.ok(metrics.serviceMarkAlts.every((item) => item === ''))
         assert.equal(metrics.serviceHandmadeSvgCount, 0)

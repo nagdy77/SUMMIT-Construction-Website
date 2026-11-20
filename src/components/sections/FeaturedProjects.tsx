@@ -550,7 +550,7 @@ export function FeaturedProjects() {
                   {activePortfolioProject.title[locale]}
                 </h3>
                 <p data-project-active-copy className="featured-project-summary__description mt-3 max-w-2xl font-body text-sm leading-6 text-[var(--color-muted)]">
-                  {activePortfolioProject.description?.[locale]}
+                  {activePortfolioProject.summary?.[locale] ?? activePortfolioProject.description?.[locale]}
                 </p>
               </div>
 

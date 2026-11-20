@@ -118,8 +118,8 @@ export function AboutPreview() {
               <div data-about-reveal className="h-full w-full">
                 <div data-about-image-motion className="h-full w-full">
                   <img
-                    src={assetUrl('/assets/about/founders/founders-wide-1536.webp')}
-                    srcSet={assetSrcSet('/assets/about/founders/founders-wide-960.webp 960w, /assets/about/founders/founders-wide-1536.webp 1536w')}
+                    src={assetUrl('/assets/about/founders/founders-1536.webp')}
+                    srcSet={assetSrcSet('/assets/about/founders/founders-960.webp 960w, /assets/about/founders/founders-1536.webp 1536w')}
                     sizes="(max-width: 767px) calc(100vw - 2.5rem), (max-width: 1279px) 58vw, 720px"
                     width="1536"
                     height="1024"

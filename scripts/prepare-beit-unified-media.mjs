@@ -7,6 +7,7 @@ const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url))
 const portfolioRoot = path.join(repositoryRoot, 'public', 'assets', 'projects', 'portfolio')
 const beitRoot = path.join(portfolioRoot, 'beit-al-razzaz')
 const documentationRoot = path.join(repositoryRoot, 'client-media-archive', 'BEIT AL RAZZAZ', 'restoration-documentation')
+const phaseOneArchiveRoot = path.join(repositoryRoot, 'client-media-archive', 'BEIT AL RAZZAZ', 'Phase 1')
 
 const beitEntries = await readdir(beitRoot, { withFileTypes: true })
 const rawContainer = beitEntries
@@ -63,6 +64,8 @@ const northernComparisons = [
 for (const [source, outputStem] of northernComparisons) {
   await optimizedDocumentationCopies(source, northernComparisonOutput, outputStem)
 }
+await optimizedDocumentationCopies(path.join(phaseOneArchiveRoot, 'WhatsApp Image 2025-12-30 21.jpeg'), northernComparisonOutput, '04-before')
+await optimizedCopies(path.join(beitRoot, 'IMG_7881.JPG.jpeg'), northernComparisonOutput, '04-after')
 
 const westernComparisonOutput = path.join(beitRoot, 'phase-2-western-wing', 'comparisons')
 await optimizedDocumentationCopies(documentationGroup('E3-01-37-05', 'DSC_3207.jpg'), westernComparisonOutput, '01-before')
@@ -112,6 +115,13 @@ const northernAdditions = [
 ]
 for (let index = 0; index < northernAdditions.length; index += 1) {
   await optimizedCopies(northernAdditions[index], northernOutput, String(index + 6).padStart(2, '0'))
+}
+const newlySuppliedNorthernGallery = [
+  path.join(beitRoot, 'IMG_7862.JPG.jpeg'),
+  path.join(beitRoot, 'IMG_7880.JPG.jpeg'),
+]
+for (let index = 0; index < newlySuppliedNorthernGallery.length; index += 1) {
+  await optimizedCopies(newlySuppliedNorthernGallery[index], northernOutput, String(index + 13).padStart(2, '0'))
 }
 
 const archiveOutput = path.join(beitRoot, 'archive-views')
@@ -163,10 +173,10 @@ for (let index = 0; index < carpentryNew.length; index += 1) {
 }
 
 console.log(JSON.stringify({
-  northernComparisons: 3,
+  northernComparisons: 4,
   westernWingComparisons: 3,
   westernWingPhotos: 16,
-  northernSideAdditions: northernAdditions.length,
+  northernSideAdditions: northernAdditions.length + newlySuppliedNorthernGallery.length,
   archiveViews: 3,
   qaitbayMainHallPhotos: qaitbayExisting.length + qaitbayNew.length,
   carpentryPhotos: carpentryExisting.length + carpentryNew.length,

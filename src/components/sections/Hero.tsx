@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
-import { ButtonLink } from '../ui/Button'
+import { WhatsAppAction } from '../contact/WhatsAppAction'
 import { Container } from '../ui/Container'
 import { Icon } from '../ui/Icon'
 import { createImageCrossfade } from '../../lib/crossfade'
@@ -8,13 +8,15 @@ import { assetSrcSet, assetUrl } from '../../lib/assets'
 import { routePath } from '../../lib/routes'
 import { useHomeCopy, useLocale } from '../../content/site'
 
+type HeroAction =
+  | { id: 'story' | 'projects' | 'residential'; type: 'route'; page: 'about' | 'projects' | 'service-detail'; slug?: string }
+  | { id: 'quote'; type: 'whatsapp' }
+
 type HeroSlide = {
   category: string
   headline: string
   lines: string[]
   accentLine: number
-  cta: string
-  page: 'about' | 'services' | 'projects' | 'contact'
   image: {
     src: string
     srcSet: string
@@ -24,6 +26,7 @@ type HeroSlide = {
     height: number
   }
   imagePosition: string
+  action: HeroAction
 }
 
 const AUTOPLAY_SECONDS = 8
@@ -36,8 +39,6 @@ const slides: HeroSlide[] = [
     headline: 'We Build the Future with the Spirit of Heritage.',
     lines: ['We Build the Future', 'with the Spirit', 'of Heritage.'],
     accentLine: 2,
-    cta: 'Discover our story',
-    page: 'about',
     image: {
       src: '/assets/projects/portfolio/mohamed-ali-palace/03-1565.webp',
       srcSet:
@@ -48,14 +49,13 @@ const slides: HeroSlide[] = [
       height: 1005,
     },
     imagePosition: 'object-[58%_center] sm:object-center',
+    action: { id: 'story', type: 'route', page: 'about' },
   },
   {
     category: 'Construction',
     headline: 'Monumental Ideas. Precisely Built.',
     lines: ['Monumental Ideas.', 'Precisely Built.'],
     accentLine: 1,
-    cta: 'Explore our services',
-    page: 'services',
     image: {
       src: '/assets/projects/portfolio/new-capital-administrations-district/02-1564.webp',
       srcSet:
@@ -66,14 +66,13 @@ const slides: HeroSlide[] = [
       height: 1006,
     },
     imagePosition: 'object-[62%_center] sm:object-center',
+    action: { id: 'projects', type: 'route', page: 'projects' },
   },
   {
     category: 'Residential Fit-Out',
     headline: 'Spaces Designed Around the Way You Live.',
     lines: ['Spaces Designed', 'Around the Way', 'You Live.'],
     accentLine: 2,
-    cta: 'View selected work',
-    page: 'projects',
     image: {
       src: '/assets/projects/portfolio/lakeview-residence/01-1570.webp',
       srcSet:
@@ -84,14 +83,13 @@ const slides: HeroSlide[] = [
       height: 1001,
     },
     imagePosition: 'object-[67%_center] sm:object-center',
+    action: { id: 'residential', type: 'route', page: 'service-detail', slug: 'renovation' },
   },
   {
     category: 'Retail Fit-Out',
     headline: 'Interiors Where Material Becomes Atmosphere.',
     lines: ['Interiors Where', 'Material Becomes', 'Atmosphere.'],
     accentLine: 2,
-    cta: 'Start a conversation',
-    page: 'contact',
     image: {
       src: '/assets/projects/portfolio/desigual/01-1600.webp',
       srcSet:
@@ -102,6 +100,7 @@ const slides: HeroSlide[] = [
       height: 756,
     },
     imagePosition: 'object-[58%_center] sm:object-center',
+    action: { id: 'quote', type: 'whatsapp' },
   },
 ]
 
@@ -116,7 +115,7 @@ type HeroProps = {
 export function Hero({ entranceReady = true }: HeroProps) {
   const locale = useLocale()
   const copy = useHomeCopy()
-  const localizedSlides = slides.map((slide, index) => ({ ...slide, ...copy.hero[index], href: routePath(locale, slide.page), image: { ...slide.image, alt: copy.hero[index].alt } }))
+  const localizedSlides = slides.map((slide, index) => ({ ...slide, ...copy.hero[index], image: { ...slide.image, alt: copy.hero[index].alt } }))
   const rootRef = useRef<HTMLElement>(null)
   const navigateRef = useRef<(direction: 1 | -1) => void>(() => undefined)
   const toggleAutoplayRef = useRef<() => void>(() => undefined)
@@ -610,7 +609,7 @@ export function Hero({ entranceReady = true }: HeroProps) {
                   className={`absolute inset-0 size-full object-cover opacity-0 data-[ready=true]:opacity-100 ${slide.imagePosition}`}
                 />
               </picture>
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0.94)_0%,rgba(10,10,10,0.72)_46%,rgba(10,10,10,0.18)_100%)]" />
+              <div className="hero-content-contrast absolute inset-0" />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.2)_0%,transparent_28%,rgba(10,10,10,0.72)_100%)]" />
 
               <Container className="relative z-10 flex h-full flex-col justify-end pb-28 pt-[calc(5.25rem+2rem)] sm:pb-32 lg:pb-36 lg:pt-[calc(5.25rem+4rem)] [@media(max-height:640px)]:pb-20 [@media(max-height:640px)]:pt-[5.75rem]">
@@ -636,10 +635,30 @@ export function Hero({ entranceReady = true }: HeroProps) {
                     ))}
                   </Heading>
 
-                  <div data-hero-copy className="mt-7 sm:mt-9 [@media(max-height:640px)]:mt-4">
-                    <ButtonLink href={slide.href} tabIndex={isActive ? 0 : -1}>
-                      {slide.cta}
-                    </ButtonLink>
+                  <div data-hero-actions className="hero-actions mt-6 sm:mt-8 [@media(max-height:640px)]:mt-4">
+                    {slide.action.type === 'whatsapp' ? (
+                      <span data-hero-cta={slide.action.id} className="hero-cta-slot">
+                        <WhatsAppAction
+                          intent="quote"
+                          className="hero-cta hero-cta--primary"
+                          tabIndex={isActive ? 0 : -1}
+                        >
+                          <span className="hero-cta__label">{slide.cta}</span>
+                          <span className="hero-cta__arrow" aria-hidden="true"><Icon name="arrow-right" size={18} /></span>
+                        </WhatsAppAction>
+                      </span>
+                    ) : (
+                      <a
+                        data-magnetic
+                        data-hero-cta={slide.action.id}
+                        className="hero-cta hero-cta--primary"
+                        href={routePath(locale, slide.action.page, slide.action.slug)}
+                        tabIndex={isActive ? 0 : -1}
+                      >
+                        <span className="hero-cta__label">{slide.cta}</span>
+                        <span className="hero-cta__arrow" aria-hidden="true"><Icon name="arrow-right" size={18} /></span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </Container>
@@ -654,7 +673,7 @@ export function Hero({ entranceReady = true }: HeroProps) {
         ))}
       </div>
 
-      <Container className="pointer-events-none absolute inset-x-0 bottom-0 z-30 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:pb-8 [@media(max-height:640px)]:pb-3">
+      <Container data-hero-navigation className="pointer-events-none absolute inset-x-0 bottom-0 z-30 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:pb-8 [@media(max-height:640px)]:pb-3">
         <div className="grid grid-cols-[auto_minmax(1rem,1fr)_auto] items-end gap-3 border-t border-white/25 pt-5 sm:gap-8 [@media(max-height:640px)]:pt-3">
           <div className="flex items-baseline gap-2 font-display tabular-nums">
             <span className="text-xl font-medium text-summit-gold sm:text-2xl">{formatSlideNumber(activeIndex)}</span>

@@ -69,6 +69,15 @@ Summit construction was responsible for the structural repair, adaptive reuse an
 - Location: Al Darb Al Ahmar
 - Project Duration: 10 months
 
+### Implemented media mapping (2026-11-20)
+
+- Phase 1 is the Northern Side; Phase 2 is the Western Wing.
+- Five newly supplied JPG photographs were audited without modifying the originals.
+- `IMG_7881.JPG.jpeg` is mapped as the completed view for the verified Phase 1 rooftop-structure comparison, paired with the archived construction view `WhatsApp Image 2025-12-30 21.jpeg`.
+- `IMG_7862.JPG.jpeg` and `IMG_7880.JPG.jpeg` are included as regular Phase 1 Northern Side gallery photographs.
+- `IMG_7829.JPG.jpeg` and `IMG_7840.JPG.jpeg` remain unassigned because their phase and matching earlier views cannot be confirmed from the supplied evidence.
+- Public-facing captions use editorial labels only; technical source filenames remain internal documentation.
+
 ## 03 — Safi Al Din Gowhar
 
 - ID / slug: `safi-al-din-gowhar`

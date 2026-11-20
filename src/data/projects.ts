@@ -15,6 +15,7 @@ export type ProjectImage = {
 export type ProjectCategory = 'Heritage Restoration' | 'Construction' | 'Residential Fit-Out' | 'Retail Fit-Out'
 export type ProjectContentStatus = 'source-supplied' | 'source-contains-speculative-language' | 'awaiting-client-correction' | 'awaiting-conflict-resolution' | 'awaiting-project-details'
 export type ProjectCategoryStatus = 'confirmed' | 'tentative'
+export type LocalizedProjectCopy = { en: string; ar: string }
 
 export type ProjectSpecifications = {
   client: string | null
@@ -34,7 +35,8 @@ export type ProjectRecord = {
   inboxFolder: string
   historicalBackground: string | null
   sourceOverview: string
-  publicOverview: string | null
+  publicOverview: string | LocalizedProjectCopy | null
+  shortOverview?: LocalizedProjectCopy | null
   detailsNote?: { en: string; ar: string } | null
   specifications: ProjectSpecifications
   contentStatus: ProjectContentStatus
@@ -56,8 +58,15 @@ export const projects: readonly ProjectRecord[] = [
     inboxFolder: 'project-inbox/heritage-restoration/mohamed-ali-palace/',
     historicalBackground: 'Qasr al Fusqiya in Shubra is a significant landmark built in 1808 and a symbol of Muhammad Ali pasha era and represents a key chapter in modern Egyptian history.',
     sourceOverview: 'Summit Construction company, along with its distinguished partner The Stone shop company was assigned to restore all the marble works in Al-Fasqiya Palace in Shubra Al-Khaimah with total area about 4000 M2 of Italian Carrara. The project was delivered within the specified time frame and with the highest possible quality.',
-    publicOverview: 'Summit Construction company, along with its distinguished partner The Stone shop company was assigned to restore all the marble works in Al-Fasqiya Palace in Shubra Al-Khaimah with total area about 4000 M2 of Italian Carrara. The project was delivered within the specified time frame and with the highest possible quality.',
-    specifications: { client: 'Rowad Modern Engineering', scope: 'Renovation of all marble works in AL-Fasqiah Palace', location: 'Mohamed Ali palace', projectDuration: '12 months' },
+    publicOverview: {
+      en: "Four thousand square meters of Italian Carrara marble, restored piece by piece. At Al-Fasqiya Palace in Shubra El-Kheima, SUMMIT and partner The Stone Shop brought the palace's marble back to life and handed it over on time.",
+      ar: 'أربعة آلاف متر مربع من رخام كرارا الإيطالي أُعيد ترميمها بدقة. في قصر الفسقية بشبرا الخيمة، أعادت سوميت بالشراكة مع The Stone Shop الحياة لرخام القصر وسلّمته في الموعد المحدد.',
+    },
+    shortOverview: {
+      en: 'Restoration of all marble works at Al-Fasqiya Palace in Shubra El-Kheima: about 4,000 m² of Italian Carrara marble. Carried out with our partner The Stone Shop and delivered on schedule to a high standard of craftsmanship.',
+      ar: 'ترميم كامل لأعمال الرخام في قصر الفسقية بشبرا الخيمة، بمساحة نحو 4000 م² من رخام كرارا الإيطالي. نُفّذ المشروع بالشراكة مع شركة The Stone Shop، وسُلّم في موعده المحدد بأعلى مستوى من الجودة.',
+    },
+    specifications: { client: 'Rowad Modern Engineering', scope: 'Renovation of all marble works in AL-Fasqiah Palace', location: 'Mohamed Ali palace', projectDuration: '12 months', bua: '4,000 m²' },
     contentStatus: 'source-supplied', reviewNotes: [], pendingMedia: false, images: projectMedia['mohamed-ali-palace'],
   },
   {

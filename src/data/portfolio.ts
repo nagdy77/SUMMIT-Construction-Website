@@ -25,6 +25,7 @@ export type PortfolioProject = {
   location: Record<Locale, string> | null
   client: string | null
   description: Record<Locale, string> | null
+  summary: Record<Locale, string> | null
   detailsNote: Record<Locale, string> | null
   historicalBackground: Record<Locale, string> | null
   scope: Record<Locale, string[]>
@@ -43,9 +44,13 @@ export type PortfolioProject = {
 function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
   const titleAr = project.title.ar ?? project.title.en
   const publicDescription = project.publicOverview
+  const localizedDescription = typeof publicDescription === 'string'
+    ? { en: publicDescription, ar: publicDescription }
+    : publicDescription
+  const localizedSummary = project.shortOverview ?? localizedDescription
   const correctionPending = project.contentStatus !== 'source-supplied'
   const pendingDescription = 'Project information is awaiting client correction before publication.'
-  const descriptionEn = publicDescription ?? project.detailsNote?.en ?? pendingDescription
+  const descriptionEn = localizedSummary?.en ?? project.detailsNote?.en ?? pendingDescription
   const gallery = project.images.map((image) => ({
     src: image.src,
     srcSet: image.srcSet,
@@ -67,7 +72,8 @@ function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
     categoryStatus: project.categoryStatus ?? 'confirmed',
     location: project.specifications.location ? { en: project.specifications.location, ar: project.specifications.location } : null,
     client: project.specifications.client,
-    description: publicDescription ? { en: publicDescription, ar: publicDescription } : null,
+    description: localizedDescription ?? null,
+    summary: localizedSummary ?? null,
     detailsNote: project.detailsNote ?? null,
     historicalBackground: project.historicalBackground ? { en: project.historicalBackground, ar: project.historicalBackground } : null,
     scope: project.specifications.scope ? { en: [project.specifications.scope], ar: [project.specifications.scope] } : { en: [], ar: [] },
@@ -78,12 +84,12 @@ function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
     gallery,
     pendingMedia: project.pendingMedia,
     contentStatus: project.contentStatus,
-    // A localized display title does not approve the still-English project
-    // description, specifications, or SEO copy for Arabic indexing.
-    hasApprovedArabic: false,
+    // Only records with supplied bilingual narrative copy are approved for
+    // Arabic project-description metadata.
+    hasApprovedArabic: (publicDescription !== null && typeof publicDescription === 'object') || Boolean(project.shortOverview),
     seo: {
       title: { en: `${project.title.en} | SUMMIT Construction`, ar: `${titleAr} | SUMMIT Construction` },
-      description: { en: descriptionEn, ar: project.detailsNote?.ar ?? descriptionEn },
+      description: { en: descriptionEn, ar: localizedSummary?.ar ?? project.detailsNote?.ar ?? descriptionEn },
     },
     approvalNeeds: [
       ...(project.pendingMedia ? ['replacement project photography'] : []),

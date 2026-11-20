@@ -1,11 +1,12 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ButtonLink } from '../ui/Button'
 import { Container } from '../ui/Container'
 import { Icon } from '../ui/Icon'
 import { assetSrcSet, assetUrl } from '../../lib/assets'
 import { useHomeCopy, useLocale } from '../../content/site'
+import { COMPANY_EMAIL } from '../../config/contact'
+import { WhatsAppAction } from '../contact/WhatsAppAction'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -90,12 +91,12 @@ export function ContactCTA() {
             {copy.body}
           </p>
           <p data-contact-copy className="mt-7 font-body text-xs uppercase tracking-[0.14em] text-summit-ivory sm:mt-9 sm:text-sm">
-            <a data-magnetic className="inline-flex min-h-11 max-w-full items-center gap-3 rounded-[var(--radius-control)] border border-transparent border-b-summit-gold/70 px-2 pb-2 transition-colors hover:border-summit-gold/70 hover:text-summit-gold" href="mailto:Projects@Summit-constructions.com">
-              <Icon name="mail" size={18} className="shrink-0" /><span className="min-w-0">Projects@Summit-constructions.com</span>
+            <a data-magnetic className="inline-flex min-h-11 max-w-full items-center gap-3 rounded-[var(--radius-control)] border border-transparent border-b-summit-gold/70 px-2 pb-2 transition-colors hover:border-summit-gold/70 hover:text-summit-gold" href={`mailto:${COMPANY_EMAIL}`}>
+              <Icon name="mail" size={18} className="shrink-0" /><span className="min-w-0">{COMPANY_EMAIL}</span>
             </a>
           </p>
           <div data-contact-copy className="mt-8 sm:mt-10">
-            <ButtonLink href="mailto:Projects@Summit-constructions.com">{copy.cta}</ButtonLink>
+            <WhatsAppAction intent="general" showStatus className="summit-button button-gold min-h-12 border px-6 py-3 font-body text-[0.6875rem] font-bold uppercase tracking-[0.16em]">{copy.cta}</WhatsAppAction>
           </div>
         </div>
 

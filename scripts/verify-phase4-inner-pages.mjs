@@ -149,15 +149,16 @@ try {
   assert.equal(await evaluate("document.querySelectorAll('.client-logo-set:not([aria-hidden=\"true\"]) .client-logo-card').length"), 8)
   await navigate(`${base}/en/contact/`)
   await delay(1600)
-  await evaluate("document.querySelector('.enquiry-form').requestSubmit(); true")
-  assert.match(await evaluate("document.querySelector('.form-status').textContent"), /required fields/i)
-  assert.equal(await evaluate("document.querySelectorAll('.enquiry-form input, .enquiry-form select, .enquiry-form textarea').length"), 7)
+  assert.equal(await evaluate("document.querySelectorAll('form').length"), 0)
+  assert.equal(await evaluate("document.querySelector('.whatsapp-primary-action').dataset.whatsappConfigured"), 'false')
+  assert.match(await evaluate("document.querySelector('.whatsapp-action__status').textContent"), /number pending/i)
+  assert.equal(await evaluate("document.querySelector('.contact-direct').getAttribute('href')"), 'mailto:Projects@Summit-constructions.com')
 
   await client.send('Emulation.setEmulatedMedia', { media: '', features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] })
   await navigate(`${base}/en/about/`)
   assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-reveal]')).opacity"), '1')
 
-  console.log('Verified 36 responsive EN/AR inner-page renders, four distinct service compositions, 8 profile-supplied marks, form validation, image loading, RTL and reduced motion in Edge.')
+  console.log('Verified 36 responsive EN/AR inner-page renders, four distinct service compositions, 8 profile-supplied marks, form removal, safe WhatsApp state, image loading, RTL and reduced motion in Edge.')
 } finally {
   browser.kill()
   await delay(250)

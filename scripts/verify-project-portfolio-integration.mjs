@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { spawn } from 'node:child_process'
-import { mkdtemp, readFile, rm } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { createServer } from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
@@ -10,6 +10,8 @@ const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.
 const base = (process.argv[2] ?? 'http://127.0.0.1:4173/SUMMIT-Construction-Website').replace(/\/$/, '')
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const outputDirectory = path.join(repositoryRoot, 'references', 'qa', 'beit-al-razzaz')
+await mkdir(outputDirectory, { recursive: true })
 const mediaManifest = JSON.parse(await readFile(path.join(repositoryRoot, 'public', 'assets', 'projects', 'portfolio', 'media-manifest.json'), 'utf8'))
 const projects = Object.fromEntries(Object.entries(mediaManifest.projects).map(([slug, project]) => [slug, project.count]))
 const genericProjects = Object.fromEntries(Object.entries(projects).filter(([slug]) => slug !== 'beit-al-razzaz'))
@@ -104,6 +106,10 @@ try {
   const navigate = async (url) => {
     await client.send('Page.navigate', { url })
     await waitFor("document.readyState === 'complete' && Boolean(document.querySelector('.site-header'))")
+    if (await evaluate("Boolean(document.querySelector('[data-skip-intro]'))")) {
+      await evaluate("document.querySelector('[data-skip-intro]').click(); true")
+      await waitFor("!document.querySelector('[data-skip-intro]')")
+    }
   }
   const waitForImages = async (selector = 'img') => evaluate(`Promise.all([...document.querySelectorAll('${selector}')].map((image) => new Promise((resolve) => {
     image.loading = 'eager';
@@ -178,7 +184,7 @@ try {
   for (const locale of ['en', 'ar']) {
     console.log(`Checking unified Beit Al-Razzaz case study (${locale})`)
     await navigate(`${base}/${locale}/projects/beit-al-razzaz/`)
-    await waitFor("document.querySelectorAll('.beit-comparison').length === 7")
+    await waitFor("document.querySelectorAll('.beit-comparison').length === 8")
     const qaitbayLoading = await evaluate(`(() => { const images = [...document.querySelectorAll('[aria-labelledby="beit-qaitbay-heading"] [data-carousel-copy="main"] img')]; return { total: images.length, lazy: images.filter((image) => image.loading === 'lazy').length, lowPriority: images.filter((image) => image.fetchPriority === 'low').length, loaded: images.filter((image) => image.complete && image.naturalWidth > 0).length }; })()`)
     assert.deepEqual([qaitbayLoading.total, qaitbayLoading.lazy, qaitbayLoading.lowPriority], [17, 17, 17], `Beit Al-Razzaz ${locale} Qaitbay gallery must remain lazy and low-priority`)
     if (locale === 'en') assert.ok(qaitbayLoading.loaded < 17, 'The uncached Beit Al-Razzaz page must not initially fetch the full Qaitbay gallery')
@@ -203,10 +209,10 @@ try {
       visibleText: document.body.innerText,
     })`)
     assert.ok(beit.documentWidth <= beit.viewport, `Beit Al-Razzaz ${locale} must not overflow on mobile`)
-    assert.equal(beit.comparisons, 7, 'Beit Al-Razzaz must expose all seven verified comparisons')
+    assert.equal(beit.comparisons, 8, 'Beit Al-Razzaz must expose all eight verified comparisons')
     assert.equal(beit.carousels, 5, 'Beit Al-Razzaz must expose five regular-photo carousels')
     assert.ok(beit.carouselDirections.every((direction) => direction === (locale === 'en' ? 'ltr' : 'rtl')), `Beit Al-Razzaz ${locale} carousel controls must follow the page direction`)
-    assert.deepEqual([beit.phase1, beit.phase2, beit.carpentry, beit.archive, beit.qaitbay], [12, 16, 9, 3, 17], 'Beit Al-Razzaz must expose every correctly grouped gallery image')
+    assert.deepEqual([beit.phase1, beit.phase2, beit.carpentry, beit.archive, beit.qaitbay], [14, 16, 9, 3, 17], 'Beit Al-Razzaz must expose every correctly grouped gallery image')
     assert.ok(beit.comparisonStructures.every((comparison) => comparison.images === 2 && comparison.ranges === 1), 'every verified pair must use one overlaid two-image comparison with an accessible range control')
     assert.ok(beit.comparisonStructures.every((comparison) => JSON.stringify(comparison.labels) === JSON.stringify(locale === 'en' ? ['Before', 'After'] : ['قبل', 'بعد'])), `all ${locale} comparison labels must be consistent`)
     assert.equal(beit.staticComparisonImages, 0, 'no verified before/after image may remain outside an interactive comparison')
@@ -224,7 +230,7 @@ try {
   assert.equal(narrowComparisonLayout.columns, 2, '320px comparison layout must retain exactly two columns')
   assert.ok(narrowComparisonLayout.documentWidth <= narrowComparisonLayout.viewport, '320px comparison layout must not create horizontal page overflow')
   assert.ok(narrowComparisonLayout.widths.every((width) => width > 0 && width < narrowComparisonLayout.viewport / 2), 'each mobile comparison must fit independently within its grid cell')
-  assert.deepEqual(narrowComparisonLayout.values, ['50', '50', '50'], 'every comparison must start with its own divider at 50%')
+  assert.deepEqual(narrowComparisonLayout.values, ['50', '50', '50', '50'], 'every comparison must start with its own divider at 50%')
   const initialSlider = await evaluate("document.querySelector('.beit-comparison input').value")
   await evaluate("document.querySelector('.beit-comparison input').focus(); true")
   await client.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'ArrowRight', code: 'ArrowRight', windowsVirtualKeyCode: 39 })
@@ -251,9 +257,18 @@ try {
   const afterTouchComparison = await dispatchPointerDrag(1, 'touch', .8, .3)
   assert.ok(afterTouchComparison[1] <= 35, 'second comparison must respond to touch pointer dragging')
   assert.equal(afterTouchComparison[0], afterMouseComparison[0], 'dragging the second comparison must not change the first divider')
+  const mobileCapture = await client.send('Page.captureScreenshot', { format: 'png', fromSurface: true })
+  await writeFile(path.join(outputDirectory, 'phase-1-comparisons-mobile.png'), Buffer.from(mobileCapture.data, 'base64'))
 
   console.log('Checking carousel autoplay, pause, looping and desktop drag')
   await client.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 960, deviceScaleFactor: 1, mobile: false })
+  await navigate(`${base}/en/projects/beit-al-razzaz/`)
+  await evaluate("document.querySelector('#beit-phase-1 .beit-pair-grid').scrollIntoView({ block: 'center' }); true")
+  await waitFor("document.querySelector('#beit-phase-1 .beit-pair-grid').getBoundingClientRect().top >= 0")
+  assert.ok((await waitForImages('#beit-phase-1 .beit-comparison img')).every(Boolean), 'desktop Phase 1 comparisons must decode before visual capture')
+  await delay(500)
+  const desktopCapture = await client.send('Page.captureScreenshot', { format: 'png', fromSurface: true })
+  await writeFile(path.join(outputDirectory, 'phase-1-comparisons-desktop.png'), Buffer.from(desktopCapture.data, 'base64'))
   await navigate(`${base}/en/projects/mohamed-ali-palace/`)
   const initiallyOffscreen = await evaluate(`document.querySelector('.detail-gallery-carousel').dataset.carouselAutoplay`)
   assert.equal(initiallyOffscreen, 'paused', 'offscreen gallery autoplay must remain paused')
@@ -387,7 +402,7 @@ try {
 
   assert.deepEqual(getBrowserErrors(), [], 'live production routes must not emit browser console errors')
 
-  console.log(`Verified ${Object.keys(genericProjects).length + 5} horizontal carousels, seven independent before/after comparisons, all ${Object.keys(projects).length} project galleries and ${expectedPhotoCount} photographs, autoplay/pause/looping, mouse drag, trackpad scroll, touch swipe, RTL controls, two-column mobile comparisons, lightbox controls, reduced motion, no console errors, and 320–1440px layouts in Edge.`)
+  console.log(`Verified ${Object.keys(genericProjects).length + 5} horizontal carousels, eight independent before/after comparisons, all ${Object.keys(projects).length} project galleries and ${expectedPhotoCount} photographs, autoplay/pause/looping, mouse drag, trackpad scroll, touch swipe, RTL controls, two-column mobile comparisons, lightbox controls, reduced motion, no console errors, and 320–1440px layouts in Edge.`)
 } finally {
   browser.kill()
   await delay(250)

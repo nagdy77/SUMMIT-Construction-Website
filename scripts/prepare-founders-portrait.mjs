@@ -9,7 +9,7 @@ if (!inputArgument) throw new Error('Provide the absolute path to the supplied f
 const input = path.resolve(inputArgument)
 const referenceDirectory = path.resolve('references', 'founders')
 const publicDirectory = path.resolve('public', 'assets', 'about', 'founders')
-const preservedOriginal = path.join(referenceDirectory, 'founders-wide-original.png')
+const preservedOriginal = path.join(referenceDirectory, 'founders-canonical-original.png')
 
 const sha256 = async (file) => createHash('sha256').update(await readFile(file)).digest('hex').toUpperCase()
 const inputMetadata = await sharp(input).metadata()
@@ -27,13 +27,13 @@ try {
 } catch (error) {
   if (error?.code !== 'EEXIST') throw error
   if (await sha256(input) !== await sha256(preservedOriginal)) {
-    throw new Error('The preserved original exists but does not match the supplied portrait.')
+    throw new Error('The preserved source exists but does not match the supplied portrait.')
   }
 }
 
 const derivatives = []
 for (const width of [960, 1536]) {
-  const output = path.join(publicDirectory, `founders-wide-${width}.webp`)
+  const output = path.join(publicDirectory, `founders-${width}.webp`)
   await sharp(input)
     .resize({ width, fit: 'inside', withoutEnlargement: true })
     .webp({ quality: 90, effort: 6, smartSubsample: true })
@@ -58,11 +58,7 @@ const manifest = {
     treatment: 'Byte-identical preserved client-supplied PNG; no image edits.',
   },
   derivatives,
-  approval: {
-    portrait: 'Pending founder approval as an AI-composited portrait.',
-    arabicQuotes: 'Pending client approval.',
-  },
 }
 
-await writeFile(path.join(referenceDirectory, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
+await writeFile(path.join(referenceDirectory, 'founders-manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
 console.log(JSON.stringify(manifest, null, 2))

@@ -37,8 +37,8 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'information-we-collect',
         title: 'Information We Collect',
         paragraphs: [
-          'We collect information you choose to provide in an enquiry, including your name, email address, telephone number, optional company name, project or service interest, and message. If you contact us by email, we receive the information included in that message.',
-          'The enquiry form may also include the current page address, selected language, and the time taken to submit the form. These details provide context and support basic spam prevention.',
+          'The website does not contain an enquiry form and does not collect contact details through website input fields. If you contact SUMMIT through WhatsApp or email, the relevant service and SUMMIT receive the information you choose to include in that message.',
+          'Selecting a WhatsApp contact action prepares a message on the WhatsApp service. The website does not send that message or receive its contents.',
           'The website stores your selected dark or light appearance in local browser storage. Hosting and service providers may also process standard connection information, such as IP address, browser type, device information, and access time, as part of delivering their services.',
         ],
       },
@@ -46,7 +46,7 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'how-we-use-information',
         title: 'How We Use Information',
         paragraphs: [
-          'Information is used to respond to enquiries, understand project or service requirements, manage correspondence, reduce misuse of the enquiry form, and operate the website.',
+          'Information you send through WhatsApp or email may be used to respond to enquiries, understand project or service requirements, and manage correspondence. Technical information may be used to operate and secure the website.',
           'The current website does not use personal information for automated decision-making or behavioural advertising.',
         ],
       },
@@ -54,8 +54,8 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'contact-enquiries',
         title: 'Contact Enquiries',
         paragraphs: [
-          'The online form transfers information only when a form submission service is available. If that service is unavailable, the website does not show a success confirmation and directs visitors to the email option instead.',
-          'A success message means that the form service accepted the enquiry. It does not, by itself, confirm email delivery or receipt by a member of the SUMMIT team.',
+          'WhatsApp is the primary enquiry channel. Until SUMMIT configures its approved business number, WhatsApp actions remain visibly unavailable and do not open an invalid or placeholder number.',
+          'When enabled, a WhatsApp action opens the official WhatsApp service with a prepared message. Sending remains under your control and is handled by WhatsApp under its own terms and privacy practices.',
           'Using the direct email link opens the email service selected on your device. That provider handles the message under its own terms and privacy practices.',
         ],
       },
@@ -71,7 +71,7 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'third-party-services',
         title: 'Third-Party Services',
         paragraphs: [
-          'The website may rely on hosting, email, form-processing, and analytics providers. A provider receives information only when its service is used or enabled and processes that information under its own terms and privacy policy.',
+          'The website may rely on hosting, WhatsApp, email, and analytics providers. A provider receives information only when its service is used or enabled and processes that information under its own terms and privacy policy.',
           'SUMMIT does not control the independent privacy practices of third-party services. You should review the relevant provider terms when using those services.',
         ],
       },
@@ -79,7 +79,7 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'data-retention-and-security',
         title: 'Data Retention and Security',
         paragraphs: [
-          'The public website does not maintain its own enquiry database. Enquiry messages may be retained within email or form services according to the relevant business purpose, applicable legal obligations, and provider practices. No fixed retention period is stated in this draft.',
+          'The public website does not maintain its own enquiry database. Enquiry messages may be retained within WhatsApp or email services according to the relevant business purpose, applicable legal obligations, and provider practices. No fixed retention period is stated in this draft.',
           'The website limits the information requested and is intended to be served over HTTPS. No method of online transmission or storage can be guaranteed to be completely secure.',
         ],
       },
@@ -116,8 +116,8 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'information-we-collect',
         title: 'المعلومات التي نجمعها',
         paragraphs: [
-          'نجمع المعلومات التي تختار تقديمها ضمن الاستفسار، وتشمل الاسم والبريد الإلكتروني ورقم الهاتف واسم الشركة اختياريًا ونوع المشروع أو الخدمة محل الاهتمام والرسالة. وإذا تواصلت معنا عبر البريد الإلكتروني، فإننا نتلقى المعلومات الواردة في رسالتك.',
-          'قد يتضمن نموذج الاستفسار أيضًا عنوان الصفحة الحالية واللغة المختارة والوقت المستغرق في إرسال النموذج، وذلك لتوفير سياق للاستفسار والمساعدة في الحد من الرسائل غير المرغوب فيها.',
+          'لا يتضمن الموقع نموذج استفسار ولا يجمع بيانات التواصل عبر حقول إدخال. وإذا تواصلت مع سوميت عبر واتساب أو البريد الإلكتروني، فإن الخدمة المعنية وسوميت تتلقيان المعلومات التي تختار إدراجها في رسالتك.',
+          'عند اختيار التواصل عبر واتساب، يُجهّز الموقع رسالة داخل خدمة واتساب. ولا يرسل الموقع هذه الرسالة ولا يتلقى محتواها.',
           'يحفظ الموقع اختيارك للمظهر الداكن أو الفاتح في مساحة التخزين المحلية للمتصفح. وقد يعالج مزودو الاستضافة والخدمات معلومات اتصال تقنية معتادة، مثل عنوان بروتوكول الإنترنت ونوع المتصفح ومعلومات الجهاز ووقت الوصول، كجزء من تقديم خدماتهم.',
         ],
       },
@@ -125,7 +125,7 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'how-we-use-information',
         title: 'كيفية استخدام المعلومات',
         paragraphs: [
-          'نستخدم المعلومات للرد على الاستفسارات، وفهم متطلبات المشروع أو الخدمة، وإدارة المراسلات، والحد من إساءة استخدام نموذج الاستفسار، وتشغيل الموقع.',
+          'قد تُستخدم المعلومات التي ترسلها عبر واتساب أو البريد الإلكتروني للرد على الاستفسارات وفهم متطلبات المشروع أو الخدمة وإدارة المراسلات. وقد تُستخدم المعلومات التقنية لتشغيل الموقع وتأمينه.',
           'لا يستخدم الموقع الحالي المعلومات الشخصية لاتخاذ قرارات آلية أو للإعلانات السلوكية.',
         ],
       },
@@ -133,8 +133,8 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'contact-enquiries',
         title: 'استفسارات التواصل',
         paragraphs: [
-          'لا ينقل النموذج الإلكتروني المعلومات إلا عند إتاحة خدمة إرسال النماذج. وإذا كانت الخدمة غير متاحة، فلن يعرض الموقع رسالة نجاح ويوجه الزائر إلى خيار البريد الإلكتروني بدلًا من ذلك.',
-          'تعني رسالة النجاح أن خدمة النماذج قبلت الاستفسار، ولا تعد وحدها تأكيدًا على تسليم البريد الإلكتروني أو استلامه من أحد أعضاء فريق سوميت.',
+          'واتساب هو قناة الاستفسار الأساسية. وحتى تضيف سوميت رقم الأعمال المعتمد، تظل أزرار واتساب ظاهرة بوصفها غير متاحة ولا تفتح رقمًا غير صالح أو رقمًا تجريبيًا.',
+          'عند تفعيلها، تفتح أزرار واتساب خدمة واتساب الرسمية مع رسالة مجهزة مسبقًا. ويظل إرسالها تحت سيطرتك وتتعامل واتساب معها وفق شروطها وممارسات الخصوصية لديها.',
           'يفتح رابط البريد المباشر خدمة البريد التي تختارها على جهازك، وتتعامل تلك الخدمة مع الرسالة وفق شروطها وممارسات الخصوصية لديها.',
         ],
       },
@@ -150,7 +150,7 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'third-party-services',
         title: 'خدمات الجهات الخارجية',
         paragraphs: [
-          'قد يعتمد الموقع على مزودي خدمات الاستضافة والبريد الإلكتروني ومعالجة النماذج والتحليلات. ولا يتلقى المزود المعلومات إلا عند استخدام خدمته أو تفعيلها، ويعالجها وفق شروطه وسياسة الخصوصية الخاصة به.',
+          'قد يعتمد الموقع على مزودي خدمات الاستضافة وواتساب والبريد الإلكتروني والتحليلات. ولا يتلقى المزود المعلومات إلا عند استخدام خدمته أو تفعيلها، ويعالجها وفق شروطه وسياسة الخصوصية الخاصة به.',
           'لا تتحكم سوميت في ممارسات الخصوصية المستقلة للجهات الخارجية. ويُنصح بمراجعة شروط المزود المعني عند استخدام تلك الخدمات.',
         ],
       },
@@ -158,7 +158,7 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'data-retention-and-security',
         title: 'الاحتفاظ بالبيانات وأمنها',
         paragraphs: [
-          'لا يحتفظ الموقع العام بقاعدة بيانات مستقلة للاستفسارات. وقد تُحفظ رسائل الاستفسار لدى خدمات البريد الإلكتروني أو النماذج وفق غرض العمل ذي الصلة والالتزامات القانونية المطبقة وممارسات المزود. ولا تحدد هذه المسودة مدة احتفاظ ثابتة.',
+          'لا يحتفظ الموقع العام بقاعدة بيانات مستقلة للاستفسارات. وقد تُحفظ رسائل الاستفسار لدى واتساب أو خدمات البريد الإلكتروني وفق غرض العمل ذي الصلة والالتزامات القانونية المطبقة وممارسات المزود. ولا تحدد هذه المسودة مدة احتفاظ ثابتة.',
           'يحد الموقع من المعلومات المطلوبة، ومن المقرر تقديمه عبر اتصال HTTPS. ومع ذلك، لا يمكن ضمان الأمان الكامل لأي وسيلة نقل أو تخزين عبر الإنترنت.',
         ],
       },

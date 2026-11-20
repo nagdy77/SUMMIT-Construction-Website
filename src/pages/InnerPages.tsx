@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container } from '../components/ui/Container'
@@ -8,8 +8,9 @@ import { Header } from '../components/layout/Header'
 import { useCopy, useHomeCopy, useLocale } from '../content/site'
 import { privacyPolicyContent } from '../content/privacy'
 import { routePath, sitePath } from '../lib/routes'
-import { trackEvent } from '../lib/analytics'
 import { NotFoundPage } from './NotFoundPage'
+import { COMPANY_EMAIL } from '../config/contact'
+import { WhatsAppAction } from '../components/contact/WhatsAppAction'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -253,8 +254,8 @@ export function AboutPage() {
       <div className="founders-stage">
         <figure className="founders-image" data-founders-image>
           <img
-            src={sitePath('/assets/about/founders/founders-wide-1536.webp')}
-            srcSet={`${sitePath('/assets/about/founders/founders-wide-960.webp')} 960w, ${sitePath('/assets/about/founders/founders-wide-1536.webp')} 1536w`}
+            src={sitePath('/assets/about/founders/founders-1536.webp')}
+            srcSet={`${sitePath('/assets/about/founders/founders-960.webp')} 960w, ${sitePath('/assets/about/founders/founders-1536.webp')} 1536w`}
             sizes="(max-width: 1100px) calc(100vw - (2 * var(--page-gutter))), 48vw"
             alt={founders.portraitAlt}
             width="1536"
@@ -421,76 +422,23 @@ export function ClientsPage() {
   </Container></section></PageFrame>
 }
 
-const contactLabels = {
-  en: { name: 'Name', email: 'Email', phone: 'Phone', company: 'Company (optional)', interest: 'Project or service interest', message: 'Tell us about the project', choose: 'Select an interest', project: 'General project enquiry', submit: 'Send enquiry', sending: 'Sending…', required: 'Complete the required fields before continuing.', tooFast: 'Please review the enquiry and submit it again.', accepted: 'The form service accepted your enquiry for delivery.', error: 'The enquiry could not be submitted. Please try again or use the direct email option.', unavailable: 'Online form delivery is awaiting provider configuration. Please use the direct email option.', privacy: 'When configured, the form securely sends these fields to the approved form provider. This website does not contain email-service credentials.', alternative: 'Email directly instead' },
-  ar: { name: 'الاسم', email: 'البريد الإلكتروني', phone: 'الهاتف', company: 'الشركة (اختياري)', interest: 'المشروع أو الخدمة محل الاهتمام', message: 'حدثنا عن المشروع', choose: 'اختر مجال الاهتمام', project: 'استفسار عام عن مشروع', submit: 'إرسال الاستفسار', sending: 'جارٍ الإرسال…', required: 'أكمل الحقول المطلوبة قبل المتابعة.', tooFast: 'يرجى مراجعة الاستفسار ثم إعادة إرساله.', accepted: 'قبلت خدمة النماذج استفسارك للتسليم.', error: 'تعذر إرسال الاستفسار. حاول مرة أخرى أو استخدم البريد الإلكتروني المباشر.', unavailable: 'إرسال النموذج عبر الإنترنت في انتظار إعداد مزود الخدمة. يرجى استخدام البريد الإلكتروني المباشر.', privacy: 'عند الإعداد، يرسل النموذج هذه الحقول بأمان إلى مزود النماذج المعتمد. ولا يحتوي الموقع على بيانات اعتماد خدمة البريد.', alternative: 'استخدم البريد المباشر بدلًا من ذلك' },
-}
-
 export function ContactPage() {
   const locale = useLocale()
   const copy = useCopy()
-  const labels = contactLabels[locale]
   const root = useEditorialMotion<HTMLElement>()
-  const formRef = useRef<HTMLFormElement>(null)
-  const startedAt = useRef(Date.now())
-  const [interest, setInterest] = useState('')
-  const [status, setStatus] = useState('')
-  const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const endpoint = import.meta.env.VITE_ENQUIRY_FORM_ENDPOINT?.trim()
-  const endpointConfigured = Boolean(endpoint && /^https:\/\//i.test(endpoint))
-  useEffect(() => {
-    const query = new URLSearchParams(window.location.search).get('interest')
-    if (query && ['construction', 'restoration', 'renovation', 'fit-out'].includes(query)) setInterest(query)
-  }, [])
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const form = event.currentTarget
-    const data = new FormData(form)
-    if (String(data.get('website') || '')) return
-    if (Date.now() - startedAt.current < 1500) { setFormState('error'); setStatus(labels.tooFast); return }
-    if (!form.checkValidity()) { form.reportValidity(); setFormState('error'); setStatus(labels.required); return }
-    if (!endpointConfigured || !endpoint) { setFormState('error'); setStatus(labels.unavailable); return }
-    const selectedInterest = String(data.get('interest') || labels.project)
-    data.set('form_name', 'SUMMIT project enquiry')
-    data.set('locale', locale)
-    data.set('page', window.location.href)
-    data.set('submission_duration_ms', String(Date.now() - startedAt.current))
-    setFormState('loading')
-    setStatus(labels.sending)
-    const controller = new AbortController()
-    const timeout = window.setTimeout(() => controller.abort(), 15000)
-    try {
-      const response = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' }, signal: controller.signal })
-      if (!response.ok) throw new Error(`Form endpoint returned ${response.status}`)
-      setFormState('success')
-      setStatus(labels.accepted)
-      form.reset()
-      setInterest('')
-      startedAt.current = Date.now()
-      if (import.meta.env.VITE_FORM_DELIVERY_VERIFIED === 'true') trackEvent('generate_lead', { form_id: 'project_enquiry', service_interest: selectedInterest })
-    } catch {
-      setFormState('error')
-      setStatus(labels.error)
-    } finally {
-      window.clearTimeout(timeout)
-    }
-  }
   return <PageFrame><section ref={root} className="inner-page contact-editorial"><Container>
     <div className="contact-layout">
-      <header className="brand-pattern-field brand-pattern-field--panel"><p className="eyebrow">{copy.pages.contact.eyebrow}</p><h1>{copy.pages.contact.title}</h1><p>{copy.pages.contact.body}</p><a data-magnetic className="contact-direct" href="mailto:Projects@Summit-constructions.com">Projects@Summit-constructions.com <span aria-hidden="true">↗</span></a></header>
-      <form ref={formRef} className="enquiry-form" onSubmit={handleSubmit} noValidate aria-busy={formState === 'loading'} data-delivery-configured={endpointConfigured ? 'true' : 'false'}>
-        <div className="form-field"><label htmlFor="contact-name">{labels.name}</label><input id="contact-name" name="name" autoComplete="name" required minLength={2} /></div>
-        <div className="form-field"><label htmlFor="contact-email">{labels.email}</label><input id="contact-email" name="email" type="email" autoComplete="email" required /></div>
-        <div className="form-field"><label htmlFor="contact-phone">{labels.phone}</label><input id="contact-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" required minLength={7} maxLength={24} /></div>
-        <div className="form-field"><label htmlFor="contact-company">{labels.company}</label><input id="contact-company" name="company" autoComplete="organization" /></div>
-        <div className="form-field"><label htmlFor="contact-interest">{labels.interest}</label><select id="contact-interest" name="interest" required value={interest} onChange={(event) => setInterest(event.target.value)}><option value="">{labels.choose}</option><option value="general-project">{labels.project}</option>{copy.serviceDetails.map((service) => <option value={service.slug} key={service.slug}>{service.title}</option>)}</select></div>
-        <div className="form-field form-field--wide"><label htmlFor="contact-message">{labels.message}</label><textarea id="contact-message" name="message" rows={6} required minLength={20} /></div>
-        <div className="form-trap" aria-hidden="true"><label htmlFor="contact-website">Website</label><input id="contact-website" name="website" tabIndex={-1} autoComplete="off" /></div>
-        <p className="form-privacy">{labels.privacy} <a href={routePath(locale, 'privacy')}>{copy.nav.privacy}</a></p>
-        {!endpointConfigured ? <p className="form-configuration" role="note">{labels.unavailable}</p> : null}
-        <div className="form-actions"><button data-magnetic className="button-link" type="submit" disabled={formState === 'loading'}>{formState === 'loading' ? labels.sending : labels.submit}<span aria-hidden="true">↗</span></button><a href="mailto:Projects@Summit-constructions.com">{labels.alternative}</a></div>
-        <p className="form-status" data-state={formState} role={formState === 'error' ? 'alert' : 'status'} aria-live="polite">{status}</p>
-      </form>
+      <header className="brand-pattern-field brand-pattern-field--panel"><p className="eyebrow">{copy.pages.contact.eyebrow}</p><h1>{copy.pages.contact.title}</h1><p>{copy.pages.contact.body}</p></header>
+      <section className="contact-action-panel brand-pattern-field brand-pattern-field--metadata" aria-label={locale === 'en' ? 'Direct contact options' : 'خيارات التواصل المباشر'} data-reveal>
+        <p className="eyebrow">{locale === 'en' ? 'Direct contact' : 'تواصل مباشر'}</p>
+        <h2>{locale === 'en' ? 'Start with WhatsApp.' : 'ابدأ عبر واتساب.'}</h2>
+        <p>{locale === 'en' ? 'A direct line to the SUMMIT team for project requirements and quotation requests.' : 'تواصل مباشر مع فريق سوميت لمناقشة متطلبات المشروع وطلبات عروض الأسعار.'}</p>
+        <WhatsAppAction intent="general" showStatus className="whatsapp-primary-action">{locale === 'en' ? 'Contact Us on WhatsApp' : 'تواصل معنا عبر واتساب'}</WhatsAppAction>
+        <div className="contact-email-option">
+          <span>{locale === 'en' ? 'Email' : 'البريد الإلكتروني'}</span>
+          <a data-magnetic className="contact-direct" href={`mailto:${COMPANY_EMAIL}`}>{COMPANY_EMAIL} <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
     </div>
     <figure className="contact-photo-band" data-image-reveal><div data-parallax><EditorialImageView image={images.contact} sizes="100vw" /></div><figcaption><span>SUMMIT / 01</span>{locale === 'en' ? 'From the client-supplied project archive' : 'من أرشيف المشروعات المقدم من العميل'}</figcaption></figure>
   </Container></section></PageFrame>
@@ -540,7 +488,7 @@ export function PrivacyPage() {
                     {section.id === 'contact-information' ? (
                       <address className="privacy-contact">
                         <p>{policy.emailPrompt}</p>
-                        <a href="mailto:Projects@Summit-constructions.com">Projects@Summit-constructions.com</a>
+                        <a href={`mailto:${COMPANY_EMAIL}`}>{COMPANY_EMAIL}</a>
                       </address>
                     ) : null}
                   </div>

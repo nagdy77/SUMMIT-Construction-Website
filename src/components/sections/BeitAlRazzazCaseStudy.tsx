@@ -6,9 +6,9 @@ type Locale = 'en' | 'ar'
 type Photo = { src: string; srcSet: string; alt: string; altAr?: string }
 type Pair = { id: string; before: Photo; after: Photo }
 
-const editorialPhoto = (folder: string, stem: string, alt: string, altAr: string): Photo => ({
+const editorialPhoto = (folder: string, stem: string, alt: string, altAr: string, largeWidth = 1400): Photo => ({
   src: `/assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-large.webp`,
-  srcSet: `/assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-small.webp 720w, /assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-large.webp 1400w`,
+  srcSet: `/assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-small.webp 720w, /assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-large.webp ${largeWidth}w`,
   alt,
   altAr,
 })
@@ -23,6 +23,7 @@ const northernComparisons: Pair[] = [
   { id: 'northern-room-reconstruction', before: editorialPhoto('phase-1-northern/comparisons', '01-before', 'Northern Side room before reconstruction with exposed historic masonry', 'غرفة بالمنطقة الشمالية قبل إعادة البناء مع ظهور البناء الحجري التاريخي'), after: editorialPhoto('phase-1-northern/comparisons', '01-after', 'Northern Side room after reconstruction', 'غرفة بالمنطقة الشمالية بعد إعادة البناء') },
   { id: 'northern-interior-wall', before: editorialPhoto('phase-1-northern/comparisons', '02-before', 'Northern Side interior wall before restoration', 'جدار داخلي بالمنطقة الشمالية قبل الترميم'), after: editorialPhoto('phase-1-northern/comparisons', '02-after', 'Northern Side interior wall after restoration', 'جدار داخلي بالمنطقة الشمالية بعد الترميم') },
   { id: 'northern-corridor', before: editorialPhoto('phase-1-northern/comparisons', '03-before', 'Northern Side corridor during restoration', 'ممر بالمنطقة الشمالية أثناء أعمال الترميم'), after: editorialPhoto('phase-1-northern/comparisons', '03-after', 'Northern Side corridor after restoration', 'ممر بالمنطقة الشمالية بعد الترميم') },
+  { id: 'northern-rooftop-structure', before: editorialPhoto('phase-1-northern/comparisons', '04-before', 'Northern Side rooftop structure before completion', 'الهيكل العلوي بالمنطقة الشمالية قبل الاكتمال', 960), after: editorialPhoto('phase-1-northern/comparisons', '04-after', 'Northern Side rooftop structure after completion', 'الهيكل العلوي بالمنطقة الشمالية بعد الاكتمال') },
 ]
 
 const westernComparisons: Pair[] = [
@@ -48,7 +49,7 @@ const northern: Photo[] = [
   { src: '/assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp', srcSet: '/assets/projects/portfolio/beit-al-razzaz/northern-side/03-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp 1570w', alt: 'Interior stair and restored historic fabric', altAr: 'درج داخلي وعناصر معمارية تاريخية مرممة' },
   { src: '/assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp', srcSet: '/assets/projects/portfolio/beit-al-razzaz/northern-side/04-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp 1563w', alt: 'View upward through historic timber structure', altAr: 'منظر علوي للعناصر الخشبية التاريخية' },
   { src: '/assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp', srcSet: '/assets/projects/portfolio/beit-al-razzaz/northern-side/05-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp 1586w', alt: 'Restored interior stair detail', altAr: 'تفصيل لدرج داخلي مرمم' },
-  ...numberedGallery('northern-side', 7, 'Northern side architectural photograph', 'صورة معمارية للجانب الشمالي', 6),
+  ...numberedGallery('northern-side', 9, 'Northern side architectural photograph', 'صورة معمارية للجانب الشمالي', 6),
 ]
 
 function ResponsiveImage({ image, eager = false, locale = 'en', sizes = '(max-width: 760px) 100vw, 50vw' }: { image: Photo; eager?: boolean; locale?: Locale; sizes?: string }) {

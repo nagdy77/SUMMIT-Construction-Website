@@ -189,7 +189,7 @@ try {
         assert.equal(metrics.heading, expected[locale].heading)
         assert.equal(metrics.labelledBy, 'founders-heading')
         assert.equal(metrics.alt, expected[locale].alt)
-        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-wide-(960|1536)\.webp$/)
+        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-(960|1536)\.webp$/)
         assert.equal(metrics.headingParts, 2)
         assert.equal(metrics.headingTextAlign, 'center')
         assert.equal(metrics.headingAbovePortrait, true)
