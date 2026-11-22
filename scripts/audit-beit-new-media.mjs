@@ -17,6 +17,7 @@ const comparisonGroups = [
   ['Phase 1 / Pair 1', 'phase-1-northern/comparisons/01-before-large.webp', 'phase-1-northern/comparisons/01-after-large.webp'],
   ['Phase 1 / Pair 2', 'phase-1-northern/comparisons/02-before-large.webp', 'phase-1-northern/comparisons/02-after-large.webp'],
   ['Phase 1 / Pair 3', 'phase-1-northern/comparisons/03-before-large.webp', 'phase-1-northern/comparisons/03-after-large.webp'],
+  ['Phase 1 / Pair 4', 'phase-1-northern/comparisons/04-before-large.webp', 'phase-1-northern/comparisons/04-after-large.webp'],
   ['Phase 2 / Pair 1', 'phase-2-western-wing/comparisons/01-before-large.webp', 'phase-2-western-wing/comparisons/01-after-large.webp'],
   ['Phase 2 / Pair 2', 'phase-2-western-wing/comparisons/02-before-large.webp', 'phase-2-western-wing/comparisons/02-after-large.webp'],
   ['Phase 2 / Pair 3', 'phase-2-western-wing/comparisons/03-before-large.webp', 'phase-2-western-wing/comparisons/03-after-large.webp'],
@@ -70,7 +71,7 @@ await sharp({ create: { width: pairCellWidth * 2, height: pairRowHeight * compar
   .toFile(path.join(outputRoot, 'verified-comparisons.jpg'))
 
 const candidateGroups = [
-  ['Roof angle A', path.join(root, 'client-media-archive', 'BEIT AL RAZZAZ', 'Phase 1', 'WhatsApp Image 2025-12-30 21.jpeg'), path.join(beitRoot, 'IMG_7881.JPG.jpeg')],
+  ['Confirmed roof pair', path.join(root, 'client-media-archive', 'BEIT AL RAZZAZ', 'Phase 1', 'WhatsApp Image 2025-12-30 21.jpeg'), path.join(root, 'public', 'assets', 'projects', 'portfolio', 'Qaitbay’s Seat Main Hall', 'Golden-Hour Rooftop Glass Pavilion.png')],
   ['Roof angle B', path.join(root, 'client-media-archive', 'BEIT AL RAZZAZ', 'Phase 1', 'WhatsApp Image 2025-12-30 24.jpeg'), path.join(beitRoot, 'IMG_7862.JPG.jpeg')],
   ['Roof frontal', path.join(root, 'client-media-archive', 'BEIT AL RAZZAZ', 'Phase 1', 'WhatsApp Image 2025-12-30 21.jpeg'), path.join(beitRoot, 'IMG_7880.JPG.jpeg')],
 ]

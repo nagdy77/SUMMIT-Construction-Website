@@ -344,8 +344,10 @@ try {
   await navigate('/en/contact/')
   await delay(1600)
   check((await evaluate("document.querySelectorAll('form').length")) === 0, 'Contact page contains no inquiry form')
-  check((await evaluate("document.querySelector('.whatsapp-primary-action').dataset.whatsappConfigured")) === 'false', 'Final build reports the unconfigured WhatsApp state truthfully')
-  check((await evaluate("document.querySelector('.whatsapp-primary-action').tagName")) === 'BUTTON', 'Unconfigured WhatsApp action cannot navigate to a placeholder number')
+  check((await evaluate("document.querySelector('.whatsapp-primary-action').dataset.whatsappConfigured")) === 'true', 'Final build reports the configured WhatsApp state truthfully')
+  check((await evaluate("document.querySelector('.whatsapp-primary-action').tagName")) === 'A', 'Configured WhatsApp action is a working link')
+  check((await evaluate("document.querySelector('.whatsapp-primary-action').getAttribute('href')"))?.startsWith('https://wa.me/201009666337?text='), 'Configured WhatsApp action uses the official business number')
+  check((await evaluate("document.querySelector('.contact-whatsapp-number').textContent.trim()")) === '+20 100 966 6337', 'Contact page displays the readable international number')
   check((await evaluate("document.querySelector('.contact-direct').getAttribute('href')")) === 'mailto:Projects@Summit-constructions.com', 'Secondary email uses the verified destination')
 
   await setReducedMotion(true)

@@ -24,24 +24,47 @@ const northernComparisons: Pair[] = [
   { id: 'northern-interior-wall', before: editorialPhoto('phase-1-northern/comparisons', '02-before', 'Northern Side interior wall before restoration', 'جدار داخلي بالمنطقة الشمالية قبل الترميم'), after: editorialPhoto('phase-1-northern/comparisons', '02-after', 'Northern Side interior wall after restoration', 'جدار داخلي بالمنطقة الشمالية بعد الترميم') },
   { id: 'northern-corridor', before: editorialPhoto('phase-1-northern/comparisons', '03-before', 'Northern Side corridor during restoration', 'ممر بالمنطقة الشمالية أثناء أعمال الترميم'), after: editorialPhoto('phase-1-northern/comparisons', '03-after', 'Northern Side corridor after restoration', 'ممر بالمنطقة الشمالية بعد الترميم') },
   { id: 'northern-rooftop-structure', before: editorialPhoto('phase-1-northern/comparisons', '04-before', 'Northern Side rooftop structure before completion', 'الهيكل العلوي بالمنطقة الشمالية قبل الاكتمال', 960), after: editorialPhoto('phase-1-northern/comparisons', '04-after', 'Northern Side rooftop structure after completion', 'الهيكل العلوي بالمنطقة الشمالية بعد الاكتمال') },
+  { id: 'northern-window-corridor', before: editorialPhoto('northern-side', '09', 'Northern Side window corridor before restoration', 'ممر النوافذ بالمنطقة الشمالية قبل الترميم'), after: editorialPhoto('northern-side', '08', 'Northern Side window corridor after restoration', 'ممر النوافذ بالمنطقة الشمالية بعد الترميم') },
+  { id: 'northern-staircase', before: editorialPhoto('northern-side', '07', 'Northern Side staircase before restoration', 'درج بالمنطقة الشمالية قبل الترميم'), after: editorialPhoto('northern-side', '06', 'Northern Side staircase after restoration', 'درج بالمنطقة الشمالية بعد الترميم') },
 ]
 
 const westernComparisons: Pair[] = [
   { id: 'western-window-bay', before: editorialPhoto('phase-2-western-wing/comparisons', '01-before', 'Western Wing window bay before floor restoration', 'منطقة نافذة بالجناح الغربي قبل ترميم الأرضية'), after: editorialPhoto('phase-2-western-wing/comparisons', '01-after', 'Western Wing window bay after floor restoration', 'منطقة نافذة بالجناح الغربي بعد ترميم الأرضية') },
   { id: 'western-stair', before: editorialPhoto('phase-2-western-wing/comparisons', '02-before', 'Western Wing interior before restoration', 'فراغ داخلي بالجناح الغربي قبل الترميم'), after: editorialPhoto('phase-2-western-wing/comparisons', '02-after', 'Western Wing interior after restoration', 'فراغ داخلي بالجناح الغربي بعد الترميم') },
   { id: 'western-room', before: editorialPhoto('phase-2-western-wing/comparisons', '03-before', 'Western Wing room before restoration', 'غرفة بالجناح الغربي قبل الترميم'), after: editorialPhoto('phase-2-western-wing/comparisons', '03-after', 'Western Wing room after restoration', 'غرفة بالجناح الغربي بعد الترميم') },
+  { id: 'western-corridor-finish', before: editorialPhoto('phase-2-western-wing/gallery', '01', 'Western Wing corridor before restoration', 'ممر بالجناح الغربي قبل الترميم'), after: editorialPhoto('phase-2-western-wing/gallery', '02', 'Western Wing corridor after restoration', 'ممر بالجناح الغربي بعد الترميم') },
+  { id: 'western-window-wall', before: editorialPhoto('phase-2-western-wing/gallery', '03', 'Western Wing window wall before restoration', 'جدار النوافذ بالجناح الغربي قبل الترميم'), after: editorialPhoto('phase-2-western-wing/gallery', '04', 'Western Wing window wall after restoration', 'جدار النوافذ بالجناح الغربي بعد الترميم') },
+  { id: 'western-timber-window', before: editorialPhoto('phase-2-western-wing/gallery', '05', 'Western Wing timber window before restoration', 'نافذة خشبية بالجناح الغربي قبل الترميم'), after: editorialPhoto('phase-2-western-wing/gallery', '06', 'Western Wing timber window after restoration', 'نافذة خشبية بالجناح الغربي بعد الترميم') },
+  { id: 'western-door-wall', before: editorialPhoto('phase-2-western-wing/gallery', '07', 'Western Wing doorway before restoration', 'مدخل بالجناح الغربي قبل الترميم'), after: editorialPhoto('phase-2-western-wing/gallery', '08', 'Western Wing doorway after restoration', 'مدخل بالجناح الغربي بعد الترميم') },
+  { id: 'western-timber-ceiling', before: editorialPhoto('phase-2-western-wing/gallery', '09', 'Western Wing timber ceiling before restoration', 'سقف خشبي بالجناح الغربي قبل الترميم'), after: editorialPhoto('phase-2-western-wing/gallery', '10', 'Western Wing timber ceiling after restoration', 'سقف خشبي بالجناح الغربي بعد الترميم') },
+  { id: 'western-window-room', before: editorialPhoto('phase-2-western-wing/gallery', '11', 'Western Wing window room before restoration', 'غرفة النوافذ بالجناح الغربي قبل الترميم'), after: editorialPhoto('phase-2-western-wing/gallery', '12', 'Western Wing window room after restoration', 'غرفة النوافذ بالجناح الغربي بعد الترميم') },
 ]
 
-const westernWing = numberedGallery('phase-2-western-wing/gallery', 16, 'Western Wing restoration photograph', 'صورة من أعمال ترميم الجناح الغربي')
-const qaitbayGallery = numberedGallery('qaitbay-main-hall', 17, 'Qaitbay’s Seat Main Hall restoration photograph', 'صورة من أعمال ترميم مقعد قايتباي – القاعة الرئيسية')
+const westernWing = numberedGallery('phase-2-western-wing/gallery', 4, 'Western Wing restoration photograph', 'صورة من أعمال ترميم الجناح الغربي', 13)
+const qaitbayAll = numberedGallery('qaitbay-main-hall', 17, 'Qaitbay’s Seat Main Hall restoration photograph', 'صورة من أعمال ترميم مقعد قايتباي – القاعة الرئيسية')
+const qaitbayComparisons: Pair[] = [
+  {
+    id: 'qaitbay-exterior-restoration',
+    before: qaitbayAll[8],
+    after: qaitbayAll[6],
+  },
+]
+const qaitbayGallery = qaitbayAll.filter((_, index) => ![4, 6, 8].includes(index))
 const archiveViews = numberedGallery('archive-views', 3, 'Historic view of Beit Al-Razzaz', 'صورة تاريخية لبيت الرزاز')
 const carpentryAll = numberedGallery('carpentry-workshop', 11, 'Carpentry Workshop restoration photograph', 'صورة من ترميم ورشة النجارة')
-const carpentryComparison: Pair = {
-  id: 'carpentry-workshop-interior',
-  before: carpentryAll[10],
-  after: carpentryAll[0],
-}
-const carpentryGallery = carpentryAll.slice(1, 10)
+const carpentryComparisons: Pair[] = [
+  {
+    id: 'carpentry-workshop-interior',
+    before: carpentryAll[10],
+    after: carpentryAll[0],
+  },
+  {
+    id: 'carpentry-workshop-ceiling',
+    before: carpentryAll[7],
+    after: carpentryAll[5],
+  },
+]
+const carpentryGallery = carpentryAll.filter((_, index) => ![0, 5, 6, 7, 10].includes(index))
 
 const northern: Photo[] = [
   { src: '/assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp', srcSet: '/assets/projects/portfolio/beit-al-razzaz/northern-side/01-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp 1203w', alt: 'Courtyard view of Beit Al-Razzaz', altAr: 'منظر للفناء في بيت الرزاز' },
@@ -51,6 +74,7 @@ const northern: Photo[] = [
   { src: '/assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp', srcSet: '/assets/projects/portfolio/beit-al-razzaz/northern-side/05-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/05-1586.webp 1586w', alt: 'Restored interior stair detail', altAr: 'تفصيل لدرج داخلي مرمم' },
   ...numberedGallery('northern-side', 9, 'Northern side architectural photograph', 'صورة معمارية للجانب الشمالي', 6),
 ]
+const northernGallery = northern.filter((_, index) => ![0, 5, 6, 7, 8].includes(index))
 
 function ResponsiveImage({ image, eager = false, locale = 'en', sizes = '(max-width: 760px) 100vw, 50vw' }: { image: Photo; eager?: boolean; locale?: Locale; sizes?: string }) {
   return <img src={assetUrl(image.src)} srcSet={image.srcSet.split(', ').map((item) => `${assetUrl(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes={sizes} alt={locale === 'ar' ? image.altAr ?? 'صورة توثيقية من بيت الرزاز' : image.alt} width="1400" height="933" loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : 'low'} decoding="async" draggable="false" />
@@ -101,7 +125,7 @@ export function BeitAlRazzazCaseStudy({ locale }: { locale: Locale }) {
       <header className="beit-section-heading"><p className="eyebrow">{isArabic ? 'المرحلة الأولى' : 'Phase 1'}</p><h2 id="beit-phase-1-heading">{isArabic ? 'المرحلة الأولى – المنطقة الشمالية' : 'Phase 1 – Northern Side'}</h2><p>{isArabic ? 'مقارنات موثقة وصور المنطقة الشمالية.' : 'Verified comparisons and photographs from the Northern Side.'}</p></header>
       <div className="beit-pair-grid">{northernComparisons.map((item) => <article className="beit-photo-pair" key={item.id}><Comparison item={item} locale={locale} /></article>)}</div>
       <h3 className="beit-subsection-heading">{isArabic ? 'صور المنطقة الشمالية' : 'Northern Side gallery'}</h3>
-      <PhotoGallery images={northern.slice(1)} locale={locale} label={isArabic ? 'معرض صور المنطقة الشمالية' : 'Northern Side gallery'} />
+      <PhotoGallery images={northernGallery} locale={locale} label={isArabic ? 'معرض صور المنطقة الشمالية' : 'Northern Side gallery'} />
     </section>
 
     <section id="beit-phase-2" className="beit-gallery-section beit-phase-section" aria-labelledby="beit-phase-2-heading">
@@ -113,13 +137,14 @@ export function BeitAlRazzazCaseStudy({ locale }: { locale: Locale }) {
 
     <section id="beit-qaitbay" className="beit-gallery-section" aria-labelledby="beit-qaitbay-heading">
       <header className="beit-section-heading"><p className="eyebrow">{isArabic ? 'بيت الرزاز' : 'Beit Al-Razzaz'}</p><h2 id="beit-qaitbay-heading">{isArabic ? 'مقعد قايتباي – القاعة الرئيسية' : 'Qaitbay’s Seat Main Hall'}</h2><p>{isArabic ? 'صور ترميم القاعة الرئيسية ضمن دراسة حالة بيت الرزاز.' : 'Main Hall restoration photographs within the Beit Al-Razzaz case study.'}</p></header>
+      <div className="beit-pair-grid">{qaitbayComparisons.map((item) => <article className="beit-photo-pair" key={item.id}><Comparison item={item} locale={locale} /></article>)}</div>
       <PhotoGallery images={qaitbayGallery} locale={locale} label={isArabic ? 'معرض صور مقعد قايتباي – القاعة الرئيسية' : 'Qaitbay’s Seat Main Hall gallery'} />
     </section>
 
     <section className="beit-gallery-section" aria-labelledby="beit-carpentry-heading">
       <header className="beit-section-heading"><p className="eyebrow">{isArabic ? 'بيت الرزاز' : 'Beit Al-Razzaz'}</p><h2 id="beit-carpentry-heading">{isArabic ? 'ورشة النجارة' : 'Carpentry Workshop'}</h2></header>
       <dl className="beit-section-funding"><div><dt>{isArabic ? 'جهة التمويل' : 'Funding Entity'}</dt><dd>{isArabic ? 'السفارة الرومانية' : 'Romanian Embassy'}</dd></div></dl>
-      <div className="beit-featured-comparison"><Comparison item={carpentryComparison} locale={locale} /></div>
+      <div className="beit-pair-grid">{carpentryComparisons.map((item) => <article className="beit-photo-pair" key={item.id}><Comparison item={item} locale={locale} /></article>)}</div>
       <PhotoGallery images={carpentryGallery} locale={locale} label={isArabic ? 'معرض صور ورشة النجارة' : 'Carpentry Workshop gallery'} />
     </section>
 

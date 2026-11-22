@@ -247,6 +247,7 @@ button:disabled { cursor: default; }
 .footer-whatsapp-action:hover, .footer-whatsapp-action:focus-visible { color: var(--color-accent-ink); background: var(--color-accent); }
 .footer-email { max-width: 100%; color: var(--color-muted); font: 600 .62rem/1.5 var(--font-body); overflow-wrap: anywhere; transition: color .2s ease; }
 .footer-email:hover, .footer-email:focus-visible { color: var(--color-accent); }
+.footer-phone { color: var(--color-ink); font: 700 .68rem/1.4 var(--font-body); letter-spacing: .06em; }
 .floating-whatsapp-action { min-height: 3.25rem; min-width: 3.25rem; border: 1px solid var(--color-accent); padding: .75rem; color: var(--color-ink); background: var(--color-elevated); box-shadow: 0 4px 22px #00000018; font: 700 .6rem/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; transition: color .2s ease, background-color .2s ease, transform .2s ease; }
 .floating-whatsapp-action:hover, .floating-whatsapp-action:focus-visible { color: var(--color-accent-ink); background: var(--color-accent); transform: translateY(-.125rem); }
 .floating-whatsapp-action .whatsapp-action__tooltip { inset-block: auto calc(100% + .65rem); }
@@ -808,6 +809,7 @@ button.media-carousel__frame:hover img, button.media-carousel__frame:focus-visib
 .contact-action-panel > p:not(.eyebrow) { max-width: 35rem; margin: 1.35rem 0 0; color: var(--color-muted); font: .92rem/1.8 var(--font-body); }
 .whatsapp-primary-action { min-height: 3.75rem; margin-top: 2.25rem; border: 1px solid var(--color-accent); padding: .95rem 1.3rem; color: var(--color-accent-ink); background: var(--color-accent); font: 700 .66rem/1.3 var(--font-body); letter-spacing: .12em; text-transform: uppercase; transition: color .2s ease, background-color .2s ease; }
 .whatsapp-primary-action:hover, .whatsapp-primary-action:focus-visible { color: var(--color-accent); background: transparent; }
+.contact-whatsapp-number { margin-top: .8rem; color: var(--color-ink); font: 700 .78rem/1.4 var(--font-body); letter-spacing: .06em; }
 .contact-email-option { display: grid; justify-items: start; width: 100%; margin-top: clamp(2rem, 5vw, 4rem); border-top: 1px solid var(--color-border); padding-top: 1.5rem; }
 .contact-email-option > span { color: var(--color-muted); font: 700 .58rem/1.4 var(--font-body); letter-spacing: .14em; text-transform: uppercase; }
 .contact-email-option .contact-direct { margin-top: .8rem; }

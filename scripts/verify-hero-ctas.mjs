@@ -120,13 +120,13 @@ try {
       { id: 'story', label: 'Discover Our Story', path: '/en/about/' },
       { id: 'projects', label: 'Explore Our Projects', path: '/en/projects/' },
       { id: 'residential', label: 'Explore Residential Fit-Out', path: '/en/services/renovation/' },
-      { id: 'quote', label: 'Request a Quote' },
+      { id: 'quote', label: 'Request a Quote', message: 'Hello SUMMIT Construction, I would like to request a quotation for my project.' },
     ],
     ar: [
       { id: 'story', label: 'اكتشف قصتنا', path: '/ar/about/' },
       { id: 'projects', label: 'استكشف مشاريعنا', path: '/ar/projects/' },
       { id: 'residential', label: 'استكشف التشطيبات السكنية', path: '/ar/services/renovation/' },
-      { id: 'quote', label: 'اطلب عرض سعر' },
+      { id: 'quote', label: 'اطلب عرض سعر', message: 'مرحبًا سوميت، أرغب في طلب عرض سعر لمشروعي.' },
     ],
   }
 
@@ -185,6 +185,8 @@ try {
             configured: cta.dataset.whatsappConfigured,
             tag: cta.tagName,
             href: cta.getAttribute('href'),
+            whatsappPath: cta.tagName === 'A' && cta.href.startsWith('https://wa.me/') ? new URL(cta.href).pathname : null,
+            whatsappMessage: cta.tagName === 'A' && cta.href.startsWith('https://wa.me/') ? new URL(cta.href).searchParams.get('text') : null,
             disabled: cta.getAttribute('aria-disabled'),
             tabIndex: cta.tabIndex,
             inactiveFocusable: [...root.querySelectorAll('[data-hero-slide][aria-hidden="true"] .hero-cta')].filter((node) => node.tabIndex >= 0).length,
@@ -234,8 +236,9 @@ try {
           assertions += 24
         } else if (metrics.configured === 'true') {
           assert.equal(metrics.tag, 'A')
-          assert.match(metrics.href, /^https:\/\/wa\.me\//)
-          assertions += 24
+          assert.equal(metrics.whatsappPath, '/201009666337')
+          assert.equal(metrics.whatsappMessage, expectedCta.message)
+          assertions += 25
         } else {
           assert.equal(metrics.configured, 'false')
           assert.equal(metrics.tag, 'BUTTON')

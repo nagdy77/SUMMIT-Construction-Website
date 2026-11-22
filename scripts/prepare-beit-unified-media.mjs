@@ -65,7 +65,7 @@ for (const [source, outputStem] of northernComparisons) {
   await optimizedDocumentationCopies(source, northernComparisonOutput, outputStem)
 }
 await optimizedDocumentationCopies(path.join(phaseOneArchiveRoot, 'WhatsApp Image 2025-12-30 21.jpeg'), northernComparisonOutput, '04-before')
-await optimizedCopies(path.join(beitRoot, 'IMG_7881.JPG.jpeg'), northernComparisonOutput, '04-after')
+await optimizedCopies(path.join(qaitbayExistingRoot, 'Golden-Hour Rooftop Glass Pavilion.png'), northernComparisonOutput, '04-after')
 
 const westernComparisonOutput = path.join(beitRoot, 'phase-2-western-wing', 'comparisons')
 await optimizedDocumentationCopies(documentationGroup('E3-01-37-05', 'DSC_3207.jpg'), westernComparisonOutput, '01-before')
@@ -173,9 +173,10 @@ for (let index = 0; index < carpentryNew.length; index += 1) {
 }
 
 console.log(JSON.stringify({
-  northernComparisons: 4,
-  westernWingComparisons: 3,
-  westernWingPhotos: 16,
+  generatedComparisonDerivativePairs: { northernSide: 4, westernWing: 3 },
+  publicComparisonPairs: { northernSide: 6, westernWing: 9, qaitbayMainHall: 1, carpentryWorkshop: 2 },
+  publicOrdinaryGalleryPhotos: { northernSide: 9, westernWing: 4, qaitbayMainHall: 14, carpentryWorkshop: 6, archiveViews: 3 },
+  westernWingSourcePhotos: 16,
   northernSideAdditions: northernAdditions.length + newlySuppliedNorthernGallery.length,
   archiveViews: 3,
   qaitbayMainHallPhotos: qaitbayExisting.length + qaitbayNew.length,

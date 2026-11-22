@@ -150,8 +150,10 @@ try {
   await navigate(`${base}/en/contact/`)
   await delay(1600)
   assert.equal(await evaluate("document.querySelectorAll('form').length"), 0)
-  assert.equal(await evaluate("document.querySelector('.whatsapp-primary-action').dataset.whatsappConfigured"), 'false')
-  assert.match(await evaluate("document.querySelector('.whatsapp-action__status').textContent"), /number pending/i)
+  assert.equal(await evaluate("document.querySelector('.whatsapp-primary-action').dataset.whatsappConfigured"), 'true')
+  assert.equal(await evaluate("document.querySelector('.whatsapp-primary-action').tagName"), 'A')
+  assert.match(await evaluate("document.querySelector('.whatsapp-primary-action').getAttribute('href')"), /^https:\/\/wa\.me\/201009666337\?text=/)
+  assert.equal(await evaluate("document.querySelector('.contact-whatsapp-number').textContent.trim()"), '+20 100 966 6337')
   assert.equal(await evaluate("document.querySelector('.contact-direct').getAttribute('href')"), 'mailto:Projects@Summit-constructions.com')
 
   await client.send('Emulation.setEmulatedMedia', { media: '', features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] })

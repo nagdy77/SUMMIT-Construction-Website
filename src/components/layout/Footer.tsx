@@ -2,7 +2,7 @@ import { Container } from '../ui/Container'
 import { assetUrl } from '../../lib/assets'
 import { useCopy, useLocale } from '../../content/site'
 import { routePath } from '../../lib/routes'
-import { COMPANY_EMAIL } from '../../config/contact'
+import { COMPANY_EMAIL, WHATSAPP_DISPLAY_NUMBER } from '../../config/contact'
 import { WhatsAppAction } from '../contact/WhatsAppAction'
 
 export function Footer() {
@@ -19,6 +19,7 @@ export function Footer() {
         <div className="grid justify-items-start gap-4 lg:col-span-3">
           <a data-magnetic href={routePath(locale)} className="inline-flex" aria-label="SUMMIT Construction home"><img src={assetUrl('/assets/brand/summit-logo-gold-intro.webp')} alt="SUMMIT Construction" width="269" height="240" loading="lazy" decoding="async" className="h-20 w-auto object-contain" /></a>
           <WhatsAppAction intent="general" compact className="footer-whatsapp-action">{locale === 'en' ? 'Contact Us on WhatsApp' : 'تواصل معنا عبر واتساب'}</WhatsAppAction>
+          <span className="footer-phone" dir="ltr">{WHATSAPP_DISPLAY_NUMBER}</span>
           <a className="footer-email" href={`mailto:${COMPANY_EMAIL}`}>{COMPANY_EMAIL}</a>
         </div>
         <nav aria-label={copy.nav.home} className="grid grid-cols-2 gap-x-8 gap-y-2 sm:justify-self-end lg:col-span-6 lg:grid-cols-4 lg:justify-self-stretch">

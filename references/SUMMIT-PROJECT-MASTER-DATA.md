@@ -69,13 +69,18 @@ Summit construction was responsible for the structural repair, adaptive reuse an
 - Location: Al Darb Al Ahmar
 - Project Duration: 10 months
 
-### Implemented media mapping (2026-11-20)
+### Implemented media mapping (2026-11-22)
 
 - Phase 1 is the Northern Side; Phase 2 is the Western Wing.
 - Five newly supplied JPG photographs were audited without modifying the originals.
-- `IMG_7881.JPG.jpeg` is mapped as the completed view for the verified Phase 1 rooftop-structure comparison, paired with the archived construction view `WhatsApp Image 2025-12-30 21.jpeg`.
+- `Golden-Hour Rooftop Glass Pavilion.png` is mapped as the completed view for the verified Phase 1 rooftop-structure comparison, paired with the archived construction view `WhatsApp Image 2025-12-30 21.jpeg`.
 - `IMG_7862.JPG.jpeg` and `IMG_7880.JPG.jpeg` are included as regular Phase 1 Northern Side gallery photographs.
 - `IMG_7829.JPG.jpeg` and `IMG_7840.JPG.jpeg` remain unassigned because their phase and matching earlier views cannot be confirmed from the supplied evidence.
+- The full public case study audit covers 75 image records (74 unique source photographs) across the Northern Side, Western Wing, Carpentry Workshop, Qaitbay Main Hall, and historic archive sections. The completed rooftop pavilion was the one cross-section duplicate.
+- Ten additional verified pairs are now presented through the shared interactive comparison component: a Northern Side corridor and staircase, six Western Wing locations, one Qaitbay Main Hall exterior, and one Carpentry Workshop ceiling.
+- Photographs used in those comparisons are excluded from the corresponding ordinary carousel. The completed rooftop pavilion is also excluded from the Qaitbay carousel because it is already the verified Northern Side rooftop AFTER photograph.
+- `Carpentry Workshop/ceiling/DSCF3583.JPG` remains preserved in source media but is intentionally excluded from the public Carpentry Workshop carousel at the client’s request.
+- Ambiguous alternate angles remain in their existing galleries. The source-level decisions and exact filenames are recorded in `references/BEIT-AL-RAZZAZ-GALLERY-AUDIT.md`.
 - Public-facing captions use editorial labels only; technical source filenames remain internal documentation.
 
 ## 03 — Safi Al Din Gowhar

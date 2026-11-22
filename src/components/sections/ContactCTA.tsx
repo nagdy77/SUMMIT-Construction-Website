@@ -5,7 +5,7 @@ import { Container } from '../ui/Container'
 import { Icon } from '../ui/Icon'
 import { assetSrcSet, assetUrl } from '../../lib/assets'
 import { useHomeCopy, useLocale } from '../../content/site'
-import { COMPANY_EMAIL } from '../../config/contact'
+import { COMPANY_EMAIL, WHATSAPP_DISPLAY_NUMBER } from '../../config/contact'
 import { WhatsAppAction } from '../contact/WhatsAppAction'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -97,6 +97,7 @@ export function ContactCTA() {
           </p>
           <div data-contact-copy className="mt-8 sm:mt-10">
             <WhatsAppAction intent="general" showStatus className="summit-button button-gold min-h-12 border px-6 py-3 font-body text-[0.6875rem] font-bold uppercase tracking-[0.16em]">{copy.cta}</WhatsAppAction>
+            <p className="mt-3 font-body text-sm font-semibold tracking-[0.08em] text-summit-ivory" dir="ltr">{WHATSAPP_DISPLAY_NUMBER}</p>
           </div>
         </div>
 

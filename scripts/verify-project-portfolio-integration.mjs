@@ -184,10 +184,10 @@ try {
   for (const locale of ['en', 'ar']) {
     console.log(`Checking unified Beit Al-Razzaz case study (${locale})`)
     await navigate(`${base}/${locale}/projects/beit-al-razzaz/`)
-    await waitFor("document.querySelectorAll('.beit-comparison').length === 8")
+    await waitFor("document.querySelectorAll('.beit-comparison').length === 18")
     const qaitbayLoading = await evaluate(`(() => { const images = [...document.querySelectorAll('[aria-labelledby="beit-qaitbay-heading"] [data-carousel-copy="main"] img')]; return { total: images.length, lazy: images.filter((image) => image.loading === 'lazy').length, lowPriority: images.filter((image) => image.fetchPriority === 'low').length, loaded: images.filter((image) => image.complete && image.naturalWidth > 0).length }; })()`)
-    assert.deepEqual([qaitbayLoading.total, qaitbayLoading.lazy, qaitbayLoading.lowPriority], [17, 17, 17], `Beit Al-Razzaz ${locale} Qaitbay gallery must remain lazy and low-priority`)
-    if (locale === 'en') assert.ok(qaitbayLoading.loaded < 17, 'The uncached Beit Al-Razzaz page must not initially fetch the full Qaitbay gallery')
+    assert.deepEqual([qaitbayLoading.total, qaitbayLoading.lazy, qaitbayLoading.lowPriority], [14, 14, 14], `Beit Al-Razzaz ${locale} Qaitbay gallery must remain lazy and low-priority`)
+    if (locale === 'en') assert.ok(qaitbayLoading.loaded < 14, 'The uncached Beit Al-Razzaz page must not initially fetch the full Qaitbay gallery')
     assert.ok((await waitForImages('.beit-case-study img')).every(Boolean), `Beit Al-Razzaz ${locale} images must decode`)
     const beit = await evaluate(`({
       viewport: innerWidth,
@@ -201,6 +201,8 @@ try {
       carousels: document.querySelectorAll('.beit-photo-carousel').length,
       carouselDirections: [...document.querySelectorAll('.beit-photo-carousel')].map((carousel) => carousel.getAttribute('dir')),
       comparisonStructures: [...document.querySelectorAll('.beit-comparison')].map((comparison) => ({ images: comparison.querySelectorAll('.beit-comparison-image img').length, ranges: comparison.querySelectorAll('input[type="range"]').length, labels: [...comparison.querySelectorAll('.beit-photo-label')].map((label) => label.textContent.trim()) })),
+      comparisonSources: [...document.querySelectorAll('.beit-comparison-image img')].map((image) => new URL(image.currentSrc || image.src).pathname),
+      ordinarySources: [...document.querySelectorAll('.beit-photo-carousel [data-carousel-copy="main"] img')].map((image) => new URL(image.currentSrc || image.src).pathname),
       staticComparisonImages: [...document.querySelectorAll('img')].filter((image) => /before|after|قبل|بعد/i.test(image.alt) && !image.closest('.beit-comparison')).length,
       comparisonColumns: getComputedStyle(document.querySelector('.beit-pair-grid')).gridTemplateColumns.split(' ').filter(Boolean).length,
       phaseNavigation: [...document.querySelectorAll('.beit-phase-navigation a')].map((link) => link.textContent.trim()),
@@ -209,13 +211,14 @@ try {
       visibleText: document.body.innerText,
     })`)
     assert.ok(beit.documentWidth <= beit.viewport, `Beit Al-Razzaz ${locale} must not overflow on mobile`)
-    assert.equal(beit.comparisons, 8, 'Beit Al-Razzaz must expose all eight verified comparisons')
+    assert.equal(beit.comparisons, 18, 'Beit Al-Razzaz must expose all eighteen verified comparisons')
     assert.equal(beit.carousels, 5, 'Beit Al-Razzaz must expose five regular-photo carousels')
     assert.ok(beit.carouselDirections.every((direction) => direction === (locale === 'en' ? 'ltr' : 'rtl')), `Beit Al-Razzaz ${locale} carousel controls must follow the page direction`)
-    assert.deepEqual([beit.phase1, beit.phase2, beit.carpentry, beit.archive, beit.qaitbay], [14, 16, 9, 3, 17], 'Beit Al-Razzaz must expose every correctly grouped gallery image')
+    assert.deepEqual([beit.phase1, beit.phase2, beit.carpentry, beit.archive, beit.qaitbay], [10, 4, 6, 3, 14], 'Beit Al-Razzaz must remove comparison photographs and client-excluded photographs from ordinary gallery presentation')
     assert.ok(beit.comparisonStructures.every((comparison) => comparison.images === 2 && comparison.ranges === 1), 'every verified pair must use one overlaid two-image comparison with an accessible range control')
     assert.ok(beit.comparisonStructures.every((comparison) => JSON.stringify(comparison.labels) === JSON.stringify(locale === 'en' ? ['Before', 'After'] : ['قبل', 'بعد'])), `all ${locale} comparison labels must be consistent`)
     assert.equal(beit.staticComparisonImages, 0, 'no verified before/after image may remain outside an interactive comparison')
+    assert.deepEqual(beit.comparisonSources.filter((source) => beit.ordinarySources.includes(source)), [], 'comparison photographs must not be duplicated in ordinary galleries')
     assert.equal(beit.comparisonColumns, 2, `Beit Al-Razzaz ${locale} mobile comparison grids must use exactly two columns`)
     assert.equal(beit.hasQaitbaySection, true, 'Qaitbay Main Hall must be integrated into Beit Al-Razzaz')
     assert.deepEqual(beit.phaseNavigation, locale === 'en' ? ['01Phase 1 – Northern Side', '02Phase 2 – Western Wing', '•Qaitbay’s Seat Main Hall'] : ['01المرحلة الأولى – المنطقة الشمالية', '02المرحلة الثانية – الجناح الغربي', '•مقعد قايتباي – القاعة الرئيسية'], `Beit Al-Razzaz ${locale} navigation must retain both phases and the unphased Qaitbay section`)
@@ -230,7 +233,7 @@ try {
   assert.equal(narrowComparisonLayout.columns, 2, '320px comparison layout must retain exactly two columns')
   assert.ok(narrowComparisonLayout.documentWidth <= narrowComparisonLayout.viewport, '320px comparison layout must not create horizontal page overflow')
   assert.ok(narrowComparisonLayout.widths.every((width) => width > 0 && width < narrowComparisonLayout.viewport / 2), 'each mobile comparison must fit independently within its grid cell')
-  assert.deepEqual(narrowComparisonLayout.values, ['50', '50', '50', '50'], 'every comparison must start with its own divider at 50%')
+  assert.deepEqual(narrowComparisonLayout.values, ['50', '50', '50', '50', '50', '50'], 'every Phase 1 comparison must start with its own divider at 50%')
   const initialSlider = await evaluate("document.querySelector('.beit-comparison input').value")
   await evaluate("document.querySelector('.beit-comparison input').focus(); true")
   await client.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key: 'ArrowRight', code: 'ArrowRight', windowsVirtualKeyCode: 39 })
@@ -249,7 +252,7 @@ try {
     send('pointermove', ${to});
     send('pointerup', ${to});
     await new Promise((resolve) => setTimeout(resolve, 50));
-    return [...document.querySelectorAll('.beit-comparison input')].slice(0, 2).map((input) => Number(input.value));
+    return [...document.querySelectorAll('.beit-comparison input')].map((input) => Number(input.value));
   })()`)
   const afterMouseComparison = await dispatchPointerDrag(0, 'mouse', .2, .8)
   assert.ok(afterMouseComparison[0] >= 75, 'first comparison must respond to mouse pointer dragging')
@@ -257,6 +260,13 @@ try {
   const afterTouchComparison = await dispatchPointerDrag(1, 'touch', .8, .3)
   assert.ok(afterTouchComparison[1] <= 35, 'second comparison must respond to touch pointer dragging')
   assert.equal(afterTouchComparison[0], afterMouseComparison[0], 'dragging the second comparison must not change the first divider')
+  const correctedPairTouch = await dispatchPointerDrag(3, 'touch', .5, .25)
+  assert.ok(correctedPairTouch[3] <= 30, 'corrected rooftop comparison must respond to touch pointer dragging')
+  assert.equal(correctedPairTouch[0], afterTouchComparison[0], 'dragging the corrected rooftop comparison must not change neighboring dividers')
+  for (let index = 0; index < 18; index += 1) {
+    const values = await dispatchPointerDrag(index, index % 2 === 0 ? 'mouse' : 'touch', .45, .7)
+    assert.ok(values[index] >= 65, `comparison ${index + 1} must respond independently to ${index % 2 === 0 ? 'mouse' : 'touch'} dragging`)
+  }
   const mobileCapture = await client.send('Page.captureScreenshot', { format: 'png', fromSurface: true })
   await writeFile(path.join(outputDirectory, 'phase-1-comparisons-mobile.png'), Buffer.from(mobileCapture.data, 'base64'))
 
@@ -269,6 +279,8 @@ try {
   await delay(500)
   const desktopCapture = await client.send('Page.captureScreenshot', { format: 'png', fromSurface: true })
   await writeFile(path.join(outputDirectory, 'phase-1-comparisons-desktop.png'), Buffer.from(desktopCapture.data, 'base64'))
+  const correctedPairMouse = await dispatchPointerDrag(3, 'mouse', .5, .78)
+  assert.ok(correctedPairMouse[3] >= 75, 'corrected rooftop comparison must respond to desktop mouse dragging')
   await navigate(`${base}/en/projects/mohamed-ali-palace/`)
   const initiallyOffscreen = await evaluate(`document.querySelector('.detail-gallery-carousel').dataset.carouselAutoplay`)
   assert.equal(initiallyOffscreen, 'paused', 'offscreen gallery autoplay must remain paused')
@@ -402,7 +414,7 @@ try {
 
   assert.deepEqual(getBrowserErrors(), [], 'live production routes must not emit browser console errors')
 
-  console.log(`Verified ${Object.keys(genericProjects).length + 5} horizontal carousels, eight independent before/after comparisons, all ${Object.keys(projects).length} project galleries and ${expectedPhotoCount} photographs, autoplay/pause/looping, mouse drag, trackpad scroll, touch swipe, RTL controls, two-column mobile comparisons, lightbox controls, reduced motion, no console errors, and 320–1440px layouts in Edge.`)
+  console.log(`Verified ${Object.keys(genericProjects).length + 5} horizontal carousels, eighteen independent before/after comparisons, all ${Object.keys(projects).length} project galleries and ${expectedPhotoCount} photographs, autoplay/pause/looping, mouse drag, trackpad scroll, touch swipe, RTL controls, two-column mobile comparisons, lightbox controls, reduced motion, no console errors, and 320–1440px layouts in Edge.`)
 } finally {
   browser.kill()
   await delay(250)

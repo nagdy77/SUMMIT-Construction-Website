@@ -1,11 +1,6 @@
 export const COMPANY_EMAIL = 'Projects@Summit-constructions.com'
-
-/**
- * Add the approved business WhatsApp number here in international format.
- * Example format only: +20 1XX XXX XXXX
- */
-export const WHATSAPP_NUMBER: string | null = null
-export const WHATSAPP_PLACEHOLDER = '+20 1XX XXX XXXX'
+export const WHATSAPP_NUMBER = '201009666337'
+export const WHATSAPP_DISPLAY_NUMBER = '+20 100 966 6337'
 
 export type ContactLocale = 'en' | 'ar'
 export type WhatsAppIntent = 'quote' | 'general' | 'project'
@@ -22,8 +17,8 @@ const messages: Record<ContactLocale, Record<Exclude<WhatsAppIntent, 'project'>,
 }
 
 export const whatsappUnavailableCopy: Record<ContactLocale, string> = {
-  en: `WhatsApp number pending — ${WHATSAPP_PLACEHOLDER}`,
-  ar: `رقم واتساب قيد الإضافة — ${WHATSAPP_PLACEHOLDER}`,
+  en: 'WhatsApp is temporarily unavailable.',
+  ar: 'واتساب غير متاح مؤقتًا.',
 }
 
 function normalizedWhatsAppNumber(number: string | null) {

@@ -54,8 +54,8 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'contact-enquiries',
         title: 'Contact Enquiries',
         paragraphs: [
-          'WhatsApp is the primary enquiry channel. Until SUMMIT configures its approved business number, WhatsApp actions remain visibly unavailable and do not open an invalid or placeholder number.',
-          'When enabled, a WhatsApp action opens the official WhatsApp service with a prepared message. Sending remains under your control and is handled by WhatsApp under its own terms and privacy practices.',
+          'WhatsApp is the primary enquiry channel. WhatsApp actions open SUMMIT’s official business chat with a prepared message.',
+          'Sending remains under your control and is handled by WhatsApp under its own terms and privacy practices.',
           'Using the direct email link opens the email service selected on your device. That provider handles the message under its own terms and privacy practices.',
         ],
       },
@@ -133,8 +133,8 @@ export const privacyPolicyContent: Record<Locale, PrivacyPolicyContent> = {
         id: 'contact-enquiries',
         title: 'استفسارات التواصل',
         paragraphs: [
-          'واتساب هو قناة الاستفسار الأساسية. وحتى تضيف سوميت رقم الأعمال المعتمد، تظل أزرار واتساب ظاهرة بوصفها غير متاحة ولا تفتح رقمًا غير صالح أو رقمًا تجريبيًا.',
-          'عند تفعيلها، تفتح أزرار واتساب خدمة واتساب الرسمية مع رسالة مجهزة مسبقًا. ويظل إرسالها تحت سيطرتك وتتعامل واتساب معها وفق شروطها وممارسات الخصوصية لديها.',
+          'واتساب هو قناة الاستفسار الأساسية. وتفتح أزرار واتساب محادثة الأعمال الرسمية لسوميت مع رسالة مجهزة مسبقًا.',
+          'يظل إرسال الرسالة تحت سيطرتك وتتعامل واتساب معها وفق شروطها وممارسات الخصوصية لديها.',
           'يفتح رابط البريد المباشر خدمة البريد التي تختارها على جهازك، وتتعامل تلك الخدمة مع الرسالة وفق شروطها وممارسات الخصوصية لديها.',
         ],
       },

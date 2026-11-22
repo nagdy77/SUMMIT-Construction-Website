@@ -9,7 +9,7 @@ import { useCopy, useHomeCopy, useLocale } from '../content/site'
 import { privacyPolicyContent } from '../content/privacy'
 import { routePath, sitePath } from '../lib/routes'
 import { NotFoundPage } from './NotFoundPage'
-import { COMPANY_EMAIL } from '../config/contact'
+import { COMPANY_EMAIL, WHATSAPP_DISPLAY_NUMBER } from '../config/contact'
 import { WhatsAppAction } from '../components/contact/WhatsAppAction'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -434,6 +434,7 @@ export function ContactPage() {
         <h2>{locale === 'en' ? 'Start with WhatsApp.' : 'ابدأ عبر واتساب.'}</h2>
         <p>{locale === 'en' ? 'A direct line to the SUMMIT team for project requirements and quotation requests.' : 'تواصل مباشر مع فريق سوميت لمناقشة متطلبات المشروع وطلبات عروض الأسعار.'}</p>
         <WhatsAppAction intent="general" showStatus className="whatsapp-primary-action">{locale === 'en' ? 'Contact Us on WhatsApp' : 'تواصل معنا عبر واتساب'}</WhatsAppAction>
+        <span className="contact-whatsapp-number" dir="ltr">{WHATSAPP_DISPLAY_NUMBER}</span>
         <div className="contact-email-option">
           <span>{locale === 'en' ? 'Email' : 'البريد الإلكتروني'}</span>
           <a data-magnetic className="contact-direct" href={`mailto:${COMPANY_EMAIL}`}>{COMPANY_EMAIL} <span aria-hidden="true">↗</span></a>
