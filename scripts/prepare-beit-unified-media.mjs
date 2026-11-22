@@ -29,24 +29,27 @@ const carpentryExistingRoot = path.join(portfolioRoot, portfolioEntries.find((en
 async function optimizedCopies(source, outputDirectory, stem) {
   await mkdir(outputDirectory, { recursive: true })
   await Promise.all([
+    sharp(source).rotate().resize({ width: 480, withoutEnlargement: true }).webp({ quality: 73, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-mobile.webp`)),
     sharp(source).rotate().resize({ width: 720, withoutEnlargement: true }).webp({ quality: 75, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-small.webp`)),
-    sharp(source).rotate().resize({ width: 1400, withoutEnlargement: true }).webp({ quality: 80, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
+    sharp(source).rotate().resize({ width: 1200, withoutEnlargement: true }).webp({ quality: 82, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
   ])
 }
 
 async function optimizedDocumentationCopies(source, outputDirectory, stem) {
   await mkdir(outputDirectory, { recursive: true })
   await Promise.all([
+    sharp(source).rotate().resize({ width: 480, withoutEnlargement: true }).webp({ quality: 72, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-mobile.webp`)),
     sharp(source).rotate().resize({ width: 720, withoutEnlargement: true }).webp({ quality: 74, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-small.webp`)),
-    sharp(source).rotate().resize({ width: 1400, withoutEnlargement: true }).webp({ quality: 79, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
+    sharp(source).rotate().resize({ width: 1200, withoutEnlargement: true }).webp({ quality: 81, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
   ])
 }
 
 async function optimizedArchiveCopies(source, outputDirectory, stem) {
   await mkdir(outputDirectory, { recursive: true })
   await Promise.all([
+    sharp(source).rotate().resize({ width: 480, withoutEnlargement: true }).webp({ quality: 68, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-mobile.webp`)),
     sharp(source).rotate().resize({ width: 720, withoutEnlargement: true }).webp({ quality: 70, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-small.webp`)),
-    sharp(source).rotate().resize({ width: 1400, withoutEnlargement: true }).webp({ quality: 72, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
+    sharp(source).rotate().resize({ width: 1200, withoutEnlargement: true }).webp({ quality: 78, effort: 6, smartSubsample: true }).toFile(path.join(outputDirectory, `${stem}-large.webp`)),
   ])
 }
 
@@ -143,6 +146,7 @@ const qaitbayNew = [
   'IMG_7195.JPG', 'IMG_7233.JPG', 'IMG_7267.JPG', 'IMG_8374.JPG', 'IMG_8941.JPG',
 ]
 for (let index = 0; index < qaitbayExisting.length; index += 1) {
+  if (index === 4) continue // Excluded from the verified public presentation; source remains untouched.
   await optimizedCopies(path.join(qaitbayExistingRoot, qaitbayExisting[index]), qaitbayOutput, String(index + 1).padStart(2, '0'))
 }
 for (let index = 0; index < qaitbayNew.length; index += 1) {
@@ -169,6 +173,7 @@ for (let index = 0; index < carpentryExisting.length; index += 1) {
   await optimizedCopies(path.join(carpentryExistingRoot, carpentryExisting[index]), carpentryOutput, String(index + 1).padStart(2, '0'))
 }
 for (let index = 0; index < carpentryNew.length; index += 1) {
+  if (index === 0) continue // Client-excluded ceiling photograph; preserve only the original source.
   await optimizedCopies(carpentryNew[index], carpentryOutput, String(carpentryExisting.length + index + 1).padStart(2, '0'))
 }
 

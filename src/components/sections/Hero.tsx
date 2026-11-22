@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type PointerEvent as ReactPointerEvent } from 'react'
 import gsap from 'gsap'
 import { WhatsAppAction } from '../contact/WhatsAppAction'
 import { Container } from '../ui/Container'
@@ -15,6 +15,7 @@ type HeroAction =
 type HeroSlide = {
   category: string
   headline: string
+  description: string
   lines: string[]
   accentLine: number
   image: {
@@ -27,7 +28,11 @@ type HeroSlide = {
   }
   imagePosition: string
   action: HeroAction
+  secondaryAction: Extract<HeroAction, { type: 'route' }>
+  sketches: HeroSketchName[]
 }
+
+type HeroSketchName = 'arch' | 'blueprint' | 'compass' | 'helmet' | 'trowel'
 
 const AUTOPLAY_SECONDS = 8
 const DEFERRED_SLIDE_DELAY_MS = 1500
@@ -37,6 +42,7 @@ const slides: HeroSlide[] = [
   {
     category: 'Restoration',
     headline: 'We Build the Future with the Spirit of Heritage.',
+    description: 'Preserving architectural legacy and delivering enduring spaces for generations to come.',
     lines: ['We Build the Future', 'with the Spirit', 'of Heritage.'],
     accentLine: 2,
     image: {
@@ -50,10 +56,13 @@ const slides: HeroSlide[] = [
     },
     imagePosition: 'object-[58%_center] sm:object-center',
     action: { id: 'story', type: 'route', page: 'about' },
+    secondaryAction: { id: 'projects', type: 'route', page: 'projects' },
+    sketches: ['arch', 'compass', 'trowel'],
   },
   {
     category: 'Construction',
     headline: 'Monumental Ideas. Precisely Built.',
+    description: 'Complex construction delivered with disciplined engineering, material clarity, and exacting execution.',
     lines: ['Monumental Ideas.', 'Precisely Built.'],
     accentLine: 1,
     image: {
@@ -67,10 +76,13 @@ const slides: HeroSlide[] = [
     },
     imagePosition: 'object-[62%_center] sm:object-center',
     action: { id: 'projects', type: 'route', page: 'projects' },
+    secondaryAction: { id: 'story', type: 'route', page: 'about' },
+    sketches: ['blueprint', 'compass', 'helmet'],
   },
   {
     category: 'Residential Fit-Out',
     headline: 'Spaces Designed Around the Way You Live.',
+    description: 'Considered interiors where proportion, craft, and everyday function come together.',
     lines: ['Spaces Designed', 'Around the Way', 'You Live.'],
     accentLine: 2,
     image: {
@@ -84,10 +96,13 @@ const slides: HeroSlide[] = [
     },
     imagePosition: 'object-[67%_center] sm:object-center',
     action: { id: 'residential', type: 'route', page: 'service-detail', slug: 'renovation' },
+    secondaryAction: { id: 'story', type: 'route', page: 'about' },
+    sketches: ['blueprint', 'compass', 'trowel'],
   },
   {
     category: 'Retail Fit-Out',
     headline: 'Interiors Where Material Becomes Atmosphere.',
+    description: 'Retail environments shaped through coordinated delivery, refined finishes, and lasting detail.',
     lines: ['Interiors Where', 'Material Becomes', 'Atmosphere.'],
     accentLine: 2,
     image: {
@@ -101,11 +116,43 @@ const slides: HeroSlide[] = [
     },
     imagePosition: 'object-[58%_center] sm:object-center',
     action: { id: 'quote', type: 'whatsapp' },
+    secondaryAction: { id: 'story', type: 'route', page: 'about' },
+    sketches: ['compass', 'blueprint', 'arch'],
   },
 ]
 
 function formatSlideNumber(index: number) {
   return String(index + 1).padStart(2, '0')
+}
+
+function HeroSketchIcon({ name }: { name: HeroSketchName }) {
+  const shared = { vectorEffect: 'non-scaling-stroke' as const }
+
+  return (
+    <svg viewBox="0 0 96 96" fill="none" aria-hidden="true" focusable="false">
+      {name === 'arch' ? <>
+        <path d="M16 82h64M22 82V43C22 24 34 12 48 12s26 12 26 31v39M31 82V44c0-12 7-21 17-21s17 9 17 21v38" {...shared} />
+        <path d="M17 76h62M18 38h11m38 0h11M14 86h68" {...shared} />
+      </> : null}
+      {name === 'blueprint' ? <>
+        <path d="M20 22h51v53H20zM29 31h32v34H29zM29 42h32M41 31v34M52 42v23" {...shared} />
+        <path d="M20 75c-7 0-11-4-11-10s4-10 11-10m51-33c9 0 16 7 16 16S80 54 71 54" {...shared} />
+      </> : null}
+      {name === 'compass' ? <>
+        <circle cx="48" cy="18" r="8" {...shared} />
+        <path d="M45 26 27 82m24-56 18 56M33 63h30M48 10V4m-8 14H22m52 0H56" {...shared} />
+        <path d="M27 82h10m22 0h10M42 18h12" {...shared} />
+      </> : null}
+      {name === 'helmet' ? <>
+        <path d="M17 63c0-23 13-40 31-40s31 17 31 40M11 63h74v12H11zM48 23v40M31 28v35M65 28v35" {...shared} />
+        <path d="M20 75c6 6 15 9 28 9s22-3 28-9" {...shared} />
+      </> : null}
+      {name === 'trowel' ? <>
+        <path d="m13 76 47-20 16 16-63 4Z" {...shared} />
+        <path d="m58 58 9-9 8 8-9 9m6-12 11-11c4-4 4-9 0-13s-9-4-13 0L59 41" {...shared} />
+      </> : null}
+    </svg>
+  )
 }
 
 type HeroProps = {
@@ -119,6 +166,7 @@ export function Hero({ entranceReady = true }: HeroProps) {
   const rootRef = useRef<HTMLElement>(null)
   const navigateRef = useRef<(direction: 1 | -1) => void>(() => undefined)
   const toggleAutoplayRef = useRef<() => void>(() => undefined)
+  const swipeStartRef = useRef<{ x: number; y: number } | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [autoplayPaused, setAutoplayPaused] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
@@ -557,12 +605,43 @@ export function Hero({ entranceReady = true }: HeroProps) {
     navigateRef.current(1)
   }
 
+  const handlePointerDown = (event: ReactPointerEvent<HTMLElement>) => {
+    if (event.pointerType !== 'touch' || (event.target as HTMLElement).closest('a, button')) return
+    swipeStartRef.current = { x: event.clientX, y: event.clientY }
+  }
+
+  const handlePointerUp = (event: ReactPointerEvent<HTMLElement>) => {
+    const start = swipeStartRef.current
+    swipeStartRef.current = null
+    if (!start || event.pointerType !== 'touch') return
+
+    const deltaX = event.clientX - start.x
+    const deltaY = event.clientY - start.y
+    if (Math.abs(deltaX) < 52 || Math.abs(deltaX) <= Math.abs(deltaY) * 1.15) return
+    navigateRef.current(deltaX < 0 ? 1 : -1)
+  }
+
+  const handleHeroKeyDown = (event: ReactKeyboardEvent<HTMLElement>) => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      showPreviousSlide()
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      showNextSlide()
+    }
+  }
+
   return (
     <section
       ref={rootRef}
       id="top"
       aria-roledescription="carousel"
-      aria-label="SUMMIT Construction highlights"
+      aria-label={locale === 'en' ? 'SUMMIT Construction highlights' : 'أبرز أعمال سوميت للإنشاءات'}
+      onKeyDown={handleHeroKeyDown}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={() => { swipeStartRef.current = null }}
       className="cinematic-hero relative isolate -mt-[5.25rem] h-[100svh] min-h-[35rem] overflow-hidden bg-summit-black text-[var(--color-photo-text)] [@media(max-height:640px)]:min-h-[30rem]"
     >
       <div className="absolute inset-0">
@@ -576,7 +655,7 @@ export function Hero({ entranceReady = true }: HeroProps) {
               data-hero-slide
               aria-hidden={!isActive}
               aria-roledescription="slide"
-              aria-label={`${index + 1} of ${localizedSlides.length}`}
+              aria-label={locale === 'en' ? `${index + 1} of ${localizedSlides.length}` : `${index + 1} من ${localizedSlides.length}`}
               className="absolute inset-0 overflow-hidden"
               style={{ opacity: index === 0 ? 1 : 0, zIndex: index === 0 ? 1 : 0 }}
             >
@@ -610,24 +689,32 @@ export function Hero({ entranceReady = true }: HeroProps) {
                 />
               </picture>
               <div className="hero-content-contrast absolute inset-0" />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.2)_0%,transparent_28%,rgba(10,10,10,0.72)_100%)]" />
+              <div className="hero-vignette absolute inset-0" />
 
-              <Container className="relative z-10 flex h-full flex-col justify-end pb-28 pt-[calc(5.25rem+2rem)] sm:pb-32 lg:pb-36 lg:pt-[calc(5.25rem+4rem)] [@media(max-height:640px)]:pb-20 [@media(max-height:640px)]:pt-[5.75rem]">
-                <div className="max-w-[76rem]">
-                  <p data-hero-copy className="mb-5 flex items-center gap-3 font-body text-[0.625rem] font-bold uppercase tracking-[0.22em] text-summit-gold sm:mb-7 sm:text-[0.6875rem] [@media(max-height:640px)]:mb-3">
-                    <span className="h-px w-8 bg-summit-gold sm:w-12" aria-hidden="true" />
+              <div className="hero-sketch-layer" aria-hidden="true">
+                {slide.sketches.map((sketch, sketchIndex) => (
+                  <span key={`${sketch}-${sketchIndex}`} className={`hero-sketch hero-sketch--${sketchIndex + 1}`}>
+                    <HeroSketchIcon name={sketch} />
+                  </span>
+                ))}
+              </div>
+
+              <Container className="hero-content-shell relative z-10 flex h-full flex-col">
+                <div className="hero-copy-panel">
+                  <p data-hero-copy className="hero-category">
+                    <span aria-hidden="true" />
                     {slide.category}
                   </p>
 
                   <Heading
                     aria-label={slide.headline}
-                    className="max-w-[13ch] font-display text-[clamp(2.5rem,7.1vw,7rem)] font-medium leading-[0.98] tracking-[-0.055em] [@media(max-height:640px)]:text-[clamp(1.85rem,6vw,3rem)]"
+                    className="hero-headline"
                   >
                     {slide.lines.map((line, lineIndex) => (
                       <span key={line} aria-hidden="true" className="block overflow-hidden pb-[0.08em]">
                         <span
                           data-hero-line
-                          className={`block ${lineIndex === slide.accentLine ? 'font-[family-name:var(--font-editorial)] text-[1.12em] italic tracking-[-0.025em] text-[var(--color-photo-accent)]' : ''}`}
+                          className={`block ${lineIndex === slide.accentLine ? 'hero-headline__accent' : ''}`}
                         >
                           {line}
                         </span>
@@ -635,7 +722,9 @@ export function Hero({ entranceReady = true }: HeroProps) {
                     ))}
                   </Heading>
 
-                  <div data-hero-actions className="hero-actions mt-6 sm:mt-8 [@media(max-height:640px)]:mt-4">
+                  <p data-hero-copy className="hero-description">{slide.description}</p>
+
+                  <div data-hero-actions className="hero-actions">
                     {slide.action.type === 'whatsapp' ? (
                       <span data-hero-cta={slide.action.id} className="hero-cta-slot">
                         <WhatsAppAction
@@ -659,7 +748,24 @@ export function Hero({ entranceReady = true }: HeroProps) {
                         <span className="hero-cta__arrow" aria-hidden="true"><Icon name="arrow-right" size={18} /></span>
                       </a>
                     )}
+                    <a
+                      data-magnetic
+                      data-hero-secondary={slide.secondaryAction.id}
+                      className="hero-cta hero-cta--secondary"
+                      href={routePath(locale, slide.secondaryAction.page, slide.secondaryAction.slug)}
+                      tabIndex={isActive ? 0 : -1}
+                    >
+                      <span className="hero-cta__label">{slide.secondaryCta}</span>
+                      <span className="hero-cta__secondary-mark" aria-hidden="true" />
+                    </a>
                   </div>
+
+                  <ul data-hero-copy className="hero-capabilities" aria-label={locale === 'en' ? 'SUMMIT areas of expertise' : 'مجالات خبرة سوميت'}>
+                    <li><Icon name="restoration" size={21} /><span>{locale === 'en' ? 'Heritage Restoration' : 'ترميم التراث'}</span></li>
+                    <li><Icon name="construction" size={21} /><span>{locale === 'en' ? 'Construction' : 'الإنشاءات'}</span></li>
+                    <li><Icon name="renovation" size={21} /><span>{locale === 'en' ? 'Fit-Out' : 'التشطيبات'}</span></li>
+                    <li><Icon name="construction" size={21} /><span>{locale === 'en' ? 'Turnkey Delivery' : 'التسليم المتكامل'}</span></li>
+                  </ul>
                 </div>
               </Container>
             </article>
@@ -686,29 +792,36 @@ export function Hero({ entranceReady = true }: HeroProps) {
 
           <div className="pointer-events-auto flex items-center gap-1 sm:gap-2">
             <button
+              data-hero-autoplay
               data-magnetic
               type="button"
               onClick={() => toggleAutoplayRef.current()}
               disabled={reducedMotion}
-              aria-label={reducedMotion ? 'Autoplay disabled by reduced motion preference' : autoplayPaused ? 'Resume carousel autoplay' : 'Pause carousel autoplay'}
+              aria-label={reducedMotion
+                ? (locale === 'en' ? 'Autoplay disabled by reduced motion preference' : 'تم تعطيل التشغيل التلقائي وفق تفضيل تقليل الحركة')
+                : autoplayPaused
+                  ? (locale === 'en' ? 'Resume carousel autoplay' : 'استئناف التشغيل التلقائي')
+                  : (locale === 'en' ? 'Pause carousel autoplay' : 'إيقاف التشغيل التلقائي')}
               className="icon-control grid size-11 place-items-center border border-white/25 text-[var(--color-photo-text)] transition-colors hover:border-summit-gold hover:text-summit-gold disabled:cursor-not-allowed disabled:opacity-40"
             >
               <Icon name={autoplayPaused ? 'play' : 'pause'} size={16} />
             </button>
             <button
+              data-hero-previous
               data-magnetic
               type="button"
               onClick={showPreviousSlide}
-              aria-label="Show previous slide"
+              aria-label={locale === 'en' ? 'Show previous slide' : 'عرض الشريحة السابقة'}
               className="icon-control grid size-11 place-items-center border border-white/25 text-[var(--color-photo-text)] transition-colors hover:border-summit-gold hover:text-summit-gold"
             >
               <Icon name="arrow-left" size={18} />
             </button>
             <button
+              data-hero-next
               data-magnetic
               type="button"
               onClick={showNextSlide}
-              aria-label="Show next slide"
+              aria-label={locale === 'en' ? 'Show next slide' : 'عرض الشريحة التالية'}
               className="icon-control grid size-11 place-items-center border border-white/25 text-[var(--color-photo-text)] transition-colors hover:border-summit-gold hover:text-summit-gold"
             >
               <Icon name="arrow-right" size={18} />

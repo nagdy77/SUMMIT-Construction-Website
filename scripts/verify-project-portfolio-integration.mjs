@@ -119,6 +119,29 @@ try {
     image.addEventListener('error', () => resolve(false), { once: true });
     setTimeout(() => resolve(image.complete && image.naturalWidth > 0), 15000);
   })))`)
+  const activateCarousels = async (selector) => evaluate(`(async () => {
+    const carousels = [...document.querySelectorAll(${JSON.stringify(selector)})];
+    for (const carousel of carousels) {
+      carousel.scrollIntoView({ block: 'center', behavior: 'auto' });
+      await new Promise((resolve) => setTimeout(resolve, 120));
+      const viewport = carousel.querySelector('.media-carousel__viewport');
+      const track = carousel.querySelector('.media-carousel__track');
+      const items = [...carousel.querySelectorAll('[data-carousel-copy="main"]')];
+      for (const item of items) {
+        viewport.scrollTo({ left: item.offsetLeft - track.offsetLeft, behavior: 'auto' });
+        viewport.dispatchEvent(new Event('scroll'));
+        await new Promise((resolve) => setTimeout(resolve, 90));
+      }
+    }
+    return true;
+  })()`)
+  const activateComparisons = () => evaluate(`(async () => {
+    for (const comparison of document.querySelectorAll('.beit-comparison')) {
+      comparison.scrollIntoView({ block: 'center', behavior: 'auto' });
+      await new Promise((resolve) => setTimeout(resolve, 80));
+    }
+    return true;
+  })()`)
   const getBrowserErrors = () => client.events.filter((event) => event.method === 'Runtime.exceptionThrown'
     || (event.method === 'Runtime.consoleAPICalled' && event.params?.type === 'error')
     || (event.method === 'Log.entryAdded' && event.params?.entry?.level === 'error'))
@@ -170,6 +193,7 @@ try {
     await waitFor("Boolean(document.querySelector('.detail-cover'))")
     const expectedThumbnails = expectedImages - 1
     await waitFor(`document.querySelectorAll('.detail-gallery-carousel [data-carousel-copy="main"] .media-carousel__frame').length === ${expectedThumbnails}`)
+    await activateCarousels('.detail-gallery-carousel')
     assert.ok((await waitForImages('.detail-cover img, .detail-gallery-carousel [data-carousel-copy="main"] img')).every(Boolean), `${slug} gallery images must decode`)
     const metrics = await evaluate(`(() => { const carousel = document.querySelector('.detail-gallery-carousel'); const viewport = carousel?.querySelector('.media-carousel__viewport'); const item = carousel?.querySelector('[data-carousel-copy="main"]'); return { viewport: innerWidth, documentWidth: document.documentElement.scrollWidth, cover: document.querySelectorAll('.detail-cover').length, thumbnails: document.querySelectorAll('.detail-gallery-carousel [data-carousel-copy="main"] .media-carousel__frame').length, carousels: document.querySelectorAll('.detail-gallery-carousel').length, carouselDirection: carousel?.getAttribute('dir'), carouselWidth: viewport?.clientWidth, itemWidth: item?.getBoundingClientRect().width, placeholder: Boolean(document.querySelector('.detail-media-placeholder')) }; })()`)
     assert.ok(metrics.documentWidth <= metrics.viewport, `${slug} must not overflow on mobile`)
@@ -188,7 +212,9 @@ try {
     const qaitbayLoading = await evaluate(`(() => { const images = [...document.querySelectorAll('[aria-labelledby="beit-qaitbay-heading"] [data-carousel-copy="main"] img')]; return { total: images.length, lazy: images.filter((image) => image.loading === 'lazy').length, lowPriority: images.filter((image) => image.fetchPriority === 'low').length, loaded: images.filter((image) => image.complete && image.naturalWidth > 0).length }; })()`)
     assert.deepEqual([qaitbayLoading.total, qaitbayLoading.lazy, qaitbayLoading.lowPriority], [14, 14, 14], `Beit Al-Razzaz ${locale} Qaitbay gallery must remain lazy and low-priority`)
     if (locale === 'en') assert.ok(qaitbayLoading.loaded < 14, 'The uncached Beit Al-Razzaz page must not initially fetch the full Qaitbay gallery')
-    assert.ok((await waitForImages('.beit-case-study img')).every(Boolean), `Beit Al-Razzaz ${locale} images must decode`)
+    await activateComparisons()
+    await activateCarousels('.beit-photo-carousel')
+    assert.ok((await waitForImages('.beit-case-study img[src]')).every(Boolean), `Beit Al-Razzaz ${locale} assigned images must decode`)
     const beit = await evaluate(`({
       viewport: innerWidth,
       documentWidth: document.documentElement.scrollWidth,
@@ -202,7 +228,7 @@ try {
       carouselDirections: [...document.querySelectorAll('.beit-photo-carousel')].map((carousel) => carousel.getAttribute('dir')),
       comparisonStructures: [...document.querySelectorAll('.beit-comparison')].map((comparison) => ({ images: comparison.querySelectorAll('.beit-comparison-image img').length, ranges: comparison.querySelectorAll('input[type="range"]').length, labels: [...comparison.querySelectorAll('.beit-photo-label')].map((label) => label.textContent.trim()) })),
       comparisonSources: [...document.querySelectorAll('.beit-comparison-image img')].map((image) => new URL(image.currentSrc || image.src).pathname),
-      ordinarySources: [...document.querySelectorAll('.beit-photo-carousel [data-carousel-copy="main"] img')].map((image) => new URL(image.currentSrc || image.src).pathname),
+      ordinarySources: [...document.querySelectorAll('.beit-photo-carousel [data-carousel-copy="main"] img')].map((image) => new URL(image.dataset.imageSrc, location.href).pathname),
       staticComparisonImages: [...document.querySelectorAll('img')].filter((image) => /before|after|قبل|بعد/i.test(image.alt) && !image.closest('.beit-comparison')).length,
       comparisonColumns: getComputedStyle(document.querySelector('.beit-pair-grid')).gridTemplateColumns.split(' ').filter(Boolean).length,
       phaseNavigation: [...document.querySelectorAll('.beit-phase-navigation a')].map((link) => link.textContent.trim()),
@@ -275,6 +301,7 @@ try {
   await navigate(`${base}/en/projects/beit-al-razzaz/`)
   await evaluate("document.querySelector('#beit-phase-1 .beit-pair-grid').scrollIntoView({ block: 'center' }); true")
   await waitFor("document.querySelector('#beit-phase-1 .beit-pair-grid').getBoundingClientRect().top >= 0")
+  await waitFor("document.querySelectorAll('#beit-phase-1 .beit-comparison.is-ready').length === 6")
   assert.ok((await waitForImages('#beit-phase-1 .beit-comparison img')).every(Boolean), 'desktop Phase 1 comparisons must decode before visual capture')
   await delay(500)
   const desktopCapture = await client.send('Page.captureScreenshot', { format: 'png', fromSurface: true })

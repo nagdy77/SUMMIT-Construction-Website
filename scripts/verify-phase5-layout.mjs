@@ -355,8 +355,8 @@ try {
       }
 
       await scrollTo(0)
-      const contact = await evaluate(`({floating:document.querySelector('a[aria-label^="Contact SUMMIT Construction by email"]')?.getAttribute('href'),section:[...document.querySelectorAll('#contact a')].map(link=>link.getAttribute('href'))})`)
-      check(contact.floating === 'mailto:Projects@Summit-constructions.com' && contact.section.length >= 1 && contact.section.every((href) => href === contact.floating), `${scenario}: all contact actions use verified email`, contact)
+      const contact = await evaluate(`({floating:document.querySelector('[data-floating-controls] a[data-whatsapp-configured="true"]')?.getAttribute('href'),section:[...document.querySelectorAll('#contact a')].map(link=>link.getAttribute('href'))})`)
+      check(contact.floating?.startsWith('https://wa.me/201009666337?text=') && contact.section.some((href) => href === 'mailto:Projects@Summit-constructions.com') && contact.section.some((href) => href?.startsWith('https://wa.me/201009666337?text=')), `${scenario}: contact actions use the official WhatsApp number and retain the verified email`, contact)
       check(results.errors.length === initialErrors, `${scenario}: no new JavaScript console/runtime errors`, results.errors.slice(initialErrors))
       results.layouts.push({ scenario, width, theme, initialState, fonts, sectionThemes, sections: measured, contact })
       console.log(`Completed ${scenario}: ${measured.length} scroll positions checked`)

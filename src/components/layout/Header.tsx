@@ -142,12 +142,12 @@ export function Header() {
 
   return (
     <header ref={headerRef} data-scrolled={scrolled ? 'true' : 'false'} data-menu-open={menuOpen ? 'true' : 'false'} className="site-header sticky top-0 z-50 border-b border-[var(--color-border)]">
-      <Container className="relative z-10 flex h-[5.25rem] items-center justify-between gap-4">
-        <a href={routePath(locale)} aria-label="SUMMIT Construction" className="flex shrink-0 items-center gap-4" onClick={() => setMenuOpen(false)}>
-          <img src={assetUrl('/assets/brand/summit-logo-gold-intro.webp')} alt="SUMMIT Construction" width="269" height="240" decoding="async" className="h-[3.35rem] w-[3.75rem] object-contain" />
+      <Container className="header-inner relative z-10 flex h-[5.25rem] items-center justify-between gap-4">
+        <a href={routePath(locale)} aria-label="SUMMIT Construction" className="header-brand flex shrink-0 items-center gap-4" onClick={() => setMenuOpen(false)}>
+          <img src={assetUrl('/assets/brand/summit-logo-gold-intro.webp')} alt="SUMMIT Construction" width="269" height="240" decoding="async" className="header-logo h-[3.35rem] w-[3.75rem] object-contain" />
           <span className="header-tagline hidden border-l border-[var(--color-border)] pl-4 text-[0.54rem] font-semibold uppercase leading-5 tracking-[0.22em] text-[var(--color-muted)] sm:block">Construction<br />Restoration & renovation</span>
         </a>
-        <div className="flex items-center gap-2 lg:gap-4">
+        <div className="header-actions flex items-center gap-2 lg:gap-4">
           <nav aria-label={locale === 'en' ? 'Main navigation' : 'التنقل الرئيسي'} className="hidden items-center gap-2 xl:flex xl:gap-3 2xl:gap-5">
             {navigation.map((item) => <a key={item.href} href={item.href} aria-current={currentRoute.page === item.page || (currentRoute.page === 'project-detail' && item.page === 'projects') || (currentRoute.page === 'service-detail' && item.page === 'services') ? 'page' : undefined} className="nav-link">{item.label}</a>)}
           </nav>

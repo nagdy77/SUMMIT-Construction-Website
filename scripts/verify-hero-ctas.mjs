@@ -96,8 +96,8 @@ try {
   }
   const activeIndexExpression = `[...document.querySelectorAll('[data-hero-slide]')].findIndex((slide) => slide.getAttribute('aria-hidden') === 'false')`
 
-  const navigate = async (locale, width) => {
-    const height = width === 390 ? 844 : width === 768 ? 1024 : 1000
+  const navigate = async (locale, width, heightOverride) => {
+    const height = heightOverride ?? ({ 360: 800, 375: 812, 390: 844, 430: 932, 768: 1024, 1440: 1000 })[width]
     await client.send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width < 768 })
     await client.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'no-preference' }] })
     await client.send('Page.navigate', { url: `${base}/${locale}/` })
@@ -107,8 +107,9 @@ try {
     await waitFor("!document.querySelector('[data-skip-intro]')")
     await evaluate('document.fonts.ready', true)
     await waitFor("document.querySelector('#top')?.dataset.transitionState === 'idle' && document.querySelector('#summit-first-hero-image')?.dataset.ready === 'true'")
-    if (await evaluate("Boolean(document.querySelector('button[aria-label=\"Pause carousel autoplay\"]'))")) {
-      await evaluate("document.querySelector('button[aria-label=\"Pause carousel autoplay\"]').click(); true")
+    await delay(1200)
+    if (await evaluate("Boolean(document.querySelector('[data-hero-autoplay]:not(:disabled)'))")) {
+      await evaluate("document.querySelector('[data-hero-autoplay]').click(); true")
     }
     return height
   }
@@ -117,25 +118,25 @@ try {
   let screenshots = 0
   const expected = {
     en: [
-      { id: 'story', label: 'Discover Our Story', path: '/en/about/' },
-      { id: 'projects', label: 'Explore Our Projects', path: '/en/projects/' },
-      { id: 'residential', label: 'Explore Residential Fit-Out', path: '/en/services/renovation/' },
-      { id: 'quote', label: 'Request a Quote', message: 'Hello SUMMIT Construction, I would like to request a quotation for my project.' },
+      { id: 'story', label: 'Discover Our Story', path: '/en/about/', secondaryLabel: 'Explore Our Projects', secondaryPath: '/en/projects/' },
+      { id: 'projects', label: 'Explore Our Projects', path: '/en/projects/', secondaryLabel: 'Discover Our Story', secondaryPath: '/en/about/' },
+      { id: 'residential', label: 'Explore Residential Fit-Out', path: '/en/services/renovation/', secondaryLabel: 'Discover Our Story', secondaryPath: '/en/about/' },
+      { id: 'quote', label: 'Request a Quote', message: 'Hello SUMMIT Construction, I would like to request a quotation for my project.', secondaryLabel: 'Discover Our Story', secondaryPath: '/en/about/' },
     ],
     ar: [
-      { id: 'story', label: 'اكتشف قصتنا', path: '/ar/about/' },
-      { id: 'projects', label: 'استكشف مشاريعنا', path: '/ar/projects/' },
-      { id: 'residential', label: 'استكشف التشطيبات السكنية', path: '/ar/services/renovation/' },
-      { id: 'quote', label: 'اطلب عرض سعر', message: 'مرحبًا سوميت، أرغب في طلب عرض سعر لمشروعي.' },
+      { id: 'story', label: 'اكتشف قصتنا', path: '/ar/about/', secondaryLabel: 'استكشف مشاريعنا', secondaryPath: '/ar/projects/' },
+      { id: 'projects', label: 'استكشف مشاريعنا', path: '/ar/projects/', secondaryLabel: 'اكتشف قصتنا', secondaryPath: '/ar/about/' },
+      { id: 'residential', label: 'استكشف التشطيبات السكنية', path: '/ar/services/renovation/', secondaryLabel: 'اكتشف قصتنا', secondaryPath: '/ar/about/' },
+      { id: 'quote', label: 'اطلب عرض سعر', message: 'مرحبًا سوميت، أرغب في طلب عرض سعر لمشروعي.', secondaryLabel: 'اكتشف قصتنا', secondaryPath: '/ar/about/' },
     ],
   }
 
-  for (const width of [390, 768, 1440]) {
+  for (const width of [360, 375, 390, 430, 768, 1440]) {
     for (const locale of ['en', 'ar']) {
       const height = await navigate(locale, width)
       for (let index = 0; index < 4; index += 1) {
         if (index > 0) {
-          await evaluate("document.querySelector('button[aria-label=\"Show next slide\"]').click(); true")
+          await evaluate("document.querySelector('[data-hero-next]').click(); true")
           await waitFor(`document.querySelector('#top')?.dataset.transitionState === 'idle' && (${activeIndexExpression}) === ${index}`)
           await waitFor(`document.querySelectorAll('[data-hero-image]')[${index}]?.dataset.ready === 'true'`)
         }
@@ -144,9 +145,11 @@ try {
           const root = document.querySelector('#top')
           const active = root.querySelector('[data-hero-slide][aria-hidden="false"]')
           const heading = active.querySelector('h1, h2')
+          const description = active.querySelector('.hero-description')
           const actions = active.querySelector('[data-hero-actions]')
           const ctaHost = active.querySelector('[data-hero-cta]')
           const cta = ctaHost.matches('.hero-cta') ? ctaHost : ctaHost.querySelector('.hero-cta')
+          const secondary = active.querySelector('[data-hero-secondary]')
           const navigation = root.querySelector('[data-hero-navigation]')
           const rect = (node) => {
             const value = node.getBoundingClientRect()
@@ -166,6 +169,7 @@ try {
           const ctaStyle = getComputedStyle(cta)
           const actionRect = rect(actions)
           const ctaRect = rect(cta)
+          const secondaryRect = rect(secondary)
           const navigationRect = rect(navigation)
           return {
             locale: document.documentElement.lang,
@@ -174,9 +178,13 @@ try {
             slideCount: root.querySelectorAll('[data-hero-slide]').length,
             documentWidth: document.documentElement.scrollWidth,
             viewport: { width: innerWidth, height: innerHeight },
+            headingRect: rect(heading),
             headingBottom: heading.getBoundingClientRect().bottom,
+            descriptionRect: rect(description),
+            description: description.textContent.trim(),
             actionRect,
             ctaRect,
+            secondaryRect,
             navigationRect,
             actionCount: actions.querySelectorAll('.hero-cta').length,
             ctaId: ctaHost.dataset.heroCta,
@@ -197,7 +205,13 @@ try {
             shineAnimation: ctaStyle.animationName,
             hasArrow: Boolean(cta.querySelector('.hero-cta__arrow svg')),
             hit: hit(cta),
+            secondaryLabel: secondary.querySelector('.hero-cta__label')?.textContent.trim(),
+            secondaryPath: new URL(secondary.href).pathname,
+            secondaryTabIndex: secondary.tabIndex,
+            secondaryHit: hit(secondary),
+            visibleSketches: [...active.querySelectorAll('.hero-sketch')].filter((node) => getComputedStyle(node).display !== 'none').length,
             overlapsNavigation: overlap(ctaRect, navigationRect),
+            secondaryOverlapsNavigation: overlap(secondaryRect, navigationRect),
           }
         })()`)
 
@@ -212,15 +226,22 @@ try {
         assert.equal(metrics.slideCount, 4)
         assert.equal(metrics.documentWidth, width)
         assert.deepEqual(metrics.viewport, { width, height })
-        assert.equal(metrics.actionCount, 1)
+        assert.equal(metrics.actionCount, 2)
         assert.equal(metrics.ctaId, expectedCta.id)
         assert.equal(metrics.ctaLabel, expectedCta.label)
+        assert.ok(metrics.description.length > 30)
+        assert.ok(metrics.headingRect.left >= -0.5 && metrics.headingRect.right <= width + 0.5)
+        assert.ok(metrics.descriptionRect.top >= metrics.headingBottom - 1)
+        assert.ok(metrics.descriptionRect.left >= -0.5 && metrics.descriptionRect.right <= width + 0.5)
         assert.ok(metrics.actionRect.top >= metrics.headingBottom - 1)
         assert.ok(metrics.actionRect.left >= -0.5 && metrics.actionRect.right <= width + 0.5)
         assert.ok(metrics.actionRect.bottom <= height)
         assert.ok(metrics.ctaRect.height >= 44)
         assert.ok(metrics.ctaRect.left >= -0.5 && metrics.ctaRect.right <= width + 0.5)
+        assert.ok(metrics.secondaryRect.height >= 44)
+        assert.ok(metrics.secondaryRect.left >= -0.5 && metrics.secondaryRect.right <= width + 0.5)
         assert.equal(metrics.tabIndex, 0)
+        assert.equal(metrics.secondaryTabIndex, 0)
         assert.equal(metrics.inactiveFocusable, 0)
         assert.match(metrics.backgroundImage, /linear-gradient/)
         assert.match(metrics.color, /23, 24, 22/)
@@ -229,7 +250,12 @@ try {
         assert.equal(metrics.shineAnimation, 'none')
         assert.equal(metrics.hasArrow, true)
         assert.equal(metrics.hit.contains, true)
+        assert.equal(metrics.secondaryLabel, expectedCta.secondaryLabel)
+        assert.ok(metrics.secondaryPath.endsWith(expectedCta.secondaryPath))
+        assert.equal(metrics.secondaryHit.contains, true)
+        assert.ok(metrics.visibleSketches >= 2)
         assert.equal(metrics.overlapsNavigation, false)
+        assert.equal(metrics.secondaryOverlapsNavigation, false)
         if (expectedCta.path) {
           assert.equal(metrics.tag, 'A')
           assert.ok(metrics.ctaPath.endsWith(expectedCta.path))
@@ -267,6 +293,37 @@ try {
   assert.equal(hoverShine.animation, 'none')
   assertions += 3
 
+  await navigate('en', 390)
+  await evaluate(`(() => {
+    const hero = document.querySelector('#top')
+    hero.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch', clientX: 330, clientY: 420 }))
+    hero.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch', clientX: 70, clientY: 425 }))
+    return true
+  })()`)
+  await waitFor(`document.querySelector('#top')?.dataset.transitionState === 'idle' && (${activeIndexExpression}) === 1`)
+  await evaluate(`document.querySelector('#top').dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'ArrowRight' })); true`)
+  await waitFor(`document.querySelector('#top')?.dataset.transitionState === 'idle' && (${activeIndexExpression}) === 2`)
+  assertions += 2
+
+  await navigate('en', 360, 640)
+  const compactViewport = await evaluate(`(() => {
+    const active = document.querySelector('[data-hero-slide][aria-hidden="false"]')
+    const actions = active.querySelector('[data-hero-actions]').getBoundingClientRect()
+    const navigation = document.querySelector('[data-hero-navigation]').getBoundingClientRect()
+    return {
+      documentWidth: document.documentElement.scrollWidth,
+      viewport: { width: innerWidth, height: innerHeight },
+      actionBottom: actions.bottom,
+      navigationTop: navigation.top,
+      ctas: [...active.querySelectorAll('.hero-cta')].map((node) => node.getBoundingClientRect().height),
+    }
+  })()`)
+  assert.equal(compactViewport.documentWidth, 360)
+  assert.deepEqual(compactViewport.viewport, { width: 360, height: 640 })
+  assert.ok(compactViewport.actionBottom <= compactViewport.navigationTop)
+  assert.ok(compactViewport.ctas.every((height) => height >= 44))
+  assertions += 4
+
   await client.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true })
   await client.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] })
   await client.send('Page.navigate', { url: `${base}/en/` })
@@ -281,7 +338,7 @@ try {
         const style = getComputedStyle(control)
         return style.visibility === 'visible' && Number(style.opacity) === 1 && control.getBoundingClientRect().height >= 44
       }),
-      autoplayDisabled: document.querySelector('button[aria-label="Autoplay disabled by reduced motion preference"]')?.disabled,
+      autoplayDisabled: document.querySelector('[data-hero-autoplay]')?.disabled,
     }
   })()`)
   assert.deepEqual(reducedMotion, { reduced: true, visible: true, autoplayDisabled: true })

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react'
 import { assetUrl } from '../../lib/assets'
 import { MediaCarousel, type CarouselMedia } from '../ui/MediaCarousel'
 
@@ -6,9 +6,9 @@ type Locale = 'en' | 'ar'
 type Photo = { src: string; srcSet: string; alt: string; altAr?: string }
 type Pair = { id: string; before: Photo; after: Photo }
 
-const editorialPhoto = (folder: string, stem: string, alt: string, altAr: string, largeWidth = 1400): Photo => ({
+const editorialPhoto = (folder: string, stem: string, alt: string, altAr: string, largeWidth = 1200): Photo => ({
   src: `/assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-large.webp`,
-  srcSet: `/assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-small.webp 720w, /assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-large.webp ${largeWidth}w`,
+  srcSet: `/assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-mobile.webp 480w, /assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-small.webp 720w, /assets/projects/portfolio/beit-al-razzaz/${folder}/${stem}-large.webp ${largeWidth}w`,
   alt,
   altAr,
 })
@@ -76,8 +76,8 @@ const northern: Photo[] = [
 ]
 const northernGallery = northern.filter((_, index) => ![0, 5, 6, 7, 8].includes(index))
 
-function ResponsiveImage({ image, eager = false, locale = 'en', sizes = '(max-width: 760px) 100vw, 50vw' }: { image: Photo; eager?: boolean; locale?: Locale; sizes?: string }) {
-  return <img src={assetUrl(image.src)} srcSet={image.srcSet.split(', ').map((item) => `${assetUrl(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')} sizes={sizes} alt={locale === 'ar' ? image.altAr ?? 'صورة توثيقية من بيت الرزاز' : image.alt} width="1400" height="933" loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : 'low'} decoding="async" draggable="false" />
+function ResponsiveImage({ image, eager = false, requested = true, locale = 'en', sizes = '(max-width: 760px) 100vw, 50vw', onLoad }: { image: Photo; eager?: boolean; requested?: boolean; locale?: Locale; sizes?: string; onLoad?: () => void }) {
+  return <img src={requested ? assetUrl(image.src) : undefined} srcSet={requested ? image.srcSet.split(', ').map((item) => `${assetUrl(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ') : undefined} sizes={sizes} alt={locale === 'ar' ? image.altAr ?? 'صورة توثيقية من بيت الرزاز' : image.alt} width="1200" height="800" loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : 'low'} decoding="async" draggable="false" onLoad={onLoad} />
 }
 
 function PhotoGallery({ images, locale, label }: { images: Photo[]; locale: Locale; label: string }) {
@@ -93,16 +93,41 @@ function PhotoGallery({ images, locale, label }: { images: Photo[]; locale: Loca
 }
 
 function Comparison({ item, locale }: { item: Pair; locale: Locale }) {
-  const [position, setPosition] = useState(50)
+  const figureRef = useRef<HTMLElement>(null)
+  const imageRef = useRef<HTMLDivElement>(null)
+  const rangeRef = useRef<HTMLInputElement>(null)
+  const [requested, setRequested] = useState(false)
+  const [loaded, setLoaded] = useState(0)
   const labels = locale === 'en' ? { before: 'Before', after: 'After', compare: 'Reveal before and after photographs' } : { before: 'قبل', after: 'بعد', compare: 'مقارنة صور قبل الترميم وبعده' }
   const { before, after } = item
+  useEffect(() => {
+    const figure = figureRef.current
+    if (!figure) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      setRequested(true)
+      observer.disconnect()
+    }, { rootMargin: '800px 0px', threshold: .01 })
+    observer.observe(figure)
+    return () => observer.disconnect()
+  }, [])
+  const applyPosition = useCallback((next: number) => {
+    const position = Math.round(Math.max(0, Math.min(100, next)))
+    imageRef.current?.style.setProperty('--comparison-position', `${position}%`)
+    if (rangeRef.current) {
+      rangeRef.current.value = String(position)
+      rangeRef.current.setAttribute('aria-valuetext', `${position}%`)
+    }
+  }, [])
   const setFromPointer = (event: React.PointerEvent<HTMLDivElement>) => {
     const bounds = event.currentTarget.getBoundingClientRect()
-    setPosition(Math.round(Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100))))
+    applyPosition((event.clientX - bounds.left) / bounds.width * 100)
   }
-  return <figure className="beit-comparison" dir="ltr">
-    <div className="beit-comparison-image" onPointerDown={(event) => { event.currentTarget.setPointerCapture(event.pointerId); setFromPointer(event) }} onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) setFromPointer(event) }} onPointerUp={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }} onPointerCancel={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }}><ResponsiveImage image={before} locale={locale} /><div className="beit-comparison-after" style={{ clipPath: `inset(0 0 0 ${position}%)` }}><ResponsiveImage image={after} locale={locale} /></div><span className="beit-photo-label beit-photo-label--before">{labels.before}</span><span className="beit-photo-label beit-photo-label--after">{labels.after}</span><span className="beit-comparison-divider" style={{ left: `${position}%` }} aria-hidden="true" /></div>
-    <input aria-label={labels.compare} aria-valuetext={`${position}%`} type="range" min="0" max="100" step="1" value={position} onChange={(event) => setPosition(Number(event.target.value))} />
+  const markLoaded = useCallback(() => setLoaded((count) => Math.min(2, count + 1)), [])
+  const ready = loaded === 2
+  return <figure ref={figureRef} className={`beit-comparison${ready ? ' is-ready' : ' is-loading'}`} dir="ltr" aria-busy={!ready}>
+    <div ref={imageRef} className="beit-comparison-image" style={{ '--comparison-position': '50%' } as CSSProperties} onPointerDown={(event) => { event.currentTarget.setPointerCapture(event.pointerId); setFromPointer(event) }} onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) setFromPointer(event) }} onPointerUp={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }} onPointerCancel={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }}><ResponsiveImage image={before} requested={requested} locale={locale} sizes="(max-width: 760px) 48vw, 31vw" onLoad={markLoaded} /><div className="beit-comparison-after"><ResponsiveImage image={after} requested={requested} locale={locale} sizes="(max-width: 760px) 48vw, 31vw" onLoad={markLoaded} /></div><span className="beit-photo-label beit-photo-label--before">{labels.before}</span><span className="beit-photo-label beit-photo-label--after">{labels.after}</span><span className="beit-comparison-divider" aria-hidden="true" /></div>
+    <input ref={rangeRef} aria-label={labels.compare} aria-valuetext="50%" type="range" min="0" max="100" step="1" defaultValue="50" onInput={(event) => applyPosition(Number(event.currentTarget.value))} />
   </figure>
 }
 

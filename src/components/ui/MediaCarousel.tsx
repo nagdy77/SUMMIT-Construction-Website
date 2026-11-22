@@ -41,6 +41,7 @@ export function MediaCarousel({ images, locale, label, className = '', onSelect 
   const [dragging, setDragging] = useState(false)
   const [interactionPaused, setInteractionPaused] = useState(false)
   const [visible, setVisible] = useState(false)
+  const [loadedIndices, setLoadedIndices] = useState<Set<number>>(() => new Set([0]))
   const [tabVisible, setTabVisible] = useState(() => typeof document === 'undefined' || document.visibilityState === 'visible')
   const [reducedMotion, setReducedMotion] = useState(() => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const rtl = locale === 'ar'
@@ -50,6 +51,16 @@ export function MediaCarousel({ images, locale, label, className = '', onSelect 
   const main = images.map((image, index) => ({ image, logicalIndex: index, copy: 'main' as const, key: `main-${image.id}-${index}` }))
   const suffix = images.slice(0, cloneCount).map((image, index) => ({ image, logicalIndex: index, copy: 'suffix' as const, key: `suffix-${image.id}-${index}` }))
   const carouselItems: CarouselCopy[] = images.length > 1 ? [...prefix, ...main, ...suffix] : main
+
+  const queueNearbyImages = useCallback((center: number) => {
+    setLoadedIndices((previous) => {
+      const next = new Set(previous)
+      const trailing = typeof window !== 'undefined' && window.innerWidth < 600 ? 1 : 2
+      for (let offset = -1; offset <= trailing; offset += 1) next.add(mod(center + offset, images.length))
+      if (next.size === previous.size && [...next].every((index) => previous.has(index))) return previous
+      return next
+    })
+  }, [images.length])
 
   const clearResumeTimer = useCallback(() => {
     if (resumeTimerRef.current !== null) window.clearTimeout(resumeTimerRef.current)
@@ -144,10 +155,15 @@ export function MediaCarousel({ images, locale, label, className = '', onSelect 
   useLayoutEffect(() => {
     currentRef.current = 0
     setCurrent(0)
+    setLoadedIndices(new Set([0]))
     measure(false)
     const frame = window.requestAnimationFrame(() => measure(false))
     return () => window.cancelAnimationFrame(frame)
   }, [imageSignature, measure])
+
+  useEffect(() => {
+    if (visible) queueNearbyImages(current)
+  }, [current, queueNearbyImages, visible])
 
   useEffect(() => {
     const root = rootRef.current
@@ -265,13 +281,16 @@ export function MediaCarousel({ images, locale, label, className = '', onSelect 
       }}
     >
       <div className="media-carousel__track">
-        {carouselItems.map(({ image, logicalIndex, copy, key }) => <div className="media-carousel__item" data-carousel-copy={copy} data-carousel-index={logicalIndex} aria-hidden={copy === 'main' ? undefined : true} key={key}>
+        {carouselItems.map(({ image, logicalIndex, copy, key }) => {
+          const shouldLoad = (copy === 'main' && logicalIndex === 0) || (visible && loadedIndices.has(logicalIndex))
+          const imageElement = <img src={shouldLoad ? assetUrl(image.src) : undefined} srcSet={shouldLoad && image.srcSet ? assetSrcSet(image.srcSet) : undefined} data-image-src={assetUrl(image.src)} sizes="(max-width: 560px) 78vw, (max-width: 980px) 46vw, 31vw" alt={copy === 'main' ? image.alt : ''} width={image.width ?? 1400} height={image.height ?? 933} loading="lazy" fetchPriority="low" decoding="async" draggable="false" style={{ objectFit: image.fit ?? 'cover', objectPosition: image.position ?? 'center' }} />
+          return <div className="media-carousel__item" data-carousel-copy={copy} data-carousel-index={logicalIndex} aria-hidden={copy === 'main' ? undefined : true} key={key}>
           {onSelect ? <button type="button" className="media-carousel__frame" tabIndex={copy === 'main' ? 0 : -1} onClick={() => select(logicalIndex)} aria-label={image.alt}>
-            <img src={assetUrl(image.src)} srcSet={image.srcSet ? assetSrcSet(image.srcSet) : undefined} sizes="(max-width: 560px) 78vw, (max-width: 980px) 46vw, 31vw" alt={copy === 'main' ? image.alt : ''} width={image.width ?? 1400} height={image.height ?? 933} loading="lazy" fetchPriority="low" decoding="async" draggable="false" style={{ objectFit: image.fit ?? 'cover', objectPosition: image.position ?? 'center' }} />
+            {imageElement}
           </button> : <figure className="media-carousel__frame">
-            <img src={assetUrl(image.src)} srcSet={image.srcSet ? assetSrcSet(image.srcSet) : undefined} sizes="(max-width: 560px) 78vw, (max-width: 980px) 46vw, 31vw" alt={copy === 'main' ? image.alt : ''} width={image.width ?? 1400} height={image.height ?? 933} loading="lazy" fetchPriority="low" decoding="async" draggable="false" style={{ objectFit: image.fit ?? 'cover', objectPosition: image.position ?? 'center' }} />
+            {imageElement}
           </figure>}
-        </div>)}
+        </div>})}
       </div>
     </div>
   </section>
