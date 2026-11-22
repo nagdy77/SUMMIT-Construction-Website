@@ -83,31 +83,71 @@ const images = {
   },
 } satisfies Record<string, EditorialImage>
 
-const profileOrganisations = [
-  { name: 'GAMA Construction', logo: '/assets/clients/gama.webp' },
-  { name: 'Hampikian', logo: '/assets/clients/hampikian.webp' },
-  { name: 'ROWAD Modern Engineering', logo: '/assets/clients/rowad.webp' },
-  { name: 'The Stone Shop', logo: '/assets/clients/the-stone-shop.webp' },
-  { name: 'ABT', logo: '/assets/clients/abt.webp' },
-  { name: 'Arabian Construction Co.', logo: '/assets/clients/acc.webp' },
-  { name: 'Built Environment Collective', logo: '/assets/clients/built-environment-collective.webp' },
-  { name: 'Egyptian Heritage Rescue Foundation', logo: '/assets/clients/egyptian-heritage-rescue-foundation.webp' },
+type ProfileOrganisation = {
+  name: string
+  logo: string
+  website?: string
+  mark: 'wide' | 'square' | 'compact'
+}
+
+const clientOrganisations: ProfileOrganisation[] = [
+  { name: 'Arabian Construction Co. (ACC)', logo: '/assets/clients/acc.webp', website: 'https://accgroup.com/', mark: 'wide' },
+  { name: 'GAMA Construction', logo: '/assets/clients/gama.webp', website: 'https://gama.com.eg/', mark: 'wide' },
+  { name: 'Hampikian', logo: '/assets/clients/hampikian.webp', mark: 'compact' },
+  { name: 'Megawera', logo: '/assets/clients/Megawera.webp', website: 'https://megawra.com/', mark: 'square' },
+  { name: 'ROWAD Modern Engineering', logo: '/assets/clients/rowad.webp', website: 'https://rowad-rme.com/', mark: 'wide' },
+  { name: 'CSCEC', logo: '/assets/clients/CSCEC.webp', website: 'https://en.cscec.com/', mark: 'square' },
+  { name: 'Egyptian Heritage Rescue Foundation', logo: '/assets/clients/egyptian-heritage-rescue-foundation.webp', website: 'http://www.ehrf-egypt.com/', mark: 'square' },
 ]
 
-function ClientLogoTrackSet({ duplicate = false }: { duplicate?: boolean }) {
+const partnerOrganisations: ProfileOrganisation[] = [
+  { name: 'ABT', logo: '/assets/clients/abt.webp', website: 'https://www.abt.eu/', mark: 'compact' },
+  { name: 'The Stone Shop', logo: '/assets/clients/the-stone-shop.webp', website: 'https://thestoneshop-eg.com/', mark: 'wide' },
+]
+
+function ClientLogoTrackSet({ organisations, locale, duplicate = false }: { organisations: ProfileOrganisation[]; locale: Locale; duplicate?: boolean }) {
   return <div className="client-logo-set" aria-hidden={duplicate || undefined}>
-    {profileOrganisations.map((organisation, index) => <figure key={`${duplicate ? 'duplicate-' : ''}${organisation.name}`} className="client-logo-card" data-client-logo>
-      <span>{String(index + 1).padStart(2, '0')}</span>
-      <div className="client-logo-image">
-        <img
-          src={sitePath(organisation.logo)}
-          alt={duplicate ? '' : `${organisation.name} logo`}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-      <figcaption>{organisation.name}</figcaption>
-    </figure>)}
+    {organisations.map((organisation) => {
+      const content = <>
+        <div className={`client-logo-image client-logo-image--${organisation.mark}`}>
+          <img
+            src={sitePath(organisation.logo)}
+            alt={duplicate ? '' : `${organisation.name} logo`}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div className="client-logo-meta">
+          <strong>{organisation.name}</strong>
+          {organisation.website ? <span>{locale === 'en' ? 'Official website' : 'الموقع الرسمي'}</span> : null}
+        </div>
+      </>
+
+      return organisation.website
+        ? <a
+          className="client-logo-card"
+          href={organisation.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={duplicate ? -1 : undefined}
+          aria-label={duplicate ? undefined : locale === 'en' ? `Visit the official ${organisation.name} website (opens in a new tab)` : `زيارة الموقع الرسمي لـ ${organisation.name} (يفتح في علامة تبويب جديدة)`}
+          key={`${duplicate ? 'duplicate-' : ''}${organisation.name}`}
+        >{content}</a>
+        : <article className="client-logo-card client-logo-card--unlinked" key={`${duplicate ? 'duplicate-' : ''}${organisation.name}`}>{content}</article>
+    })}
+  </div>
+}
+
+function OrganisationCarousel({ organisations, locale, category }: { organisations: ProfileOrganisation[]; locale: Locale; category: 'clients' | 'partners' }) {
+  const label = locale === 'en'
+    ? `SUMMIT ${category} logos`
+    : category === 'clients' ? 'شعارات عملاء سوميت' : 'شعارات شركاء سوميت'
+
+  return <div className={`client-logo-carousel client-logo-carousel--${category}`} role="region" aria-label={label}>
+    <div className="client-logo-track">
+      <ClientLogoTrackSet organisations={organisations} locale={locale} />
+      <ClientLogoTrackSet organisations={organisations} locale={locale} duplicate />
+    </div>
   </div>
 }
 
@@ -343,80 +383,27 @@ export function ClientsPage() {
   const locale = useLocale()
   const copy = useCopy()
   const root = useEditorialMotion<HTMLElement>()
-  const logoCarousel = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const viewport = logoCarousel.current
-    if (!viewport) return
-
-    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
-    let frame = 0
-    let isVisible = true
-
-    const renderLogoColor = () => {
-      const viewportBounds = viewport.getBoundingClientRect()
-      const center = viewportBounds.left + viewportBounds.width / 2
-      const fullColorRadius = Math.min(96, viewportBounds.width * 0.09)
-      const fadeRadius = Math.max(fullColorRadius + 1, viewportBounds.width * 0.34)
-      const cards = Array.from(viewport.querySelectorAll<HTMLElement>('[data-client-logo]'))
-      const strengths = cards.map((card) => {
-        const bounds = card.getBoundingClientRect()
-        const distance = Math.abs(bounds.left + bounds.width / 2 - center)
-        if (distance <= fullColorRadius) return 1
-        const progress = Math.min(1, (distance - fullColorRadius) / (fadeRadius - fullColorRadius))
-        const eased = progress * progress * (3 - 2 * progress)
-        return 1 - eased
-      })
-
-      cards.forEach((card, index) => {
-        const strength = strengths[index]
-        card.style.setProperty('--logo-grayscale', (1 - strength).toFixed(3))
-        card.style.setProperty('--logo-saturation', (0.18 + strength * 0.82).toFixed(3))
-        card.style.setProperty('--logo-opacity', (0.56 + strength * 0.44).toFixed(3))
-      })
-    }
-
-    const tick = () => {
-      renderLogoColor()
-      if (!motionPreference.matches && isVisible && document.visibilityState === 'visible') frame = window.requestAnimationFrame(tick)
-    }
-
-    const restart = () => {
-      window.cancelAnimationFrame(frame)
-      renderLogoColor()
-      if (!motionPreference.matches && isVisible && document.visibilityState === 'visible') frame = window.requestAnimationFrame(tick)
-    }
-
-    const resizeObserver = new ResizeObserver(restart)
-    const intersectionObserver = new IntersectionObserver(([entry]) => {
-      isVisible = entry.isIntersecting
-      restart()
-    }, { rootMargin: '10%' })
-    resizeObserver.observe(viewport)
-    intersectionObserver.observe(viewport)
-    motionPreference.addEventListener('change', restart)
-    document.addEventListener('visibilitychange', restart)
-    viewport.addEventListener('scroll', renderLogoColor, { passive: true })
-    restart()
-
-    return () => {
-      window.cancelAnimationFrame(frame)
-      resizeObserver.disconnect()
-      intersectionObserver.disconnect()
-      motionPreference.removeEventListener('change', restart)
-      document.removeEventListener('visibilitychange', restart)
-      viewport.removeEventListener('scroll', renderLogoColor)
-    }
-  }, [])
 
   return <PageFrame><section ref={root} className="inner-page clients-editorial"><Container>
     <header className="clients-heading brand-pattern-field brand-pattern-field--intro"><p className="eyebrow">{copy.pages.clients.eyebrow}</p><h1>{copy.pages.clients.title}</h1><p>{copy.pages.clients.body}</p></header>
-    <p className="profile-source-note" data-reveal>{locale === 'en' ? 'The following marks are reproduced from the client-supplied SUMMIT company profile.' : 'العلامات التالية مأخوذة من الملف التعريفي لشركة سوميت المقدم من العميل.'}</p>
-    <div ref={logoCarousel} className="client-logo-carousel" role="region" aria-label={locale === 'en' ? 'SUMMIT clients and partners logos' : 'شعارات عملاء وشركاء سوميت'}>
-      <div className="client-logo-track">
-        <ClientLogoTrackSet />
-        <ClientLogoTrackSet duplicate />
-      </div>
+    <p className="profile-source-note" data-reveal>{locale === 'en' ? 'Confirmed organisations, presented with the latest logo files supplied by SUMMIT.' : 'الجهات المؤكدة معروضة باستخدام أحدث ملفات الشعارات المقدمة من سوميت.'}</p>
+    <div className="client-logo-groups">
+      <section className="client-logo-group" aria-labelledby="clients-category-heading" data-reveal>
+        <header className="client-logo-group-heading">
+          <p className="eyebrow">{locale === 'en' ? 'Confirmed classification' : 'التصنيف المؤكد'}</p>
+          <h2 id="clients-category-heading">{locale === 'en' ? 'Clients' : 'العملاء'}</h2>
+          <p>{locale === 'en' ? 'Confirmed client organisations.' : 'الجهات المصنفة كعملاء.'}</p>
+        </header>
+        <OrganisationCarousel organisations={clientOrganisations} locale={locale} category="clients" />
+      </section>
+      <section className="client-logo-group" aria-labelledby="partners-category-heading" data-reveal>
+        <header className="client-logo-group-heading">
+          <p className="eyebrow">{locale === 'en' ? 'Confirmed classification' : 'التصنيف المؤكد'}</p>
+          <h2 id="partners-category-heading">{locale === 'en' ? 'Partners' : 'الشركاء'}</h2>
+          <p>{locale === 'en' ? 'Confirmed partner organisations.' : 'الجهات المصنفة كشركاء.'}</p>
+        </header>
+        <OrganisationCarousel organisations={partnerOrganisations} locale={locale} category="partners" />
+      </section>
     </div>
     <InnerCta title={locale === 'en' ? 'Explore selected SUMMIT projects.' : 'استكشف مشروعات مختارة لسوميت.'} href={routePath(locale, 'projects')} label={copy.nav.projects} />
   </Container></section></PageFrame>

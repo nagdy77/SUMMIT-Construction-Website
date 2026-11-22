@@ -764,6 +764,7 @@ button.media-carousel__frame:hover img, button.media-carousel__frame:focus-visib
 .services-index-heading, .clients-heading { display: grid; grid-template-columns: .7fr 1.4fr; gap: 1.5rem clamp(2rem, 7vw, 8rem); padding-block: var(--spacing-page) var(--spacing-block); }
 .services-index-heading .eyebrow, .clients-heading .eyebrow { grid-row: 1 / span 2; }
 .services-index-heading h1, .clients-heading h1 { grid-column: 2; }
+.clients-heading h1 { white-space: pre-line; }
 .services-index-heading > p:last-child, .clients-heading > p:last-child { grid-column: 2; }
 .formal-disciplines { display: grid; grid-template-columns: .7fr 1.4fr; gap: clamp(2rem, 7vw, 8rem); border-block: 1px solid var(--color-border); padding-block: clamp(2.5rem, 6vw, 5rem); }
 .formal-disciplines-heading h2 { max-width: 10ch; margin: 1rem 0 0; font: 500 clamp(2.1rem, 4vw, 4rem)/1 var(--font-display); letter-spacing: -.045em; }
@@ -817,14 +818,28 @@ button.media-carousel__frame:hover img, button.media-carousel__frame:focus-visib
 .service-next b { color: var(--color-accent); font-size: 1.25rem; }
 
 .profile-source-note { max-width: 45rem; margin: 0 0 2rem auto; color: var(--color-muted); font: .75rem/1.7 var(--font-body); }
-.client-logo-carousel { position: relative; width: 100%; overflow: hidden; border-block: 1px solid var(--color-border); direction: ltr; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%); }
-.client-logo-track { display: flex; width: max-content; will-change: transform; animation: client-logo-marquee 38s linear infinite; }
+.client-logo-groups { display: grid; gap: clamp(1.5rem, 3vw, 2.75rem); }
+.client-logo-group { overflow: hidden; border: 1px solid rgb(213 180 82 / 24%); border-radius: var(--radius-media); color: #f7f3e8; background: linear-gradient(135deg, #20211f 0%, #151614 100%); box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 12%); }
+.client-logo-group-heading { display: grid; grid-template-columns: minmax(10rem, .38fr) minmax(0, .62fr); gap: .55rem clamp(1.5rem, 5vw, 5rem); align-items: end; padding: clamp(1.5rem, 3.4vw, 3rem); }
+.client-logo-group-heading .eyebrow { grid-column: 1; margin: 0; color: #d5b452; }
+.client-logo-group-heading h2 { grid-column: 1; margin: 0; color: #fffdf7; font: 500 clamp(2.5rem, 5vw, 4.8rem)/.94 var(--font-display); letter-spacing: -.045em; }
+.client-logo-group-heading > p:last-child { grid-column: 2; grid-row: 1 / span 2; align-self: end; max-width: 34rem; margin: 0; color: rgb(247 243 232 / 68%); font: .9rem/1.75 var(--font-body); }
+.client-logo-carousel { position: relative; width: 100%; overflow: hidden; border-block-start: 1px solid rgb(213 180 82 / 20%); direction: ltr; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%); }
+.client-logo-track { display: flex; width: max-content; will-change: transform; animation: client-logo-marquee 40s linear infinite; }
+.client-logo-carousel--partners .client-logo-track { animation-duration: 30s; }
+.client-logo-carousel:hover .client-logo-track, .client-logo-carousel:focus-within .client-logo-track { animation-play-state: paused; }
 .client-logo-set { display: flex; flex: none; }
-.client-logo-card { --logo-grayscale: 1; --logo-saturation: .18; --logo-opacity: .56; position: relative; flex: 0 0 clamp(13.5rem, 20vw, 19rem); min-width: 0; margin: 0; border-inline-end: 1px solid var(--color-border); padding: clamp(1rem, 2.2vw, 2rem); }
-.client-logo-card > span { color: var(--color-accent); font: 500 .72rem var(--font-display); }
-.client-logo-image { display: grid; height: 10rem; place-items: center; margin-top: 1rem; padding: 1rem; background: #fff; }
-.client-logo-image img { display: block; max-width: 100%; max-height: 5.7rem; width: auto; height: auto; opacity: var(--logo-opacity); filter: grayscale(var(--logo-grayscale)) saturate(var(--logo-saturation)); will-change: filter, opacity; }
-.client-logo-card figcaption { min-height: 2.8rem; margin-top: 1rem; color: var(--color-muted); font: 700 .62rem/1.5 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
+.client-logo-card { display: grid; grid-template-rows: 10rem auto; flex: 0 0 clamp(14rem, 20vw, 19rem); min-width: 0; gap: 1rem; margin: 0; border-inline-end: 1px solid rgb(213 180 82 / 16%); padding: clamp(1rem, 2.2vw, 2rem); color: inherit; text-decoration: none; transition: background-color .25s ease, box-shadow .25s ease; }
+.client-logo-carousel--partners .client-logo-card { flex-basis: clamp(18rem, 26vw, 24rem); }
+.client-logo-card:hover, .client-logo-card:focus-visible { outline: 0; background: rgb(213 180 82 / 8%); box-shadow: inset 0 -2px 0 #d5b452; }
+.client-logo-card--unlinked:hover { background: transparent; box-shadow: none; }
+.client-logo-image { display: grid; width: 100%; height: 10rem; place-items: center; overflow: hidden; border: 1px solid rgb(28 29 27 / 9%); border-radius: .3rem; padding: clamp(1rem, 2vw, 1.4rem); background: #fff; box-shadow: 0 .75rem 2rem rgb(0 0 0 / 14%); }
+.client-logo-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.client-logo-image--square img { width: 76%; height: 76%; }
+.client-logo-image--compact img { width: 82%; height: 82%; }
+.client-logo-meta { display: grid; align-content: start; min-height: 3.35rem; gap: .35rem; }
+.client-logo-meta strong { color: #fffdf7; font: 700 .64rem/1.5 var(--font-body); letter-spacing: .075em; text-transform: uppercase; }
+.client-logo-meta span { color: #d5b452; font: 600 .56rem/1.45 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
 
 @keyframes client-logo-marquee {
   from { transform: translate3d(0, 0, 0); }
@@ -1023,8 +1038,11 @@ button.media-carousel__frame:hover img, button.media-carousel__frame:focus-visib
   .service-detail-body { padding-block: 5rem; }
   .service-detail-body > figure { height: 34rem; }
   .service-next { grid-template-columns: 1fr; gap: .8rem; }
+  .client-logo-group-heading { grid-template-columns: 1fr; align-items: start; }
+  .client-logo-group-heading .eyebrow, .client-logo-group-heading h2, .client-logo-group-heading > p:last-child { grid-column: 1; grid-row: auto; }
   .client-logo-track { animation-duration: 32s; }
-  .client-logo-card { flex-basis: 13rem; padding: 1rem; }
+  .client-logo-carousel--partners .client-logo-track { animation-duration: 26s; }
+  .client-logo-card, .client-logo-carousel--partners .client-logo-card { grid-template-rows: 8.5rem auto; flex-basis: 13rem; padding: 1rem; }
   .client-logo-image { height: 8.5rem; }
   .contact-layout { padding-block: 4rem; }
   .contact-action-panel { padding: 1.5rem; }
