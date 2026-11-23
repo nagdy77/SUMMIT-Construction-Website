@@ -10,6 +10,13 @@ const categorySourceRoot = path.join(root, 'public', 'assets', 'projects', 'cate
 const categoryOutputRoot = path.join(categorySourceRoot, 'optimized')
 const generatedDataPath = path.join(root, 'src', 'data', 'project-media.generated.ts')
 const validExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff', '.avif', '.heic', '.heif'])
+const compactVariantProjects = new Set([
+  'mohamed-ali-palace',
+  'new-capital-administrations-district',
+  'alto',
+  'lakeview-residence',
+  'bcbg',
+])
 
 const projectDefinitions = [
   ['heritage-restoration', 'mohamed-ali-palace', 'Mohamed Ali Palace'],
@@ -27,7 +34,12 @@ const projectDefinitions = [
   ['retail-fit-out', 'marina-rinaldi', 'Marina Rinaldi'],
   ['retail-fit-out', 'sky-offices', 'Sky Offices'],
   ['retail-fit-out', 'voda', 'Voda'],
-].map(([category, slug, title]) => ({ category, slug, title })).concat([
+].map(([category, slug, title]) => ({
+  category,
+  slug,
+  title,
+  responsiveWidths: compactVariantProjects.has(slug) ? [480, 720, 1600] : [720, 1600],
+})).concat([
   {
     category: 'heritage-restoration',
     slug: 'beit-al-razzaz',
@@ -38,7 +50,12 @@ const projectDefinitions = [
     ignoreUnconfiguredFiles: true,
     files: [1203, 1562, 1570, 1563, 1586].map((width, index) => {
       const stem = String(index + 1).padStart(2, '0')
-      return { filename: `${stem}-${width}.webp`, variants: [`${stem}-720.webp`, `${stem}-${width}.webp`] }
+      return {
+        filename: `${stem}-${width}.webp`,
+        variants: index === 0
+          ? [{ filename: `${stem}-${width}.webp`, output: `${stem}-480.webp`, width: 480 }, `${stem}-720.webp`, `${stem}-${width}.webp`]
+          : [`${stem}-720.webp`, `${stem}-${width}.webp`],
+      }
     }),
   },
   {
@@ -108,9 +125,16 @@ async function responsiveWebp(sourcePath, targetDirectory, stem, requestedWidths
   return variants
 }
 
-async function existingResponsiveWebp(sourceDirectory, filenames) {
-  return Promise.all(filenames.map(async (filename) => {
-    const targetPath = path.join(sourceDirectory, filename)
+async function existingResponsiveWebp(sourceDirectory, variants) {
+  return Promise.all(variants.map(async (variant) => {
+    const configured = typeof variant === 'string' ? null : variant
+    const targetPath = path.join(sourceDirectory, configured?.output ?? variant)
+    if (configured) {
+      await sharp(path.join(sourceDirectory, configured.filename))
+        .resize({ width: configured.width, fit: 'inside', withoutEnlargement: true })
+        .webp({ quality: 76, effort: 6, smartSubsample: true })
+        .toFile(targetPath)
+    }
     const metadata = await sharp(targetPath).metadata()
     if (!metadata.width || !metadata.height) throw new Error(`Missing dimensions: ${targetPath}`)
     return { width: metadata.width, height: metadata.height, targetPath }
@@ -184,7 +208,7 @@ async function prepareProjects() {
       const stem = String(number).padStart(2, '0')
       const variants = project.prebuiltVariants
         ? await existingResponsiveWebp(sourceDirectory, configuredVariants)
-        : await responsiveWebp(sourcePath, targetDirectory, stem, [720, 1600])
+        : await responsiveWebp(sourcePath, targetDirectory, stem, project.responsiveWidths ?? [720, 1600])
       const publicAssetFolder = project.publicAssetFolder ?? project.slug
       const publicVariants = variants.map((variant) => ({
         ...variant,

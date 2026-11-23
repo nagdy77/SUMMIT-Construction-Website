@@ -6,7 +6,7 @@ export const projectMedia = {
   "mohamed-ali-palace": [
     {
       "src": "/assets/projects/portfolio/mohamed-ali-palace/01-1202.webp",
-      "srcSet": "/assets/projects/portfolio/mohamed-ali-palace/01-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/01-1202.webp 1202w",
+      "srcSet": "/assets/projects/portfolio/mohamed-ali-palace/01-480.webp 480w, /assets/projects/portfolio/mohamed-ali-palace/01-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/01-1202.webp 1202w",
       "alt": "Mohamed Ali Palace — project photograph 1",
       "label": "Mohamed Ali Palace — photograph 1",
       "fit": "cover",
@@ -16,7 +16,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/mohamed-ali-palace/02-1566.webp",
-      "srcSet": "/assets/projects/portfolio/mohamed-ali-palace/02-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/02-1566.webp 1566w",
+      "srcSet": "/assets/projects/portfolio/mohamed-ali-palace/02-480.webp 480w, /assets/projects/portfolio/mohamed-ali-palace/02-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/02-1566.webp 1566w",
       "alt": "Mohamed Ali Palace — project photograph 2",
       "label": "Mohamed Ali Palace — photograph 2",
       "fit": "cover",
@@ -26,7 +26,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/mohamed-ali-palace/03-1565.webp",
-      "srcSet": "/assets/projects/portfolio/mohamed-ali-palace/03-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/03-1565.webp 1565w",
+      "srcSet": "/assets/projects/portfolio/mohamed-ali-palace/03-480.webp 480w, /assets/projects/portfolio/mohamed-ali-palace/03-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/03-1565.webp 1565w",
       "alt": "Mohamed Ali Palace — project photograph 3",
       "label": "Mohamed Ali Palace — photograph 3",
       "fit": "cover",
@@ -36,7 +36,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/mohamed-ali-palace/04-1565.webp",
-      "srcSet": "/assets/projects/portfolio/mohamed-ali-palace/04-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/04-1565.webp 1565w",
+      "srcSet": "/assets/projects/portfolio/mohamed-ali-palace/04-480.webp 480w, /assets/projects/portfolio/mohamed-ali-palace/04-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/04-1565.webp 1565w",
       "alt": "Mohamed Ali Palace — project photograph 4",
       "label": "Mohamed Ali Palace — photograph 4",
       "fit": "cover",
@@ -46,7 +46,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/mohamed-ali-palace/05-1564.webp",
-      "srcSet": "/assets/projects/portfolio/mohamed-ali-palace/05-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/05-1564.webp 1564w",
+      "srcSet": "/assets/projects/portfolio/mohamed-ali-palace/05-480.webp 480w, /assets/projects/portfolio/mohamed-ali-palace/05-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/05-1564.webp 1564w",
       "alt": "Mohamed Ali Palace — project photograph 5",
       "label": "Mohamed Ali Palace — photograph 5",
       "fit": "cover",
@@ -152,7 +152,7 @@ export const projectMedia = {
   "new-capital-administrations-district": [
     {
       "src": "/assets/projects/portfolio/new-capital-administrations-district/01-1312.webp",
-      "srcSet": "/assets/projects/portfolio/new-capital-administrations-district/01-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/01-1312.webp 1312w",
+      "srcSet": "/assets/projects/portfolio/new-capital-administrations-district/01-480.webp 480w, /assets/projects/portfolio/new-capital-administrations-district/01-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/01-1312.webp 1312w",
       "alt": "New Capital Administrations District — project photograph 1",
       "label": "New Capital Administrations District — photograph 1",
       "fit": "cover",
@@ -162,7 +162,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/new-capital-administrations-district/02-1564.webp",
-      "srcSet": "/assets/projects/portfolio/new-capital-administrations-district/02-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/02-1564.webp 1564w",
+      "srcSet": "/assets/projects/portfolio/new-capital-administrations-district/02-480.webp 480w, /assets/projects/portfolio/new-capital-administrations-district/02-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/02-1564.webp 1564w",
       "alt": "New Capital Administrations District — project photograph 2",
       "label": "New Capital Administrations District — photograph 2",
       "fit": "cover",
@@ -172,7 +172,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/new-capital-administrations-district/03-1557.webp",
-      "srcSet": "/assets/projects/portfolio/new-capital-administrations-district/03-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/03-1557.webp 1557w",
+      "srcSet": "/assets/projects/portfolio/new-capital-administrations-district/03-480.webp 480w, /assets/projects/portfolio/new-capital-administrations-district/03-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/03-1557.webp 1557w",
       "alt": "New Capital Administrations District — project photograph 3",
       "label": "New Capital Administrations District — photograph 3",
       "fit": "cover",
@@ -182,7 +182,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/new-capital-administrations-district/04-1556.webp",
-      "srcSet": "/assets/projects/portfolio/new-capital-administrations-district/04-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/04-1556.webp 1556w",
+      "srcSet": "/assets/projects/portfolio/new-capital-administrations-district/04-480.webp 480w, /assets/projects/portfolio/new-capital-administrations-district/04-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/04-1556.webp 1556w",
       "alt": "New Capital Administrations District — project photograph 4",
       "label": "New Capital Administrations District — photograph 4",
       "fit": "cover",
@@ -192,7 +192,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/new-capital-administrations-district/05-1565.webp",
-      "srcSet": "/assets/projects/portfolio/new-capital-administrations-district/05-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/05-1565.webp 1565w",
+      "srcSet": "/assets/projects/portfolio/new-capital-administrations-district/05-480.webp 480w, /assets/projects/portfolio/new-capital-administrations-district/05-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/05-1565.webp 1565w",
       "alt": "New Capital Administrations District — project photograph 5",
       "label": "New Capital Administrations District — photograph 5",
       "fit": "cover",
@@ -298,7 +298,7 @@ export const projectMedia = {
   "alto": [
     {
       "src": "/assets/projects/portfolio/alto/01-1205.webp",
-      "srcSet": "/assets/projects/portfolio/alto/01-720.webp 720w, /assets/projects/portfolio/alto/01-1205.webp 1205w",
+      "srcSet": "/assets/projects/portfolio/alto/01-480.webp 480w, /assets/projects/portfolio/alto/01-720.webp 720w, /assets/projects/portfolio/alto/01-1205.webp 1205w",
       "alt": "Alto — project photograph 1",
       "label": "Alto — photograph 1",
       "fit": "cover",
@@ -308,7 +308,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/alto/02-1536.webp",
-      "srcSet": "/assets/projects/portfolio/alto/02-720.webp 720w, /assets/projects/portfolio/alto/02-1536.webp 1536w",
+      "srcSet": "/assets/projects/portfolio/alto/02-480.webp 480w, /assets/projects/portfolio/alto/02-720.webp 720w, /assets/projects/portfolio/alto/02-1536.webp 1536w",
       "alt": "Alto — project photograph 2",
       "label": "Alto — photograph 2",
       "fit": "cover",
@@ -318,7 +318,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/alto/03-1572.webp",
-      "srcSet": "/assets/projects/portfolio/alto/03-720.webp 720w, /assets/projects/portfolio/alto/03-1572.webp 1572w",
+      "srcSet": "/assets/projects/portfolio/alto/03-480.webp 480w, /assets/projects/portfolio/alto/03-720.webp 720w, /assets/projects/portfolio/alto/03-1572.webp 1572w",
       "alt": "Alto — project photograph 3",
       "label": "Alto — photograph 3",
       "fit": "cover",
@@ -328,7 +328,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/alto/04-1570.webp",
-      "srcSet": "/assets/projects/portfolio/alto/04-720.webp 720w, /assets/projects/portfolio/alto/04-1570.webp 1570w",
+      "srcSet": "/assets/projects/portfolio/alto/04-480.webp 480w, /assets/projects/portfolio/alto/04-720.webp 720w, /assets/projects/portfolio/alto/04-1570.webp 1570w",
       "alt": "Alto — project photograph 4",
       "label": "Alto — photograph 4",
       "fit": "cover",
@@ -338,7 +338,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/alto/05-1498.webp",
-      "srcSet": "/assets/projects/portfolio/alto/05-720.webp 720w, /assets/projects/portfolio/alto/05-1498.webp 1498w",
+      "srcSet": "/assets/projects/portfolio/alto/05-480.webp 480w, /assets/projects/portfolio/alto/05-720.webp 720w, /assets/projects/portfolio/alto/05-1498.webp 1498w",
       "alt": "Alto — project photograph 5",
       "label": "Alto — photograph 5",
       "fit": "cover",
@@ -350,7 +350,7 @@ export const projectMedia = {
   "lakeview-residence": [
     {
       "src": "/assets/projects/portfolio/lakeview-residence/01-1570.webp",
-      "srcSet": "/assets/projects/portfolio/lakeview-residence/01-720.webp 720w, /assets/projects/portfolio/lakeview-residence/01-1570.webp 1570w",
+      "srcSet": "/assets/projects/portfolio/lakeview-residence/01-480.webp 480w, /assets/projects/portfolio/lakeview-residence/01-720.webp 720w, /assets/projects/portfolio/lakeview-residence/01-1570.webp 1570w",
       "alt": "Lakeview Residence — project photograph 1",
       "label": "Lakeview Residence — photograph 1",
       "fit": "cover",
@@ -360,7 +360,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/lakeview-residence/02-1098.webp",
-      "srcSet": "/assets/projects/portfolio/lakeview-residence/02-720.webp 720w, /assets/projects/portfolio/lakeview-residence/02-1098.webp 1098w",
+      "srcSet": "/assets/projects/portfolio/lakeview-residence/02-480.webp 480w, /assets/projects/portfolio/lakeview-residence/02-720.webp 720w, /assets/projects/portfolio/lakeview-residence/02-1098.webp 1098w",
       "alt": "Lakeview Residence — project photograph 2",
       "label": "Lakeview Residence — photograph 2",
       "fit": "contain",
@@ -370,7 +370,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/lakeview-residence/03-1206.webp",
-      "srcSet": "/assets/projects/portfolio/lakeview-residence/03-720.webp 720w, /assets/projects/portfolio/lakeview-residence/03-1206.webp 1206w",
+      "srcSet": "/assets/projects/portfolio/lakeview-residence/03-480.webp 480w, /assets/projects/portfolio/lakeview-residence/03-720.webp 720w, /assets/projects/portfolio/lakeview-residence/03-1206.webp 1206w",
       "alt": "Lakeview Residence — project photograph 3",
       "label": "Lakeview Residence — photograph 3",
       "fit": "cover",
@@ -380,7 +380,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/lakeview-residence/04-1566.webp",
-      "srcSet": "/assets/projects/portfolio/lakeview-residence/04-720.webp 720w, /assets/projects/portfolio/lakeview-residence/04-1566.webp 1566w",
+      "srcSet": "/assets/projects/portfolio/lakeview-residence/04-480.webp 480w, /assets/projects/portfolio/lakeview-residence/04-720.webp 720w, /assets/projects/portfolio/lakeview-residence/04-1566.webp 1566w",
       "alt": "Lakeview Residence — project photograph 4",
       "label": "Lakeview Residence — photograph 4",
       "fit": "cover",
@@ -424,7 +424,7 @@ export const projectMedia = {
   "bcbg": [
     {
       "src": "/assets/projects/portfolio/bcbg/01-1231.webp",
-      "srcSet": "/assets/projects/portfolio/bcbg/01-720.webp 720w, /assets/projects/portfolio/bcbg/01-1231.webp 1231w",
+      "srcSet": "/assets/projects/portfolio/bcbg/01-480.webp 480w, /assets/projects/portfolio/bcbg/01-720.webp 720w, /assets/projects/portfolio/bcbg/01-1231.webp 1231w",
       "alt": "BCBG — project photograph 1",
       "label": "BCBG — photograph 1",
       "fit": "cover",
@@ -434,7 +434,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/bcbg/02-1600.webp",
-      "srcSet": "/assets/projects/portfolio/bcbg/02-720.webp 720w, /assets/projects/portfolio/bcbg/02-1600.webp 1600w",
+      "srcSet": "/assets/projects/portfolio/bcbg/02-480.webp 480w, /assets/projects/portfolio/bcbg/02-720.webp 720w, /assets/projects/portfolio/bcbg/02-1600.webp 1600w",
       "alt": "BCBG — project photograph 2",
       "label": "BCBG — photograph 2",
       "fit": "cover",
@@ -444,7 +444,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/bcbg/03-1600.webp",
-      "srcSet": "/assets/projects/portfolio/bcbg/03-720.webp 720w, /assets/projects/portfolio/bcbg/03-1600.webp 1600w",
+      "srcSet": "/assets/projects/portfolio/bcbg/03-480.webp 480w, /assets/projects/portfolio/bcbg/03-720.webp 720w, /assets/projects/portfolio/bcbg/03-1600.webp 1600w",
       "alt": "BCBG — project photograph 3",
       "label": "BCBG — photograph 3",
       "fit": "cover",
@@ -454,7 +454,7 @@ export const projectMedia = {
     },
     {
       "src": "/assets/projects/portfolio/bcbg/04-1495.webp",
-      "srcSet": "/assets/projects/portfolio/bcbg/04-720.webp 720w, /assets/projects/portfolio/bcbg/04-1495.webp 1495w",
+      "srcSet": "/assets/projects/portfolio/bcbg/04-480.webp 480w, /assets/projects/portfolio/bcbg/04-720.webp 720w, /assets/projects/portfolio/bcbg/04-1495.webp 1495w",
       "alt": "BCBG — project photograph 4",
       "label": "BCBG — photograph 4",
       "fit": "cover",
@@ -666,7 +666,7 @@ export const projectMedia = {
   "beit-al-razzaz": [
     {
       "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp",
-      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp 1203w",
+      "srcSet": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-480.webp 480w, /assets/projects/portfolio/beit-al-razzaz/northern-side/01-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp 1203w",
       "alt": "Beit Al Razzaz — project photograph 1",
       "label": "Beit Al Razzaz — photograph 1",
       "fit": "cover",

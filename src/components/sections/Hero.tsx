@@ -22,6 +22,7 @@ type HeroSlide = {
     src: string
     srcSet: string
     mobileSrc: string
+    mobileSrcSet: string
     alt: string
     width: number
     height: number
@@ -50,6 +51,7 @@ const slides: HeroSlide[] = [
       srcSet:
         '/assets/projects/portfolio/mohamed-ali-palace/03-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/03-1565.webp 1565w',
       mobileSrc: '/assets/projects/featured/real-media/hero-restoration-mobile-640.webp',
+      mobileSrcSet: '/assets/projects/featured/real-media/hero-restoration-mobile-480.webp 480w, /assets/projects/featured/real-media/hero-restoration-mobile-640.webp 640w',
       alt: 'Restored pool courtyard at Mohamed Ali Palace',
       width: 1565,
       height: 1005,
@@ -70,6 +72,7 @@ const slides: HeroSlide[] = [
       srcSet:
         '/assets/projects/portfolio/new-capital-administrations-district/02-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/02-1564.webp 1564w',
       mobileSrc: '/assets/projects/featured/real-media/hero-construction-mobile-640.webp',
+      mobileSrcSet: '/assets/projects/featured/real-media/hero-construction-mobile-480.webp 480w, /assets/projects/featured/real-media/hero-construction-mobile-640.webp 640w',
       alt: 'Administrative building under construction in the New Capital Administrations District',
       width: 1564,
       height: 1006,
@@ -90,6 +93,7 @@ const slides: HeroSlide[] = [
       srcSet:
         '/assets/projects/portfolio/lakeview-residence/01-720.webp 720w, /assets/projects/portfolio/lakeview-residence/01-1570.webp 1570w',
       mobileSrc: '/assets/projects/featured/real-media/hero-residential-mobile-640.webp',
+      mobileSrcSet: '/assets/projects/featured/real-media/hero-residential-mobile-480.webp 480w, /assets/projects/featured/real-media/hero-residential-mobile-640.webp 640w',
       alt: 'Completed marble kitchen at Lakeview Residence',
       width: 1570,
       height: 1001,
@@ -110,6 +114,7 @@ const slides: HeroSlide[] = [
       srcSet:
         '/assets/projects/portfolio/desigual/01-720.webp 720w, /assets/projects/portfolio/desigual/01-1600.webp 1600w',
       mobileSrc: '/assets/projects/featured/real-media/hero-retail-mobile-640.webp',
+      mobileSrcSet: '/assets/projects/featured/real-media/hero-retail-mobile-480.webp 480w, /assets/projects/featured/real-media/hero-retail-mobile-640.webp 640w',
       alt: 'Completed Desigual retail fit-out',
       width: 1600,
       height: 756,
@@ -264,7 +269,7 @@ export function Hero({ entranceReady = true }: HeroProps) {
           // Activate the existing picture candidates together. The browser picks
           // only the matching source now and can change crops after rotation.
           const mobileSource = image.parentElement?.querySelector('source')
-          if (mobileSource && image.dataset.mobileSrc) mobileSource.srcset = image.dataset.mobileSrc
+          if (mobileSource && image.dataset.mobileSrc) mobileSource.srcset = image.dataset.mobileSrcset ?? image.dataset.mobileSrc
           image.srcset = image.dataset.srcset ?? ''
           image.src = source
         }
@@ -665,13 +670,14 @@ export function Hero({ entranceReady = true }: HeroProps) {
                 <div className="absolute bottom-[18%] right-[8%] size-[42vw] max-h-[34rem] max-w-[34rem] rotate-45 border border-white/[0.055]" />
               </div>
               <picture>
-                <source media="(max-width: 640px)" srcSet={index === 0 ? assetUrl(slide.image.mobileSrc) : undefined} type="image/webp" />
+                <source media="(max-width: 640px)" srcSet={index === 0 ? assetSrcSet(slide.image.mobileSrcSet) : undefined} sizes="100vw" type="image/webp" />
                 <img
                   id={index === 0 ? 'summit-first-hero-image' : undefined}
                   data-hero-image
                   data-src={assetUrl(slide.image.src)}
                   data-srcset={assetSrcSet(slide.image.srcSet)}
                   data-mobile-src={assetUrl(slide.image.mobileSrc)}
+                  data-mobile-srcset={assetSrcSet(slide.image.mobileSrcSet)}
                   data-ready="false"
                   src={index === 0 ? assetUrl(slide.image.src) : undefined}
                   srcSet={index === 0 ? assetSrcSet(slide.image.srcSet) : undefined}

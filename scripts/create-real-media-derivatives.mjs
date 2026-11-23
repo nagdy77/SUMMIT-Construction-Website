@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile, stat } from 'node:fs/promises'
+import { mkdir, writeFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import sharp from 'sharp'
 
@@ -7,58 +7,16 @@ const outputRoot = path.join(publicRoot, 'assets/projects/featured/real-media')
 
 const selections = [
   {
-    id: 'hero-heritage',
-    project: 'M.ALI PALACE',
-    source: 'assets/projects/M.ALI PALACE/DSC06093.jpg',
-    crops: { wide: { ratio: 1916 / 821, widths: [960, 1440, 1916] }, mobile: { ratio: 2 / 3, widths: [720] } },
-  },
-  {
-    id: 'hero-construction',
-    project: 'New Capital down town mall',
-    source: 'assets/projects/New Capital down town mall/IMG_20250628_133031.jpg',
-    crops: { wide: { ratio: 1916 / 821, widths: [960, 1440, 1916] }, mobile: { ratio: 2 / 3, widths: [720] } },
-  },
-  {
-    id: 'hero-residential',
-    project: 'ORIANA - CFC',
-    source: 'assets/projects/ORIANA - CFC/IMG20200123104212.jpg',
-    crops: { wide: { ratio: 1916 / 821, widths: [960, 1440, 1916] }, mobile: { ratio: 2 / 3, widths: [720] } },
-  },
-  {
-    id: 'hero-fitout',
-    project: 'Marvel',
-    source: 'assets/projects/Marvel/IMG20211205125400.jpg',
-    crops: { wide: { ratio: 1916 / 821, widths: [960, 1440, 1916] }, mobile: { ratio: 2 / 3, widths: [720] } },
-  },
-  {
     id: 'about-workmanship',
     project: 'Wajha Office',
     source: 'assets/projects/Wajha Office/IMG_20251207_002557.jpg',
     crops: { portrait: { ratio: 4 / 5, widths: [640, 960, 1122] } },
   },
   {
-    id: 'service-construction',
-    project: 'New Capital down town mall',
-    source: 'assets/projects/New Capital down town mall/IMG_20250730_141201.jpg',
-    crops: { portrait: { ratio: 0.64, widths: [640, 960, 1122] } },
-  },
-  {
-    id: 'service-restoration',
-    project: 'M.ALI PALACE',
-    source: 'assets/projects/M.ALI PALACE/IMG20210706142551.jpg',
-    crops: { portrait: { ratio: 0.64, widths: [640, 960, 1122] } },
-  },
-  {
-    id: 'service-renovation',
-    project: 'Lakeview',
-    source: 'assets/projects/Lakeview/IMG-20230820-WA0027.jpg',
-    crops: { portrait: { ratio: 0.64, widths: [480, 640, 847] } },
-  },
-  {
     id: 'story-wide',
     project: 'BEIT AL RAZZAZ',
     source: 'assets/projects/BEIT AL RAZZAZ/Phase 2/IMG_20250908_110032.jpg',
-    crops: { wide: { ratio: 1916 / 821, widths: [960, 1440, 1916] }, mobile: { ratio: 2 / 3, widths: [720] } },
+    crops: { wide: { ratio: 1916 / 821, widths: [960, 1440, 1916] } },
   },
   {
     id: 'story-portrait',
@@ -67,16 +25,10 @@ const selections = [
     crops: { portrait: { ratio: 4 / 5, widths: [640, 960, 1122] } },
   },
   {
-    id: 'material-study',
-    project: 'M.ALI PALACE',
-    source: 'assets/projects/M.ALI PALACE/DSC06158.jpg',
-    crops: { wide: { ratio: 1916 / 821, widths: [640, 960, 1440, 1916] }, mobile: { ratio: 4 / 5, widths: [720] } },
-  },
-  {
     id: 'contact-work',
     project: 'BEIT AL RAZZAZ',
     source: 'assets/projects/BEIT AL RAZZAZ/Phase 1/DSC_7041.JPG',
-    crops: { wide: { ratio: 1914 / 822, widths: [960, 1440, 1914] }, mobile: { ratio: 2 / 3, widths: [720] } },
+    crops: { wide: { ratio: 1914 / 822, widths: [960, 1440, 1914] } },
   },
 ]
 

@@ -111,12 +111,25 @@ export function FeaturedProjects() {
   const [loadMessage, setLoadMessage] = useState('')
   const [unavailableImages, setUnavailableImages] = useState<Set<string>>(new Set())
   const [readyImages, setReadyImages] = useState<Set<string>>(new Set())
+  const [galleryRequested, setGalleryRequested] = useState(false)
 
   const displayedSelection = gallery.layers[gallery.activeLayer] ?? firstSelection
   const activeProjectIndex = copySelection.projectIndex
   const activeImageIndex = copySelection.imageIndex
   const activeProject = projects[activeProjectIndex]
   const activePortfolioProject = publishedProjects[activeProjectIndex]
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section || galleryRequested) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      setGalleryRequested(true)
+      observer.disconnect()
+    }, { rootMargin: '320px 0px', threshold: 0 })
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [galleryRequested])
 
   useLayoutEffect(() => {
     const section = sectionRef.current
@@ -312,6 +325,7 @@ export function FeaturedProjects() {
   }, [copySelection])
 
   useEffect(() => {
+    if (!galleryRequested) return
     const currentProject = projects[copySelection.projectIndex]
     const nextImage = currentProject.images[(copySelection.imageIndex + 1) % currentProject.images.length]
     const nextProject = projects[(copySelection.projectIndex + 1) % projects.length]
@@ -325,11 +339,12 @@ export function FeaturedProjects() {
     })
 
     return () => preloads.forEach((preload) => preload.removeAttribute('src'))
-  }, [copySelection])
+  }, [copySelection, galleryRequested])
 
   const navigateTo = (projectIndex: number, imageIndex: number) => {
     const target = { projectIndex, imageIndex }
 
+    setGalleryRequested(true)
     requestedSelectionRef.current = target
     setRequestVersion((version) => version + 1)
   }
@@ -397,7 +412,7 @@ export function FeaturedProjects() {
         <div className="project-image-fallback absolute inset-0 grid place-items-center bg-gradient-to-br from-summit-charcoal via-summit-black to-summit-charcoal p-8 text-center text-summit-ivory" aria-hidden="true">
           {!readyImages.has(image.src) || unavailable ? <span className="max-w-xs font-display text-2xl">{publishedProjects[selection.projectIndex].title[locale]}</span> : null}
         </div>
-        {!unavailable ? <img
+        {!unavailable && galleryRequested ? <img
           data-project-image
           src={assetUrl(image.src)}
           srcSet={image.srcSet?.split(', ').map((item) => `${assetUrl(item.split(' ')[0])} ${item.split(' ')[1]}`).join(', ')}
@@ -511,7 +526,7 @@ export function FeaturedProjects() {
               <div className="pointer-events-none absolute inset-0 z-10 border border-white/15 transition-colors duration-500 group-hover/gallery:border-summit-gold/60" aria-hidden="true" />
               <div className="pointer-events-none absolute left-0 top-0 z-10 h-px w-1/3 bg-summit-gold" aria-hidden="true" />
               <div className="pointer-events-none absolute right-5 top-5 z-10 w-16 opacity-55 sm:right-8 sm:top-8 sm:w-24" aria-hidden="true">
-                <img src={assetUrl('/assets/brand/summit-mountain-symbol.webp')} width="480" height="388" alt="" loading="lazy" decoding="async" />
+                <img src={galleryRequested ? assetUrl('/assets/brand/summit-mountain-symbol-160.webp') : undefined} srcSet={galleryRequested ? `${assetUrl('/assets/brand/summit-mountain-symbol-160.webp')} 160w, ${assetUrl('/assets/brand/summit-mountain-symbol-320.webp')} 320w` : undefined} sizes="(max-width: 639px) 64px, 96px" width="160" height="129" alt="" loading="lazy" decoding="async" />
               </div>
               <div className="featured-project-gallery__controls absolute inset-x-0 bottom-0 z-20 flex items-center justify-end gap-2 p-4 text-summit-ivory sm:p-5">
                 <button

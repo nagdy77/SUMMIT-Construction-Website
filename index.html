@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#171816" />
-    <link rel="icon" type="image/webp" href="%BASE_URL%assets/brand/summit-mountain-symbol.webp" />
+    <link rel="icon" type="image/webp" href="%BASE_URL%assets/brand/summit-mountain-symbol-160.webp" />
     <script>
       (() => {
         let theme = 'dark';
@@ -17,7 +17,9 @@
     <link
       rel="preload"
       as="image"
-      href="%BASE_URL%assets/projects/featured/real-media/hero-restoration-mobile-640.webp"
+      href="%BASE_URL%assets/projects/featured/real-media/hero-restoration-mobile-480.webp"
+      imagesrcset="%BASE_URL%assets/projects/featured/real-media/hero-restoration-mobile-480.webp 480w, %BASE_URL%assets/projects/featured/real-media/hero-restoration-mobile-640.webp 640w"
+      imagesizes="100vw"
       media="(max-width: 640px)"
       type="image/webp"
       fetchpriority="high"
@@ -73,7 +75,14 @@
   <body>
     <div id="root">
       <div class="summit-boot-shell" aria-label="SUMMIT Construction">
-        <img src="%BASE_URL%assets/brand/summit-logo-gold-intro.webp" alt="SUMMIT Construction" width="627" height="560" />
+        <img
+          src="%BASE_URL%assets/brand/summit-logo-gold-320.webp"
+          srcset="%BASE_URL%assets/brand/summit-logo-gold-320.webp 320w, %BASE_URL%assets/brand/summit-logo-gold-480.webp 480w"
+          sizes="min(62vw, 18rem)"
+          alt="SUMMIT Construction"
+          width="480"
+          height="429"
+        />
       </div>
     </div>
     <script type="module" src="/src/main.tsx"></script>

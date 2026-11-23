@@ -244,7 +244,7 @@ async function runScenario({
     await delay(150)
     const resolvedProfile = path.resolve(profileDirectory)
     if (resolvedProfile.startsWith(path.resolve(os.tmpdir()) + path.sep)) {
-      await rm(resolvedProfile, { recursive: true, force: true })
+      await rm(resolvedProfile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 })
     }
   }
 }

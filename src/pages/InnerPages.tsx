@@ -11,6 +11,7 @@ import { routePath, sitePath } from '../lib/routes'
 import { NotFoundPage } from './NotFoundPage'
 import { COMPANY_EMAIL, WHATSAPP_DISPLAY_NUMBER } from '../config/contact'
 import { WhatsAppAction } from '../components/contact/WhatsAppAction'
+import { portfolioProjects, type ProjectCategory } from '../data/portfolio'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -25,7 +26,9 @@ type EditorialImage = {
 
 function projectEditorialImage(project: string, image: string, fullWidth: number, alt: Localized): EditorialImage {
   const base = `/assets/projects/portfolio/${project}/${image}`
-  return { src: `${base}-${fullWidth}.webp`, srcSet: `${base}-720.webp 720w, ${base}-${fullWidth}.webp ${fullWidth}w`, alt, position: 'center' }
+  const compactProjects = new Set(['mohamed-ali-palace', 'new-capital-administrations-district', 'alto', 'lakeview-residence', 'bcbg', 'beit-al-razzaz/northern-side'])
+  const compactCandidate = compactProjects.has(project) ? `${base}-480.webp 480w, ` : ''
+  return { src: `${base}-${fullWidth}.webp`, srcSet: `${compactCandidate}${base}-720.webp 720w, ${base}-${fullWidth}.webp ${fullWidth}w`, alt, position: 'center' }
 }
 
 const images = {
@@ -156,6 +159,13 @@ const serviceVisuals: Record<string, { primary: EditorialImage; secondary: Edito
   renovation: { primary: images.renovation, secondary: images.renovationWide, number: '02' },
   'fit-out': { primary: images.fitout, secondary: images.fitoutDetail, number: '03' },
   construction: { primary: images.construction, secondary: images.constructionWide, number: '04' },
+}
+
+const serviceProjectCategories: Record<string, ProjectCategory> = {
+  construction: 'Construction',
+  restoration: 'Heritage Restoration',
+  renovation: 'Residential Fit-Out',
+  'fit-out': 'Retail Fit-Out',
 }
 
 const foundersPresentation = {
@@ -295,7 +305,7 @@ export function AboutPage() {
         <figure className="founders-image" data-founders-image>
           <img
             src={sitePath('/assets/about/founders/founders-1536.webp')}
-            srcSet={`${sitePath('/assets/about/founders/founders-960.webp')} 960w, ${sitePath('/assets/about/founders/founders-1536.webp')} 1536w`}
+            srcSet={`${sitePath('/assets/about/founders/founders-480.webp')} 480w, ${sitePath('/assets/about/founders/founders-960.webp')} 960w, ${sitePath('/assets/about/founders/founders-1536.webp')} 1536w`}
             sizes="(max-width: 1100px) calc(100vw - (2 * var(--page-gutter))), 48vw"
             alt={founders.portraitAlt}
             width="1536"
@@ -362,6 +372,9 @@ export function ServiceDetailPage({ slug }: { slug?: string }) {
   const visual = serviceVisuals[slug]
   const next = copy.serviceDetails[(index + 1) % copy.serviceDetails.length]
   const composition = slug === 'restoration' ? 'wide' : slug === 'renovation' ? 'offset' : slug === 'fit-out' ? 'mosaic' : 'split'
+  const relatedProjects = portfolioProjects
+    .filter((project) => project.state === 'published' && project.category === serviceProjectCategories[slug] && (locale === 'en' || project.hasApprovedArabic))
+    .slice(0, 3)
   return <PageFrame><article ref={root} className={`inner-page service-detail service-detail--${composition}`}><Container>
     <Breadcrumbs items={[{ label: copy.nav.home, href: routePath(locale) }, { label: copy.nav.services, href: routePath(locale, 'services') }, { label: service.title }]} />
     <header className="service-detail-hero">
@@ -374,6 +387,13 @@ export function ServiceDetailPage({ slug }: { slug?: string }) {
     </section>
     <nav className="service-next" aria-label={locale === 'en' ? 'Service navigation' : 'التنقل بين الخدمات'} data-reveal>
       <span>{locale === 'en' ? 'Next service' : 'الخدمة التالية'}</span><a data-magnetic href={routePath(locale, 'service-detail', next.slug)}>{next.title}<b aria-hidden="true">↗</b></a>
+    </nav>
+    <nav className="service-project-links" aria-label={locale === 'en' ? 'Related projects' : 'المشروعات ذات الصلة'} data-reveal>
+      <span>{locale === 'en' ? 'Related projects' : 'مشروعات ذات صلة'}</span>
+      <div>{relatedProjects.length
+        ? relatedProjects.map((project) => <a href={routePath(locale, 'project-detail', project.slug)} key={project.slug}>{project.title[locale]}</a>)
+        : <a href={routePath(locale, 'projects')}>{locale === 'en' ? 'Explore all projects' : 'استكشف جميع المشروعات'}</a>}
+      </div>
     </nav>
     <InnerCta title={locale === 'en' ? 'Discuss this service with SUMMIT.' : 'ناقش هذه الخدمة مع سوميت.'} href={`${routePath(locale, 'contact')}?interest=${encodeURIComponent(slug)}`} label={copy.actions.enquire} />
   </Container></article></PageFrame>

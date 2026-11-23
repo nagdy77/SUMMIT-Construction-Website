@@ -26,7 +26,7 @@ const services: Service[] = [
     slug: 'restoration',
     icon: 'restoration',
     image: '/assets/projects/portfolio/mohamed-ali-palace/01-1202.webp',
-    srcSet: '/assets/projects/portfolio/mohamed-ali-palace/01-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/01-1202.webp 1202w',
+    srcSet: '/assets/projects/portfolio/mohamed-ali-palace/01-480.webp 480w, /assets/projects/portfolio/mohamed-ali-palace/01-720.webp 720w, /assets/projects/portfolio/mohamed-ali-palace/01-1202.webp 1202w',
     alt: 'Restored interior at Mohamed Ali Palace',
     imagePosition: 'object-center',
     width: 1202,
@@ -36,7 +36,7 @@ const services: Service[] = [
     slug: 'renovation',
     icon: 'renovation',
     image: '/assets/projects/portfolio/lakeview-residence/03-1206.webp',
-    srcSet: '/assets/projects/portfolio/lakeview-residence/03-720.webp 720w, /assets/projects/portfolio/lakeview-residence/03-1206.webp 1206w',
+    srcSet: '/assets/projects/portfolio/lakeview-residence/03-480.webp 480w, /assets/projects/portfolio/lakeview-residence/03-720.webp 720w, /assets/projects/portfolio/lakeview-residence/03-1206.webp 1206w',
     alt: 'Completed residential interior at Lakeview Residence',
     imagePosition: 'object-center',
     width: 1206,
@@ -46,7 +46,7 @@ const services: Service[] = [
     slug: 'fit-out',
     icon: 'renovation',
     image: '/assets/projects/portfolio/bcbg/01-1231.webp',
-    srcSet: '/assets/projects/portfolio/bcbg/01-720.webp 720w, /assets/projects/portfolio/bcbg/01-1231.webp 1231w',
+    srcSet: '/assets/projects/portfolio/bcbg/01-480.webp 480w, /assets/projects/portfolio/bcbg/01-720.webp 720w, /assets/projects/portfolio/bcbg/01-1231.webp 1231w',
     alt: 'Completed BCBG retail storefront and interior',
     imagePosition: 'object-center',
     width: 1231,
@@ -56,7 +56,7 @@ const services: Service[] = [
     slug: 'construction',
     icon: 'construction',
     image: '/assets/projects/portfolio/new-capital-administrations-district/01-1312.webp',
-    srcSet: '/assets/projects/portfolio/new-capital-administrations-district/01-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/01-1312.webp 1312w',
+    srcSet: '/assets/projects/portfolio/new-capital-administrations-district/01-480.webp 480w, /assets/projects/portfolio/new-capital-administrations-district/01-720.webp 720w, /assets/projects/portfolio/new-capital-administrations-district/01-1312.webp 1312w',
     alt: 'Administrative building under construction in the New Capital Administrations District',
     imagePosition: 'object-center',
     width: 1312,
@@ -172,9 +172,11 @@ export function Services() {
 
               <div className="service-brand-mark home-service-card__brand" aria-hidden="true">
                 <img
-                  src={assetUrl('/assets/brand/summit-mountain-symbol.webp')}
-                  width="480"
-                  height="388"
+                  src={assetUrl('/assets/brand/summit-mountain-symbol-160.webp')}
+                  srcSet={`${assetUrl('/assets/brand/summit-mountain-symbol-160.webp')} 160w, ${assetUrl('/assets/brand/summit-mountain-symbol-320.webp')} 320w`}
+                  sizes="(max-width: 1199px) 7vw, 84px"
+                  width="160"
+                  height="129"
                   alt=""
                   loading="lazy"
                   decoding="async"

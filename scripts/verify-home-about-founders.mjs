@@ -12,6 +12,7 @@ const outputDirectory = path.resolve('references', 'qa', 'home-about-founders')
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds))
 let assetAssertions = 0
 for (const [file, expectedWidth, expectedHeight] of [
+  ['public/assets/about/founders/founders-480.webp', 480, 320],
   ['public/assets/about/founders/founders-960.webp', 960, 640],
   ['public/assets/about/founders/founders-1536.webp', 1536, 1024],
 ]) {
@@ -174,7 +175,7 @@ try {
         assert.equal(metrics.lang, locale)
         assert.equal(metrics.dir, locale === 'ar' ? 'rtl' : 'ltr')
         assert.equal(metrics.theme, theme)
-        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-(960|1536)\.webp$/)
+        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-(480|960|1536)\.webp$/)
         assert.ok(metrics.imageAlt.includes(locale === 'en' ? 'Ahmed Elesawy' : 'أحمد العيسوي'))
         assert.equal(metrics.objectFit, 'contain')
         assert.ok(Math.abs(metrics.frameRatio - 1.5) < 0.015, 'Executive frame must preserve the portrait ratio')
@@ -183,16 +184,17 @@ try {
         assert.equal(metrics.foundersHeadingTextAlign, 'center')
         assert.equal(metrics.foundersHeadingAboveImage, true)
         assert.equal(metrics.hasFoundersImageOverlay, false)
-        assert.match(metrics.markPath, /\/assets\/brand\/summit-mountain-symbol\.webp$/)
+        assert.match(metrics.markPath, /\/assets\/brand\/summit-mountain-symbol-(160|320)\.webp$/)
         assert.equal(metrics.markAlt, '')
-        assert.deepEqual(metrics.markNaturalSize, [480, 388])
+        assert.ok(metrics.markNaturalSize[0] > 0 && metrics.markNaturalSize[1] > 0)
+        assert.ok(Math.abs(metrics.markNaturalSize[0] / metrics.markNaturalSize[1] - 480 / 388) < 0.04, `Unexpected responsive mark dimensions: ${metrics.markNaturalSize.join('x')}`)
         assert.ok(metrics.markOpacity > 0 && metrics.markOpacity <= 0.25)
         assert.notEqual(metrics.markFilter, 'none')
         assert.equal(metrics.hasHandmadeSvg, false)
         assert.match(metrics.badgeText, /2018/)
         assert.equal(metrics.oldWorkerImage, false)
         assert.equal(metrics.serviceMarkPaths.length, 4)
-        assert.ok(metrics.serviceMarkPaths.every((item) => /\/assets\/brand\/summit-mountain-symbol\.webp$/.test(item)))
+        assert.ok(metrics.serviceMarkPaths.every((item) => /\/assets\/brand\/summit-mountain-symbol-160\.webp$/.test(item)))
         assert.ok(metrics.serviceMarkAlts.every((item) => item === ''))
         assert.equal(metrics.serviceHandmadeSvgCount, 0)
         assert.deepEqual(metrics.failedImages, [])

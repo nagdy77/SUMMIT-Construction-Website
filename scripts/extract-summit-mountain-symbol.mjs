@@ -4,7 +4,10 @@ import path from 'node:path'
 import sharp from 'sharp'
 
 const source = path.resolve('public', 'assets', 'brand', 'summit-logo-dark.png')
-const output = path.resolve('public', 'assets', 'brand', 'summit-mountain-symbol.webp')
+const outputs = [160, 320].map((width) => ({
+  width,
+  path: path.resolve('public', 'assets', 'brand', `summit-mountain-symbol-${width}.webp`),
+}))
 const sha256 = async (file) => createHash('sha256').update(await readFile(file)).digest('hex').toUpperCase()
 
 const { data, info } = await sharp(source).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
@@ -51,20 +54,26 @@ const crop = {
   height: mountainBottom - mountainTop + 1,
 }
 
-await sharp(source)
-  .extract(crop)
-  .resize({ width: 480, withoutEnlargement: true, fit: 'inside', kernel: sharp.kernel.lanczos3 })
-  .webp({ lossless: true, effort: 6 })
-  .toFile(output)
-const outputMetadata = await sharp(output).metadata()
+for (const output of outputs) {
+  await sharp(source)
+    .extract(crop)
+    .resize({ width: output.width, withoutEnlargement: true, fit: 'inside', kernel: sharp.kernel.lanczos3 })
+    .webp({ lossless: true, effort: 6 })
+    .toFile(output.path)
+}
 
 console.log(JSON.stringify({
   source: path.relative(process.cwd(), source).split(path.sep).join('/'),
   sourceSha256: await sha256(source),
-  output: path.relative(process.cwd(), output).split(path.sep).join('/'),
-  outputSha256: await sha256(output),
-  outputBytes: (await stat(output)).size,
+  outputs: await Promise.all(outputs.map(async (output) => {
+    const metadata = await sharp(output.path).metadata()
+    return {
+      output: path.relative(process.cwd(), output.path).split(path.sep).join('/'),
+      outputSha256: await sha256(output.path),
+      outputBytes: (await stat(output.path)).size,
+      outputDimensions: [metadata.width, metadata.height],
+    }
+  })),
   crop,
-  outputDimensions: [outputMetadata.width, outputMetadata.height],
   treatment: 'Cropped from the first isolated alpha component of the official dark logo and uniformly downscaled for the web; no redraw, recolouring, or proportional geometry changes.',
 }, null, 2))

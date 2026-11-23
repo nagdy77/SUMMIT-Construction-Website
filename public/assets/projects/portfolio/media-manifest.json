@@ -12,6 +12,11 @@
           "sourceHeight": 1309,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/01-480.webp",
+              "width": 480,
+              "height": 523
+            },
+            {
               "src": "/assets/projects/portfolio/mohamed-ali-palace/01-720.webp",
               "width": 720,
               "height": 784
@@ -28,6 +33,11 @@
           "sourceWidth": 1566,
           "sourceHeight": 1004,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/02-480.webp",
+              "width": 480,
+              "height": 308
+            },
             {
               "src": "/assets/projects/portfolio/mohamed-ali-palace/02-720.webp",
               "width": 720,
@@ -46,6 +56,11 @@
           "sourceHeight": 1005,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/03-480.webp",
+              "width": 480,
+              "height": 308
+            },
+            {
               "src": "/assets/projects/portfolio/mohamed-ali-palace/03-720.webp",
               "width": 720,
               "height": 462
@@ -63,6 +78,11 @@
           "sourceHeight": 1005,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/04-480.webp",
+              "width": 480,
+              "height": 308
+            },
+            {
               "src": "/assets/projects/portfolio/mohamed-ali-palace/04-720.webp",
               "width": 720,
               "height": 462
@@ -79,6 +99,11 @@
           "sourceWidth": 1564,
           "sourceHeight": 1006,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/mohamed-ali-palace/05-480.webp",
+              "width": 480,
+              "height": 309
+            },
             {
               "src": "/assets/projects/portfolio/mohamed-ali-palace/05-720.webp",
               "width": 720,
@@ -274,6 +299,11 @@
           "sourceHeight": 1199,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/01-480.webp",
+              "width": 480,
+              "height": 439
+            },
+            {
               "src": "/assets/projects/portfolio/new-capital-administrations-district/01-720.webp",
               "width": 720,
               "height": 658
@@ -290,6 +320,11 @@
           "sourceWidth": 1564,
           "sourceHeight": 1006,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/02-480.webp",
+              "width": 480,
+              "height": 309
+            },
             {
               "src": "/assets/projects/portfolio/new-capital-administrations-district/02-720.webp",
               "width": 720,
@@ -308,6 +343,11 @@
           "sourceHeight": 1010,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/03-480.webp",
+              "width": 480,
+              "height": 311
+            },
+            {
               "src": "/assets/projects/portfolio/new-capital-administrations-district/03-720.webp",
               "width": 720,
               "height": 467
@@ -325,6 +365,11 @@
           "sourceHeight": 1011,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/04-480.webp",
+              "width": 480,
+              "height": 312
+            },
+            {
               "src": "/assets/projects/portfolio/new-capital-administrations-district/04-720.webp",
               "width": 720,
               "height": 468
@@ -341,6 +386,11 @@
           "sourceWidth": 1565,
           "sourceHeight": 1005,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/new-capital-administrations-district/05-480.webp",
+              "width": 480,
+              "height": 308
+            },
             {
               "src": "/assets/projects/portfolio/new-capital-administrations-district/05-720.webp",
               "width": 720,
@@ -536,6 +586,11 @@
           "sourceHeight": 1306,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/alto/01-480.webp",
+              "width": 480,
+              "height": 520
+            },
+            {
               "src": "/assets/projects/portfolio/alto/01-720.webp",
               "width": 720,
               "height": 780
@@ -552,6 +607,11 @@
           "sourceWidth": 1536,
           "sourceHeight": 1024,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/alto/02-480.webp",
+              "width": 480,
+              "height": 320
+            },
             {
               "src": "/assets/projects/portfolio/alto/02-720.webp",
               "width": 720,
@@ -570,6 +630,11 @@
           "sourceHeight": 1001,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/alto/03-480.webp",
+              "width": 480,
+              "height": 306
+            },
+            {
               "src": "/assets/projects/portfolio/alto/03-720.webp",
               "width": 720,
               "height": 458
@@ -587,6 +652,11 @@
           "sourceHeight": 1001,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/alto/04-480.webp",
+              "width": 480,
+              "height": 306
+            },
+            {
               "src": "/assets/projects/portfolio/alto/04-720.webp",
               "width": 720,
               "height": 459
@@ -603,6 +673,11 @@
           "sourceWidth": 1498,
           "sourceHeight": 1050,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/alto/05-480.webp",
+              "width": 480,
+              "height": 336
+            },
             {
               "src": "/assets/projects/portfolio/alto/05-720.webp",
               "width": 720,
@@ -629,6 +704,11 @@
           "sourceHeight": 1001,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/lakeview-residence/01-480.webp",
+              "width": 480,
+              "height": 306
+            },
+            {
               "src": "/assets/projects/portfolio/lakeview-residence/01-720.webp",
               "width": 720,
               "height": 459
@@ -645,6 +725,11 @@
           "sourceWidth": 1098,
           "sourceHeight": 1433,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/lakeview-residence/02-480.webp",
+              "width": 480,
+              "height": 626
+            },
             {
               "src": "/assets/projects/portfolio/lakeview-residence/02-720.webp",
               "width": 720,
@@ -663,6 +748,11 @@
           "sourceHeight": 1304,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/lakeview-residence/03-480.webp",
+              "width": 480,
+              "height": 519
+            },
+            {
               "src": "/assets/projects/portfolio/lakeview-residence/03-720.webp",
               "width": 720,
               "height": 779
@@ -679,6 +769,11 @@
           "sourceWidth": 1566,
           "sourceHeight": 1005,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/lakeview-residence/04-480.webp",
+              "width": 480,
+              "height": 308
+            },
             {
               "src": "/assets/projects/portfolio/lakeview-residence/04-720.webp",
               "width": 720,
@@ -764,6 +859,11 @@
           "sourceHeight": 1277,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/bcbg/01-480.webp",
+              "width": 480,
+              "height": 498
+            },
+            {
               "src": "/assets/projects/portfolio/bcbg/01-720.webp",
               "width": 720,
               "height": 747
@@ -780,6 +880,11 @@
           "sourceWidth": 1789,
           "sourceHeight": 879,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/bcbg/02-480.webp",
+              "width": 480,
+              "height": 236
+            },
             {
               "src": "/assets/projects/portfolio/bcbg/02-720.webp",
               "width": 720,
@@ -798,6 +903,11 @@
           "sourceHeight": 780,
           "variants": [
             {
+              "src": "/assets/projects/portfolio/bcbg/03-480.webp",
+              "width": 480,
+              "height": 186
+            },
+            {
               "src": "/assets/projects/portfolio/bcbg/03-720.webp",
               "width": 720,
               "height": 279
@@ -814,6 +924,11 @@
           "sourceWidth": 1495,
           "sourceHeight": 1052,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/bcbg/04-480.webp",
+              "width": 480,
+              "height": 338
+            },
             {
               "src": "/assets/projects/portfolio/bcbg/04-720.webp",
               "width": 720,
@@ -1202,6 +1317,11 @@
           "sourceWidth": 1203,
           "sourceHeight": 1308,
           "variants": [
+            {
+              "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-480.webp",
+              "width": 480,
+              "height": 522
+            },
             {
               "src": "/assets/projects/portfolio/beit-al-razzaz/northern-side/01-720.webp",
               "width": 720,

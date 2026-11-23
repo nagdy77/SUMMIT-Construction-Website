@@ -67,7 +67,7 @@ const carpentryComparisons: Pair[] = [
 const carpentryGallery = carpentryAll.filter((_, index) => ![0, 5, 6, 7, 10].includes(index))
 
 const northern: Photo[] = [
-  { src: '/assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp', srcSet: '/assets/projects/portfolio/beit-al-razzaz/northern-side/01-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp 1203w', alt: 'Courtyard view of Beit Al-Razzaz', altAr: 'منظر للفناء في بيت الرزاز' },
+  { src: '/assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp', srcSet: '/assets/projects/portfolio/beit-al-razzaz/northern-side/01-480.webp 480w, /assets/projects/portfolio/beit-al-razzaz/northern-side/01-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/01-1203.webp 1203w', alt: 'Courtyard view of Beit Al-Razzaz', altAr: 'منظر للفناء في بيت الرزاز' },
   { src: '/assets/projects/portfolio/beit-al-razzaz/northern-side/02-1562.webp', srcSet: '/assets/projects/portfolio/beit-al-razzaz/northern-side/02-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/02-1562.webp 1562w', alt: 'Historic masonry and timber detail', altAr: 'تفصيل للحجر التاريخي والعناصر الخشبية' },
   { src: '/assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp', srcSet: '/assets/projects/portfolio/beit-al-razzaz/northern-side/03-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/03-1570.webp 1570w', alt: 'Interior stair and restored historic fabric', altAr: 'درج داخلي وعناصر معمارية تاريخية مرممة' },
   { src: '/assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp', srcSet: '/assets/projects/portfolio/beit-al-razzaz/northern-side/04-720.webp 720w, /assets/projects/portfolio/beit-al-razzaz/northern-side/04-1563.webp 1563w', alt: 'View upward through historic timber structure', altAr: 'منظر علوي للعناصر الخشبية التاريخية' },
@@ -96,6 +96,7 @@ function Comparison({ item, locale }: { item: Pair; locale: Locale }) {
   const figureRef = useRef<HTMLElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const rangeRef = useRef<HTMLInputElement>(null)
+  const pointerBoundsRef = useRef<DOMRect | null>(null)
   const [requested, setRequested] = useState(false)
   const [loaded, setLoaded] = useState(0)
   const labels = locale === 'en' ? { before: 'Before', after: 'After', compare: 'Reveal before and after photographs' } : { before: 'قبل', after: 'بعد', compare: 'مقارنة صور قبل الترميم وبعده' }
@@ -120,13 +121,13 @@ function Comparison({ item, locale }: { item: Pair; locale: Locale }) {
     }
   }, [])
   const setFromPointer = (event: React.PointerEvent<HTMLDivElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect()
+    const bounds = pointerBoundsRef.current ?? event.currentTarget.getBoundingClientRect()
     applyPosition((event.clientX - bounds.left) / bounds.width * 100)
   }
   const markLoaded = useCallback(() => setLoaded((count) => Math.min(2, count + 1)), [])
   const ready = loaded === 2
   return <figure ref={figureRef} className={`beit-comparison${ready ? ' is-ready' : ' is-loading'}`} dir="ltr" aria-busy={!ready}>
-    <div ref={imageRef} className="beit-comparison-image" style={{ '--comparison-position': '50%' } as CSSProperties} onPointerDown={(event) => { event.currentTarget.setPointerCapture(event.pointerId); setFromPointer(event) }} onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) setFromPointer(event) }} onPointerUp={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }} onPointerCancel={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }}><ResponsiveImage image={before} requested={requested} locale={locale} sizes="(max-width: 760px) 48vw, 31vw" onLoad={markLoaded} /><div className="beit-comparison-after"><ResponsiveImage image={after} requested={requested} locale={locale} sizes="(max-width: 760px) 48vw, 31vw" onLoad={markLoaded} /></div><span className="beit-photo-label beit-photo-label--before">{labels.before}</span><span className="beit-photo-label beit-photo-label--after">{labels.after}</span><span className="beit-comparison-divider" aria-hidden="true" /></div>
+    <div ref={imageRef} className="beit-comparison-image" style={{ '--comparison-position': '50%' } as CSSProperties} onPointerDown={(event) => { pointerBoundsRef.current = event.currentTarget.getBoundingClientRect(); event.currentTarget.setPointerCapture(event.pointerId); setFromPointer(event) }} onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) setFromPointer(event) }} onPointerUp={(event) => { pointerBoundsRef.current = null; if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }} onPointerCancel={(event) => { pointerBoundsRef.current = null; if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId) }}><ResponsiveImage image={before} requested={requested} locale={locale} sizes="(max-width: 760px) 48vw, 31vw" onLoad={markLoaded} /><div className="beit-comparison-after"><ResponsiveImage image={after} requested={requested} locale={locale} sizes="(max-width: 760px) 48vw, 31vw" onLoad={markLoaded} /></div><span className="beit-photo-label beit-photo-label--before">{labels.before}</span><span className="beit-photo-label beit-photo-label--after">{labels.after}</span><span className="beit-comparison-divider" aria-hidden="true" /></div>
     <input ref={rangeRef} aria-label={labels.compare} aria-valuetext="50%" type="range" min="0" max="100" step="1" defaultValue="50" onInput={(event) => applyPosition(Number(event.currentTarget.value))} />
   </figure>
 }

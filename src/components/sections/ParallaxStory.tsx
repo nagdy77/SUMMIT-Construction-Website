@@ -154,11 +154,11 @@ export function ParallaxStory() {
 
         <figure data-story-frame className="relative z-10 order-1 ml-auto h-[22rem] w-[78%] overflow-hidden border border-summit-gold/45 bg-summit-black sm:h-[30rem] sm:w-[62%] lg:order-2 lg:col-span-5 lg:h-[36rem] lg:w-full">
           <picture>
-            <source media="(max-width: 767px)" srcSet={assetUrl('/assets/projects/portfolio/alto/01-720.webp')} type="image/webp" />
+            <source media="(max-width: 767px)" srcSet={assetSrcSet('/assets/projects/portfolio/alto/01-480.webp 480w, /assets/projects/portfolio/alto/01-720.webp 720w')} sizes="68vw" type="image/webp" />
             <img
               data-story-foreground-image
               src={assetUrl('/assets/projects/portfolio/alto/01-1205.webp')}
-              srcSet={assetSrcSet('/assets/projects/portfolio/alto/01-720.webp 720w, /assets/projects/portfolio/alto/01-1205.webp 1205w')}
+              srcSet={assetSrcSet('/assets/projects/portfolio/alto/01-480.webp 480w, /assets/projects/portfolio/alto/01-720.webp 720w, /assets/projects/portfolio/alto/01-1205.webp 1205w')}
               sizes="(max-width: 767px) 68vw, 30vw"
               alt={locale === 'en' ? 'Completed residential buildings at Alto' : 'مبانٍ سكنية مكتملة في مشروع ألتو'}
               width="1205"

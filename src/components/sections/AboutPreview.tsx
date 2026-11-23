@@ -119,7 +119,7 @@ export function AboutPreview() {
                 <div data-about-image-motion className="h-full w-full">
                   <img
                     src={assetUrl('/assets/about/founders/founders-1536.webp')}
-                    srcSet={assetSrcSet('/assets/about/founders/founders-960.webp 960w, /assets/about/founders/founders-1536.webp 1536w')}
+                    srcSet={assetSrcSet('/assets/about/founders/founders-480.webp 480w, /assets/about/founders/founders-960.webp 960w, /assets/about/founders/founders-1536.webp 1536w')}
                     sizes="(max-width: 767px) calc(100vw - 2.5rem), (max-width: 1279px) 58vw, 720px"
                     width="1536"
                     height="1024"
@@ -138,9 +138,11 @@ export function AboutPreview() {
               aria-hidden="true"
             >
               <img
-                src={assetUrl('/assets/brand/summit-mountain-symbol.webp')}
-                width="480"
-                height="388"
+                src={assetUrl('/assets/brand/summit-mountain-symbol-320.webp')}
+                srcSet={`${assetUrl('/assets/brand/summit-mountain-symbol-160.webp')} 160w, ${assetUrl('/assets/brand/summit-mountain-symbol-320.webp')} 320w`}
+                sizes="clamp(5.5rem, 10vw, 10.5rem)"
+                width="320"
+                height="259"
                 alt=""
                 loading="lazy"
                 decoding="async"

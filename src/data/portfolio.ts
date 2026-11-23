@@ -41,6 +41,66 @@ export type PortfolioProject = {
   approvalNeeds: string[]
 }
 
+const projectSeoOverrides: Partial<Record<string, {
+  title: Partial<Record<Locale, string>>
+  description: Partial<Record<Locale, string>>
+}>> = {
+  'mohamed-ali-palace': {
+    title: {
+      en: 'Mohamed Ali Palace Marble Restoration | SUMMIT Construction',
+      ar: 'ترميم رخام قصر محمد علي | سوميت للإنشاءات',
+    },
+    description: {
+      en: 'SUMMIT restored about 4,000 m² of Italian Carrara marble at Al-Fasqiya Palace in Shubra El-Kheima with partner The Stone Shop.',
+      ar: 'رممت سوميت نحو 4000 م² من رخام كرارا الإيطالي في قصر الفسقية بشبرا الخيمة، بالتعاون مع The Stone Shop.',
+    },
+  },
+  'beit-al-razzaz': {
+    title: { en: 'Beit Al Razzaz Heritage Restoration | SUMMIT Construction' },
+    description: { en: 'Explore SUMMIT’s structural repair, adaptive reuse and restoration work on the eastern side of Beit Al Razzaz in Al Darb Al Ahmar, Cairo.' },
+  },
+  'safi-al-din-gowhar': {
+    title: { en: 'Safi Al Din Gowhar Dewatering | SUMMIT Construction' },
+    description: { en: 'Explore SUMMIT’s specialist dewatering system for the historic Safi Al Din Gowhar dome on Al Saleeba Street in Cairo.' },
+  },
+  'st-andrews-church': {
+    title: { en: 'St Andrews Church Structural Restoration | SUMMIT Construction' },
+    description: { en: 'SUMMIT carried out structural restoration and reinforcement works for the floor of the main prayer hall at St Andrews Church in Cairo.' },
+  },
+  'new-capital-administrations-district': {
+    title: { en: 'New Capital Ministry Marble Works | SUMMIT Construction' },
+    description: { en: 'SUMMIT delivered mechanical marble installation for the Transportation Ministry at the New Administrative Capital with GAMA Construction.' },
+  },
+  'stream-3': {
+    title: { en: 'Stream 3 Finishing Works | SUMMIT Construction' },
+    description: { en: 'SUMMIT completed full finishing works for one building at Stream Live 3 in Cairo Festival City for GAMA Construction.' },
+  },
+  'oriana-cairo-festival-city': {
+    title: { en: 'Oriana Cairo Festival City Villa Finishing | SUMMIT Construction' },
+    description: { en: 'SUMMIT delivered external finishing works for 12 villas at Oriana Villas 3 in Cairo Festival City for GAMA Construction.' },
+  },
+  alto: {
+    title: { en: 'Alto External Finishing | SUMMIT Construction' },
+    description: { en: 'SUMMIT delivered external painting and marble finishing for two Alto buildings in Uptown Cairo for Arabian Construction Co. (ACC).' },
+  },
+  marvel: {
+    title: { en: 'Marvel Residential Fit-Out | SUMMIT Construction' },
+    description: { en: 'Explore SUMMIT’s turnkey residential finishing work for an apartment at Marvel Compound in the Fifth Settlement.' },
+  },
+  bcbg: {
+    title: { en: 'BCBG Retail Fit-Out | SUMMIT Construction' },
+    description: { en: 'SUMMIT delivered full finishing and MEP works for the BCBG retail project at Mall of Arabia in collaboration with Fashion International Group.' },
+  },
+  desigual: {
+    title: { en: 'Desigual Retail Fit-Out | SUMMIT Construction' },
+    description: { en: 'SUMMIT delivered a fully furnished turnkey Desigual retail fit-out, including imported furniture and cladding, within a seven-week programme.' },
+  },
+  voda: {
+    title: { en: 'Voda Retail Fit-Out | SUMMIT Construction' },
+    description: { en: 'SUMMIT completed full finishing and MEP works for the Voda retail project in Alexandria in 2019, covering a 30 m² area in four weeks.' },
+  },
+}
+
 function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
   const titleAr = project.title.ar ?? project.title.en
   const publicDescription = project.publicOverview
@@ -61,6 +121,7 @@ function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
     height: image.height,
   }))
   const disputedSpecifications = project.contentStatus === 'awaiting-conflict-resolution'
+  const seoOverride = projectSeoOverrides[project.slug]
 
   return {
     id: project.id,
@@ -88,8 +149,14 @@ function recordToPortfolioProject(project: ProjectRecord): PortfolioProject {
     // Arabic project-description metadata.
     hasApprovedArabic: (publicDescription !== null && typeof publicDescription === 'object') || Boolean(project.shortOverview),
     seo: {
-      title: { en: `${project.title.en} | SUMMIT Construction`, ar: `${titleAr} | SUMMIT Construction` },
-      description: { en: descriptionEn, ar: localizedSummary?.ar ?? project.detailsNote?.ar ?? descriptionEn },
+      title: {
+        en: seoOverride?.title.en ?? `${project.title.en} | SUMMIT Construction`,
+        ar: seoOverride?.title.ar ?? `${titleAr} | سوميت للإنشاءات`,
+      },
+      description: {
+        en: seoOverride?.description.en ?? descriptionEn,
+        ar: seoOverride?.description.ar ?? localizedSummary?.ar ?? project.detailsNote?.ar ?? descriptionEn,
+      },
     },
     approvalNeeds: [
       ...(project.pendingMedia ? ['replacement project photography'] : []),

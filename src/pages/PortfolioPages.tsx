@@ -22,6 +22,13 @@ type ProjectFilter = 'all' | ProjectCategory
 
 const projectFilters: ProjectFilter[] = ['all', 'Heritage Restoration', 'Construction', 'Residential Fit-Out', 'Retail Fit-Out']
 
+const projectServiceSlugs: Record<ProjectCategory, string> = {
+  'Heritage Restoration': 'restoration',
+  Construction: 'construction',
+  'Residential Fit-Out': 'renovation',
+  'Retail Fit-Out': 'fit-out',
+}
+
 const categoryCards: Array<{ category: ProjectCategory; image: string; srcSet: string }> = [
   { category: 'Heritage Restoration', image: '/assets/projects/categories/optimized/heritage-restoration-1400.webp', srcSet: '/assets/projects/categories/optimized/heritage-restoration-720.webp 720w, /assets/projects/categories/optimized/heritage-restoration-1400.webp 1400w' },
   { category: 'Construction', image: '/assets/projects/categories/optimized/construction-1400.webp', srcSet: '/assets/projects/categories/optimized/construction-720.webp 720w, /assets/projects/categories/optimized/construction-1400.webp 1400w' },
@@ -136,6 +143,8 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
   const sameCategory = publishedProjects.filter((item) => item.id !== project.id && item.category === project.category)
   const related = [...sameCategory, ...publishedProjects.filter((item) => item.id !== project.id && item.category !== project.category)].slice(0, 2)
   const description = projectWorkingDescription(project, locale)
+  const serviceSlug = projectServiceSlugs[project.category]
+  const service = copy.serviceDetails.find((item) => item.slug === serviceSlug)
   const isBeit = project.slug === 'beit-al-razzaz'
   const beitTitle = locale === 'en' ? 'Restoration and Structural Risk Mitigation — Eastern Side of Beit Al-Razzaz' : 'ترميم ودرء الخطورة عن الجانب الشرقي من بيت الرزاز'
   const beitDescription = locale === 'en'
@@ -161,7 +170,10 @@ export function ProjectDetailPage({ slug }: { slug?: string }) {
     {project.historicalBackground && !isBeit ? <section className="detail-story"><p className="eyebrow">{locale === 'en' ? 'Historical background' : 'الخلفية التاريخية'}</p><div>{project.historicalBackground[locale].split('\n\n').map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section> : null}
     {facts.length ? <dl className="project-facts">{facts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl> : null}
     {project.scope?.[locale]?.length ? <section className="detail-scope brand-pattern-field brand-pattern-field--metadata"><p className="eyebrow">{copy.labels.scope}</p><ul>{project.scope[locale].map((item) => <li key={item}>{item}</li>)}</ul></section> : null}
-    <div className="detail-cta"><WhatsAppAction intent="project" projectTitle={project.title[locale]} className="text-link whatsapp-inline-action">{copy.actions.enquire}</WhatsAppAction></div>
+    <div className="detail-cta">
+      {service ? <a className="text-link" href={routePath(locale, 'service-detail', serviceSlug)}>{locale === 'en' ? `Explore ${service.title}` : `استكشف ${service.title}`}</a> : null}
+      <WhatsAppAction intent="project" projectTitle={project.title[locale]} className="text-link whatsapp-inline-action">{copy.actions.enquire}</WhatsAppAction>
+    </div>
     <section className="related-projects"><p className="eyebrow">{copy.labels.related}</p><div className="portfolio-grid">{related.map((item, index) => <ProjectCard project={item} index={index} key={item.id} />)}</div></section>
   </Container></article></PageFrame>
 }

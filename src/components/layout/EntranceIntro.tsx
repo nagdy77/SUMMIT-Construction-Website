@@ -12,11 +12,6 @@ type EntranceIntroProps = {
 
 type ImageResult = 'loaded' | 'failed' | 'timeout'
 
-export function shouldPlayEntrance() {
-  if (typeof window === 'undefined') return false
-  return !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-}
-
 function waitForImage(image: HTMLImageElement | null, timeoutMs: number): Promise<ImageResult> {
   if (!image) return Promise.resolve('failed')
   if (image.complete) return Promise.resolve(image.naturalWidth > 0 ? 'loaded' : 'failed')
@@ -187,10 +182,12 @@ export function EntranceIntro({ onRevealHero, onComplete }: EntranceIntroProps) 
           <img
             ref={logoRef}
             data-intro-logo
-            src={assetUrl('/assets/brand/summit-logo-gold-intro.webp')}
+            src={assetUrl('/assets/brand/summit-logo-gold-320.webp')}
+            srcSet={`${assetUrl('/assets/brand/summit-logo-gold-320.webp')} 320w, ${assetUrl('/assets/brand/summit-logo-gold-480.webp')} 480w`}
+            sizes="(max-width: 639px) min(62vw, 15rem), 18rem"
             alt="SUMMIT Construction"
-            width="627"
-            height="560"
+            width="480"
+            height="429"
             fetchPriority="high"
             decoding="async"
             className="h-auto w-full object-contain"

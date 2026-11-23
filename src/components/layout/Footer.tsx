@@ -17,7 +17,7 @@ export function Footer() {
     <footer className="site-footer border-t border-[var(--color-border)] text-[var(--color-ink)]">
       <Container className="grid gap-10 pb-20 pt-12 sm:grid-cols-2 sm:items-end lg:grid-cols-12 lg:pb-20 lg:pt-16">
         <div className="grid justify-items-start gap-4 lg:col-span-3">
-          <a data-magnetic href={routePath(locale)} className="inline-flex" aria-label="SUMMIT Construction home"><img src={assetUrl('/assets/brand/summit-logo-gold-intro.webp')} alt="SUMMIT Construction" width="269" height="240" loading="lazy" decoding="async" className="h-20 w-auto object-contain" /></a>
+          <a data-magnetic href={routePath(locale)} className="inline-flex" aria-label="SUMMIT Construction home"><img src={assetUrl('/assets/brand/summit-logo-gold-160.webp')} srcSet={`${assetUrl('/assets/brand/summit-logo-gold-160.webp')} 160w, ${assetUrl('/assets/brand/summit-logo-gold-320.webp')} 320w`} sizes="90px" alt="SUMMIT Construction" width="160" height="143" loading="lazy" decoding="async" className="h-20 w-auto object-contain" /></a>
           <WhatsAppAction intent="general" compact className="footer-whatsapp-action">{locale === 'en' ? 'Contact Us on WhatsApp' : 'تواصل معنا عبر واتساب'}</WhatsAppAction>
           <span className="footer-phone" dir="ltr">{WHATSAPP_DISPLAY_NUMBER}</span>
           <a className="footer-email" href={`mailto:${COMPANY_EMAIL}`}>{COMPANY_EMAIL}</a>

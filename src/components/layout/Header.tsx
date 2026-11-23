@@ -144,7 +144,7 @@ export function Header() {
     <header ref={headerRef} data-scrolled={scrolled ? 'true' : 'false'} data-menu-open={menuOpen ? 'true' : 'false'} className="site-header sticky top-0 z-50 border-b border-[var(--color-border)]">
       <Container className="header-inner relative z-10 flex h-[5.25rem] items-center justify-between gap-4">
         <a href={routePath(locale)} aria-label="SUMMIT Construction" className="header-brand flex shrink-0 items-center gap-4" onClick={() => setMenuOpen(false)}>
-          <img src={assetUrl('/assets/brand/summit-logo-gold-intro.webp')} alt="SUMMIT Construction" width="269" height="240" decoding="async" className="header-logo h-[3.35rem] w-[3.75rem] object-contain" />
+          <img src={assetUrl('/assets/brand/summit-logo-gold-160.webp')} alt="SUMMIT Construction" width="160" height="143" decoding="async" className="header-logo h-[3.35rem] w-[3.75rem] object-contain" />
           <span className="header-tagline hidden border-l border-[var(--color-border)] pl-4 text-[0.54rem] font-semibold uppercase leading-5 tracking-[0.22em] text-[var(--color-muted)] sm:block">Construction<br />Restoration & renovation</span>
         </a>
         <div className="header-actions flex items-center gap-2 lg:gap-4">

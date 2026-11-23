@@ -15,7 +15,7 @@ const heroFiles = (await readdir(generatedDirectory))
   .filter((file) => /^hero-\d{2}-.+\.png$/i.test(file))
   .sort()
 
-if (heroFiles.length !== 4) {
+if (heroFiles.length !== 0 && heroFiles.length !== 4) {
   throw new Error(`Expected four hero PNG sources, found ${heroFiles.length}.`)
 }
 
@@ -42,20 +42,19 @@ for (const [index, file] of heroFiles.entries()) {
     .toFile(path.join(generatedDirectory, `${stem}-mobile.webp`))
 }
 
-await sharp(path.join(brandDirectory, 'summit-logo-gold.png'))
-  .resize({ height: 560, withoutEnlargement: true })
-  .webp({ quality: 90, alphaQuality: 100, effort: 6, smartSubsample: true })
-  .toFile(path.join(brandDirectory, 'summit-logo-gold-intro.webp'))
-
-await sharp(path.join(brandDirectory, 'summit-logo-dark.png'))
-  .resize({ height: 240, withoutEnlargement: true })
-  .webp({ quality: 90, alphaQuality: 100, effort: 6, smartSubsample: true })
-  .toFile(path.join(brandDirectory, 'summit-logo-dark-ui.webp'))
+const logoOutputs = []
+for (const width of [160, 320, 480]) {
+  const output = path.join(brandDirectory, `summit-logo-gold-${width}.webp`)
+  await sharp(path.join(brandDirectory, 'summit-logo-gold.png'))
+    .resize({ width, withoutEnlargement: true })
+    .webp({ quality: 82, alphaQuality: 100, effort: 6, smartSubsample: true })
+    .toFile(output)
+  logoOutputs.push(output)
+}
 
 const outputs = [
   ...(await readdir(generatedDirectory)).filter((file) => /^hero-\d{2}-.+\.webp$/i.test(file)).map((file) => path.join(generatedDirectory, file)),
-  path.join(brandDirectory, 'summit-logo-gold-intro.webp'),
-  path.join(brandDirectory, 'summit-logo-dark-ui.webp'),
+  ...logoOutputs,
 ]
 
 for (const output of outputs.sort()) {

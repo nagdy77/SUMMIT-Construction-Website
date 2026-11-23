@@ -32,11 +32,11 @@ try {
 }
 
 const derivatives = []
-for (const width of [960, 1536]) {
+for (const width of [480, 960, 1536]) {
   const output = path.join(publicDirectory, `founders-${width}.webp`)
   await sharp(input)
     .resize({ width, fit: 'inside', withoutEnlargement: true })
-    .webp({ quality: 90, effort: 6, smartSubsample: true })
+    .webp({ quality: 84, effort: 6, smartSubsample: true })
     .toFile(output)
   const metadata = await sharp(output).metadata()
   derivatives.push({
