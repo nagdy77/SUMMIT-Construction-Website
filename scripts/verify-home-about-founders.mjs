@@ -12,9 +12,9 @@ const outputDirectory = path.resolve('references', 'qa', 'home-about-founders')
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds))
 let assetAssertions = 0
 for (const [file, expectedWidth, expectedHeight] of [
-  ['public/assets/about/founders/founders-480.webp', 480, 320],
-  ['public/assets/about/founders/founders-960.webp', 960, 640],
-  ['public/assets/about/founders/founders-1536.webp', 1536, 1024],
+  ['public/assets/about/founders/founders-480.webp', 480, 360],
+  ['public/assets/about/founders/founders-960.webp', 960, 720],
+  ['public/assets/about/founders/founders-1448.webp', 1448, 1086],
 ]) {
   const metadata = await sharp(file).metadata()
   assert.equal(metadata.width, expectedWidth)
@@ -175,10 +175,10 @@ try {
         assert.equal(metrics.lang, locale)
         assert.equal(metrics.dir, locale === 'ar' ? 'rtl' : 'ltr')
         assert.equal(metrics.theme, theme)
-        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-(480|960|1536)\.webp$/)
+        assert.match(metrics.imagePath, /\/assets\/about\/founders\/founders-(480|960|1448)\.webp$/)
         assert.ok(metrics.imageAlt.includes(locale === 'en' ? 'Ahmed Elesawy' : 'أحمد العيسوي'))
         assert.equal(metrics.objectFit, 'contain')
-        assert.ok(Math.abs(metrics.frameRatio - 1.5) < 0.015, 'Executive frame must preserve the portrait ratio')
+        assert.ok(Math.abs(metrics.frameRatio - (4 / 3)) < 0.015, 'Executive frame must preserve the portrait ratio')
         assert.equal(metrics.foundersHeading, locale === 'en' ? 'Meet The Founders' : 'تعرّف إلى المؤسسين')
         assert.equal(metrics.foundersHeadingParts, 2)
         assert.equal(metrics.foundersHeadingTextAlign, 'center')

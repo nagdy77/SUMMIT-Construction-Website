@@ -20,7 +20,6 @@ const compactVariantProjects = new Set([
 
 const projectDefinitions = [
   ['heritage-restoration', 'mohamed-ali-palace', 'Mohamed Ali Palace'],
-  ['heritage-restoration', 'safi-al-din-gowhar', 'Safi Al Din Gowhar'],
   ['heritage-restoration', 'st-andrews-church', 'St Andrews Church'],
   ['construction', 'new-capital-administrations-district', 'New Capital Administrations District'],
   ['construction', 'stream-3', 'Stream 3'],
@@ -40,6 +39,88 @@ const projectDefinitions = [
   title,
   responsiveWidths: compactVariantProjects.has(slug) ? [480, 720, 1600] : [720, 1600],
 })).concat([
+  {
+    category: 'heritage-restoration',
+    slug: 'safi-al-din-gowhar',
+    title: 'Safi Al Din Gowhar',
+    responsiveWidths: [480, 720, 1600],
+    preserveTargetDirectory: true,
+    ignoreUnconfiguredFiles: true,
+    files: [
+      {
+        filename: '1.png',
+        sourcePath: 'project-inbox/heritage-restoration/safi-al-din-gowhar/1.png',
+        alt: 'Completed aerial view of the Safi Al Din Gowhar project',
+        altAr: 'منظر جوي مكتمل لمشروع صفي الدين جوهر',
+      },
+      {
+        filename: '2.png',
+        sourcePath: 'project-inbox/heritage-restoration/safi-al-din-gowhar/2.png',
+        alt: 'Circular reinforcement work at the Safi Al Din Gowhar project',
+        altAr: 'أعمال تسليح دائرية في مشروع صفي الدين جوهر',
+      },
+      {
+        filename: '1000090924.jpg.jpeg',
+        sourcePath: 'public/assets/projects/portfolio/safi-al-din-gowhar/1000090924.jpg.jpeg',
+        alt: 'Excavation and circular foundation work at Safi Al Din Gowhar',
+        altAr: 'أعمال الحفر والأساسات الدائرية في صفي الدين جوهر',
+      },
+      {
+        filename: '1000090925.jpg.jpeg',
+        sourcePath: 'public/assets/projects/portfolio/safi-al-din-gowhar/1000090925.jpg.jpeg',
+        alt: 'Wide view of the excavation work at Safi Al Din Gowhar',
+        altAr: 'منظر واسع لأعمال الحفر في صفي الدين جوهر',
+      },
+      {
+        filename: '1000090921.jpg.jpeg',
+        sourcePath: 'public/assets/projects/portfolio/safi-al-din-gowhar/1000090921.jpg.jpeg',
+        alt: 'Site work on a reinforced circular structure at Safi Al Din Gowhar',
+        altAr: 'أعمال الموقع على منشأ دائري مسلح في صفي الدين جوهر',
+      },
+      {
+        filename: '1000090923.jpg.jpeg',
+        sourcePath: 'public/assets/projects/portfolio/safi-al-din-gowhar/1000090923.jpg.jpeg',
+        alt: 'Overhead view of curved reinforcement work at Safi Al Din Gowhar',
+        altAr: 'منظر علوي لأعمال التسليح المنحنية في صفي الدين جوهر',
+      },
+      {
+        filename: '1000090922.jpg.jpeg',
+        sourcePath: 'public/assets/projects/portfolio/safi-al-din-gowhar/1000090922.jpg.jpeg',
+        alt: 'Waterproofed circular structure during work at Safi Al Din Gowhar',
+        altAr: 'منشأ دائري معزول أثناء العمل في صفي الدين جوهر',
+      },
+      {
+        filename: '4.png',
+        sourcePath: 'project-inbox/heritage-restoration/safi-al-din-gowhar/4.png',
+        alt: 'Drainage installation work at the Safi Al Din Gowhar project',
+        altAr: 'أعمال تركيب الصرف في مشروع صفي الدين جوهر',
+      },
+      {
+        filename: '3.png',
+        sourcePath: 'project-inbox/heritage-restoration/safi-al-din-gowhar/3.png',
+        alt: 'Wall finishing work at the Safi Al Din Gowhar project',
+        altAr: 'أعمال تشطيب الجدران في مشروع صفي الدين جوهر',
+      },
+      {
+        filename: '5.png',
+        sourcePath: 'project-inbox/heritage-restoration/safi-al-din-gowhar/5.png',
+        alt: 'Site team working at the Safi Al Din Gowhar project',
+        altAr: 'فريق الموقع يعمل في مشروع صفي الدين جوهر',
+      },
+      {
+        filename: '1000251569.jpg.jpeg',
+        sourcePath: 'public/assets/projects/portfolio/safi-al-din-gowhar/1000251569.jpg.jpeg',
+        alt: 'Completed interior courtyard and staircase at Safi Al Din Gowhar',
+        altAr: 'الفناء الداخلي والدرج بعد اكتمالهما في صفي الدين جوهر',
+      },
+      {
+        filename: '1000251572.jpg.jpeg',
+        sourcePath: 'public/assets/projects/portfolio/safi-al-din-gowhar/1000251572.jpg.jpeg',
+        alt: 'Completed Safi Al Din Gowhar building seen from above',
+        altAr: 'مبنى صفي الدين جوهر بعد اكتماله من منظور علوي',
+      },
+    ],
+  },
   {
     category: 'heritage-restoration',
     slug: 'beit-al-razzaz',
@@ -105,6 +186,17 @@ async function resetGeneratedDirectory(targetDirectory, allowedRoot) {
   await mkdir(target, { recursive: true })
 }
 
+async function resetGeneratedWebpDerivatives(targetDirectory, allowedRoot) {
+  const target = path.resolve(targetDirectory)
+  const boundary = `${path.resolve(allowedRoot)}${path.sep}`
+  if (!target.startsWith(boundary)) throw new Error(`Refusing to clear generated derivatives outside ${allowedRoot}: ${target}`)
+  await mkdir(target, { recursive: true })
+  const entries = await readdir(target, { withFileTypes: true })
+  await Promise.all(entries
+    .filter((entry) => entry.isFile() && /^\d{2}-\d+\.webp$/i.test(entry.name))
+    .map((entry) => rm(path.join(target, entry.name), { force: true })))
+}
+
 async function responsiveWebp(sourcePath, targetDirectory, stem, requestedWidths) {
   const metadata = await sharp(sourcePath).metadata()
   if (!metadata.width || !metadata.height) throw new Error(`Missing dimensions: ${sourcePath}`)
@@ -158,7 +250,9 @@ async function prepareProjects() {
     let unnumberedFiles
     if (project.files) {
       const supplied = new Set(imageFilenames)
-      const missingFiles = project.files.filter(({ filename }) => !supplied.has(filename)).map(({ filename }) => filename)
+      const missingFiles = project.files
+        .filter(({ filename, sourcePath }) => !sourcePath && !supplied.has(filename))
+        .map(({ filename }) => filename)
       if (missingFiles.length) throw new Error(`Missing configured photographs for ${project.slug}: ${missingFiles.join(', ')}`)
       numberedFiles = project.files.map((image, index) => ({ ...image, number: index + 1 }))
       unnumberedFiles = project.ignoreUnconfiguredFiles
@@ -199,12 +293,13 @@ async function prepareProjects() {
     // Beit Al-Razzaz owns additional curated sub-galleries. Preserve those
     // generated derivatives while refreshing its numbered base gallery.
     if (project.prebuiltVariants) await mkdir(targetDirectory, { recursive: true })
+    else if (project.preserveTargetDirectory) await resetGeneratedWebpDerivatives(targetDirectory, outputRoot)
     else await resetGeneratedDirectory(targetDirectory, outputRoot)
     const projectImages = []
     const manifestImages = []
 
-    for (const { filename, number, alt, altAr, variants: configuredVariants } of numberedFiles) {
-      const sourcePath = path.join(sourceDirectory, filename)
+    for (const { filename, number, alt, altAr, variants: configuredVariants, sourcePath: configuredSourcePath } of numberedFiles) {
+      const sourcePath = configuredSourcePath ? path.join(root, configuredSourcePath) : path.join(sourceDirectory, filename)
       const stem = String(number).padStart(2, '0')
       const variants = project.prebuiltVariants
         ? await existingResponsiveWebp(sourceDirectory, configuredVariants)

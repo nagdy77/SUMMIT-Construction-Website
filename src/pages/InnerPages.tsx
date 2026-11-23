@@ -304,12 +304,12 @@ export function AboutPage() {
       <div className="founders-stage">
         <figure className="founders-image" data-founders-image>
           <img
-            src={sitePath('/assets/about/founders/founders-1536.webp')}
-            srcSet={`${sitePath('/assets/about/founders/founders-480.webp')} 480w, ${sitePath('/assets/about/founders/founders-960.webp')} 960w, ${sitePath('/assets/about/founders/founders-1536.webp')} 1536w`}
+            src={sitePath('/assets/about/founders/founders-1448.webp')}
+            srcSet={`${sitePath('/assets/about/founders/founders-480.webp')} 480w, ${sitePath('/assets/about/founders/founders-960.webp')} 960w, ${sitePath('/assets/about/founders/founders-1448.webp')} 1448w`}
             sizes="(max-width: 1100px) calc(100vw - (2 * var(--page-gutter))), 48vw"
             alt={founders.portraitAlt}
-            width="1536"
-            height="1024"
+            width="1448"
+            height="1086"
             loading="lazy"
             decoding="async"
           />

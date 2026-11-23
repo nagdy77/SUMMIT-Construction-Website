@@ -118,99 +118,6 @@
         }
       ]
     },
-    "safi-al-din-gowhar": {
-      "category": "heritage-restoration",
-      "cover": "/assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp",
-      "count": 5,
-      "issues": [],
-      "images": [
-        {
-          "number": 1,
-          "sourceWidth": 1203,
-          "sourceHeight": 1307,
-          "variants": [
-            {
-              "src": "/assets/projects/portfolio/safi-al-din-gowhar/01-720.webp",
-              "width": 720,
-              "height": 782
-            },
-            {
-              "src": "/assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp",
-              "width": 1203,
-              "height": 1307
-            }
-          ]
-        },
-        {
-          "number": 2,
-          "sourceWidth": 1572,
-          "sourceHeight": 1001,
-          "variants": [
-            {
-              "src": "/assets/projects/portfolio/safi-al-din-gowhar/02-720.webp",
-              "width": 720,
-              "height": 458
-            },
-            {
-              "src": "/assets/projects/portfolio/safi-al-din-gowhar/02-1572.webp",
-              "width": 1572,
-              "height": 1001
-            }
-          ]
-        },
-        {
-          "number": 3,
-          "sourceWidth": 1567,
-          "sourceHeight": 1004,
-          "variants": [
-            {
-              "src": "/assets/projects/portfolio/safi-al-din-gowhar/03-720.webp",
-              "width": 720,
-              "height": 461
-            },
-            {
-              "src": "/assets/projects/portfolio/safi-al-din-gowhar/03-1567.webp",
-              "width": 1567,
-              "height": 1004
-            }
-          ]
-        },
-        {
-          "number": 4,
-          "sourceWidth": 1568,
-          "sourceHeight": 1003,
-          "variants": [
-            {
-              "src": "/assets/projects/portfolio/safi-al-din-gowhar/04-720.webp",
-              "width": 720,
-              "height": 461
-            },
-            {
-              "src": "/assets/projects/portfolio/safi-al-din-gowhar/04-1568.webp",
-              "width": 1568,
-              "height": 1003
-            }
-          ]
-        },
-        {
-          "number": 5,
-          "sourceWidth": 1564,
-          "sourceHeight": 1006,
-          "variants": [
-            {
-              "src": "/assets/projects/portfolio/safi-al-din-gowhar/05-720.webp",
-              "width": 720,
-              "height": 463
-            },
-            {
-              "src": "/assets/projects/portfolio/safi-al-din-gowhar/05-1564.webp",
-              "width": 1564,
-              "height": 1006
-            }
-          ]
-        }
-      ]
-    },
     "st-andrews-church": {
       "category": "heritage-restoration",
       "cover": "/assets/projects/portfolio/st-andrews-church/01-1201.webp",
@@ -1301,6 +1208,278 @@
               "src": "/assets/projects/portfolio/voda/03-1105.webp",
               "width": 1105,
               "height": 1423
+            }
+          ]
+        }
+      ]
+    },
+    "safi-al-din-gowhar": {
+      "category": "heritage-restoration",
+      "cover": "/assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp",
+      "count": 12,
+      "issues": [],
+      "images": [
+        {
+          "number": 1,
+          "sourceWidth": 1203,
+          "sourceHeight": 1307,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/01-480.webp",
+              "width": 480,
+              "height": 521
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/01-720.webp",
+              "width": 720,
+              "height": 782
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp",
+              "width": 1203,
+              "height": 1307
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "sourceWidth": 1572,
+          "sourceHeight": 1001,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/02-480.webp",
+              "width": 480,
+              "height": 306
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/02-720.webp",
+              "width": 720,
+              "height": 458
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/02-1572.webp",
+              "width": 1572,
+              "height": 1001
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "sourceWidth": 6000,
+          "sourceHeight": 4000,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/03-480.webp",
+              "width": 480,
+              "height": 320
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/03-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/03-1600.webp",
+              "width": 1600,
+              "height": 1067
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "sourceWidth": 6000,
+          "sourceHeight": 4000,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/04-480.webp",
+              "width": 480,
+              "height": 320
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/04-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/04-1600.webp",
+              "width": 1600,
+              "height": 1067
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "sourceWidth": 6000,
+          "sourceHeight": 4000,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/05-480.webp",
+              "width": 480,
+              "height": 320
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/05-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/05-1600.webp",
+              "width": 1600,
+              "height": 1067
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "sourceWidth": 6000,
+          "sourceHeight": 4000,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/06-480.webp",
+              "width": 480,
+              "height": 320
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/06-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/06-1600.webp",
+              "width": 1600,
+              "height": 1067
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "sourceWidth": 6000,
+          "sourceHeight": 4000,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/07-480.webp",
+              "width": 480,
+              "height": 320
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/07-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/07-1600.webp",
+              "width": 1600,
+              "height": 1067
+            }
+          ]
+        },
+        {
+          "number": 8,
+          "sourceWidth": 1568,
+          "sourceHeight": 1003,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/08-480.webp",
+              "width": 480,
+              "height": 307
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/08-720.webp",
+              "width": 720,
+              "height": 461
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/08-1568.webp",
+              "width": 1568,
+              "height": 1003
+            }
+          ]
+        },
+        {
+          "number": 9,
+          "sourceWidth": 1567,
+          "sourceHeight": 1004,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/09-480.webp",
+              "width": 480,
+              "height": 308
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/09-720.webp",
+              "width": 720,
+              "height": 461
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/09-1567.webp",
+              "width": 1567,
+              "height": 1004
+            }
+          ]
+        },
+        {
+          "number": 10,
+          "sourceWidth": 1564,
+          "sourceHeight": 1006,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/10-480.webp",
+              "width": 480,
+              "height": 309
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/10-720.webp",
+              "width": 720,
+              "height": 463
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/10-1564.webp",
+              "width": 1564,
+              "height": 1006
+            }
+          ]
+        },
+        {
+          "number": 11,
+          "sourceWidth": 6000,
+          "sourceHeight": 4000,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/11-480.webp",
+              "width": 480,
+              "height": 320
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/11-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/11-1600.webp",
+              "width": 1600,
+              "height": 1067
+            }
+          ]
+        },
+        {
+          "number": 12,
+          "sourceWidth": 5754,
+          "sourceHeight": 3836,
+          "variants": [
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/12-480.webp",
+              "width": 480,
+              "height": 320
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/12-720.webp",
+              "width": 720,
+              "height": 480
+            },
+            {
+              "src": "/assets/projects/portfolio/safi-al-din-gowhar/12-1600.webp",
+              "width": 1600,
+              "height": 1067
             }
           ]
         }

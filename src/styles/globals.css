@@ -93,23 +93,26 @@
 
 :root {
   color-scheme: dark;
-  --color-page: #171816;
-  --color-panel: #20221f;
-  --color-elevated: #2b2d28;
+  --color-page: #414346;
+  --color-panel: #383a3d;
+  --color-elevated: #4b4d50;
   --color-ink: #f3f1ec;
-  --color-muted: #b8b8ad;
-  --color-border: #42463d;
+  --color-muted: #d0d0ca;
+  --color-border: #66696d;
   --color-accent: #d5b452;
   --color-accent-ink: #171816;
   --color-photo-text: #f3f1ec;
   --color-photo-muted: #c7c2b8;
   --color-photo-accent: #d5b452;
-  --color-intro: #252721;
-  --header-surface: rgb(23 24 22 / 96%);
+  --color-intro: #393b3e;
+  --header-surface: rgb(65 67 70 / 96%);
   --surface-pattern-color: #d5b452;
   --surface-pattern-opacity: 0.055;
-  --brand-pattern-line: #777a78;
-  --brand-pattern-opacity: .075;
+  --brand-pattern-line: #85888c;
+  --brand-pattern-opacity: .14;
+  --architectural-pattern-line: #777a7f;
+  --architectural-pattern-opacity: .16;
+  --architectural-pattern-size: 485px 358px;
   --light-falloff: rgb(213 180 82 / 6%);
   --page-gutter: clamp(1.25rem, 4vw, 4.5rem);
   --content-width: 90rem;
@@ -157,6 +160,34 @@ body {
   background: var(--color-page);
 }
 
+:root:not([data-theme="light"]) :is(.about-section, .services-section, .featured-projects, .material-study, .page-shell main) {
+  position: relative;
+  isolation: isolate;
+}
+
+:root:not([data-theme="light"]) :is(.about-section, .services-section, .featured-projects, .material-study, .page-shell main)::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: '';
+  pointer-events: none;
+  background: var(--architectural-pattern-line);
+  opacity: var(--architectural-pattern-opacity);
+  -webkit-mask: url('/assets/patterns/summit-reference-pattern-mask.png') 0 0 / var(--architectural-pattern-size) repeat;
+  mask: url('/assets/patterns/summit-reference-pattern-mask.png') 0 0 / var(--architectural-pattern-size) repeat;
+}
+
+:root:not([data-theme="light"]) :is(.about-section, .services-section, .featured-projects, .material-study, .page-shell main) > * {
+  position: relative;
+  z-index: 1;
+}
+
+:root:not([data-theme="light"]) :is(.site-header, .site-footer) { background-color: #414346; }
+:root:not([data-theme="light"]) .site-header { background-color: rgb(65 67 70 / 96%); }
+:root:not([data-theme="light"]) .site-header[data-scrolled="true"] { background-color: rgb(57 59 62 / 92%); }
+:root:not([data-theme="light"]) :is(.site-header, .site-footer)::before { opacity: .66; }
+:root:not([data-theme="light"]) .mobile-navigation { background: rgb(65 67 70 / 98%); }
+
 button, a, input { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
 button:disabled { cursor: default; }
@@ -172,6 +203,10 @@ button:disabled { cursor: default; }
 }
 
 [data-magnetic]:active { scale: .975; }
+
+@media (max-width: 640px) {
+  :root:not([data-theme="light"]) { --architectural-pattern-size: 360px 266px; }
+}
 
 .site-shell, .site-header, .site-footer, .about-section, .services-section, .featured-projects, .material-study {
   transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
@@ -372,7 +407,7 @@ button:disabled { cursor: default; }
 .about-executive-grid { align-items: end; }
 .about-executive-frame {
   position: relative;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 3;
   border: 1px solid var(--color-border);
   padding: clamp(.3rem, .65vw, .55rem);
   background: var(--color-elevated);
@@ -730,7 +765,7 @@ button.media-carousel__frame:hover img, button.media-carousel__frame:focus-visib
 .founders-translation-status { margin: 1.4rem 0 0; border-inline-start: 2px solid var(--color-accent); padding: .65rem .9rem; color: var(--color-muted); background: color-mix(in srgb, var(--color-accent) 6%, transparent); font: 600 .66rem/1.65 var(--font-body); }
 .founders-stage { direction: ltr; display: grid; grid-template-columns: minmax(0, .85fr) minmax(30rem, 1.8fr) minmax(0, .85fr); grid-template-areas: "ahmed portrait mohamed"; align-items: center; gap: clamp(1.75rem, 3.2vw, 3.75rem); max-width: 88rem; margin-inline: auto; }
 .founders-image { position: relative; isolation: isolate; grid-area: portrait; min-width: 0; overflow: hidden; margin: 0; border-radius: var(--radius-media); }
-.founders-image img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent); border-radius: var(--radius-media); background: #d6d6d6; }
+.founders-image img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent); border-radius: var(--radius-media); background: #d6d6d6; }
 .founder-quote { position: relative; min-width: 0; padding-top: 2.1rem; }
 .founder-quote--ahmed { grid-area: ahmed; }
 .founder-quote--mohamed { grid-area: mohamed; text-align: right; }

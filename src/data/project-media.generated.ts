@@ -55,58 +55,6 @@ export const projectMedia = {
       "height": 1006
     }
   ],
-  "safi-al-din-gowhar": [
-    {
-      "src": "/assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp",
-      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/01-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp 1203w",
-      "alt": "Safi Al Din Gowhar — project photograph 1",
-      "label": "Safi Al Din Gowhar — photograph 1",
-      "fit": "cover",
-      "position": "center",
-      "width": 1203,
-      "height": 1307
-    },
-    {
-      "src": "/assets/projects/portfolio/safi-al-din-gowhar/02-1572.webp",
-      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/02-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/02-1572.webp 1572w",
-      "alt": "Safi Al Din Gowhar — project photograph 2",
-      "label": "Safi Al Din Gowhar — photograph 2",
-      "fit": "cover",
-      "position": "center",
-      "width": 1572,
-      "height": 1001
-    },
-    {
-      "src": "/assets/projects/portfolio/safi-al-din-gowhar/03-1567.webp",
-      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/03-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/03-1567.webp 1567w",
-      "alt": "Safi Al Din Gowhar — project photograph 3",
-      "label": "Safi Al Din Gowhar — photograph 3",
-      "fit": "cover",
-      "position": "center",
-      "width": 1567,
-      "height": 1004
-    },
-    {
-      "src": "/assets/projects/portfolio/safi-al-din-gowhar/04-1568.webp",
-      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/04-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/04-1568.webp 1568w",
-      "alt": "Safi Al Din Gowhar — project photograph 4",
-      "label": "Safi Al Din Gowhar — photograph 4",
-      "fit": "cover",
-      "position": "center",
-      "width": 1568,
-      "height": 1003
-    },
-    {
-      "src": "/assets/projects/portfolio/safi-al-din-gowhar/05-1564.webp",
-      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/05-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/05-1564.webp 1564w",
-      "alt": "Safi Al Din Gowhar — project photograph 5",
-      "label": "Safi Al Din Gowhar — photograph 5",
-      "fit": "cover",
-      "position": "center",
-      "width": 1564,
-      "height": 1006
-    }
-  ],
   "st-andrews-church": [
     {
       "src": "/assets/projects/portfolio/st-andrews-church/01-1201.webp",
@@ -661,6 +609,140 @@ export const projectMedia = {
       "position": "center",
       "width": 1105,
       "height": 1423
+    }
+  ],
+  "safi-al-din-gowhar": [
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/01-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/01-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/01-1203.webp 1203w",
+      "alt": "Completed aerial view of the Safi Al Din Gowhar project",
+      "altAr": "منظر جوي مكتمل لمشروع صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 1",
+      "fit": "cover",
+      "position": "center",
+      "width": 1203,
+      "height": 1307
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/02-1572.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/02-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/02-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/02-1572.webp 1572w",
+      "alt": "Circular reinforcement work at the Safi Al Din Gowhar project",
+      "altAr": "أعمال تسليح دائرية في مشروع صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 2",
+      "fit": "cover",
+      "position": "center",
+      "width": 1572,
+      "height": 1001
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/03-1600.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/03-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/03-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/03-1600.webp 1600w",
+      "alt": "Excavation and circular foundation work at Safi Al Din Gowhar",
+      "altAr": "أعمال الحفر والأساسات الدائرية في صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 3",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/04-1600.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/04-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/04-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/04-1600.webp 1600w",
+      "alt": "Wide view of the excavation work at Safi Al Din Gowhar",
+      "altAr": "منظر واسع لأعمال الحفر في صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 4",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/05-1600.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/05-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/05-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/05-1600.webp 1600w",
+      "alt": "Site work on a reinforced circular structure at Safi Al Din Gowhar",
+      "altAr": "أعمال الموقع على منشأ دائري مسلح في صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 5",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/06-1600.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/06-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/06-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/06-1600.webp 1600w",
+      "alt": "Overhead view of curved reinforcement work at Safi Al Din Gowhar",
+      "altAr": "منظر علوي لأعمال التسليح المنحنية في صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 6",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/07-1600.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/07-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/07-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/07-1600.webp 1600w",
+      "alt": "Waterproofed circular structure during work at Safi Al Din Gowhar",
+      "altAr": "منشأ دائري معزول أثناء العمل في صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 7",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/08-1568.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/08-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/08-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/08-1568.webp 1568w",
+      "alt": "Drainage installation work at the Safi Al Din Gowhar project",
+      "altAr": "أعمال تركيب الصرف في مشروع صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 8",
+      "fit": "cover",
+      "position": "center",
+      "width": 1568,
+      "height": 1003
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/09-1567.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/09-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/09-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/09-1567.webp 1567w",
+      "alt": "Wall finishing work at the Safi Al Din Gowhar project",
+      "altAr": "أعمال تشطيب الجدران في مشروع صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 9",
+      "fit": "cover",
+      "position": "center",
+      "width": 1567,
+      "height": 1004
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/10-1564.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/10-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/10-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/10-1564.webp 1564w",
+      "alt": "Site team working at the Safi Al Din Gowhar project",
+      "altAr": "فريق الموقع يعمل في مشروع صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 10",
+      "fit": "cover",
+      "position": "center",
+      "width": 1564,
+      "height": 1006
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/11-1600.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/11-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/11-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/11-1600.webp 1600w",
+      "alt": "Completed interior courtyard and staircase at Safi Al Din Gowhar",
+      "altAr": "الفناء الداخلي والدرج بعد اكتمالهما في صفي الدين جوهر",
+      "label": "Safi Al Din Gowhar — photograph 11",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
+    },
+    {
+      "src": "/assets/projects/portfolio/safi-al-din-gowhar/12-1600.webp",
+      "srcSet": "/assets/projects/portfolio/safi-al-din-gowhar/12-480.webp 480w, /assets/projects/portfolio/safi-al-din-gowhar/12-720.webp 720w, /assets/projects/portfolio/safi-al-din-gowhar/12-1600.webp 1600w",
+      "alt": "Completed Safi Al Din Gowhar building seen from above",
+      "altAr": "مبنى صفي الدين جوهر بعد اكتماله من منظور علوي",
+      "label": "Safi Al Din Gowhar — photograph 12",
+      "fit": "cover",
+      "position": "center",
+      "width": 1600,
+      "height": 1067
     }
   ],
   "beit-al-razzaz": [
